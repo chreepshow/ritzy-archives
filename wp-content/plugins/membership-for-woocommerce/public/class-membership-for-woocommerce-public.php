@@ -262,6 +262,7 @@ class Membership_For_Woocommerce_Public
 
 				// Placing the custom tab just above logout tab.
 				$items['wps-membership-tab'] = esc_html__('Membership Details', 'membership-for-woocommerce');
+				echo "<script type='text/javascript'>console.log('" . json_encode($items) . "');</script>";
 
 				$items['customer-logout'] = $logout;
 			}
@@ -3864,7 +3865,8 @@ class Membership_For_Woocommerce_Public
 	 */
 	public function wps_mfw_set_woocoomerce_session()
 	{
-
+		$message = "Hello, this is your message!";
+		echo "<script type='text/javascript'>console.log('$message');</script>";
 		if (!empty(WC()->session) && !WC()->session->has_session()) {
 			WC()->session->set_customer_session_cookie(true);
 		}
