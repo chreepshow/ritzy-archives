@@ -1,9 +1,11 @@
 import { ArrowRightIcon } from '@heroicons/react/24/outline';
-import { useState } from '@wordpress/element';
+import { useDispatch, useSelect } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 import LoadingSpinner from './components/loading-spinner';
 import { classNames } from './utils/helpers';
 import Button from './components/button';
+import { STORE_KEY } from './store';
+import { useEffect } from '@wordpress/element';
 
 const NavigationButtons = ( {
 	continueButtonText = 'Continue',
@@ -16,18 +18,32 @@ const NavigationButtons = ( {
 	className,
 	skipButtonText = 'Skip Step',
 } ) => {
-	const [ isLoading, setIsLoading ] = useState( false );
+	const { setLoadingNextStep } = useDispatch( STORE_KEY );
+	const { loadingNextStep } = useSelect( ( select ) => {
+		const { getLoadingNextStep } = select( STORE_KEY );
+
+		return {
+			loadingNextStep: getLoadingNextStep(),
+		};
+	}, [] );
 
 	const handleOnClick = async ( event, onClickFunction ) => {
-		if ( isLoading ) {
+		if ( loadingNextStep ) {
 			return;
 		}
-		setIsLoading( true );
+		setLoadingNextStep( true );
 		if ( typeof onClickFunction === 'function' ) {
 			await onClickFunction( event );
 		}
-		setIsLoading( false );
+		setLoadingNextStep( false );
 	};
+
+	useEffect( () => {
+		if ( loadingNextStep === loading ) {
+			return;
+		}
+		setLoadingNextStep( loading );
+	}, [ loading ] );
 
 	const handleOnClickContinue = ( event ) =>
 		handleOnClick( event, onClickContinue );
@@ -49,10 +65,10 @@ const NavigationButtons = ( {
 						className="min-w-[9.375rem] h-[3.125rem]"
 						onClick={ handleOnClickContinue }
 						variant="primary"
-						hasSuffixIcon={ ! isLoading }
+						hasSuffixIcon={ ! loadingNextStep && ! loading }
 						disabled={ disableContinue }
 					>
-						{ isLoading || loading ? (
+						{ loadingNextStep || loading ? (
 							<LoadingSpinner />
 						) : (
 							<>

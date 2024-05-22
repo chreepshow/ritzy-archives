@@ -8,6 +8,7 @@ const SuggestedKeywords = ( {
 	keywordClassName,
 	keywords,
 	onClick,
+	...props
 } ) => {
 	const [ scrollPosition, setScrollPosition ] = useState( 0 );
 	const [ showLeftArrow, setShowLeftArrow ] = useState( false );
@@ -61,6 +62,7 @@ const SuggestedKeywords = ( {
 				'relative flex flex-row items-start',
 				className
 			) }
+			{ ...props }
 		>
 			{ showLeftArrow && (
 				<div

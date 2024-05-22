@@ -54,7 +54,7 @@ class Intelligent_Starter_Templates_Loader {
 		require_once INTELLIGENT_TEMPLATES_DIR . 'classes/class-astra-sites-reporting.php';
 		require_once INTELLIGENT_TEMPLATES_DIR . 'classes/class-astra-sites-zipwp-helper.php';
 		require_once INTELLIGENT_TEMPLATES_DIR . 'classes/class-astra-sites-zipwp-integration.php';
-		require_once INTELLIGENT_TEMPLATES_DIR . 'classes/class-astra-sites-replace-images.php';
+		// require_once INTELLIGENT_TEMPLATES_DIR . 'classes/class-astra-sites-replace-images.php';
 		require_once INTELLIGENT_TEMPLATES_DIR . 'classes/class-astra-sites-zipwp-api.php';
 
 		// Admin Menu.
@@ -85,11 +85,6 @@ class Intelligent_Starter_Templates_Loader {
 	 * @since 3.0.0-beta.1
 	 */
 	public function menu_callback() {
-		$current_slug = isset( $_GET['action'] ) ? esc_attr( $_GET['action'] ) : 'general'; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Fetching a $_GET value, no nonce available to validate.
-		$active_tab   = str_replace( '_', '-', $current_slug );
-		if ( 'site-import' === $current_slug ) {
-			Astra_Sites_Page::get_instance()->init_nav_menu( $active_tab );
-		} else {
 		?>
 		<div class="astra-sites-menu-page-wrapper">
 			<div id="astra-sites-menu-page">
@@ -97,7 +92,6 @@ class Intelligent_Starter_Templates_Loader {
 			</div>
 		</div>
 		<?php
-		}
 	}
 
 	/**
@@ -155,7 +149,7 @@ class Intelligent_Starter_Templates_Loader {
 		wp_register_script(
 			'starter-templates-onboarding',
 			INTELLIGENT_TEMPLATES_URI . 'assets/dist/onboarding/main.js',
-			array_merge( $asset['dependencies'] ),
+			array_merge( $asset['dependencies'], array('updates') ),
 			$asset['version'],
 			true
 		);
@@ -163,7 +157,7 @@ class Intelligent_Starter_Templates_Loader {
 		$partner_id = apply_filters( 'zipwp_partner_url_param', '' );
 		$zipwp_auth = array(
 			'screen_url'   => ZIPWP_APP,
-			'redirect_url' => admin_url( 'themes.php?page=starter-templates' ),
+			'redirect_url' => admin_url( 'themes.php?page=ai-builder' ),
 		);
 
 		if( !empty( $partner_id ) ) {

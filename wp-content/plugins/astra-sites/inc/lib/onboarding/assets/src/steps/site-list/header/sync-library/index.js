@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import {
-	Toaster,
-	Tooltip,
-} from '@brainstormforce/starter-templates-components';
+import { Toaster } from '@brainstormforce/starter-templates-components';
+import Tooltip from '../../../onboarding-ai/components/tooltip';
 import { __ } from '@wordpress/i18n';
 import ICONS from '../../../../../icons';
 import { useStateValue } from '../../../../store/store';

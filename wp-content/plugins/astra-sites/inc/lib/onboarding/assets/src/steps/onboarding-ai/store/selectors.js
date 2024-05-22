@@ -224,6 +224,10 @@ const selectors = {
 	} ) {
 		return siteFeatures;
 	},
+
+	getLoadingNextStep( { onboardingAI: { loadingNextStep } } ) {
+		return loadingNextStep;
+	},
 };
 
 export default selectors;

@@ -17,3 +17,5 @@ vendor
 **/dist/**
 wordpress
 README.md
+inc/lib/ai-builder
+inc/lib/starter-templates-importer

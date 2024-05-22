@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Tooltip } from '@brainstormforce/starter-templates-components';
+import Tooltip from '../onboarding-ai/components/tooltip';
 import { __ } from '@wordpress/i18n';
 import { decodeEntities } from '@wordpress/html-entities';
 import { useStateValue } from '../../store/store';
@@ -290,6 +290,7 @@ const AdvancedSettings = () => {
 								) }
 							</label>
 							<Tooltip
+								interactive={ true }
 								content={
 									<div>
 										{ __(

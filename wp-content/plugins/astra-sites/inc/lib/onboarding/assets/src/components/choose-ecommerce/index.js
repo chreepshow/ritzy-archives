@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Tooltip } from '@brainstormforce/starter-templates-components';
+import Tooltip from '../../steps/onboarding-ai/components/tooltip';
 import { __ } from '@wordpress/i18n';
 import { useStateValue } from '../../store/store';
 import ICONS from '../../../icons';

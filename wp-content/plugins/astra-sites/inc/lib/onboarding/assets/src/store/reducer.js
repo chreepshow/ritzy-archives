@@ -26,7 +26,7 @@ export const initialState = {
 	aiActivePallette: null,
 	aiActiveTypography: null,
 	aiSiteLogo: siteLogoDefault,
-	currentIndex: 'ai-builder' === builderKey ? 1 : currentIndexKey,
+	currentIndex: 'ai-builder' === builderKey ? 0 : currentIndexKey,
 	currentCustomizeIndex: 0,
 	siteLogo: siteLogoDefault,
 	activePaletteSlug: 'default',

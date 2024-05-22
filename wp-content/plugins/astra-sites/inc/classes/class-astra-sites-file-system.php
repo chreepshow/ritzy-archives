@@ -31,7 +31,7 @@ if ( ! class_exists( 'Astra_Sites_File_System' ) ) {
 		 * @var string
 		 * @since 4.2.0
 		 */
-		public static $folder_name = 'import';
+		public static $folder_name = 'json';
 
 		/**
 		 * Instance of Astra_Sites.
@@ -53,7 +53,7 @@ if ( ! class_exists( 'Astra_Sites_File_System' ) ) {
 		 * @return void
 		 * @since 4.2.0
 		 */
-		public function create_file() {
+		public function create_file() { 
 			$upload_dir = wp_upload_dir();
 			$file = array(
 				'file_base' => $upload_dir['basedir'] . '/astra-sites/' . self::$folder_name,
@@ -61,16 +61,7 @@ if ( ! class_exists( 'Astra_Sites_File_System' ) ) {
 				'file_content' => array(),
 			);
 
-			if ( wp_mkdir_p( $file['file_base'] ) && ! file_exists( trailingslashit( $file['file_base'] ) . $file['file_name'] ) ) {
-				$file_handle = @fopen( trailingslashit( $file['file_base'] ) . $file['file_name'], 'w' ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged, WordPress.WP.AlternativeFunctions.file_system_read_fopen
-				if ( $file_handle ) {
-					if ( is_string( wp_json_encode( $file['file_content'] ) ) ) {
-						fwrite( $file_handle, wp_json_encode( $file['file_content'] ) ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_read_fwrite, WordPressVIPMinimum.Functions.RestrictedFunctions.file_ops_fwrite
-						fclose( $file_handle ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_read_fclose
-						astra_sites_error_log( 'File: ' . $file['file_name'] . ' Created Successfully!' );
-					}                   
-				}
-			}
+			$this->create_single_file( $file );
 		}
 
 		/**
@@ -81,10 +72,9 @@ if ( ! class_exists( 'Astra_Sites_File_System' ) ) {
 		 */
 		public function delete_json_file( $file_name ) {
 			$upload_dir = wp_upload_dir();
-			$path = $upload_dir['basedir'] . '/astra-sites/' . self::$folder_name . '/';
-			$file_name = $path . $file_name;
+			$file_name = $upload_dir['basedir'] . '/astra-sites/' . self::$folder_name . '/' . $file_name;
 			
-			if ( file_exists( $path ) ) {
+			if ( file_exists( $file_name ) ) {
 				wp_delete_file( $file_name );
 			} else {
 				astra_sites_error_log( 'File not found: ' . $file_name );
@@ -101,8 +91,7 @@ if ( ! class_exists( 'Astra_Sites_File_System' ) ) {
 		 */
 		public function get_json_file_content( $file_name, $array_format = true ) {
 			$upload_dir = wp_upload_dir();
-			$path = $upload_dir['basedir'] . '/astra-sites/' . self::$folder_name . '/';
-			$file_name = $path . $file_name;
+			$file_name = $upload_dir['basedir'] . '/astra-sites/' . self::$folder_name . '/' . $file_name;
 
 			if ( file_exists( $file_name ) ) {
 				// Ignoring the rule as it is not a remote file.
@@ -141,10 +130,32 @@ if ( ! class_exists( 'Astra_Sites_File_System' ) ) {
 		}
 
 		/**
+		 * Create single json file.
+		 *
+		 * @since 4.2.2
+		 * @param array<string, mixed> $file file data.
+		 * 
+		 * @return void
+		 */
+		public function create_single_file( $file ) {
+
+			if ( wp_mkdir_p( $file['file_base'] ) ) {
+				$file_handle = @fopen( trailingslashit( $file['file_base'] ) . $file['file_name'], 'w' ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged, WordPress.WP.AlternativeFunctions.file_system_read_fopen
+				if ( $file_handle ) {
+					if ( is_string( wp_json_encode( $file['file_content'] ) ) ) {
+						fwrite( $file_handle, wp_json_encode( $file['file_content'] ) ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_read_fwrite, WordPressVIPMinimum.Functions.RestrictedFunctions.file_ops_fwrite
+						fclose( $file_handle ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_read_fclose
+						astra_sites_error_log( 'File: ' . $file['file_name'] . ' Created Successfully!' );
+					}                   
+				}
+			}
+		}
+
+		/**
 		 * Update files/directories.
 		 * 
-		 * @param string     $file_name    The file name.
-		 * @param string|int $file_content The file content.
+		 * @param string $file_name    The file name.
+		 * @param mixed  $file_content The file content.
 		 * 
 		 * @return void
 		 */
@@ -153,7 +164,17 @@ if ( ! class_exists( 'Astra_Sites_File_System' ) ) {
 			$dir_info = array(
 				'path' => $upload_dir['basedir'] . '/astra-sites/' . self::$folder_name . '/',
 			);
-			$this->create_file();
+			
+			if ( ! file_exists( $dir_info['path'] . $file_name ) ) {
+				$file = array(
+					'file_base' => $dir_info['path'],
+					'file_name' => $file_name,
+					'file_content' => '',
+				);
+
+				$this->create_single_file( $file );
+			}
+
 			if ( file_exists( $dir_info['path'] . $file_name ) && file_put_contents( $dir_info['path'] . $file_name, wp_json_encode( $file_content ) ) !== false ) { //phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions.file_ops_file_put_contents
 				astra_sites_error_log( 'File: ' . $file_name . ' Updated Successfully!' );
 			} else {

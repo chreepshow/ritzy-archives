@@ -8,6 +8,8 @@
  * @since 1.0.0
  */
 
+use STImporter\Importer\Helpers\ST_Image_Importer;
+
 if ( ! class_exists( 'Astra_Sites_Compatibility_Astra_Pro' ) ) :
 
 	/**
@@ -281,7 +283,7 @@ if ( ! class_exists( 'Astra_Sites_Compatibility_Astra_Pro' ) ) :
 			if ( isset( $headers_data['images'] ) && ! empty( $headers_data['images'] ) ) {
 				foreach ( $headers_data['images'] as $key => $image_data ) {
 					if ( isset( $image_data['image'] ) && ! empty( $image_data['image'] ) ) {
-						$downloaded_image = Astra_Sites_Image_Importer::get_instance()->import( $image_data['image'] );
+						$downloaded_image = ST_Image_Importer::get_instance()->import( $image_data['image'] );
 
 						$headers_old[ $image_data['key_map']['url'] ] = $downloaded_image['url'];
 						$headers_old[ $image_data['key_map']['id'] ]  = $downloaded_image['id'];

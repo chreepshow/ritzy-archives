@@ -141,7 +141,7 @@ const PageBuilder = ( { placement = 'bottom-end' } ) => {
 		<Tippy
 			visible={ show }
 			render={ ( attrs ) =>
-				currentIndex === 3 && (
+				currentIndex === 2 && (
 					<motion.div
 						className="flex flex-col items-start gap-5 max-w-[320px] h-auto bg-white rounded-lg shadow-xl p-4"
 						{ ...attrs }
@@ -209,29 +209,20 @@ const PageBuilder = ( { placement = 'bottom-end' } ) => {
 								setLimitExceedModal( {
 									open: true,
 								} );
-								// dispatch( {
-								// 	type: 'set',
-								// 	currentIndex: 0,
-								// } );
 							}
-							dispatch( {
-								type: 'set',
-								currentIndex: 1,
-								builder: option.id,
-							} );
-						} else {
-							dispatch( {
-								type: 'set',
-								builder: option.id,
-								siteSearchTerm: '',
-								siteBusinessType: initialState.siteBusinessType,
-								selectedMegaMenu: initialState.selectedMegaMenu,
-								siteType: '',
-								siteOrder: 'popular',
-								onMyFavorite: false,
-								currentIndex: 3,
-							} );
+							return ( window.location = `${ astraSitesVars.adminURL }themes.php?page=ai-builder` );
 						}
+						dispatch( {
+							type: 'set',
+							builder: option.id,
+							siteSearchTerm: '',
+							siteBusinessType: initialState.siteBusinessType,
+							selectedMegaMenu: initialState.selectedMegaMenu,
+							siteType: '',
+							siteOrder: 'popular',
+							onMyFavorite: false,
+							currentIndex: 2,
+						} );
 
 						const pageBuilderOptionId =
 							isLimitReached && 'ai-builder' === option.id

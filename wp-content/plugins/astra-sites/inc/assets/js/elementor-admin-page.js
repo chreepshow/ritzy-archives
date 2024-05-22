@@ -941,7 +941,7 @@ var AstraSitesAjaxQueue = ( function () {
 					url: astraElementorSites.ajaxurl,
 					type: 'POST',
 					data: {
-						action: 'astra-required-plugin-activate',
+						action: 'astra-sites-required_plugin_activate',
 						init: single_plugin.init,
 						_ajax_nonce: astraElementorSites._ajax_nonce,
 					},
@@ -1884,7 +1884,7 @@ var AstraSitesAjaxQueue = ( function () {
 				url: astraElementorSites.ajaxurl,
 				type: 'POST',
 				data: {
-					action: 'astra-required-plugins',
+					action: 'astra-sites-required_plugins',
 					id,
 					screen: 'elementor',
 					_ajax_nonce: astraElementorSites._ajax_nonce,
@@ -2304,7 +2304,7 @@ var AstraSitesAjaxQueue = ( function () {
 					url: astraElementorSites.ajaxurl,
 					type: 'POST',
 					data: {
-						action: 'astra-required-plugin-activate',
+						action: 'astra-sites-required_plugin_activate',
 						init: curr_plugin.init,
 						_ajax_nonce: astraElementorSites._ajax_nonce,
 					},

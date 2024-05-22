@@ -282,33 +282,6 @@ if ( ! class_exists( 'Astra_Sites_Page' ) ) {
 		}
 
 		/**
-		 * Init Nav Menu
-		 *
-		 * @param mixed $action Action name.
-		 * @since 1.0.6
-		 */
-		public function init_nav_menu( $action = '' ) {
-
-			if ( '' !== $action ) {
-				$this->render_tab_menu( $action );
-			}
-		}
-
-		/**
-		 * Render tab menu
-		 *
-		 * @param mixed $action Action name.
-		 * @since 1.0.6
-		 */
-		public function render_tab_menu( $action = '' ) {
-			?>
-			<div id="astra-sites-menu-page">
-				<?php $this->render( $action ); ?>
-			</div>
-			<?php
-		}
-
-		/**
 		 * View actions
 		 *
 		 * @since 1.0.11
@@ -327,104 +300,6 @@ if ( ! class_exists( 'Astra_Sites_Page' ) ) {
 		}
 
 		/**
-		 * Prints HTML content for tabs
-		 *
-		 * @param mixed $action Action name.
-		 * @since 1.0.6
-		 */
-		public function render( $action ) {
-
-			// Settings update message.
-			if ( isset( $_REQUEST['message'] ) && ( 'saved' === $_REQUEST['message'] || 'saved_ext' === $_REQUEST['message'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Fetching GET parameter, no nonce associated with this action.
-				?>
-					<span id="message" class="notice astra-sites-notice notice-success is-dismissive"><p> <?php esc_html_e( 'Settings saved successfully.', 'astra-sites' ); ?> </p></span>
-				<?php
-			}
-
-			if ( isset( $_GET['action'] ) && 'site-import' === $_GET['action'] ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Fetching GET parameter to start the import process, no nonce associated with this action.
-
-				$status        = Astra_Sites_Batch_Site_Import::get_instance()->get_status();
-				$import_status = isset( $status['status'] ) ? $status['status'] : '';
-				$status_class  = 'invalid_site_id' === $import_status || 'premium_sites' === $import_status ? 'failed' : '';
-				$step_class    = '';
-				if ( ! empty( $status ) ) {
-					$step_class = isset( $status['step'] ) && 'complete' === $status['step'] ? 'success' : '';
-				}
-				?>
-				<div class="astra-sites-welcome astra-sites-import-screen <?php echo esc_attr( $status_class ); ?>">
-					<div class="inner-wrap">
-						<div class="inner">
-							<div class="header">
-								<?php
-								$white_label       = false;
-								$white_label_class = '';
-								if ( is_callable( 'Astra_Ext_White_Label_Markup::get_whitelabel_string' ) ) {
-									$white_label_title = Astra_Ext_White_Label_Markup::get_whitelabel_string( 'astra-sites', 'name' );
-									if ( $white_label_title ) {
-										$white_label       = true;
-										$white_label_class = 'white-label-enabled';
-									}
-								}
-								?>
-								<span class="logo <?php echo esc_attr( $white_label_class ); ?>">
-									<?php if ( ! $white_label ) { ?>
-										<img src="<?php echo esc_url( ASTRA_SITES_URI . 'inc/assets/images/logo.svg' ); ?>">
-									<?php } else { ?>
-										<?php echo esc_html( Astra_Sites_White_Label::get_instance()->get_white_label_name() ); ?>
-									<?php } ?>
-									<h3 class="title"><?php esc_html_e( 'Importing Starter Template...', 'astra-sites' ); ?></h3>
-								</span>
-							</div>
-							<div class="content">
-								<?php if ( 'invalid_site_id' === $import_status ) { ?>
-									<p><?php esc_html_e( 'The demo you are importing seems invalid. The site is not found.', 'astra-sites' ); ?></p>
-								<?php } elseif ( 'premium_sites' === $import_status ) { ?>
-									<p><?php esc_html_e( 'The demo you are importing is a premium demo.', 'astra-sites' ); ?> <a href="https://wpastra.com/starter-templates-plans/?utm_source=batch-site-import&utm_campaign=astra-sites&utm_medium=batch-import" class="" target="_blank"><?php esc_html_e( 'Get Access!', 'astra-sites' ); ?><i class="dashicons dashicons-external"></i></a></p>
-								<?php } else { ?>
-									<p><?php esc_html_e( 'The import process can take a few minutes depending on the size of the site and speed of the connection.', 'astra-sites' ); ?></p>
-								<?php } ?>
-								<ul class="import-steps">
-									<li class="import-step <?php echo esc_attr( $step_class ); ?>" data-step="preparing">
-										<?php esc_html_e( 'Preparing Site Import', 'astra-sites' ); ?>
-									</li>
-									<li class="import-step <?php echo esc_attr( $step_class ); ?>" data-step="install_plugins">
-										<?php esc_html_e( 'Installing Required Plugins', 'astra-sites' ); ?>
-									</li>
-									<li class="import-step <?php echo esc_attr( $step_class ); ?>" data-step="import_contact_forms">
-										<?php esc_html_e( 'Importing Contact Forms', 'astra-sites' ); ?>
-									</li>
-									<li class="import-step <?php echo esc_attr( $step_class ); ?>" data-step="import_customizer_settings">
-										<?php esc_html_e( 'Setting up the Theme', 'astra-sites' ); ?>
-									</li>
-									<li class="import-step <?php echo esc_attr( $step_class ); ?>" data-step="import_content">
-										<?php esc_html_e( 'Importing Media, Posts, and Pages', 'astra-sites' ); ?>
-									</li>
-									<li class="import-step <?php echo esc_attr( $step_class ); ?>" data-step="import_options">
-										<?php esc_html_e( 'Importing Site Options', 'astra-sites' ); ?>
-									</li>
-									<li class="import-step <?php echo esc_attr( $step_class ); ?>" data-step="import_widgets">
-										<?php esc_html_e( 'Importing Sidebar and Widgets', 'astra-sites' ); ?>
-									</li>
-									<li class="import-step <?php echo esc_attr( $step_class ); ?>" data-step="complete">
-										<?php esc_html_e( 'Import Complete', 'astra-sites' ); ?>
-									</li>
-								</ul>
-
-								<?php if ( 'success' === $step_class ) { ?>
-									<p>
-									<?php esc_html_e( 'Site Imported Successfully!', 'astra-sites' ); ?>
-									<a class="view-site-button" href="<?php echo esc_url( site_url() ); ?>" target="_blank"><?php esc_html_e( 'Visit Site', 'astra-sites' ); ?> <i class="dashicons dashicons-external"></i></a>
-								</p>
-								<?php } ?>
-							</div>
-						</div>
-					</div>
-				</div>
-				<?php
-			}
-		}
-
-		/**
 		 * Site Filters
 		 *
 		 * @since 2.0.0
@@ -437,7 +312,7 @@ if ( ! class_exists( 'Astra_Sites_Page' ) ) {
 				<div class="section-left">
 					<div class="search-form">
 						<?php
-						$categories = Astra_Sites::get_instance()->get_api_option( 'astra-sites-all-site-categories' );
+						$categories = Astra_Sites_File_System::get_instance()->get_json_file_content( 'astra-sites-all-site-categories.json' );
 						if ( ! empty( $categories ) ) {
 							?>
 						<div id="astra-sites__category-filter" class="dropdown-check-list" tabindex="100">

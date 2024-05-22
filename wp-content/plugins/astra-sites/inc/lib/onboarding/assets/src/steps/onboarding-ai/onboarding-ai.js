@@ -158,7 +158,8 @@ const OnboardingAI = ( {
 		const { getOnboardingAI } = select( STORE_KEY );
 		return getOnboardingAI();
 	} );
-	const selectedTemplate = aiOnboardingDetails?.stepData?.selectedTemplate;
+	const selectedTemplate = aiOnboardingDetails?.stepData?.selectedTemplate,
+		{ loadingNextStep } = aiOnboardingDetails;
 	const routerHistory = useNavigate();
 	const location = useLocation();
 	const prevStepRef = useRef( currentStep );
@@ -375,6 +376,9 @@ const OnboardingAI = ( {
 		return steps.findIndex( ( item ) => item[ by ] === value ) + 1;
 	};
 	const handleStepClick = ( stepIndex ) => {
+		if ( loadingNextStep ) {
+			return;
+		}
 		if ( stepIndex <= currentStep ) {
 			// Update the current step state
 			setAIStep( stepIndex );
@@ -434,7 +438,8 @@ const OnboardingAI = ( {
 											<div
 												className={ classNames(
 													'flex gap-3',
-													stepIdx < currentStep
+													stepIdx < currentStep &&
+														! loadingNextStep
 														? 'cursor-pointer'
 														: 'cursor-default'
 												) }

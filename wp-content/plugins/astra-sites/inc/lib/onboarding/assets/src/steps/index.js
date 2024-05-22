@@ -134,6 +134,7 @@ const Steps = () => {
 				dispatch( {
 					type: 'set',
 					builder: builderValue,
+					currentIndex: 2,
 				} );
 			}
 			history(
@@ -228,7 +229,7 @@ const Steps = () => {
 
 	return (
 		<div className={ `st-step ${ current.class }` }>
-			{ ! [ 1, 2, 4 ].includes( currentIndex ) && (
+			{ ! [ 3 ].includes( currentIndex ) && (
 				<div className="step-header">
 					{ current.header ? (
 						current.header

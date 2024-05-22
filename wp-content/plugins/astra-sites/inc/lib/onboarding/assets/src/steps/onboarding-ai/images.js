@@ -119,6 +119,7 @@ const Images = ( { onClickPrevious, onClickNext } ) => {
 			siteLanguage,
 		},
 		updateImages,
+		loadingNextStep,
 	} = useSelect( ( select ) => {
 		const {
 			getAIStepData,
@@ -133,6 +134,7 @@ const Images = ( { onClickPrevious, onClickNext } ) => {
 			dynamicContent: getDynamicContent(),
 			isNewUser: onboardingAI?.isNewUser,
 			updateImages: onboardingAI?.updateImages,
+			loadingNextStep: onboardingAI?.loadingNextStep,
 		};
 	} );
 
@@ -605,7 +607,10 @@ const Images = ( { onClickPrevious, onClickNext } ) => {
 				className="px-5 md:px-10 lg:px-14 xl:px-15 pt-5 md:pt-10 lg:pt-12 xl:pt-12"
 			/>
 			<div className="pt-4 sticky top-0 space-y-4 z-[1] bg-zip-app-light-bg px-5 md:px-10 lg:px-14 xl:px-15">
-				<form onSubmit={ handleSubmit( handleImageSearch ) }>
+				<form
+					onSubmit={ handleSubmit( handleImageSearch ) }
+					data-disabled={ loadingNextStep }
+				>
 					<Input
 						className="w-full"
 						inputClassName="pl-11"
@@ -637,6 +642,7 @@ const Images = ( { onClickPrevious, onClickNext } ) => {
 				<SuggestedKeywords
 					keywords={ getSuggestedKeywords() }
 					onClick={ handleSelectKeyword }
+					data-disabled={ loadingNextStep }
 				/>
 				<div className=" rounded-t-lg py-4">
 					<div className="flex items-center justify-between">
@@ -657,6 +663,7 @@ const Images = ( { onClickPrevious, onClickNext } ) => {
 											setActiveTab( tab.value )
 										}
 										data-title={ tab.label }
+										disabled={ loadingNextStep }
 									>
 										{ tab.label }
 										{ tab.value === TABS[ 2 ].value &&
@@ -685,7 +692,10 @@ const Images = ( { onClickPrevious, onClickNext } ) => {
 							<Dropdown
 								placement="right"
 								trigger={
-									<div className="flex items-center gap-2 min-w-[100px] cursor-pointer">
+									<div
+										className="flex items-center gap-2 min-w-[100px] cursor-pointer"
+										data-disabled={ loadingNextStep }
+									>
 										<span className="text-sm font-normal text-body-text leading-[150%]">
 											{ sprintf(
 												/* translators: %s: Orientation */
@@ -702,6 +712,7 @@ const Images = ( { onClickPrevious, onClickNext } ) => {
 								align="top"
 								width="48"
 								contentClassName="p-4 bg-white [&>:first-child]:pb-3 [&>:last-child]:pt-3 [&>:not(:first-child,:last-child)]:py-3 !divide-y !divide-border-primary divide-solid divide-x-0"
+								disabled={ loadingNextStep }
 							>
 								{ Object.values( ORIENTATIONS ).map(
 									( orientationItem, index ) => (
@@ -729,6 +740,7 @@ const Images = ( { onClickPrevious, onClickNext } ) => {
 								<button
 									onClick={ handleClearImageSelection }
 									className="px-1 py-px bg-transparent border border-solid border-border-primary rounded text-xs leading-4 text-body-text cursor-pointer"
+									disabled={ loadingNextStep }
 								>
 									{ __( 'Clear', 'astra-sites' ) }
 								</button>
@@ -740,6 +752,7 @@ const Images = ( { onClickPrevious, onClickNext } ) => {
 										ref={ uploadImagesBtn }
 										className="px-0 bg-transparent border-none rounded text-xs leading-5 font-semibold text-accent-st cursor-pointer inline-flex items-center justify-end gap-2"
 										onClick={ open }
+										disabled={ loadingNextStep }
 									>
 										<ArrowUpTrayIcon
 											className="w-4 h-4 text-zip-app-inactive-icon"
@@ -758,7 +771,10 @@ const Images = ( { onClickPrevious, onClickNext } ) => {
 					</div>
 				</div>
 			</div>
-			<div className="rounded-b-lg py-4 flex flex-col flex-auto relative px-5 md:px-10 lg:px-14 xl:px-15">
+			<div
+				className="rounded-b-lg py-4 flex flex-col flex-auto relative px-5 md:px-10 lg:px-14 xl:px-15"
+				data-disabled={ loadingNextStep }
+			>
 				<AnimatePresence>
 					{ renderImages?.length > 0 && (
 						<Masonry
@@ -801,6 +817,7 @@ const Images = ( { onClickPrevious, onClickNext } ) => {
 							'relative flex flex-col items-center justify-center gap-3 py-[3.125rem] px-4 bg-preview-background border border-dashed border-border-tertiary rounded cursor-pointer'
 						) }
 						{ ...getRootProps() }
+						data-disabled={ loadingNextStep }
 					>
 						<input { ...getInputProps() } />
 						<ArrowUpTrayIcon className="w-6 h-6 text-zip-app-inactive-icon" />
@@ -886,6 +903,7 @@ const Images = ( { onClickPrevious, onClickNext } ) => {
 						type="button"
 						className="absolute bottom-0 right-0 z-10 w-8 h-8 rounded-full bg-accent-st border-0 border-solid text-white flex items-center justify-center shadow-sm cursor-pointer"
 						onClick={ handleClickBackToTop }
+						disabled={ loadingNextStep }
 					>
 						<ChevronUpIcon className="w-5 h-5" />
 					</button>

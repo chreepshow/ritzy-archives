@@ -10,7 +10,6 @@ import {
 	getFromSessionStorage,
 	getPatternsWithCategories,
 	getPagesWithCategories,
-	// getSpectraProStatus,
 	updateSequenceByCategory,
 	objSnakeToCamelCase,
 } from '../utils/helpers';
@@ -80,6 +79,7 @@ export const defaultOnboardingAIState = {
 	continueProgressModal: {
 		open: false,
 	},
+	loadingNextStep: false,
 };
 
 const keysToIgnore = [ 'limitExceedModal' ];
@@ -1075,6 +1075,16 @@ const reducer = ( state = initialState, action ) => {
 					...state.onboardingAI.stepData,
 					templateKeywords: action.payload,
 				},
+			},
+		};
+	}
+
+	if ( action.type === actionTypes.LOADING_NEXT_STEP ) {
+		return {
+			...state,
+			onboardingAI: {
+				...state.onboardingAI,
+				loadingNextStep: action.payload,
 			},
 		};
 	}

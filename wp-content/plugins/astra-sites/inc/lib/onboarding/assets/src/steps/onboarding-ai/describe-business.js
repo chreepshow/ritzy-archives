@@ -33,9 +33,10 @@ const DescribeBusiness = ( { onClickContinue, onClickPrevious } ) => {
 	} );
 
 	const aiOnboardingDetails = useSelect( ( select ) => {
-		const { getOnboardingAI } = select( STORE_KEY );
-		return getOnboardingAI();
-	} );
+			const { getOnboardingAI } = select( STORE_KEY );
+			return getOnboardingAI();
+		} ),
+		{ loadingNextStep } = aiOnboardingDetails;
 
 	const {
 		setWebsiteDetailsAIStep,
@@ -342,24 +343,24 @@ const DescribeBusiness = ( { onClickContinue, onClickPrevious } ) => {
 						maxLength: 1000,
 					} }
 					error={ errors.businessDetails }
-					disabled={ isLoading }
+					disabled={ isLoading || loadingNextStep }
 				/>
 
 				{ /* Wand Button */ }
 				<div
 					className={ classNames(
-						'mt-3 flex items-center gap-2 text-app-secondary hover:text-app-accent-hover',
-						isLoading ? 'cursor-progress' : 'cursor-pointer'
+						'h-7 mt-3 flex items-center gap-2 text-app-secondary hover:text-app-accent-hover'
 					) }
 				>
 					{ isLoading && (
-						<LoadingSpinner className="text-accent-st" />
+						<LoadingSpinner className="text-accent-st cursor-progress" />
 					) }
 					{ ! isLoading && (
 						<div className="flex justify-between w-full">
 							<div
-								className="flex gap-2"
+								className="flex gap-2 cursor-pointer"
 								onClick={ handleGenerateContent }
+								data-disabled={ loadingNextStep }
 							>
 								<WandIcon className="w-5 h-5 transition duration-150 ease-in-out text-accent-st" />
 								<span className="font-semibold text-sm transition duration-150 ease-in-out text-accent-st">
@@ -375,7 +376,10 @@ const DescribeBusiness = ( { onClickContinue, onClickPrevious } ) => {
 							{ descriptionPage > 0 &&
 								descriptionList?.length > 1 && (
 									<div className="flex gap-2 items-center justify-start w-[100px] cursor-default text-zip-body-text">
-										<div className="w-5">
+										<div
+											className="w-5"
+											data-disabled={ loadingNextStep }
+										>
 											{ descriptionPage !== 1 && (
 												<ChevronLeftIcon
 													className="w-5 cursor-pointer text-zip-body-text"
@@ -391,7 +395,10 @@ const DescribeBusiness = ( { onClickContinue, onClickPrevious } ) => {
 											{ descriptionPage } /{ ' ' }
 											{ descriptionList?.length }
 										</div>
-										<div className="w-5">
+										<div
+											className="w-5"
+											data-disabled={ loadingNextStep }
+										>
 											{ descriptionPage !==
 												descriptionList?.length && (
 												<ChevronRightIcon

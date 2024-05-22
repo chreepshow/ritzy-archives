@@ -7,7 +7,6 @@ import CustomizeSite from './customize-site';
 import ImportSite from './import-site';
 import Survey from './survey';
 import SiteType from './site-type';
-import OnboardingAi from './onboarding-ai/onboarding-ai';
 import CustomizeAiSite from './onboarding-ai/customize-ai-site';
 import FeaturesStep from './features';
 
@@ -17,11 +16,11 @@ export const STEPS = [
 		content: <SiteType />,
 		class: 'step-page-builder',
 	},
-	{
-		header: <SiteListHeader />,
-		content: <OnboardingAi />,
-		class: 'step-ai',
-	},
+	// {
+	// 	header: <SiteListHeader />,
+	// 	content: <OnboardingAi />,
+	// 	class: 'step-ai',
+	// },
 	{
 		content: <CustomizeAiSite />,
 		class: 'step-customizer',

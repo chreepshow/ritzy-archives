@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-const { themeStatus, nonce } = starterTemplates;
+const { themeStatus } = starterTemplates;
 import apiFetch from '@wordpress/api-fetch';
 
 export const getDemo = async ( id, storedState ) => {
@@ -176,7 +176,7 @@ export const getAiDemo = async (
 export const checkRequiredPlugins = async ( storedState ) => {
 	const [ { enabledFeatureIds }, dispatch ] = storedState;
 	const reqPlugins = new FormData();
-	reqPlugins.append( 'action', 'astra-required-plugins' );
+	reqPlugins.append( 'action', 'astra-sites-required_plugins' );
 	reqPlugins.append( '_ajax_nonce', astraSitesVars._ajax_nonce );
 	if ( enabledFeatureIds.length !== 0 ) {
 		reqPlugins.append( 'features', JSON.stringify( enabledFeatureIds ) );
@@ -206,7 +206,7 @@ export const activateAstra = ( storedState ) => {
 	const [ , dispatch ] = storedState;
 
 	const data = new FormData();
-	data.append( 'action', 'astra-sites-activate-theme' );
+	data.append( 'action', 'astra-sites-activate_theme' );
 	data.append( '_ajax_nonce', astraSitesVars._ajax_nonce );
 
 	fetch( ajaxurl, {
@@ -298,11 +298,11 @@ export const setSiteLogo = async ( logo ) => {
 		return;
 	}
 	const data = new FormData();
-	data.append( 'action', 'astra_sites_set_site_data' );
+	data.append( 'action', 'astra-sites-set_site_data' );
 	data.append( 'param', 'site-logo' );
 	data.append( 'logo', logo.id );
 	data.append( 'logo-width', logo.width );
-	data.append( 'security', nonce );
+	data.append( '_ajax_nonce', astraSitesVars._ajax_nonce );
 
 	await fetch( ajaxurl, {
 		method: 'post',
@@ -316,10 +316,10 @@ export const setColorPalettes = async ( palette ) => {
 	}
 
 	const data = new FormData();
-	data.append( 'action', 'astra_sites_set_site_data' );
+	data.append( 'action', 'astra-sites-set_site_data' );
 	data.append( 'param', 'site-colors' );
 	data.append( 'palette', palette );
-	data.append( 'security', nonce );
+	data.append( '_ajax_nonce', astraSitesVars._ajax_nonce );
 
 	await fetch( ajaxurl, {
 		method: 'post',
@@ -333,10 +333,10 @@ export const setSiteTitle = async ( businessName ) => {
 	}
 
 	const data = new FormData();
-	data.append( 'action', 'astra_sites_set_site_data' );
+	data.append( 'action', 'astra-sites-set_site_data' );
 	data.append( 'param', 'site-title' );
 	data.append( 'business-name', businessName );
-	data.append( 'security', nonce );
+	data.append( '_ajax_nonce', astraSitesVars._ajax_nonce );
 
 	await fetch( ajaxurl, {
 		method: 'post',
@@ -362,10 +362,10 @@ export const setSiteLanguage = async ( siteLanguage = 'en_US' ) => {
 
 export const saveTypography = async ( selectedValue ) => {
 	const data = new FormData();
-	data.append( 'action', 'astra_sites_set_site_data' );
+	data.append( 'action', 'astra-sites-set_site_data' );
 	data.append( 'param', 'site-typography' );
 	data.append( 'typography', JSON.stringify( selectedValue ) );
-	data.append( 'security', nonce );
+	data.append( '_ajax_nonce', astraSitesVars._ajax_nonce );
 
 	await fetch( ajaxurl, {
 		method: 'post',
@@ -395,7 +395,7 @@ export const divideIntoChunks = ( chunkSize, inputArray ) => {
 export const checkFileSystemPermissions = async ( [ , dispatch ] ) => {
 	try {
 		const formData = new FormData();
-		formData.append( 'action', 'astra-sites-filesystem-permission' );
+		formData.append( 'action', 'astra-sites-filesystem_permission' );
 		formData.append( '_ajax_nonce', astraSitesVars._ajax_nonce );
 		const response = await fetch( astraSitesVars.ajaxurl, {
 			method: 'POST',

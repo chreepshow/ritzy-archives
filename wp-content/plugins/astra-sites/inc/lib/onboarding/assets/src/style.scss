@@ -52,6 +52,9 @@ body {
 
 body * {
 	box-sizing: border-box;
+	:focus {
+		outline: none;
+	}
 }
 
 ::-webkit-scrollbar {
@@ -70,6 +73,17 @@ body * {
 ::-webkit-scrollbar-thumb:hover {
 	background: #d1d2d3;
 	cursor: pointer;
+}
+
+#spectra-onboarding-ai {
+	:disabled,
+	[data-disabled="true"] {
+		@apply opacity-70 pointer-events-none;
+	}
+	div:has( > :disabled ),
+	div:has( > [data-disabled="true"] ) {
+		@apply !cursor-not-allowed;
+	}
 }
 
 .st-link,
@@ -980,5 +994,22 @@ body.step-import-site-done {
 				margin-top: -10px;
 			}
 		}
+	}
+}
+.zw-tooltip {
+	text-align: left;
+	background: var( --stc-color-heading );
+	color: #fff;
+	border-radius: 2px;
+}
+
+.zw-tooltip > .tippy-content {
+	box-shadow: 0px 4px 8px -2px rgb( 9 30 66 / 25% ), 0px 0px 1px rgb( 9 30 66 / 31% );
+	padding: 6px 12px;
+	font-size: 13px;
+	font-weight: 400;
+	line-height: 1rem;
+	a {
+		color: #fff;
 	}
 }

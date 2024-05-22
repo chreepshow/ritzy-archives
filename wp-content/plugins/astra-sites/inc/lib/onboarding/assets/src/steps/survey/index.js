@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Tooltip } from '@brainstormforce/starter-templates-components';
+import Tooltip from '../onboarding-ai/components/tooltip';
 import { __ } from '@wordpress/i18n';
 import { PreviousStepLink, DefaultStep } from '../../components/index';
 import ICONS from '../../../icons';
@@ -160,7 +160,7 @@ const Survey = () => {
 
 	const setStartFlag = () => {
 		const content = new FormData();
-		content.append( 'action', 'astra-sites-set-start-flag' );
+		content.append( 'action', 'astra-sites-set_start_flag' );
 		content.append( '_ajax_nonce', astraSitesVars._ajax_nonce );
 
 		fetch( ajaxurl, {
@@ -398,6 +398,7 @@ const Survey = () => {
 										<div className="requirement-list-item">
 											{ value.title }
 											<Tooltip
+												interactive={ true }
 												content={
 													<span
 														dangerouslySetInnerHTML={ {
@@ -421,6 +422,7 @@ const Survey = () => {
 										<div className="requirement-list-item">
 											{ value.title }
 											<Tooltip
+												interactive={ true }
 												content={
 													<span
 														dangerouslySetInnerHTML={ {

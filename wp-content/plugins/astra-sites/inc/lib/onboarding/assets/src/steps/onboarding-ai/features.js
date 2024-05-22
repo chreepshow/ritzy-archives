@@ -54,12 +54,15 @@ const Features = () => {
 			siteLanguage,
 			templateList,
 		},
+		loadingNextStep,
 	} = useSelect( ( select ) => {
-		const { getSiteFeatures, getAIStepData } = select( STORE_KEY );
+		const { getSiteFeatures, getAIStepData, getLoadingNextStep } =
+			select( STORE_KEY );
 
 		return {
 			siteFeatures: getSiteFeatures(),
 			stepsData: getAIStepData(),
+			loadingNextStep: getLoadingNextStep(),
 		};
 	}, [] );
 	const [ isFetchingStatus, setIsFetchingStatus ] = useState(
@@ -236,6 +239,7 @@ const Features = () => {
 									'relative py-4 pl-4 pr-5 rounded-md shadow-sm border border-solid bg-white border-transparent transition-colors duration-150 ease-in-out',
 									feature.enabled && 'border-accent-st'
 								) }
+								data-disabled={ loadingNextStep }
 							>
 								<div className="flex items-start justify-start gap-3">
 									<div className="p-0.5 shrink-0">

@@ -574,6 +574,13 @@ const actions = {
 			payload,
 		};
 	},
+
+	setLoadingNextStep( payload ) {
+		return {
+			type: actionsTypes.LOADING_NEXT_STEP,
+			payload,
+		};
+	},
 };
 
 export default actions;

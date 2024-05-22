@@ -31,7 +31,6 @@ class Astra_Sites_ZipWP_Integration {
         $this->define_constants();
         add_action( 'admin_init' , array( $this, 'save_auth_token' )  );
         add_action( 'wp_enqueue_scripts', array( $this, 'register_preview_scripts' ) );
-        add_action( 'wp_ajax_astra-site-export-ai-site', array( $this, 'export_ai_site' ) );
     }
 
     /**
@@ -45,80 +44,12 @@ class Astra_Sites_ZipWP_Integration {
 		if ( ! current_user_can( 'manage_options' ) ) {
 			return new \WP_Error(
 				'gt_rest_cannot_access',
-				__( 'Sorry, you are not allowed to do that.', 'ast-block-templates' ),
+				__( 'Sorry, you are not allowed to do that.', 'ast-block-templates', 'astra-sites' ),
 				array( 'status' => rest_authorization_required_code() )
 			);
 		}
 		return true;
 	}
-
-    /**
-     * Export AI site
-     * @since 4.0.0
-     */
-    public function export_ai_site() {
-        check_ajax_referer( 'astra-sites', '_ajax_nonce' );
-
-        if ( ! current_user_can( 'manage_options' ) ) {
-            wp_send_json_error(
-				array(
-					'data' => 'You do not have permission to do this action.',
-					'status'  => false,
-
-				)
-			);
-        }
-
-        $uuid = isset( $_POST['uuid'] ) ? sanitize_text_field( $_POST['uuid'] ) : '';
-
-        $api_endpoint = Astra_Sites_ZipWP_Api::get_instance()->get_api_domain() . '/sites/export/' . $uuid;
-
-        $request_args = array(
-            'headers' => Astra_Sites_ZipWP_Api::get_instance()->get_api_headers(),
-            'timeout' => 100,
-        );
-        $response = wp_safe_remote_post( $api_endpoint, $request_args );
-
-        if ( is_wp_error( $response ) ) {
-            // There was an error in the request.
-            wp_send_json_error(
-                array(
-                    'data' => 'Failed ' . $response->get_error_message(),
-                    'status'  => false,
-
-                )
-            );
-        }
-        $response_code = wp_remote_retrieve_response_code( $response );
-        $response_body = wp_remote_retrieve_body( $response );
-        if ( 200 === $response_code ) {
-            $response_data = json_decode( $response_body, true );
-            if ( $response_data ) {
-                wp_send_json_success(
-                    array(
-                        'data' => $response_data,
-                        'status'  => true,
-                    )
-                );
-            } else {
-                wp_send_json_error(
-                    array(
-                        'data' => 'Failed ' . $response_data,
-                        'status'  => false,
-
-                    )
-                );
-            }
-        } else {
-            wp_send_json_error(
-                array(
-                    'data' => 'Failed',
-                    'status'  => false,
-
-                )
-            );
-        }
-    }
 
     /**
 	 * Register scripts.

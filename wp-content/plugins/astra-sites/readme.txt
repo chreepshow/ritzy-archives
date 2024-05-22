@@ -5,7 +5,7 @@ Tags: Elementor,Templates,Gutenberg,Block Editor,Astra Starter Sites
 Requires at least: 4.4
 Requires PHP: 7.4
 Tested up to: 6.5
-Stable tag: 4.2.1
+Stable tag: 4.2.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -246,6 +246,24 @@ Once your website is generated, you have complete control over its content and l
 6. Use the power of AI with a single click to write copy, proofread, translate content into different languages. Adjust content length and tone seamlessly for maximum appeal.
 
 == Changelog ==
+
+v4.2.4 - 17-May-2024
+- Improvement: Added a way to disable Classic Templates Importer.
+- Fix: Fixed broken WP-CLI import process for classic templates.
+
+v4.2.3 - 14-May-2024
+- Fix: Fixed the error while importing the classic templates.
+
+v4.2.2 - 10-May-2024
+- Improvement: Better error handling.
+- Improvement: Better preview for the color palette.
+- Improvement: Better UX while selecting Starter Templates.
+- Improvement: Improved the way Starter Templates stores JSON data while sync process to address memory issues.
+- Improvement: AI Builder - Improved the user experience by blocking unwanted options while processing data on a particular step.
+- Fix: Fixed an issue where the Starter Templates won't get imported on an RTL website.
+- Fix: Design Kit: Rectified an issue where the Template kit names went missing due to library update.
+- Fix: AI Builder - Fixed an issue where the import would remain stuck at 98%.
+- Fix: Made Starter Templates more secure while uploading SVG files.
 
 v4.2.1 - 03-May-2024
 - Fix: Fixed an incorrect type casting of a string on a popup for AI Builder.

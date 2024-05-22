@@ -1,5 +1,5 @@
 // External Dependencies.
-import React, { useEffect, useState, useReducer } from 'react';
+import React, { useEffect, useState, useReducer, useRef } from 'react';
 import { sortBy } from 'underscore';
 import {
 	SiteType,
@@ -28,6 +28,7 @@ import SiteGrid from './sites-grid/index';
 import SiteSearch from './search-filter';
 import FavoriteSites from './favorite-sites';
 import RelatedSites from './related-sites';
+import { ChevronUpIcon } from '@heroicons/react/24/outline';
 
 export const useFilteredSites = () => {
 	const [ { builder, siteType, siteOrder, allSitesData } ] = useStateValue();
@@ -63,6 +64,7 @@ export const useFilteredSites = () => {
 
 const SiteList = () => {
 	const [ loadingSkeleton, setLoadingSkeleton ] = useState( true );
+	const backToTopBtn = useRef( null );
 	const allFilteredSites = useFilteredSites();
 	const history = useNavigate();
 	const [ siteData, setSiteData ] = useReducer(
@@ -116,6 +118,51 @@ const SiteList = () => {
 			builder: 'ai-builder',
 		} );
 	};
+
+	const handleClickBackToTop = () => {
+		const contentWrapper = document.querySelector( '.step-content ' );
+		if ( ! contentWrapper ) {
+			return;
+		}
+		contentWrapper.scrollTo( {
+			top: 0,
+			behavior: 'smooth',
+		} );
+	};
+
+	const handleShowBackToTop = ( event ) => {
+		const SCROLL_THRESHOLD = 250;
+		const target = event.target;
+
+		if ( ! backToTopBtn.current ) {
+			return;
+		}
+
+		const btn = backToTopBtn.current;
+		if (
+			target.scrollTop > SCROLL_THRESHOLD &&
+			btn.classList.contains( 'hidden' )
+		) {
+			btn.classList.remove( 'hidden' );
+		} else if (
+			target.scrollTop <= SCROLL_THRESHOLD &&
+			! btn.classList.contains( 'hidden' )
+		) {
+			btn.classList.add( 'hidden' );
+		}
+	};
+
+	useEffect( () => {
+		const contentWrapper = document.querySelector( '.step-content ' );
+		if ( ! contentWrapper ) {
+			return;
+		}
+		contentWrapper.addEventListener( 'scroll', handleShowBackToTop );
+		return () => {
+			contentWrapper.removeEventListener( 'scroll', handleShowBackToTop );
+		};
+	}, [] );
+
 	return (
 		<DefaultStep
 			content={
@@ -253,6 +300,19 @@ const SiteList = () => {
 									) }
 								</div>
 							</div>
+						</div>
+						{ /* Back to the top */ }
+						<div
+							ref={ backToTopBtn }
+							className="hidden absolute right-20 bottom-28 ml-auto"
+						>
+							<button
+								type="button"
+								className="absolute bottom-0 right-0 z-10 w-8 h-8 rounded-full bg-accent-st-secondary border-0 border-solid text-white flex items-center justify-center shadow-sm cursor-pointer"
+								onClick={ handleClickBackToTop }
+							>
+								<ChevronUpIcon className="w-5 h-5" />
+							</button>
 						</div>
 					</div>
 				</>
