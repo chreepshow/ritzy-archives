@@ -8,24 +8,6 @@
 
 require ABSPATH . WPINC . '/option.php';
 
-add_action('woocommerce_single_product_summary', 'custom_product_description', 20);
-function custom_product_description()
-{
-	global $product;
-	// Assuming the class is loaded and available
-	$membership = new Membership_For_Woocommerce_Public('', '');
-
-	// Assuming $methods is defined and available
-	$result = $membership->wps_membership_add_to_cart_url($methods);
-
-	if ($product->is_in_stock()) {
-		echo '<p>This product is in stock!</p>';
-	} else {
-		echo '<p>Sorry, this product is out of stock.</p>';
-	}
-}
-
-
 /**
  * Converts given MySQL date string into a different format.
  *
