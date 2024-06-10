@@ -9,79 +9,133 @@
  * Author URI: https://masterlorsolutions.com/
  * License: GPL2
  */
+const HAS_ACTIVE_RENT_META_KEY = 'has_active_rent';
+const RENTED_PRODUCT_ID_META_KEY = 'rented_product_ids';
 
-add_action('woocommerce_single_product_summary', 'custom_product_description', 20);
-function custom_product_description()
+//------------------------------------------------------------------------------------------------
+//wp-content\plugins\membership-for-woocommerce\public\class-membership-for-woocommerce-public.php
+//wp-content\plugins\membership-for-woocommerce\membership-for-woocommerce.php
+//------------------------------------------------------------------------------------------------
+
+function show_and_register_rent_button_logic()
 {
     global $product;
-    // Assuming the class is loaded and available
-    $membership = new Membership_For_Woocommerce_Public('', '');
-
     // Check if the user has a membership
     $user_id = get_current_user_id();
-    $is_member_meta = get_user_meta($user_id, 'is_member');
+    // $is_member_meta = get_user_meta($user_id, 'is_member');
     $current_memberships = get_user_meta($user_id, 'mfw_membership_id', true);
-    // -------------------------------------------------------------------------------------------------------
-    // TODO
-    // Megvannak a felhasználó tagságai, ki kell deríteni, hogy melyiknek van aktív státusza
-    // és azt is ellenőrizni kell, hogy a product, amit néz az elérhető-e ebben a tagságban,
-    // illetve, hogy van-e éppen rentje, ez is 1 get_user_meta kérés kéne, hogy legyen.
-    // Ha minden stimmel, akkor megjeleníthetjük neki a gombot, egyébként nem.
-    // Ha rákattint a gombra, akkor el kéne menteni user metába, a product id-ját egy rented_product_id néven
-    // és azt a metát is, hogy has_active_rent.
 
-    //Én innen lopom a kódokat
-    //wp-content\plugins\membership-for-woocommerce\public\class-membership-for-woocommerce-public.php
-    //wp-content\plugins\membership-for-woocommerce\membership-for-woocommerce.php
-    // -------------------------------------------------------------------------------------------------------
-
+    $has_acces_to_product = false;
     foreach ($current_memberships as $key => $membership_id) {
-
         if ('publish' == get_post_status($membership_id) || 'draft' == get_post_status($membership_id)) {
             $membership_status = wps_membership_get_meta_data($membership_id, 'member_status', true);
-            console_log2("membership_status", $membership_status);
-            // Get Saved Plan Details.
-            $membership_plan = wps_membership_get_meta_data($membership_id, 'plan_obj', true);
-            console_log2("membership_plan", $membership_plan);
-            // if (!empty($membership_plan->ID)) {
-            //     array_push($all_member_plans, $membership_plan->ID);
-            // }
-
-
-            // $accessible_prod = !empty($membership_plan['wps_membership_plan_target_ids']) ? maybe_unserialize($membership_plan['wps_membership_plan_target_ids']) : array();
-            // $accessible_cat  = !empty($membership_plan['wps_membership_plan_target_categories']) ? maybe_unserialize($membership_plan['wps_membership_plan_target_categories']) : array();
-            // $accessible_tag  = !empty($membership_plan['wps_membership_plan_target_tags']) ? maybe_unserialize($membership_plan['wps_membership_plan_target_tags']) : array();
-
-            // if (in_array($product->get_id(), $accessible_prod) || (!empty($accessible_cat) && has_term($accessible_cat, 'product_cat')) || (!empty($accessible_tag) && has_term($accessible_tag, 'product_tag'))) {
-
-            //     $access = true;
-
-            //     if (!empty($membership_status) && in_array($membership_status, array('complete'))) {
-            //         $access = true;
-
-            //         array_push($all_member_tag, $product->get_id());
-            //     }
-            //     if (!empty($membership_status) && in_array($membership_status, array('expired'))) {
-            //         $access = false;
-            //     } elseif ('pending' == $membership_status || 'hold' == $membership_status && 'publish' == $membership_plan['post_status']) {
-
-            //         $this->under_review_products = $this->under_review_products ? $this->under_review_products : array();
-            //         array_push($this->under_review_products, $product->get_id());
-            //         array_unique($this->under_review_products, $product->get_id());
-            //         $access = true;
-            //     }
-            // } else {
-            //     $access = false;
-            // }
+            if ($membership_status == 'complete') {
+                $membership_plan = wps_membership_get_meta_data($membership_id, 'plan_obj', true);
+                $has_acces_to_product = is_product_accessible_in_membership_plan($product->get_id(), $membership_plan);
+            }
         }
     }
 
-    if ($product->is_in_stock() && $is_member_meta) {
+    $has_active_rent = user_has_active_rent($user_id);
+
+    if ($product->is_in_stock() && $has_acces_to_product && !$has_active_rent) {
         echo '<p>This product is in stock!</p>';
-        echo '<button type="button">Rent this awesome bag!</button>';
+        echo '<button type="button" class="msl-rent-button" data-product-id="' . $product->get_id() . '">Rent this awesome bag!</button>';
+    } elseif ($has_active_rent) {
+        echo '<p>Sorry, but you already have an active rent.</p>';
     } else {
         echo '<p>Sorry, this product is out of stock or you do not have a membership.</p>';
     }
+}
+
+// TODO - rent_product function
+// ADD TO CART
+// UPDATE USER META or HOW TO TRACK THE STATUS OF A RENT????
+function rent_product()
+{
+    // Get the product ID from the AJAX request
+    $product_id = intval($_POST['product_id']);
+
+    // Get the user ID
+    $user_id = get_current_user_id();
+
+    // Add the product to the cart
+    global $woocommerce;
+    $woocommerce->cart->add_to_cart($product_id);
+
+    // Update the user meta data
+    update_user_meta($user_id, HAS_ACTIVE_RENT_META_KEY, true);
+    update_user_meta($user_id, RENTED_PRODUCT_ID_META_KEY, $product_id);
+
+    // Send a response back to the AJAX request
+    echo json_encode(array('success' => true));
+    wp_die();
+}
+
+function add_rent_button_script()
+{
+?>
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function() {
+            var buttons = document.querySelectorAll('.msl-rent-button');
+            buttons.forEach(function(button) {
+                button.addEventListener('click', function() {
+                    var product_id = this.getAttribute('data-product-id');
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('POST', '<?php echo admin_url('admin-ajax.php'); ?>', true);
+                    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                    xhr.onload = function() {
+                        if (xhr.status === 200) {
+                            var response = JSON.parse(xhr.responseText);
+                            console.log(response); // Add this line
+                            if (response.success) {
+                                alert('Product rented successfully!');
+                            } else {
+                                alert('There was an error renting the product.');
+                            }
+                        }
+                    };
+                    xhr.send('action=rent_product&product_id=' + product_id);
+                }, {
+                    passive: true
+                });
+            });
+        });
+    </script>
+<?php
+}
+
+function user_has_active_rent($user_id)
+{
+    return get_user_meta($user_id, HAS_ACTIVE_RENT_META_KEY, true);
+}
+
+function is_product_accessible_in_membership_plan($product_id, $membership_plan)
+{
+    $accessible_prod = accessible_products_in_membership_plan($membership_plan);
+    $accessible_cat = accessible_categories_in_membership_plan($membership_plan);
+    $accessible_tag = accessible_tags_in_membership_plan($membership_plan);
+
+    if (in_array($product_id, $accessible_prod) || (!empty($accessible_cat) && has_term($accessible_cat, 'product_cat')) || (!empty($accessible_tag) && has_term($accessible_tag, 'product_tag'))) {
+        return true;
+    }
+
+    return false;
+}
+
+function accessible_products_in_membership_plan($membership_plan)
+{
+    return !empty($membership_plan['wps_membership_plan_target_ids']) ? maybe_unserialize($membership_plan['wps_membership_plan_target_ids']) : array();
+}
+
+function accessible_categories_in_membership_plan($membership_plan)
+{
+    return !empty($membership_plan['wps_membership_plan_target_categories']) ? maybe_unserialize($membership_plan['wps_membership_plan_target_categories']) : array();
+}
+
+function accessible_tags_in_membership_plan($membership_plan)
+{
+    return !empty($membership_plan['wps_membership_plan_target_tags']) ? maybe_unserialize($membership_plan['wps_membership_plan_target_tags']) : array();
 }
 
 function console_log2($prefix, $data)
@@ -93,3 +147,8 @@ function console_log1($data)
 {
     echo "<script>console.log( " . json_encode($data) . ");</script>";
 }
+
+add_action('woocommerce_single_product_summary', 'show_and_register_rent_button_logic', 20);
+add_action('wp_ajax_rent_product', 'rent_product');
+add_action('wp_ajax_nopriv_rent_product', 'rent_product');
+add_action('wp_footer', 'add_rent_button_script');

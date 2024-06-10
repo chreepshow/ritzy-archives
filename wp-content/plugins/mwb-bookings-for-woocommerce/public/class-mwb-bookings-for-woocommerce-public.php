@@ -541,8 +541,8 @@ class Mwb_Bookings_For_Woocommerce_Public
 			$wps_cal_type = wps_booking_get_meta_data($product_id, 'wps_mbfw_booking_type', true);
 
 			?>
-			<p>You have access to our cool bag because <b>you are a member!!!!</b></p>
-			<button type="button">Rent this awesome bag!</button>
+			<!-- <p>You have access to our cool bag because <b>you are a member!!!!</b></p>
+			<button type="button">Rent this awesome bag!</button> -->
 
 		<?php
 		}
