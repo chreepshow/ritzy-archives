@@ -9,8 +9,11 @@
  * Author URI: https://masterlorsolutions.com/
  * License: GPL2
  */
+require_once plugin_dir_path(__FILE__) . 'rent-functions.php';
+require_once plugin_dir_path(__FILE__) . 'utils.php';
 const HAS_ACTIVE_RENT_META_KEY = 'has_active_rent';
 const RENTED_PRODUCT_ID_META_KEY = 'rented_product_ids';
+const RENT_ID_META_KEY = 'rent_id';
 
 //------------------------------------------------------------------------------------------------
 //wp-content\plugins\membership-for-woocommerce\public\class-membership-for-woocommerce-public.php
@@ -37,6 +40,7 @@ function show_and_register_rent_button_logic()
     }
 
     $has_active_rent = user_has_active_rent($user_id);
+    console_log2("has_active_rent", $has_active_rent);
 
     if ($product->is_in_stock() && $has_acces_to_product && !$has_active_rent) {
         echo '<p>This product is in stock!</p>';
@@ -62,10 +66,12 @@ function rent_product()
     // Add the product to the cart
     global $woocommerce;
     $woocommerce->cart->add_to_cart($product_id);
+    $rent_post_id = create_rent_post($user_id, $product_id);
 
     // Update the user meta data
-    update_user_meta($user_id, HAS_ACTIVE_RENT_META_KEY, true);
-    update_user_meta($user_id, RENTED_PRODUCT_ID_META_KEY, $product_id);
+    // update_user_meta($user_id, HAS_ACTIVE_RENT_META_KEY, true);
+    update_user_meta($user_id, RENT_ID_META_KEY, $rent_post_id);
+    // update_user_meta($user_id, RENTED_PRODUCT_ID_META_KEY, $product_id);
 
     // Send a response back to the AJAX request
     echo json_encode(array('success' => true));
@@ -107,7 +113,7 @@ function add_rent_button_script()
 
 function user_has_active_rent($user_id)
 {
-    return get_user_meta($user_id, HAS_ACTIVE_RENT_META_KEY, true);
+    return get_user_meta($user_id, RENT_ID_META_KEY, true);
 }
 
 function is_product_accessible_in_membership_plan($product_id, $membership_plan)
@@ -136,16 +142,6 @@ function accessible_categories_in_membership_plan($membership_plan)
 function accessible_tags_in_membership_plan($membership_plan)
 {
     return !empty($membership_plan['wps_membership_plan_target_tags']) ? maybe_unserialize($membership_plan['wps_membership_plan_target_tags']) : array();
-}
-
-function console_log2($prefix, $data)
-{
-    echo "<script>console.log(" . json_encode($prefix) . ", " . json_encode($data) . ");</script>";
-}
-
-function console_log1($data)
-{
-    echo "<script>console.log( " . json_encode($data) . ");</script>";
 }
 
 add_action('woocommerce_single_product_summary', 'show_and_register_rent_button_logic', 20);
