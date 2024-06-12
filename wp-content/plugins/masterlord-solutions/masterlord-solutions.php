@@ -29,12 +29,14 @@ function show_and_register_rent_button_logic()
     $current_memberships = get_user_meta($user_id, 'mfw_membership_id', true);
 
     $has_acces_to_product = false;
+    $has_active_membership = false;
     foreach ($current_memberships as $key => $membership_id) {
         if ('publish' == get_post_status($membership_id) || 'draft' == get_post_status($membership_id)) {
             $membership_status = wps_membership_get_meta_data($membership_id, 'member_status', true);
             if ($membership_status == 'complete') {
                 $membership_plan = wps_membership_get_meta_data($membership_id, 'plan_obj', true);
                 $has_acces_to_product = is_product_accessible_in_membership_plan($product->get_id(), $membership_plan);
+                $has_active_membership = true;
             }
         }
     }
@@ -47,8 +49,14 @@ function show_and_register_rent_button_logic()
         echo '<button type="button" class="msl-rent-button" data-product-id="' . $product->get_id() . '">Rent this awesome bag!</button>';
     } elseif ($has_active_rent) {
         echo '<p>Sorry, but you already have an active rent.</p>';
+    } elseif (!$has_active_membership) {
+        echo '<p>Sorry, but you do not have an active membership.</p>';
+    } elseif ($has_active_membership && !$has_acces_to_product) {
+        echo '<p>Sorry, but you do not have the right membership to access this product.</p>';
+    } elseif (!$product->is_in_stock()) {
+        echo '<p>This product is out of stock!</p>';
     } else {
-        echo '<p>Sorry, this product is out of stock or you do not have a membership.</p>';
+        echo '<p>Sorry, but you do not have access to this product.</p>';
     }
 }
 
