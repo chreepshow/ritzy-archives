@@ -2,12 +2,36 @@
 add_action('init', 'register_rent_post_type');
 add_action('init', 'define_custom_rent_statuses');
 
+const RENT_STATUSES = [
+    'active' => [
+        'label' => 'Active',
+        'label_count' => 'Active (%s)'
+    ],
+    'cancelled' => [
+        'label' => 'Cancelled',
+        'label_count' => 'Cancelled (%s)'
+    ],
+    'delivering' => [
+        'label' => 'Delivering',
+        'label_count' => 'Delivering (%s)'
+    ],
+    'delivered' => [
+        'label' => 'Delivered',
+        'label_count' => 'Delivered (%s)'
+    ],
+    'draft' => [
+        'label' => 'Draft',
+        'label_count' => 'Draft (%s)'
+    ],
+];
+
 function register_rent_post_type()
 {
     $args = array(
         'public' => true,
         'label'  => 'Rents',
         'supports' => array('title', 'editor', 'custom-fields'),
+        'menu_icon' => 'dashicons-calendar',
     );
     register_post_type('rent', $args);
 }
@@ -48,7 +72,6 @@ function rent_details_metabox()
         'high' // Priority
     );
 }
-
 function rent_details_metabox_callback($post)
 {
     // Nonce field for security
@@ -57,6 +80,7 @@ function rent_details_metabox_callback($post)
     // Get post meta
     $user_id = get_post_meta($post->ID, 'user_id', true);
     $product_id = get_post_meta($post->ID, 'product_id', true);
+    $current_status = get_post_status($post->ID, 'rent_status', true);
 
     // User ID field
     echo '<p><label for="user_id">User ID:</label>';
@@ -65,6 +89,13 @@ function rent_details_metabox_callback($post)
     // Product ID field
     echo '<p><label for="product_id">Product ID:</label>';
     echo '<input type="text" id="product_id" name="product_id" value="' . esc_attr($product_id) . '" /></p>';
+
+    // Status dropdown
+    echo '<select name="rent_status" id="rent_status">';
+    foreach (RENT_STATUSES as $status_key => $status_info) {
+        echo '<option value="' . esc_attr($status_key) . '"' . selected($current_status, $status_key, false) . '>' . esc_html($status_info['label']) . '</option>';
+    }
+    echo '</select>';
 }
 
 add_action('save_post', 'save_rent_details');
@@ -80,6 +111,9 @@ function save_rent_details($post_id)
         return;
     }
 
+    // Avoid triggering action when updating the post programmatically
+    remove_action('save_post', 'save_rent_details');
+
     // Save User ID
     if (isset($_POST['user_id'])) {
         update_post_meta($post_id, 'user_id', sanitize_text_field($_POST['user_id']));
@@ -89,6 +123,18 @@ function save_rent_details($post_id)
     if (isset($_POST['product_id'])) {
         update_post_meta($post_id, 'product_id', sanitize_text_field($_POST['product_id']));
     }
+
+    // Check if rent_status is set in POST request
+    if (isset($_POST['rent_status']) && array_key_exists($_POST['rent_status'], RENT_STATUSES)) {
+        // Update the rent status
+        wp_update_post(array(
+            'ID' => $post_id,
+            'post_status' => sanitize_text_field($_POST['rent_status'])
+        ));
+    }
+
+    // Re-hook this function
+    add_action('save_post', 'save_rent_details');
 }
 
 add_filter('manage_rent_posts_columns', 'add_rent_details_columns');
@@ -119,48 +165,14 @@ function rent_details_columns_content($column, $post_id)
 
 function define_custom_rent_statuses()
 {
-    register_post_status('active', array(
-        'label'                     => _x('Active', 'rent'),
-        'public'                    => true,
-        'exclude_from_search'       => false,
-        'show_in_admin_all_list'    => true,
-        'show_in_admin_status_list' => true,
-        'label_count'               => _n_noop('Active (%s)', 'Active (%s)'),
-    ));
-
-    register_post_status('cancelled', array(
-        'label'                     => _x('Cancelled', 'rent'),
-        'public'                    => true,
-        'exclude_from_search'       => false,
-        'show_in_admin_all_list'    => true,
-        'show_in_admin_status_list' => true,
-        'label_count'               => _n_noop('Cancelled (%s)', 'Cancelled (%s)'),
-    ));
-
-    register_post_status('delivering', array(
-        'label'                     => _x('Delivering', 'rent'),
-        'public'                    => true,
-        'exclude_from_search'       => false,
-        'show_in_admin_all_list'    => true,
-        'show_in_admin_status_list' => true,
-        'label_count'               => _n_noop('Delivering (%s)', 'Delivering (%s)'),
-    ));
-
-    register_post_status('delivered', array(
-        'label'                     => _x('Delivered', 'rent'),
-        'public'                    => true,
-        'exclude_from_search'       => false,
-        'show_in_admin_all_list'    => true,
-        'show_in_admin_status_list' => true,
-        'label_count'               => _n_noop('Delivered (%s)', 'Delivered (%s)'),
-    ));
-
-    register_post_status('draft', array(
-        'label'                     => _x('Draft', 'rent'),
-        'public'                    => true,
-        'exclude_from_search'       => false,
-        'show_in_admin_all_list'    => true,
-        'show_in_admin_status_list' => true,
-        'label_count'               => _n_noop('Draft (%s)', 'Draft (%s)'),
-    ));
+    foreach (RENT_STATUSES as $status_key => $status_info) {
+        register_post_status($status_key, array(
+            'label'                     => _x($status_info['label'], 'rent'),
+            'public'                    => true,
+            'exclude_from_search'       => false,
+            'show_in_admin_all_list'    => true,
+            'show_in_admin_status_list' => true,
+            'label_count'               => _n_noop($status_info['label_count'], $status_info['label_count']),
+        ));
+    }
 }
