@@ -45,7 +45,6 @@ function show_and_register_rent_button_logic()
     if ($has_active_rent_id) {
         $rent_status = get_rent_status_by_id($has_active_rent_id);
     }
-    console_log2('rent_status', $rent_status);
 
     if ($product->is_in_stock() && $has_acces_to_product && !$has_active_rent_id) {
         echo '<p>This product is in stock!</p>';
