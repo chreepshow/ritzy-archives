@@ -99,6 +99,10 @@ function add_rent_product_to_cart()
         wp_die();
     }
 
+    if (get_rent_post_by_user_id_and_product_id($user_id, $product_id)) {
+        wp_die();
+    }
+
     // Add the product to the cart
     global $woocommerce;
     $woocommerce->cart->add_to_cart($product_id);
