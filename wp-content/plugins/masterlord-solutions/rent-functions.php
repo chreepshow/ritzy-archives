@@ -159,7 +159,7 @@ function rent_details_metabox_callback($post)
 
     // Status dropdown
     echo '<select name="rent_status" id="rent_status">';
-    foreach (RENT_STATUSES as $status_key => $status_info) {
+    foreach (RENT_STATUSES_WITH_LABELS as $status_key => $status_info) {
         echo '<option value="' . esc_attr($status_key) . '"' . selected($current_status, $status_key, false) . '>' . esc_html($status_info['label']) . '</option>';
     }
     echo '</select>';
@@ -191,7 +191,7 @@ function save_rent_details($post_id)
     }
 
     // Check if rent_status is set in POST request
-    if (isset($_POST['rent_status']) && array_key_exists($_POST['rent_status'], RENT_STATUSES)) {
+    if (isset($_POST['rent_status']) && array_key_exists($_POST['rent_status'], RENT_STATUSES_WITH_LABELS)) {
         // Update the rent status
         wp_update_post(array(
             'ID' => $post_id,
