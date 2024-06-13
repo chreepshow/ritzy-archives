@@ -1,42 +1,70 @@
 <?php
+const RENT_ID_META_KEY = 'rent_id';
+const RENT_POST_TYPE = 'rent';
+
 add_action('init', 'register_rent_post_type');
 add_action('init', 'define_custom_rent_statuses');
+add_action('add_meta_boxes', 'rent_details_metabox');
+add_action('save_post', 'save_rent_details');
+add_action('before_delete_post', 'remove_user_meta_on_rent_deletion');
+add_filter('manage_rent_posts_columns', 'add_rent_details_columns');
+add_action('manage_rent_posts_custom_column', 'rent_details_columns_content', 10, 2);
 
-const RENT_STATUSES = [
-    'active' => [
+const RENT_STATUS_ACTIVE = 'active';
+const RENT_STATUS_CANCELLED = 'cancelled';
+const RENT_STATUS_DELIVERING = 'delivering';
+const RENT_STATUS_DELIVERED = 'delivered';
+const RENT_STATUS_DRAFT = 'draft';
+const RENT_STATUS_IN_CART = 'in_cart';
+
+const RENT_STATUSES_WITH_LABELS = [
+    RENT_STATUS_ACTIVE => [
         'label' => 'Active',
         'label_count' => 'Active (%s)'
     ],
-    'cancelled' => [
+    RENT_STATUS_CANCELLED => [
         'label' => 'Cancelled',
         'label_count' => 'Cancelled (%s)'
     ],
-    'delivering' => [
+    RENT_STATUS_DELIVERING => [
         'label' => 'Delivering',
         'label_count' => 'Delivering (%s)'
     ],
-    'delivered' => [
+    RENT_STATUS_DELIVERED => [
         'label' => 'Delivered',
         'label_count' => 'Delivered (%s)'
     ],
-    'draft' => [
+    RENT_STATUS_DRAFT => [
         'label' => 'Draft',
         'label_count' => 'Draft (%s)'
+    ],
+    RENT_STATUS_IN_CART => [
+        'label' => 'In Cart',
+        'label_count' => 'In Cart (%s)'
     ],
 ];
 
 function register_rent_post_type()
 {
+    $labels = array(
+        'name' => 'Rents',
+        'singular_name' => 'Rent',
+        'add_new' => 'Add New Rent',
+        'add_new_item' => 'Add New Rent',
+        'all_items' => 'All Rents',
+    );
+
     $args = array(
         'public' => true,
         'label'  => 'Rents',
+        'labels' => $labels,
         'supports' => array('title', 'editor', 'custom-fields'),
         'menu_icon' => 'dashicons-calendar',
     );
     register_post_type('rent', $args);
 }
 
-function create_rent_post($user_id, $product_id, $status = 'draft')
+function create_rent_post($user_id, $product_id, $status)
 {
     $postarr = array(
         'post_type' => 'rent',
@@ -51,6 +79,15 @@ function create_rent_post($user_id, $product_id, $status = 'draft')
     return $post_id;
 }
 
+function get_rent_status_by_id($rent_id)
+{
+    $post_status = get_post_status($rent_id);
+    if (!$post_status) {
+        return false; // Return false if the rent ID does not exist or there was an error
+    }
+    return $post_status;
+}
+
 function update_rent_status($rent_post_id, $new_status)
 {
     $postarr = array(
@@ -60,18 +97,48 @@ function update_rent_status($rent_post_id, $new_status)
     wp_update_post($postarr);
 }
 
-add_action('add_meta_boxes', 'rent_details_metabox');
+function update_rent_id_of_user($user_id, $rent_id)
+{
+    update_user_meta($user_id, RENT_ID_META_KEY, $rent_id);
+}
+
+function get_rent_id_of_user($user_id)
+{
+    return get_user_meta($user_id, RENT_ID_META_KEY, true);
+}
+
+function remove_rent_id_of_user($user_id)
+{
+    delete_user_meta($user_id, RENT_ID_META_KEY);
+}
+
+function remove_user_meta_on_rent_deletion($post_id)
+{
+    // Check if the post being deleted is of the 'rent' post type
+    if (get_post_type($post_id) === RENT_POST_TYPE) {
+        // Get the user ID associated with this rent post
+        $user_id = get_post_meta($post_id, 'user_id', true); // Assuming 'user_id' is the meta key
+
+        // Check if a user ID was found
+        if (!empty($user_id)) {
+            // Delete the user meta associated with this rent post
+            remove_rent_id_of_user($user_id);
+        }
+    }
+}
+
 function rent_details_metabox()
 {
     add_meta_box(
         'rent_details', // ID of the metabox
         'Rent Details', // Title of the metabox
         'rent_details_metabox_callback', // Callback function
-        'rent', // Post type
+        RENT_POST_TYPE, // Post type
         'normal', // Context
         'high' // Priority
     );
 }
+
 function rent_details_metabox_callback($post)
 {
     // Nonce field for security
@@ -98,7 +165,6 @@ function rent_details_metabox_callback($post)
     echo '</select>';
 }
 
-add_action('save_post', 'save_rent_details');
 function save_rent_details($post_id)
 {
     // Check nonce for security
@@ -137,7 +203,6 @@ function save_rent_details($post_id)
     add_action('save_post', 'save_rent_details');
 }
 
-add_filter('manage_rent_posts_columns', 'add_rent_details_columns');
 function add_rent_details_columns($columns)
 {
     $columns['user_id'] = 'User ID';
@@ -146,7 +211,6 @@ function add_rent_details_columns($columns)
     return $columns;
 }
 
-add_action('manage_rent_posts_custom_column', 'rent_details_columns_content', 10, 2);
 function rent_details_columns_content($column, $post_id)
 {
     switch ($column) {
@@ -165,7 +229,7 @@ function rent_details_columns_content($column, $post_id)
 
 function define_custom_rent_statuses()
 {
-    foreach (RENT_STATUSES as $status_key => $status_info) {
+    foreach (RENT_STATUSES_WITH_LABELS as $status_key => $status_info) {
         register_post_status($status_key, array(
             'label'                     => _x($status_info['label'], 'rent'),
             'public'                    => true,
