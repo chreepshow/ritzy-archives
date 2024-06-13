@@ -1,7 +1,4 @@
 <?php
-const RENT_ID_META_KEY = 'rent_id';
-const RENT_POST_TYPE = 'rent';
-
 add_action('init', 'register_rent_post_type');
 add_action('init', 'define_custom_rent_statuses');
 add_action('add_meta_boxes', 'rent_details_metabox');
@@ -9,6 +6,9 @@ add_action('save_post', 'save_rent_details');
 add_action('before_delete_post', 'remove_user_meta_on_rent_deletion');
 add_filter('manage_rent_posts_columns', 'add_rent_details_columns');
 add_action('manage_rent_posts_custom_column', 'rent_details_columns_content', 10, 2);
+
+const RENT_ID_META_KEY = 'rent_id';
+const RENT_POST_TYPE = 'rent';
 
 const RENT_STATUS_ACTIVE = 'active';
 const RENT_STATUS_CANCELLED = 'cancelled';
