@@ -55,10 +55,24 @@ function get_rent_button_html($product_in_stock, $has_acces_to_product, $has_act
 {
     $html = '';
     if ($product_in_stock && $has_acces_to_product && !$has_active_rent_id) {
-        $html .= '<p>This product is in stock!</p>';
+        $html .= '<p style="margin-bottom: 0;">This product is in stock!</p>';
         $html .= '<button type="button" name=add-to-cart class="msl-rent-button" data-product-id="' . $product_id . '">Rent this awesome bag!</button>';
     } elseif ($has_active_rent_id && $rent_status == RENT_STATUS_IN_CART) {
-        $html .= '<p>You have a bag in your cart. Remove it first if you would like to rent another one.</p>';
+        $html .= '<p style="margin-bottom: 0;">You have a bag in your cart. Remove it first if you would like to rent another one.</p>';
+        $html .= '<button id="goToCartButton" class="go-to-cart-btn"><i class="fa fa-shopping-cart"></i> Go to cart</button>';
+
+        // Add JavaScript for navigation
+        $html .= '
+        <script>
+        document.getElementById("goToCartButton").addEventListener("click", function() {
+             if (window.location.hostname == \'localhost\') {
+                                window.location.href = \'/ritzy-archives/cart\';
+                            } else {
+                                window.location.href = \'/cart\'; // Redirect to the cart page
+                            }
+        });
+        </script>
+    ';
     } elseif ($has_active_rent_id) {
         $html .= '<p>Sorry, but you already have an active rent.</p>';
     } elseif (!$has_active_membership) {
