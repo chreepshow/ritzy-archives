@@ -125,6 +125,11 @@ function delete_rent_and_meta_for_user($rent_id, $user_id)
     wp_delete_post($rent_id, true);
 }
 
+function get_product_id_of_rent($rent_id)
+{
+    return get_post_meta($rent_id, 'product_id', true);
+}
+
 function get_rent_status_by_id($rent_id)
 {
     $post_status = get_post_status($rent_id);
