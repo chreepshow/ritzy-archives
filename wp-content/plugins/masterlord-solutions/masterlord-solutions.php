@@ -56,7 +56,7 @@ function get_rent_button_html($product_in_stock, $has_acces_to_product, $has_act
     $html = '';
     if ($product_in_stock && $has_acces_to_product && !$has_active_rent_id) {
         $html .= '<p>This product is in stock!</p>';
-        $html .= '<button type="button" class="msl-rent-button" data-product-id="' . $product_id . '">Rent this awesome bag!</button>';
+        $html .= '<button type="button" name=add-to-cart class="msl-rent-button" data-product-id="' . $product_id . '">Rent this awesome bag!</button>';
     } elseif ($has_active_rent_id && $rent_status == RENT_STATUS_IN_CART) {
         $html .= '<p>You have a bag in your cart. Remove it first if you would like to rent another one.</p>';
     } elseif ($has_active_rent_id) {
@@ -113,9 +113,14 @@ function add_rent_button_script()
                     xhr.onload = function() {
                         if (xhr.status === 200) {
                             var response = JSON.parse(xhr.responseText);
-                            console.log(response); // Add this line
+                            console.log(response); // Keep this line for debugging purposes
                             if (response.success) {
                                 alert('Product rented successfully!');
+                                if (window.location.hostname == 'localhost') {
+                                    window.location.href = '/ritzy-archives/cart';
+                                } else {
+                                    window.location.href = '/cart'; // Redirect to the cart page
+                                }
                             } else {
                                 alert('There was an error renting the product.');
                             }
