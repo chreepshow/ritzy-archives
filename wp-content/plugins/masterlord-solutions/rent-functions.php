@@ -79,6 +79,47 @@ function create_rent_post($user_id, $product_id, $status)
     return $post_id;
 }
 
+function get_rent_post_by_user_id_and_product_id($user_id, $product_id)
+{
+    $args = array(
+        'post_type' => RENT_POST_TYPE, // Custom post type
+        'post_status' => 'any', // You might want to limit this to certain statuses
+        'meta_query' => array(
+            'relation' => 'AND', // Use AND to ensure both conditions must be met
+            array(
+                'key' => 'user_id',
+                'value' => $user_id,
+                'compare' => '='
+            ),
+            array(
+                'key' => 'product_id',
+                'value' => $product_id,
+                'compare' => '='
+            )
+        ),
+        'posts_per_page' => 1 // Assuming there's only one post per user_id and product_id combination
+    );
+
+    $query = new WP_Query($args);
+
+    if ($query->have_posts()) {
+        while ($query->have_posts()) {
+            $query->the_post();
+            // Return the post ID or the post object itself
+            return get_the_ID(); // or use get_post() to return the post object
+        }
+    } else {
+        // No posts found
+        return false;
+    }
+}
+
+function delete_rent_and_meta_for_user($rent_id, $user_id)
+{
+    remove_rent_id_of_user($user_id);
+    wp_delete_post($rent_id, true);
+}
+
 function get_rent_status_by_id($rent_id)
 {
     $post_status = get_post_status($rent_id);

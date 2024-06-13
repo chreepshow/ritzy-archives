@@ -11,6 +11,7 @@
  */
 require_once plugin_dir_path(__FILE__) . 'rent-functions.php';
 require_once plugin_dir_path(__FILE__) . 'utils.php';
+require_once plugin_dir_path(__FILE__) . 'cart-functions.php';
 const HAS_ACTIVE_RENT_META_KEY = 'has_active_rent';
 const RENTED_PRODUCT_ID_META_KEY = 'rented_product_ids';
 
@@ -22,6 +23,7 @@ const RENTED_PRODUCT_ID_META_KEY = 'rented_product_ids';
 function show_and_register_rent_button_logic()
 {
     global $product;
+    $product_id = $product->get_id();
     // Check if the user has a membership
     $user_id = get_current_user_id();
     // $is_member_meta = get_user_meta($user_id, 'is_member');
@@ -34,7 +36,7 @@ function show_and_register_rent_button_logic()
             $membership_status = wps_membership_get_meta_data($membership_id, 'member_status', true);
             if ($membership_status == 'complete') {
                 $membership_plan = wps_membership_get_meta_data($membership_id, 'plan_obj', true);
-                $has_acces_to_product = is_product_accessible_in_membership_plan($product->get_id(), $membership_plan);
+                $has_acces_to_product = is_product_accessible_in_membership_plan($product_id, $membership_plan);
                 $has_active_membership = true;
             }
         }
@@ -48,7 +50,7 @@ function show_and_register_rent_button_logic()
 
     if ($product->is_in_stock() && $has_acces_to_product && !$has_active_rent_id) {
         echo '<p>This product is in stock!</p>';
-        echo '<button type="button" class="msl-rent-button" data-product-id="' . $product->get_id() . '">Rent this awesome bag!</button>';
+        echo '<button type="button" class="msl-rent-button" data-product-id="' . $product_id . '">Rent this awesome bag!</button>';
     } elseif ($has_active_rent_id && $rent_status == RENT_STATUS_IN_CART) {
         echo '<p>You have a bag in your cart. Remove it first if you would like to rent another one.</p>';
     } elseif ($has_active_rent_id) {
@@ -64,9 +66,6 @@ function show_and_register_rent_button_logic()
     }
 }
 
-// TODO - add_rent_product_to_cart function
-// ADD TO CART
-// UPDATE USER META or HOW TO TRACK THE STATUS OF A RENT????
 function add_rent_product_to_cart()
 {
     // Get the product ID from the AJAX request
