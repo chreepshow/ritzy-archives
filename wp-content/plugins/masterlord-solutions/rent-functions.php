@@ -14,6 +14,7 @@ const RENT_STATUS_ACTIVE = 'active';
 const RENT_STATUS_CANCELLED = 'cancelled';
 const RENT_STATUS_DELIVERING = 'delivering';
 const RENT_STATUS_DELIVERED = 'delivered';
+const RENT_STATUS_PURCHASED = 'purchased';
 const RENT_STATUS_DRAFT = 'draft';
 const RENT_STATUS_IN_CART = 'in_cart';
 
@@ -41,6 +42,10 @@ const RENT_STATUSES_WITH_LABELS = [
     RENT_STATUS_IN_CART => [
         'label' => 'In Cart',
         'label_count' => 'In Cart (%s)'
+    ],
+    RENT_STATUS_PURCHASED => [
+        'label' => 'Purchased',
+        'label_count' => 'Purchased'
     ],
 ];
 
