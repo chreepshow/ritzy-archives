@@ -48,22 +48,29 @@ function show_and_register_rent_button_logic()
         $rent_status = get_rent_status_by_id($has_active_rent_id);
     }
 
-    if ($product->is_in_stock() && $has_acces_to_product && !$has_active_rent_id) {
-        echo '<p>This product is in stock!</p>';
-        echo '<button type="button" class="msl-rent-button" data-product-id="' . $product_id . '">Rent this awesome bag!</button>';
+    echo get_rent_button_html($product->is_in_stock(), $has_acces_to_product, $has_active_rent_id, $rent_status, $product_id, $has_active_membership);
+}
+
+function get_rent_button_html($product_in_stock, $has_acces_to_product, $has_active_rent_id, $rent_status, $product_id, $has_active_membership)
+{
+    $html = '';
+    if ($product_in_stock && $has_acces_to_product && !$has_active_rent_id) {
+        $html .= '<p>This product is in stock!</p>';
+        $html .= '<button type="button" class="msl-rent-button" data-product-id="' . $product_id . '">Rent this awesome bag!</button>';
     } elseif ($has_active_rent_id && $rent_status == RENT_STATUS_IN_CART) {
-        echo '<p>You have a bag in your cart. Remove it first if you would like to rent another one.</p>';
+        $html .= '<p>You have a bag in your cart. Remove it first if you would like to rent another one.</p>';
     } elseif ($has_active_rent_id) {
-        echo '<p>Sorry, but you already have an active rent.</p>'; // todo finomitani
+        $html .= '<p>Sorry, but you already have an active rent.</p>';
     } elseif (!$has_active_membership) {
-        echo '<p>Sorry, but you do not have an active membership.</p>';
+        $html .= '<p>Sorry, but you do not have an active membership.</p>';
     } elseif ($has_active_membership && !$has_acces_to_product) {
-        echo '<p>Sorry, but you do not have the right membership to access this product.</p>';
-    } elseif (!$product->is_in_stock()) {
-        echo '<p>This product is out of stock!</p>';
+        $html .= '<p>Sorry, but you do not have the right membership to access this product.</p>';
+    } elseif (!$product_in_stock) {
+        $html .= '<p>This product is out of stock!</p>';
     } else {
-        echo '<p>Sorry, but you do not have access to this product.</p>';
+        $html .= '<p>Sorry, but you do not have access to this product.</p>';
     }
+    return $html;
 }
 
 function add_rent_product_to_cart()
