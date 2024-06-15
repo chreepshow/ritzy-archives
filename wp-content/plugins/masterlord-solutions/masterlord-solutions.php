@@ -4,18 +4,28 @@
  * Plugin Name: Masterlord Solutions
  * Plugin URI: https://masterlorsolutions.com/
  * Description: This is a plugin that does something with WooCommerce
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: Peter Koppany
  * Author URI: https://masterlorsolutions.com/
  * License: GPL2
  */
-require_once plugin_dir_path(__FILE__) . 'rent-functions.php';
 require_once plugin_dir_path(__FILE__) . 'utils.php';
-require_once plugin_dir_path(__FILE__) . 'cart-functions.php';
+require_once plugin_dir_path(__FILE__) . 'rent-functions.php';
 require_once plugin_dir_path(__FILE__) . 'checkout-functions.php';
+require_once plugin_dir_path(__FILE__) . 'cart-functions.php';
 require_once plugin_dir_path(__FILE__) . 'account-functions.php';
 const HAS_ACTIVE_RENT_META_KEY = 'has_active_rent';
 const RENTED_PRODUCT_ID_META_KEY = 'rented_product_ids';
+
+add_action('wp_enqueue_scripts', 'my_plugin_enqueue_styles');
+function my_plugin_enqueue_styles()
+{
+    // Use plugins_url() to correctly get the path to your stylesheet file
+    $stylesheet_url = plugins_url('masterlord-solutions.css', __FILE__);
+
+    // Enqueue the stylesheet
+    wp_enqueue_style('masterlord-solutions-styles-handle', $stylesheet_url);
+}
 
 //------------------------------------------------------------------------------------------------
 //wp-content\plugins\membership-for-woocommerce\public\class-membership-for-woocommerce-public.php
@@ -106,16 +116,33 @@ function add_rent_product_to_cart()
     }
 
     // Add the product to the cart
-    global $woocommerce;
-    $woocommerce->cart->add_to_cart($product_id);
+    WC()->cart->add_to_cart($product_id);
+
+    // Check if the product was added to the cart and return an error message if it wasn't
+    if (!is_product_in_cart($product_id)) {
+        echo json_encode(array('success' => false, 'message' => 'Product could not be added to cart!'));
+        wp_die();
+    }
     $rent_post_id = create_rent_post($user_id, $product_id, RENT_STATUS_IN_CART);
 
     // Update the user meta data
     update_rent_id_of_user($user_id, $rent_post_id);
 
     // Send a response back to the AJAX request
-    echo json_encode(array('success' => true));
+    echo json_encode(array('success' => true, 'message' => 'Product added to cart successfully!'));
     wp_die();
+}
+
+function is_product_in_cart($product_id)
+{
+    foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
+        if ($cart_item['product_id'] == $product_id) {
+            // Product is found in the cart
+            return true;
+        }
+    }
+    // Product is not found in the cart
+    return false;
 }
 
 function add_rent_button_script()
@@ -134,15 +161,17 @@ function add_rent_button_script()
                         if (xhr.status === 200) {
                             var response = JSON.parse(xhr.responseText);
                             console.log(response); // Keep this line for debugging purposes
+                            button.disabled = true;
                             if (response.success) {
-                                alert('Product rented successfully!');
+                                console.log(response.message);
                                 if (window.location.hostname == 'localhost') {
                                     window.location.href = '/ritzy-archives/cart';
                                 } else {
                                     window.location.href = '/cart'; // Redirect to the cart page
                                 }
                             } else {
-                                alert('There was an error renting the product.');
+                                button.disabled = false;
+                                console.error(response.message);
                             }
                         }
                     };
