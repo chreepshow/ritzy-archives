@@ -871,6 +871,7 @@ class Mwb_Bookings_For_Woocommerce_Admin {
 					'desc_tip'    => true,
 				)
 			);
+
 			woocommerce_wp_text_input(
 				array(
 					'id'                => 'mwb_mbfw_minimum_people_per_booking',
@@ -979,6 +980,18 @@ class Mwb_Bookings_For_Woocommerce_Admin {
 					'custom_attributes' => array( 'autocomplete' => 'off' ),
 				)
 			);
+			woocommerce_wp_text_input(
+				array(
+					'label'             => __( 'Set days availability upto', 'mwb-bookings-for-woocommerce' ),
+					'id'                => 'wps_mbfw_set_availability_upto',
+					'value'             => wps_booking_get_meta_data( get_the_ID(), 'wps_mbfw_set_availability_upto', true ),
+					'description'       => __( 'Bookings will be available till the day selected these days.', 'mwb-bookings-for-woocommerce' ),
+					'type'              => 'text',
+					'desc_tip'          => true,
+					'style'             => 'width:10em;',
+					'custom_attributes' => array( 'autocomplete' => 'off' ),
+				)
+			);
 			require_once MWB_BOOKINGS_FOR_WOOCOMMERCE_DIR_PATH . '/admin/partials/mwb-bookings-for-woocommerce-time-slot.php';
 			?>
 		</div>
@@ -1046,7 +1059,7 @@ class Mwb_Bookings_For_Woocommerce_Admin {
 			if ( ! isset( $_POST['_mwb_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_mwb_nonce'] ) ), 'mwb_booking_product_meta' ) ) {
 				return;
 			}
-
+		
 			$product_meta_data = array(
 				'mwb_mbfw_booking_criteria'                => array_key_exists( 'mwb_mbfw_booking_criteria', $_POST ) ? sanitize_text_field( wp_unslash( $_POST['mwb_mbfw_booking_criteria'] ) ) : '',
 				'wps_mbfw_booking_type'                    => array_key_exists( 'wps_mbfw_booking_type', $_POST ) ? sanitize_text_field( wp_unslash( $_POST['wps_mbfw_booking_type'] ) ) : '',
@@ -1065,6 +1078,7 @@ class Mwb_Bookings_For_Woocommerce_Admin {
 				'mwb_mbfw_is_booking_base_cost_per_people' => array_key_exists( 'mwb_mbfw_is_booking_base_cost_per_people', $_POST ) ? sanitize_text_field( wp_unslash( $_POST['mwb_mbfw_is_booking_base_cost_per_people'] ) ) : '',
 				'mwb_mbfw_is_people_option'                => array_key_exists( 'mwb_mbfw_is_people_option', $_POST ) ? sanitize_text_field( wp_unslash( $_POST['mwb_mbfw_is_people_option'] ) ) : '',
 				'mwb_mbfw_minimum_people_per_booking'      => array_key_exists( 'mwb_mbfw_minimum_people_per_booking', $_POST ) ? sanitize_text_field( wp_unslash( $_POST['mwb_mbfw_minimum_people_per_booking'] ) ) : '',
+				'mwb_mbfw_minimum_no_days_booking' => array_key_exists( 'mwb_mbfw_minimum_no_days_booking', $_POST ) ? sanitize_text_field( wp_unslash( $_POST['mwb_mbfw_minimum_no_days_booking'] ) ) : '',
 				'mwb_mbfw_maximum_people_per_booking'      => array_key_exists( 'mwb_mbfw_maximum_people_per_booking', $_POST ) ? sanitize_text_field( wp_unslash( $_POST['mwb_mbfw_maximum_people_per_booking'] ) ) : '',
 				'mwb_mbfw_is_add_extra_services'           => array_key_exists( 'mwb_mbfw_is_add_extra_services', $_POST ) ? sanitize_text_field( wp_unslash( $_POST['mwb_mbfw_is_add_extra_services'] ) ) : '',
 				'mwb_mbfw_maximum_booking_per_unit'        => array_key_exists( 'mwb_mbfw_maximum_booking_per_unit', $_POST ) ? sanitize_text_field( wp_unslash( $_POST['mwb_mbfw_maximum_booking_per_unit'] ) ) : '',
@@ -1073,6 +1087,7 @@ class Mwb_Bookings_For_Woocommerce_Admin {
 				'mwb_mbfw_daily_calendar_end_time'         => array_key_exists( 'mwb_mbfw_daily_calendar_end_time', $_POST ) ? sanitize_text_field( wp_unslash( $_POST['mwb_mbfw_daily_calendar_end_time'] ) ) : '',
 				'mwb_mbfw_choose_holiday'                  => array_key_exists( 'mwb_mbfw_choose_holiday', $_POST ) ? sanitize_text_field( wp_unslash( $_POST['mwb_mbfw_choose_holiday'] ) ) : '',
 				'wps_mbfw_set_availability'                => array_key_exists( 'wps_mbfw_set_availability', $_POST ) ? sanitize_text_field( wp_unslash( $_POST['wps_mbfw_set_availability'] ) ) : '',
+				'wps_mbfw_set_availability_upto'                => array_key_exists( 'wps_mbfw_set_availability_upto', $_POST ) ? sanitize_text_field( wp_unslash( $_POST['wps_mbfw_set_availability_upto'] ) ) : '',
 				'wps_mbfw_time_slots'        => array_key_exists( 'mbfw_fields', $_POST ) ? ( is_array( $_POST['mbfw_fields'] ) ? map_deep( wp_unslash( $_POST['mbfw_fields'] ), 'sanitize_text_field' ) : sanitize_text_field( wp_unslash( $_POST['mbfw_fields'] ) ) ) : array(),
 				'_stock'                    => array_key_exists( '_stock', $_POST ) ? sanitize_text_field( wp_unslash( $_POST['_stock'] ) ) : '',
 				'_original_stock'                   => array_key_exists( '_original_stock', $_POST ) ? sanitize_text_field( wp_unslash( $_POST['_original_stock'] ) ) : '',
@@ -1083,9 +1098,6 @@ class Mwb_Bookings_For_Woocommerce_Admin {
 				'_manage_stock'                     => array_key_exists( '_manage_stock', $_POST ) ? sanitize_text_field( wp_unslash( $_POST['_manage_stock'] ) ) : '',
 			);
 
-
-
-
 			$product_meta_data =
 			/**
 			 * Filter is for returning something.
@@ -1093,15 +1105,18 @@ class Mwb_Bookings_For_Woocommerce_Admin {
 			 * @since 1.0.0
 			 */
 			apply_filters( 'mwb_mbfw_save_product_meta_data', $product_meta_data, $id );
-
-			
 		
 			foreach ( $product_meta_data as $meta_key => $meta_value ) {
+
 				if ( strpos( $meta_key, 'wps_mbfw_unit_' ) !== false ) {
+				
 					if ( ! empty( $meta_value ) ) {
-						wps_booking_update_meta_data( $id, $meta_key, $meta_value );
+						
+						 wps_booking_update_meta_data( $id, $meta_key, $meta_value );
 					}
+
 				} else {
+					
 					wps_booking_update_meta_data( $id, $meta_key, $meta_value );
 				}
 			}
@@ -1740,18 +1755,32 @@ class Mwb_Bookings_For_Woocommerce_Admin {
 	public function mwb_mbfw_get_all_events_date() {
 
 		check_ajax_referer( 'mwb_mbfw_admin_nonce', 'nonce' );
-		$orders     = wc_get_orders(
-			array(
-				'status'   => array( 'wc-processing', 'wc-on-hold', 'wc-pending', 'wc-completed' ),
-				'limit'    => -1,
-				'meta_key' => 'mwb_order_type', // phpcs:ignore WordPress_wps_single_cal_booking_dates.
-				'meta_val' => 'booking',
-			)
-		);
+
+		$status = ! empty( $_POST['status'] ) ? sanitize_text_field( wp_unslash( $_POST['status'] ) ) : '';
+		$orders = '';
+		if ( ! empty( $status ) ) {
+			$orders     = wc_get_orders(
+				array(
+					'status'   => $status,
+					'limit'    => -1,
+					'meta_key' => 'mwb_order_type', // phpcs:ignore WordPress_wps_single_cal_booking_dates.
+					'meta_val' => 'booking',
+				)
+			);
+		} else {
+			$orders     = wc_get_orders(
+				array(
+					'status'   => array( 'wc-processing', 'wc-on-hold', 'wc-pending', 'wc-completed' ),
+					'limit'    => -1,
+					'meta_key' => 'mwb_order_type', // phpcs:ignore WordPress_wps_single_cal_booking_dates.
+					'meta_val' => 'booking',
+				)
+			);
+		}
 
 		$all_events = array();
 		foreach ( $orders as $order ) {
-
+			$status = $order->get_status();
 			$items = $order->get_items();
 			foreach ( $items as $item ) {
 
@@ -1775,6 +1804,7 @@ class Mwb_Bookings_For_Woocommerce_Admin {
 								'start' => gmdate( 'Y-m-d', strtotime( $value ) ),
 								'end'   => gmdate( 'Y-m-d', strtotime( $date_array_to[ $key ] ) ),
 								'url'   => admin_url( 'admin.php?page=wc-orders&action=edit&id=' . $order->get_id() ),
+								'class' => $status,
 							);
 						}
 					} else {
@@ -1783,6 +1813,7 @@ class Mwb_Bookings_For_Woocommerce_Admin {
 							'start' => gmdate( 'Y-m-d', strtotime( $date_time_from ) ) . 'T' . gmdate( 'H:i', strtotime( $date_time_from ) ),
 							'end'   => gmdate( 'Y-m-d', strtotime( $date_time_to ) ) . 'T' . gmdate( 'H:i', strtotime( $date_time_to ) ),
 							'url'   => admin_url( 'admin.php?page=wc-orders&action=edit&id=' . $order->get_id() ),
+							'class' => $status,
 						);
 					}
 				}
@@ -1800,6 +1831,7 @@ class Mwb_Bookings_For_Woocommerce_Admin {
 						'start' => gmdate( 'Y-m-d', strtotime( $date_time_from ) ) . 'T' . gmdate( 'H:i', strtotime( $date_time_from ) ),
 						'end'   => gmdate( 'Y-m-d', strtotime( $date_time_to ) ) . 'T' . gmdate( 'H:i', strtotime( $date_time_to ) ),
 						'url'   => admin_url( 'admin.php?page=wc-orders&action=edit&id=' . $order->get_id() ),
+						'class' => $status,
 					);
 				}
 			}

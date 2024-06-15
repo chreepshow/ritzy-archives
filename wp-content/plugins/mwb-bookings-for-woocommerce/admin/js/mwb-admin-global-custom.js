@@ -187,7 +187,7 @@ jQuery(document).ready(function($){
             return false;
         }
     });
-
+debugger;
     if ($('#wps_mbfw_booking_type').val() == 'single_cal') {
         $(document).find('.mwb_mbfw_show_date_with_time_field').hide();
         $(document).find('.mwb_mbfw_daily_calendar_start_time_field').hide();
@@ -212,6 +212,8 @@ jQuery(document).ready(function($){
         $(document).find('.wps_bfwp_weekly_off_day_field').show();
         $(document).find('.mwb_mbfw_choose_holiday_field').show();
         $(document).find('.wps_mbfw_set_availability_field').hide();
+        $(document).find('.wps_mbfw_set_availability_upto_field').hide();
+        
         $(document).find('.mbfw_notice').hide();
         $(document).find('#wps_mbfw_add_fields_wrapper').hide();
         $(document).find('.mwb_mbfw_rescheduling_allowed_field').show();
@@ -229,6 +231,7 @@ jQuery(document).ready(function($){
             $(document).find('.mwb_mbfw_rescheduling_allowed_field').hide();
             $(document).find('.mwb_mbfw_choose_holiday_field').hide();
             $(document).find('.mwb_bfwp_order_statuses_to_reschedule_field').hide();
+            $(document).find('.wps_mbfw_set_availability_upto_field').show();
             $(document).find('.wps_mbfw_set_availability_field').show();
             $(document).find('#wps_mbfw_add_fields_wrapper').show();
             $(document).find('.mbfw_notice').show();
@@ -248,6 +251,7 @@ jQuery(document).ready(function($){
             $(document).find('.mwb_mbfw_rescheduling_allowed_field').show();
             $(document).find('.mwb_bfwp_order_statuses_to_reschedule_field').show();
             $(document).find('.mbfw_notice').hide();
+            $(document).find('.wps_mbfw_set_availability_upto_field').hide();
         }
     });
     
@@ -257,6 +261,24 @@ jQuery(document).ready(function($){
         dateFormat: "dd-mm-yy",
         minDate: new Date(),
     });
+    $('#wps_mbfw_set_availability_upto').datepicker({
+        dateFormat: "dd-mm-yy",
+        minDate: new Date(),
+        
+    });
+    $(document).on('click', '#wps_mbfw_set_availability_upto', function(){
+      
+        const dateInput = document.getElementById("wps_mbfw_set_availability_upto");
+        const clearButton = document.getElementById("clearDateButton");
+        if ( jQuery('#availability_clear').val() == undefined){
+            jQuery('.wps_mbfw_set_availability_upto_field ').append('<input type="button" value="Clear" id="availability_clear"> ');
+        
+        }
+    });
+    $(document).on('click', '#availability_clear', function(){
+      
+        jQuery('#wps_mbfw_set_availability_upto').val('');
+     });
 
     $.datepicker._selectDateOverload = $.datepicker._selectDate;
     $.datepicker._selectDate = function (id, dateStr) {
