@@ -116,8 +116,7 @@ function add_rent_product_to_cart()
     }
 
     // Add the product to the cart
-    global $woocommerce;
-    $woocommerce->cart->add_to_cart($product_id);
+    WC()->cart->add_to_cart($product_id);
 
     // Check if the product was added to the cart and return an error message if it wasn't
     if (!is_product_in_cart($product_id)) {
