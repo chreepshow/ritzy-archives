@@ -97,7 +97,7 @@ function get_rent_button_html($product_in_stock, $has_acces_to_product, $has_act
         </script>
     ';
     } elseif ($has_active_rent_id) {
-        $html .= '<p>Sorry, but you already have an active rent.</p>';
+        $html .= '<p>You already have an active rent, so you can\'t rent another bag, but you can buy them.</p>';
     } elseif (!$has_active_membership) {
         $html .= '<p>Sorry, but you do not have an active membership.</p>';
     } elseif ($has_active_membership && !$has_acces_to_product) {
