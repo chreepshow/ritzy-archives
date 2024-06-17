@@ -62,10 +62,11 @@ function show_and_register_rent_button_logic()
 
     $has_active_rent_id = get_rent_id_of_user($user_id);
     $rent_status = null;
+    $product_already_in_cart = is_product_in_cart($product_id);
     if ($has_active_rent_id) {
         $rent_status = get_rent_status_by_id($has_active_rent_id);
         // If the product is not in the cart, delete the rent post and meta data if it exists with rent status "in_cart"
-        if ($rent_status == RENT_STATUS_IN_CART && !is_product_in_cart($product_id)) {
+        if ($rent_status == RENT_STATUS_IN_CART && !$product_already_in_cart) {
             delete_rent_and_meta_for_user($has_active_rent_id, $user_id);
 
             // Refresh the status and active rent
@@ -77,21 +78,35 @@ function show_and_register_rent_button_logic()
         }
     }
 
-    echo get_rent_button_html($product->is_in_stock(), $has_acces_to_product, $has_active_rent_id, $rent_status, $product_id, $has_active_membership);
+    echo get_rent_button_html($product->is_in_stock(), $has_acces_to_product, $has_active_rent_id, $rent_status, $product_id, $has_active_membership, $product_already_in_cart);
 }
 
-function get_rent_button_html($product_in_stock, $has_acces_to_product, $has_active_rent_id, $rent_status, $product_id, $has_active_membership)
+function get_rent_button_html($product_in_stock, $has_acces_to_product, $has_active_rent_id, $rent_status, $product_id, $has_active_membership, $product_already_in_cart)
 {
     $html = '';
-    if ($product_in_stock && $has_acces_to_product && !$has_active_rent_id) {
+    if ($product_in_stock && $has_acces_to_product && !$has_active_rent_id && !$product_already_in_cart) {
         $html .= '<p style="margin-bottom: 0;">- Or -</p>';
         $html .= '<button type="button" name=add-to-cart class="msl-rent-button" data-product-id="' . $product_id . '">Rent this bag</button>';
         $html .= '<p style="margin-bottom: 0;">For free, until you have a membership.</p>';
-    } elseif ($has_active_rent_id && $rent_status == RENT_STATUS_IN_CART) {
-        $html .= '<p style="margin-bottom: 0;">You have a bag in your cart. Remove it first if you would like to rent another one.</p>';
+    } elseif ($has_active_rent_id && $rent_status == RENT_STATUS_IN_CART && $product_already_in_cart) {
+        $html .= '<p style="margin-bottom: 0;">You have a rented bag in your cart. Remove it first if you would like to rent another one.</p>';
         $html .= '<button id="goToCartButton" class="go-to-cart-btn"><i class="fa fa-shopping-cart"></i> Go to cart</button>';
 
-        // Add JavaScript for navigation
+        $html .= '
+        <script>
+        document.getElementById("goToCartButton").addEventListener("click", function() {
+             if (window.location.hostname == \'localhost\') {
+                                window.location.href = \'/ritzy-archives/cart\';
+                            } else {
+                                window.location.href = \'/cart\'; // Redirect to the cart page
+                            }
+        });
+        </script>
+    ';
+    } elseif (!$has_active_rent_id && $product_already_in_cart) {
+        $html .= '<p style="margin-bottom: 0;">You cannot rent a bag that is already in the cart. Remove it first if you would like to rent instead of buying.</p>';
+        $html .= '<button id="goToCartButton" class="go-to-cart-btn"><i class="fa fa-shopping-cart"></i> Go to cart</button>';
+
         $html .= '
         <script>
         document.getElementById("goToCartButton").addEventListener("click", function() {
