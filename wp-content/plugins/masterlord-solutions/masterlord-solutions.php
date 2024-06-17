@@ -4,7 +4,7 @@
  * Plugin Name: Masterlord Solutions
  * Plugin URI: https://masterlorsolutions.com/
  * Description: This is a plugin that does something with WooCommerce
- * Version: 1.0.1
+ * Version: 1.0.2
  * Author: Peter Koppany
  * Author URI: https://masterlorsolutions.com/
  * License: GPL2
