@@ -4,7 +4,7 @@
  * Plugin Name: Masterlord Solutions
  * Plugin URI: https://masterlorsolutions.com/
  * Description: This is a plugin that does something with WooCommerce
- * Version: 1.0.1
+ * Version: 1.0.2
  * Author: Peter Koppany
  * Author URI: https://masterlorsolutions.com/
  * License: GPL2
@@ -16,6 +16,12 @@ require_once plugin_dir_path(__FILE__) . 'cart-functions.php';
 require_once plugin_dir_path(__FILE__) . 'account-functions.php';
 const HAS_ACTIVE_RENT_META_KEY = 'has_active_rent';
 const RENTED_PRODUCT_ID_META_KEY = 'rented_product_ids';
+
+add_action('woocommerce_single_product_summary', 'show_and_register_rent_button_logic', 20);
+add_action('wp_ajax_add_rent_product_to_cart', 'add_rent_product_to_cart');
+add_action('wp_ajax_nopriv_add_rent_product_to_cart', 'add_rent_product_to_cart');
+add_action('wp_footer', 'add_rent_button_script');
+add_filter('woocommerce_product_single_add_to_cart_text', 'woocommerce_custom_single_add_to_cart_text');
 
 add_action('wp_enqueue_scripts', 'my_plugin_enqueue_styles');
 function my_plugin_enqueue_styles()
@@ -78,8 +84,9 @@ function get_rent_button_html($product_in_stock, $has_acces_to_product, $has_act
 {
     $html = '';
     if ($product_in_stock && $has_acces_to_product && !$has_active_rent_id) {
-        $html .= '<p style="margin-bottom: 0;">This product is in stock!</p>';
-        $html .= '<button type="button" name=add-to-cart class="msl-rent-button" data-product-id="' . $product_id . '">Rent this awesome bag!</button>';
+        $html .= '<p style="margin-bottom: 0;">- Or -</p>';
+        $html .= '<button type="button" name=add-to-cart class="msl-rent-button" data-product-id="' . $product_id . '">Rent this bag</button>';
+        $html .= '<p style="margin-bottom: 0;">For free, until you have a membership.</p>';
     } elseif ($has_active_rent_id && $rent_status == RENT_STATUS_IN_CART) {
         $html .= '<p style="margin-bottom: 0;">You have a bag in your cart. Remove it first if you would like to rent another one.</p>';
         $html .= '<button id="goToCartButton" class="go-to-cart-btn"><i class="fa fa-shopping-cart"></i> Go to cart</button>';
@@ -97,13 +104,13 @@ function get_rent_button_html($product_in_stock, $has_acces_to_product, $has_act
         </script>
     ';
     } elseif ($has_active_rent_id) {
-        $html .= '<p>Sorry, but you already have an active rent.</p>';
+        $html .= '<p>You already have an active rent, so you can\'t rent another bag, but you can buy them.</p>';
     } elseif (!$has_active_membership) {
         $html .= '<p>Sorry, but you do not have an active membership.</p>';
     } elseif ($has_active_membership && !$has_acces_to_product) {
         $html .= '<p>Sorry, but you do not have the right membership to access this product.</p>';
     } elseif (!$product_in_stock) {
-        $html .= '<p>This product is out of stock!</p>';
+        // $html .= '<p>This product is out of stock!</p>';
     } else {
         $html .= '<p>Sorry, but you do not have access to this product.</p>';
     }
@@ -196,6 +203,11 @@ function add_rent_button_script()
 <?php
 }
 
+function woocommerce_custom_single_add_to_cart_text()
+{
+    return __('Buy this bag', 'woocommerce');
+}
+
 function is_product_accessible_in_membership_plan($product_id, $membership_plan)
 {
     $accessible_prod = accessible_products_in_membership_plan($membership_plan);
@@ -223,8 +235,3 @@ function accessible_tags_in_membership_plan($membership_plan)
 {
     return !empty($membership_plan['wps_membership_plan_target_tags']) ? maybe_unserialize($membership_plan['wps_membership_plan_target_tags']) : array();
 }
-
-add_action('woocommerce_single_product_summary', 'show_and_register_rent_button_logic', 20);
-add_action('wp_ajax_add_rent_product_to_cart', 'add_rent_product_to_cart');
-add_action('wp_ajax_nopriv_add_rent_product_to_cart', 'add_rent_product_to_cart');
-add_action('wp_footer', 'add_rent_button_script');
