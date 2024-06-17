@@ -58,6 +58,17 @@ function show_and_register_rent_button_logic()
     $rent_status = null;
     if ($has_active_rent_id) {
         $rent_status = get_rent_status_by_id($has_active_rent_id);
+        // If the product is not in the cart, delete the rent post and meta data if it exists with rent status "in_cart"
+        if ($rent_status == RENT_STATUS_IN_CART && !is_product_in_cart($product_id)) {
+            delete_rent_and_meta_for_user($has_active_rent_id, $user_id);
+
+            // Refresh the status and active rent
+            $has_active_rent_id = get_rent_id_of_user($user_id);
+            $rent_status = null;
+            if ($has_active_rent_id) {
+                $rent_status = get_rent_status_by_id($has_active_rent_id);
+            }
+        }
     }
 
     echo get_rent_button_html($product->is_in_stock(), $has_acces_to_product, $has_active_rent_id, $rent_status, $product_id, $has_active_membership);
