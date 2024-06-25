@@ -1,3 +1,14 @@
+.msl-rent-button, .mls-go-to-cart-btn {
+    width: 100%;
+    display: block;
+    padding: 20px;
+    margin: 0 0 20px;
+}
+
 .msl-rent-button[disabled] {
     opacity: 0.3;
+}
+
+.mls-product-already-in-cart {
+    margin-bottom:0;
 }
