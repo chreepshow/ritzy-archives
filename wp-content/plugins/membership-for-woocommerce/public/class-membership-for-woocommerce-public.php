@@ -2460,7 +2460,9 @@ class Membership_For_Woocommerce_Public {
 			return;
 		}
 		$member_status = wps_membership_get_meta_data( $member_id, 'member_status', true );
-
+		if(empty($member_status)) {
+			return;
+		}
 		// If manually completing membership then set its expiry date.
 		if ( 'complete' == $member_status[0] ) {
 
@@ -4286,7 +4288,7 @@ class Membership_For_Woocommerce_Public {
 				}
 			}
 
-			if ( 'Membership Product' == $product->get_title() || ! $is_plan_assigned ) {
+			if ( 'Membership Product' == $product->get_title() && ! $is_plan_assigned ) {
 				if ( ! is_user_logged_in() ) {
 					$is_user_created = get_option( 'wps_membership_create_user_after_payment', true );
 
