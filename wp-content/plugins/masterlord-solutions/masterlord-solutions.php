@@ -3,8 +3,8 @@
 /**
  * Plugin Name: Masterlord Solutions
  * Plugin URI: https://masterlorsolutions.com/
- * Description: This is a plugin that does something with WooCommerce
- * Version: 1.0.2
+ * Description: This is a plugin that supports renting products.
+ * Version: 1.0.3
  * Author: Peter Koppany
  * Author URI: https://masterlorsolutions.com/
  * License: GPL2
