@@ -14,6 +14,7 @@ require_once plugin_dir_path(__FILE__) . 'rent-functions.php';
 require_once plugin_dir_path(__FILE__) . 'checkout-functions.php';
 require_once plugin_dir_path(__FILE__) . 'cart-functions.php';
 require_once plugin_dir_path(__FILE__) . 'account-functions.php';
+require_once plugin_dir_path(__FILE__) . 'add-to-cart-button.php';
 const HAS_ACTIVE_RENT_META_KEY = 'has_active_rent';
 const RENTED_PRODUCT_ID_META_KEY = 'rented_product_ids';
 
@@ -46,6 +47,10 @@ function show_and_register_rent_button_logic()
     $user_id = get_current_user_id();
     // $is_member_meta = get_user_meta($user_id, 'is_member');
     $current_memberships = get_user_meta($user_id, 'mfw_membership_id', true);
+
+    if (!$current_memberships) {
+        return;
+    }
 
     $has_acces_to_product = false;
     $has_active_membership = false;
@@ -104,15 +109,20 @@ function get_rent_button_html($product_in_stock, $has_acces_to_product, $has_act
         </script>
     ';
     } elseif ($has_active_rent_id) {
-        $html .= '<p>You already have an active rent, so you can\'t rent another bag, but you can buy them.</p>';
+        $html .= '<p class="mls-rent-product-already-in-cart">You already have an active rent, so you can\'t rent another bag, but you can buy them.</p>';
     } elseif (!$has_active_membership) {
-        $html .= '<p>Sorry, but you do not have an active membership.</p>';
+        // Don't have to show anything here, because the user can't rent the product, but they can buy it.
+        $html .= '';
+        // $html .= '<p>Sorry, but you do not have an active membership.</p>';
     } elseif ($has_active_membership && !$has_acces_to_product) {
-        $html .= '<p>Sorry, but you do not have the right membership to access this product.</p>';
+        $html .= '';
+        // $html .= '<p>Sorry, but you do not have the right membership to rent this product.</p>';
     } elseif (!$product_in_stock) {
         // $html .= '<p>This product is out of stock!</p>';
     } else {
-        $html .= '<p>Sorry, but you do not have access to this product.</p>';
+        // Don't have to show anything here, because the user can't rent the product, but they can buy it.
+        $html .= '';
+        // $html .= '<p>Sorry, but you do not have access to this product.</p>';
     }
     return $html;
 }
