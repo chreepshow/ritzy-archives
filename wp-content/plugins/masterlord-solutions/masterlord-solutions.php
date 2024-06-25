@@ -66,7 +66,13 @@ function show_and_register_rent_button_logic()
     if ($has_active_rent_id) {
         $rent_status = get_rent_status_by_id($has_active_rent_id);
         // If the product is not in the cart, delete the rent post and meta data if it exists with rent status "in_cart"
-        if ($rent_status == RENT_STATUS_IN_CART && !$product_already_in_cart) {
+        $test = rent_in_cart_status_exists_for_product_in_cart($user_id);
+        console_log2("rent_in_cart_status_exists_for_product_in_cart", $test);
+        console_log2("rent_status", $rent_status);
+        console_log2("product_already_in_cart", $product_already_in_cart);
+        if ($test) {
+            add_action('wp_footer', 'hide_add_to_cart_button_js');
+        } elseif ($rent_status == RENT_STATUS_IN_CART && !$product_already_in_cart) {
             delete_rent_and_meta_for_user($has_active_rent_id, $user_id);
 
             // Refresh the status and active rent
@@ -75,10 +81,36 @@ function show_and_register_rent_button_logic()
             if ($has_active_rent_id) {
                 $rent_status = get_rent_status_by_id($has_active_rent_id);
             }
+        } else if ($rent_status == RENT_STATUS_IN_CART && $product_already_in_cart) {
         }
     }
 
     echo get_rent_button_html($product->is_in_stock(), $has_acces_to_product, $has_active_rent_id, $rent_status, $product_id, $has_active_membership, $product_already_in_cart);
+}
+
+// Ha a usernek van rentje és az in cart állapotú, akkor meg kell nézni, hogy ehhez ténylegesen van e product a cart-ban
+function rent_in_cart_status_exists_for_product_in_cart($user_id)
+{
+    $has_active_rent_id = get_rent_id_of_user($user_id);
+    if (!$has_active_rent_id) {
+        return false;
+    }
+
+    $rent_status = get_rent_status_by_id($has_active_rent_id);
+    if ($rent_status != RENT_STATUS_IN_CART) {
+        return false;
+    }
+
+    // Van in_cart állapotú rentje a usernek, ezért végig kell nézni a cart tartalmát,
+    // hogy ténylegesen van e benne olyan product, amihez tartozik rent
+    foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
+        $product_id = $cart_item['product_id'];
+
+        $rent_id_of_user_and_product_in_cart = get_rent_post_by_user_id_and_product_id($user_id, $product_id);
+        if ($has_active_rent_id == $rent_id_of_user_and_product_in_cart) {
+            return true;
+        }
+    }
 }
 
 function get_rent_button_html($product_in_stock, $has_acces_to_product, $has_active_rent_id, $rent_status, $product_id, $has_active_membership, $product_already_in_cart)
@@ -130,6 +162,22 @@ function get_rent_button_html($product_in_stock, $has_acces_to_product, $has_act
         $html .= '<p>Sorry, but you do not have access to this product.</p>';
     }
     return $html;
+}
+
+function hide_add_to_cart_button_js()
+{
+?>
+    <script type="text/javascript">
+        jQuery(document).ready(function($) {
+            // Assuming the "Add to Cart" button has a class of 'single_add_to_cart_button'
+            $('button.single_add_to_cart_button').hide();
+            // $('button.single_add_to_cart_button').prop('disabled', true);
+            $('.product-in-cart-message').show();
+            // Insert a message above the "Add to Cart" button
+            $('button.single_add_to_cart_button').before('<p class="custom-message">This product is already in your cart.</p>');
+        });
+    </script>
+<?php
 }
 
 function add_rent_product_to_cart()
