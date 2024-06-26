@@ -9,8 +9,5 @@ function override_membership_for_woocommerce_is_purchasabel_logic()
 
 function our_purchasable_filter($is_purchasable, $product)
 {
-    if (is_user_logged_in()) {
-        return true;
-    }
-    return false;
+    return true;
 }
