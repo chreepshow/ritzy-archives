@@ -663,16 +663,16 @@ class Membership_For_Woocommerce_Public {
 
 											if ( is_user_logged_in() && in_array( 'member', (array) $is_member_meta ) ) {
 
-												echo '<div class="wps-mfwp__available--title">Other Available Membership</div>';
+												// echo '<div class="wps-mfwp__available--title">Other Available Membership</div>';
 												$suggested_membership = true;
 											}
 										}
 
-										echo '<div class="available_member wps_mfw_plan_suggestion" >
-												<div>
-													<a class="button alt ' . esc_html( $disable_required ) . ' mfw-membership" href="' . esc_url( $page_link ) . '" target="_blank" >' . esc_html__( 'Membership :- ', 'membership-for-woocommerce' ) . esc_html( get_the_title( $plan['ID'] ) ) . '</a>
-												</div>
-											</div>';
+										// echo '<div class="available_member wps_mfw_plan_suggestion" >
+										// 		<div>
+										// 			<a class="button alt ' . esc_html( $disable_required ) . ' mfw-membership" href="' . esc_url( $page_link ) . '" target="_blank" >' . esc_html__( 'Membership :- ', 'membership-for-woocommerce' ) . esc_html( get_the_title( $plan['ID'] ) ) . '</a>
+										// 		</div>
+										// 	</div>';
 									} else {
 										// Show options to buy plans.
 										echo '<div class="plan_suggestion wps_mfw_plan_suggestion" >
@@ -766,16 +766,16 @@ class Membership_For_Woocommerce_Public {
 
 												if ( is_user_logged_in() && in_array( 'member', (array) $is_member_meta ) ) {
 
-													echo '<div class="wps-mfwp__available--title">Other Available Membership</div>';
+													// echo '<div class="wps-mfwp__available--title">Other Available Membership</div>';
 													$suggested_membership = true;
 												}
 											}
 
-											echo '<div class="available_member wps_mfw_plan_suggestion">
-													<div>
-														<a class="button alt ' . esc_html( $disable_required ) . ' mfw-membership" href="' . esc_url( $page_link ) . '" target="_blank" >' . esc_html__( 'Membership :- ', 'membership-for-woocommerce' ) . esc_html( get_the_title( $plan['ID'] ) ) . '</a>
-													</div>
-												</div>';
+											// echo '<div class="available_member wps_mfw_plan_suggestion">
+											// 		<div>
+											// 			<a class="button alt ' . esc_html( $disable_required ) . ' mfw-membership" href="' . esc_url( $page_link ) . '" target="_blank" >' . esc_html__( 'Membership :- ', 'membership-for-woocommerce' ) . esc_html( get_the_title( $plan['ID'] ) ) . '</a>
+											// 		</div>
+											// 	</div>';
 										} else {
 											// Show options to buy plans.
 											echo '<div class="plan_suggestion wps_mfw_plan_suggestion" >
@@ -902,7 +902,7 @@ class Membership_For_Woocommerce_Public {
 
 												if ( is_user_logged_in() && in_array( 'member', (array) $is_member_meta ) ) {
 
-													echo '<div class="wps-mfwp__available--title">Other Available Membership</div>';
+													// echo '<div class="wps-mfwp__available--title">Other Available Membership</div>';
 													$suggested_membership = true;
 												}
 											}
@@ -910,11 +910,11 @@ class Membership_For_Woocommerce_Public {
 										++$count;
 
 										$page_link = $page_link . '?plan_id=' . $plan['ID'] . '&prod_id=' . $product->get_id();
-										echo '<div class="available_member wps_mfw_plan_suggestion" >
-												<div>
-													<a class="button alt ' . esc_html( $disable_required ) . ' mfw-membership" href="' . esc_url( $page_link ) . '" target="_blank" >' . esc_html__( 'Memberships	 :- ', 'membership-for-woocommerce' ) . esc_html( get_the_title( $plan['ID'] ) ) . '</a>
-												</div>
-											</div>';
+										// echo '<div class="available_member wps_mfw_plan_suggestion" >
+										// 		<div>
+										// 			<a class="button alt ' . esc_html( $disable_required ) . ' mfw-membership" href="' . esc_url( $page_link ) . '" target="_blank" >' . esc_html__( 'Memberships	 :- ', 'membership-for-woocommerce' ) . esc_html( get_the_title( $plan['ID'] ) ) . '</a>
+										// 		</div>
+										// 	</div>';
 									}
 								}
 							}
