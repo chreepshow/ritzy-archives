@@ -663,22 +663,29 @@ class Membership_For_Woocommerce_Public {
 
 											if ( is_user_logged_in() && in_array( 'member', (array) $is_member_meta ) ) {
 
-												echo '<div class="wps-mfwp__available--title">Other Available Membership</div>';
+												// echo '<div class="wps-mfwp__available--title">Other Available Membership</div>';
 												$suggested_membership = true;
 											}
 										}
 
-										echo '<div class="available_member wps_mfw_plan_suggestion" >
-												<div>
-													<a class="button alt ' . esc_html( $disable_required ) . ' mfw-membership" href="' . esc_url( $page_link ) . '" target="_blank" >' . esc_html__( 'Membership :- ', 'membership-for-woocommerce' ) . esc_html( get_the_title( $plan['ID'] ) ) . '</a>
-												</div>
-											</div>';
+										// echo '<div class="available_member wps_mfw_plan_suggestion" >
+										// 		<div>
+										// 			<a class="button alt ' . esc_html( $disable_required ) . ' mfw-membership" href="' . esc_url( $page_link ) . '" target="_blank" >' . esc_html__( 'Membership :- ', 'membership-for-woocommerce' ) . esc_html( get_the_title( $plan['ID'] ) ) . '</a>
+										// 		</div>
+										// 	</div>';
 									} else {
 										// Show options to buy plans.
 										echo '<div class="plan_suggestion wps_mfw_plan_suggestion" >
-											<div>
-												<a class="button alt ' . esc_html( $disable_required ) . ' mfw-membership" href="' . esc_url( $page_link ) . '" target="_blank" >' . esc_html__( 'Become a  ', 'membership-for-woocommerce' ) . esc_html( get_the_title( $plan['ID'] ) ) . esc_html__( '  member and buy this product', 'membership-for-woocommerce' ) . '</a>
-											</div>
+											<div class="custom_membership_description_card">
+                                                    <h2 class="product_membership_description ' . esc_html($disable_required) . ' mfw-membership" href="' . esc_url($page_link) . '" target="_blank" >' . esc_html__('Rent this bag with  ', 'membership-for-woocommerce') . esc_html(get_the_title($plan['ID'])) . esc_html__('', 'membership-for-woocommerce') . '</h2>
+													<ul>
+													<li class="product_membership_description_rent ' . esc_html($disable_required) . ' mfw-membership" href="' . esc_url($page_link) . '" target="_blank" >' . esc_html__('Rent up to 1 bag from the  ', 'membership-for-woocommerce') . esc_html(get_the_title($plan['ID'])) . esc_html__('  category', 'membership-for-woocommerce') . '</li>
+                                                    <li>Swap your bag once a month</li>
+                                                    <li>Earn points each month to spend on future purchases</li>
+                                                    <li>Get discount on bag purchases</li>
+													</ul>
+													<a class="button alt ' . esc_html($disable_required) . ' mfw-membership" href="' . esc_url($page_link) . '" target="_blank" >' . esc_html__('  get membership', 'membership-for-woocommerce') . '</a>
+												</div>
 										</div>';
 									}
 								}
@@ -759,21 +766,28 @@ class Membership_For_Woocommerce_Public {
 
 												if ( is_user_logged_in() && in_array( 'member', (array) $is_member_meta ) ) {
 
-													echo '<div class="wps-mfwp__available--title">Other Available Membership</div>';
+													// echo '<div class="wps-mfwp__available--title">Other Available Membership</div>';
 													$suggested_membership = true;
 												}
 											}
 
-											echo '<div class="available_member wps_mfw_plan_suggestion">
-													<div>
-														<a class="button alt ' . esc_html( $disable_required ) . ' mfw-membership" href="' . esc_url( $page_link ) . '" target="_blank" >' . esc_html__( 'Membership :- ', 'membership-for-woocommerce' ) . esc_html( get_the_title( $plan['ID'] ) ) . '</a>
-													</div>
-												</div>';
+											// echo '<div class="available_member wps_mfw_plan_suggestion">
+											// 		<div>
+											// 			<a class="button alt ' . esc_html( $disable_required ) . ' mfw-membership" href="' . esc_url( $page_link ) . '" target="_blank" >' . esc_html__( 'Membership :- ', 'membership-for-woocommerce' ) . esc_html( get_the_title( $plan['ID'] ) ) . '</a>
+											// 		</div>
+											// 	</div>';
 										} else {
 											// Show options to buy plans.
 											echo '<div class="plan_suggestion wps_mfw_plan_suggestion" >
-												<div>
-													<a class="button alt ' . esc_html( $disable_required ) . ' mfw-membership" href="' . esc_url( $page_link ) . '" target="_blank" >' . esc_html__( 'Become a  ', 'membership-for-woocommerce' ) . esc_html( get_the_title( $plan['ID'] ) ) . esc_html__( '  member and buy this product', 'membership-for-woocommerce' ) . '</a>
+												<div class="custom_membership_description_card">
+                                                    <h2 class="product_membership_description ' . esc_html($disable_required) . ' mfw-membership" href="' . esc_url($page_link) . '" target="_blank" >' . esc_html__('Rent this bag with  ', 'membership-for-woocommerce') . esc_html(get_the_title($plan['ID'])) . esc_html__('', 'membership-for-woocommerce') . '</h2>
+													<ul>
+													<li class="product_membership_description_rent ' . esc_html($disable_required) . ' mfw-membership" href="' . esc_url($page_link) . '" target="_blank" >' . esc_html__('Rent up to 1 bag from the  ', 'membership-for-woocommerce') . esc_html(get_the_title($plan['ID'])) . esc_html__('  category', 'membership-for-woocommerce') . '</li>
+                                                    <li>Swap your bag once a month</li>
+                                                    <li>Earn points each month to spend on future purchases</li>
+                                                    <li>Get discount on bag purchases</li>
+													</ul>
+													<a class="button alt ' . esc_html($disable_required) . ' mfw-membership" href="' . esc_url($page_link) . '" target="_blank" >' . esc_html__('  get membership', 'membership-for-woocommerce') . '</a>
 												</div>
 											</div>';
 										}
@@ -888,7 +902,7 @@ class Membership_For_Woocommerce_Public {
 
 												if ( is_user_logged_in() && in_array( 'member', (array) $is_member_meta ) ) {
 
-													echo '<div class="wps-mfwp__available--title">Other Available Membership</div>';
+													// echo '<div class="wps-mfwp__available--title">Other Available Membership</div>';
 													$suggested_membership = true;
 												}
 											}
@@ -896,11 +910,11 @@ class Membership_For_Woocommerce_Public {
 										++$count;
 
 										$page_link = $page_link . '?plan_id=' . $plan['ID'] . '&prod_id=' . $product->get_id();
-										echo '<div class="available_member wps_mfw_plan_suggestion" >
-												<div>
-													<a class="button alt ' . esc_html( $disable_required ) . ' mfw-membership" href="' . esc_url( $page_link ) . '" target="_blank" >' . esc_html__( 'Memberships	 :- ', 'membership-for-woocommerce' ) . esc_html( get_the_title( $plan['ID'] ) ) . '</a>
-												</div>
-											</div>';
+										// echo '<div class="available_member wps_mfw_plan_suggestion" >
+										// 		<div>
+										// 			<a class="button alt ' . esc_html( $disable_required ) . ' mfw-membership" href="' . esc_url( $page_link ) . '" target="_blank" >' . esc_html__( 'Memberships	 :- ', 'membership-for-woocommerce' ) . esc_html( get_the_title( $plan['ID'] ) ) . '</a>
+										// 		</div>
+										// 	</div>';
 									}
 								}
 							}
@@ -2446,7 +2460,9 @@ class Membership_For_Woocommerce_Public {
 			return;
 		}
 		$member_status = wps_membership_get_meta_data( $member_id, 'member_status', true );
-
+		if(empty($member_status)) {
+			return;
+		}
 		// If manually completing membership then set its expiry date.
 		if ( 'complete' == $member_status[0] ) {
 
@@ -4272,7 +4288,7 @@ class Membership_For_Woocommerce_Public {
 				}
 			}
 
-			if ( 'Membership Product' == $product->get_title() || ! $is_plan_assigned ) {
+			if ( 'Membership Product' == $product->get_title() && ! $is_plan_assigned ) {
 				if ( ! is_user_logged_in() ) {
 					$is_user_created = get_option( 'wps_membership_create_user_after_payment', true );
 

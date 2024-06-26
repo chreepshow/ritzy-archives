@@ -36,6 +36,7 @@ function my_plugin_enqueue_styles()
 
 //------------------------------------------------------------------------------------------------
 //wp-content\plugins\membership-for-woocommerce\public\class-membership-for-woocommerce-public.php
+//  wps_membership_product_membership_purchase_html method is used to show membership purchase button and other membership related information on single product page.
 //wp-content\plugins\membership-for-woocommerce\membership-for-woocommerce.php
 //------------------------------------------------------------------------------------------------
 

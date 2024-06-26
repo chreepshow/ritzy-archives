@@ -613,6 +613,9 @@ class Membership_For_Woocommerce_Common {
 			}
 		}
 
+		if (!isset($access_type)) {
+			return;
+		}
 		if ( 'delay_type' == $access_type ) {
 			if ( $current_date >= $today_date && $tmp_order_st == $order->get_status() ) {
 
