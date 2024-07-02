@@ -15,6 +15,7 @@ require_once plugin_dir_path(__FILE__) . 'checkout-functions.php';
 require_once plugin_dir_path(__FILE__) . 'cart-functions.php';
 require_once plugin_dir_path(__FILE__) . 'account-functions.php';
 require_once plugin_dir_path(__FILE__) . 'add-to-cart-button.php';
+require_once plugin_dir_path(__FILE__) . 'membership-functions.php';
 const HAS_ACTIVE_RENT_META_KEY = 'has_active_rent';
 const RENTED_PRODUCT_ID_META_KEY = 'rented_product_ids';
 
@@ -22,7 +23,6 @@ add_action('woocommerce_single_product_summary', 'show_and_register_rent_button_
 add_action('wp_ajax_add_rent_product_to_cart', 'add_rent_product_to_cart');
 add_action('wp_ajax_nopriv_add_rent_product_to_cart', 'add_rent_product_to_cart');
 add_action('wp_footer', 'add_rent_button_script');
-add_filter('woocommerce_product_single_add_to_cart_text', 'woocommerce_custom_single_add_to_cart_text');
 
 add_action('wp_enqueue_scripts', 'my_plugin_enqueue_styles');
 function my_plugin_enqueue_styles()
@@ -60,7 +60,7 @@ function show_and_register_rent_button_logic()
             $membership_status = wps_membership_get_meta_data($membership_id, 'member_status', true);
             if ($membership_status == 'complete') {
                 $membership_plan = wps_membership_get_meta_data($membership_id, 'plan_obj', true);
-                $has_acces_to_product = is_product_accessible_in_membership_plan($product_id, $membership_plan);
+                $has_acces_to_product = is_product_accessible_in_users_membership_plan($product_id, $membership_plan);
                 $has_active_membership = true;
             }
         }
@@ -83,7 +83,10 @@ function show_and_register_rent_button_logic()
         // }
     }
 
-    echo get_rent_button_html($product->is_in_stock(), $has_acces_to_product, $has_active_rent_id, $rent_status, $product_id, $has_active_membership);
+    $html = '';
+    $html .= get_rent_button_html($product->is_in_stock(), $has_acces_to_product, $has_active_rent_id, $rent_status, $product_id, $has_active_membership);
+    $html .= get_lowest_priority_membership_plan_for_product_html($product_id);
+    echo $html;
 }
 
 function get_rent_button_html($product_in_stock, $has_acces_to_product, $has_active_rent_id, $rent_status, $product_id, $has_active_membership)
@@ -124,6 +127,51 @@ function get_rent_button_html($product_in_stock, $has_acces_to_product, $has_act
         // $html .= '<p>Sorry, but you do not have access to this product.</p>';
     }
     return $html;
+}
+
+function get_lowest_priority_membership_plan_for_product_html($product_id) {
+    $wps_membership_default_plans_page_id = get_option('wps_membership_default_plans_page', '');
+    $all_membership_plans = get_all_membership_plans();
+
+    if (!empty($wps_membership_default_plans_page_id) && 'publish' == get_post_status($wps_membership_default_plans_page_id)) {
+        $page_link = get_page_link($wps_membership_default_plans_page_id);
+    }
+
+    $plan = null;
+    // get_lowest_priority_membership_plan
+    foreach (MEMBERSHIP_PLANS_PRIORITY as $membershipPlanName) {
+        $plan = get_membership_plan_by_name($all_membership_plans, $membershipPlanName);
+        if (is_product_accessible_in_membership_plan($product_id, $plan['ID'])) {
+            break; // Found an accessible plan, exit the loop
+        }
+    }
+
+    if ($plan != null) {
+
+        $page_link = add_query_arg(
+            array(
+                'plan_id' => $plan['ID'],
+                'prod_id' => $product_id,
+            ),
+            $page_link
+        );
+
+        $disable_required = false;
+        return '<div class="plan_suggestion wps_mfw_plan_suggestion" >
+                <div class="custom_membership_description_card">
+                <h2 class="product_membership_description ' . esc_html($disable_required) . ' mfw-membership" href="' . esc_url($page_link) . '" target="_blank" >' . esc_html__('Rent this bag with  ', 'membership-for-woocommerce') . esc_html(get_the_title($plan['ID'])) . esc_html__('', 'membership-for-woocommerce') . '</h2>
+                <ul>
+                <li class="product_membership_description_rent ' . esc_html($disable_required) . ' mfw-membership" href="' . esc_url($page_link) . '" target="_blank" >' . esc_html__('Rent up to 1 bag from the  ', 'membership-for-woocommerce') . esc_html(get_the_title($plan['ID'])) . esc_html__('  category', 'membership-for-woocommerce') . '</li>
+                <li>Swap your bag once a month</li>
+                <li>Earn points each month to spend on future purchases</li>
+                <li>Get discount on bag purchases</li>
+                </ul>
+                <a class="button alt ' . esc_html($disable_required) . ' mfw-membership" href="' . esc_url($page_link) . '" target="_blank" >' . esc_html__('  get membership', 'membership-for-woocommerce') . '</a>
+                </div>
+                </div>';
+    }
+
+    return '';
 }
 
 function add_rent_product_to_cart()
@@ -210,37 +258,4 @@ function add_rent_button_script()
         });
     </script>
 <?php
-}
-
-function woocommerce_custom_single_add_to_cart_text()
-{
-    return __('Buy this bag', 'woocommerce');
-}
-
-function is_product_accessible_in_membership_plan($product_id, $membership_plan)
-{
-    $accessible_prod = accessible_products_in_membership_plan($membership_plan);
-    $accessible_cat = accessible_categories_in_membership_plan($membership_plan);
-    $accessible_tag = accessible_tags_in_membership_plan($membership_plan);
-
-    if (in_array($product_id, $accessible_prod) || (!empty($accessible_cat) && has_term($accessible_cat, 'product_cat')) || (!empty($accessible_tag) && has_term($accessible_tag, 'product_tag'))) {
-        return true;
-    }
-
-    return false;
-}
-
-function accessible_products_in_membership_plan($membership_plan)
-{
-    return !empty($membership_plan['wps_membership_plan_target_ids']) ? maybe_unserialize($membership_plan['wps_membership_plan_target_ids']) : array();
-}
-
-function accessible_categories_in_membership_plan($membership_plan)
-{
-    return !empty($membership_plan['wps_membership_plan_target_categories']) ? maybe_unserialize($membership_plan['wps_membership_plan_target_categories']) : array();
-}
-
-function accessible_tags_in_membership_plan($membership_plan)
-{
-    return !empty($membership_plan['wps_membership_plan_target_tags']) ? maybe_unserialize($membership_plan['wps_membership_plan_target_tags']) : array();
 }
