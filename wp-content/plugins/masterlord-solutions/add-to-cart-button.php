@@ -5,6 +5,7 @@ add_action('plugins_loaded', 'override_membership_for_woocommerce_is_purchasable
 function override_membership_for_woocommerce_is_purchasable_logic()
 {
     add_filter('woocommerce_is_purchasable', 'our_purchasable_filter', 10, 2);
+    add_filter('woocommerce_is_sold_individually', 'custom_woocommerce_is_sold_individually', 10, 2);
 }
 
 function our_purchasable_filter($is_purchasable, $product)
@@ -24,4 +25,20 @@ function our_purchasable_filter($is_purchasable, $product)
         }
     }
     return true;
+}
+
+function custom_woocommerce_is_sold_individually($is_sold_individually, $product) {
+    $user_id = get_current_user_id();
+    if($user_id) {
+        $has_active_rent_id = get_rent_id_of_user($user_id);
+        $rent_status = get_rent_status_by_id($has_active_rent_id);
+        $rent_is_for_this_product = get_product_id_of_rent($has_active_rent_id) == $product -> get_id();
+        
+        // Ha a user renteli a táskát, akkor felülírjuk a mennyiséget, hogy mindig csak 1-et tudjon kibérelni.
+        if ($rent_status == RENT_STATUS_IN_CART && $rent_is_for_this_product) {
+            return true;
+        }
+    }
+
+    return $is_sold_individually; // Return the default for other products
 }
