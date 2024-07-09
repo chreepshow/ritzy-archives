@@ -4,7 +4,7 @@
  * Plugin Name: Masterlord Solutions
  * Plugin URI: https://masterlorsolutions.com/
  * Description: This is a plugin that supports renting products.
- * Version: 1.0.3
+ * Version: 1.1.0
  * Author: Peter Koppany
  * Author URI: https://masterlorsolutions.com/
  * License: GPL2
