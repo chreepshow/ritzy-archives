@@ -6,6 +6,7 @@ function override_membership_for_woocommerce_is_purchasable_logic()
 {
     add_filter('woocommerce_is_purchasable', 'our_purchasable_filter', 10, 2);
     add_filter('woocommerce_is_sold_individually', 'custom_woocommerce_is_sold_individually', 10, 2);
+    add_filter('woocommerce_add_to_cart_validation', 'check_cart_contents_before_adding', 10, 3);
 }
 
 function our_purchasable_filter($is_purchasable, $product)
@@ -41,4 +42,31 @@ function custom_woocommerce_is_sold_individually($is_sold_individually, $product
     }
 
     return $is_sold_individually; // Return the default for other products
+}
+
+function check_cart_contents_before_adding($passed, $product_id, $quantity) {
+    $user_id = get_current_user_id();
+    if($user_id) {
+        $cart_items = WC()->cart->get_cart();
+        foreach ($cart_items as $cart_item) {
+            // Access cart item data
+            $cart_product_id = $cart_item['product_id'];
+    
+            // Compare with the product being added
+            // Product is already in the cart
+            if ($product_id == $cart_product_id) {
+                $has_active_rent_id = get_rent_id_of_user($user_id);
+                $rent_status = get_rent_status_by_id($has_active_rent_id);
+                $rent_is_for_this_product = get_product_id_of_rent($has_active_rent_id) == $product_id;
+                
+                // Ha a user renteli a táskát, akkor ne adhassa a kosárba a terméket újra
+                if ($rent_status == RENT_STATUS_IN_CART && $rent_is_for_this_product) {
+                    $passed = false;
+                    wc_add_notice(__('You can only rent one product at a time.', 'your-textdomain'), 'error');
+                }
+            }
+        }
+    }
+    // Return the validation result
+    return $passed;
 }
