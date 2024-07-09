@@ -82,7 +82,7 @@ function show_and_register_rent_button_logic()
 
 function get_rent_button_html($product_in_stock, $has_acces_to_product, $has_active_rent_id, $rent_status, $product_id, $has_active_membership, $rent_is_for_this_product)
 {
-    $go_to_cart_button_html ='
+    $go_to_cart_button_html = '
             <button id="goToCartButton" class="mls-go-to-cart-btn">Go to cart</button>
             <script>
             document.getElementById("goToCartButton").addEventListener("click", function() {
@@ -95,9 +95,8 @@ function get_rent_button_html($product_in_stock, $has_acces_to_product, $has_act
             </script> 
         ';
     $html = '';
-    console_log2('has_active_rent_id', $has_active_rent_id);
     if ($product_in_stock && $has_acces_to_product && !$has_active_rent_id && !is_product_in_cart($product_id)) {
-        $html .= '<button type="button" name=add-to-cart class="msl-rent-button" data-product-id="' . $product_id . '">Rent this bag</button>';
+        $html .= '<button type="button" id="msl-rent-button" name=add-to-cart class="msl-rent-button" data-product-id="' . $product_id . '">Rent this bag</button>';
     } elseif ($product_in_stock && $has_acces_to_product && !$has_active_rent_id && is_product_in_cart($product_id)) {
         $html .= '<p class="mls-product-already-in-cart">If you would like to rent this bag instead of buying it, remove it from the cart first.</p>';
         $html .= $go_to_cart_button_html;
@@ -195,7 +194,7 @@ function add_rent_product_to_cart()
     }
 
     // Add the product to the cart
-    WC()->cart->add_to_cart($product_id);
+    WC()->cart->add_to_cart($product_id, 1);
 
     // Check if the product was added to the cart and return an error message if it wasn't
     if (!is_product_in_cart($product_id)) {
@@ -231,35 +230,46 @@ function add_rent_button_script()
 ?>
     <script type="text/javascript">
         document.addEventListener('DOMContentLoaded', function() {
-            var buttons = document.querySelectorAll('.msl-rent-button');
-            buttons.forEach(function(button) {
-                button.addEventListener('click', function() {
-                    var product_id = this.getAttribute('data-product-id');
-                    var xhr = new XMLHttpRequest();
-                    xhr.open('POST', '<?php echo admin_url('admin-ajax.php'); ?>', true);
-                    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                    xhr.onload = function() {
-                        if (xhr.status === 200) {
-                            var response = JSON.parse(xhr.responseText);
-                            console.log(response); // Keep this line for debugging purposes
-                            button.disabled = true;
-                            if (response.success) {
-                                console.log(response.message);
-                                if (window.location.hostname == 'localhost') {
-                                    window.location.href = '/ritzy-archives/cart';
-                                } else {
-                                    window.location.href = '/cart'; // Redirect to the cart page
-                                }
-                            } else {
-                                button.disabled = false;
-                                console.error(response.message);
-                            }
-                        }
-                    };
-                    xhr.send('action=add_rent_product_to_cart&product_id=' + product_id);
-                }, {
-                    passive: true
+            const addToCartButton = document.querySelector('.single_add_to_cart_button');
+            const rentButton = document.getElementById('msl-rent-button');
+            if (addToCartButton && rentButton) {
+                addToCartButton.addEventListener('click', function() {
+                    rentButton.disabled = true;
                 });
+            }
+
+            if (!rentButton) {
+                return;
+            }
+
+            rentButton.addEventListener('click', function() {
+                rentButton.disabled = true;
+                addToCartButton.disabled = true;
+                const product_id = this.getAttribute('data-product-id');
+                const xhr = new XMLHttpRequest();
+                xhr.open('POST', '<?php echo admin_url('admin-ajax.php'); ?>', true);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xhr.onload = function() {
+                    if (xhr.status === 200) {
+                        const response = JSON.parse(xhr.responseText);
+                        console.log(response); // Keep this line for debugging purposes
+                        rentButton.disabled = true;
+                        if (response.success) {
+                            console.log(response.message);
+                            if (window.location.hostname == 'localhost') {
+                                window.location.href = '/ritzy-archives/cart';
+                            } else {
+                                window.location.href = '/cart'; // Redirect to the cart page
+                            }
+                        } else {
+                            rentButton.disabled = false;
+                            console.error(response.message);
+                        }
+                    }
+                };
+                xhr.send('action=add_rent_product_to_cart&product_id=' + product_id);
+            }, {
+                passive: true
             });
         });
     </script>
