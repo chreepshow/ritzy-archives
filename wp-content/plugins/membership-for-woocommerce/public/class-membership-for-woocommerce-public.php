@@ -675,18 +675,19 @@ class Membership_For_Woocommerce_Public {
 										// 	</div>';
 									} else {
 										// Show options to buy plans.
-										echo '<div class="plan_suggestion wps_mfw_plan_suggestion" >
-											<div class="custom_membership_description_card">
-                                                    <h2 class="product_membership_description ' . esc_html($disable_required) . ' mfw-membership" href="' . esc_url($page_link) . '" target="_blank" >' . esc_html__('Rent this bag with  ', 'membership-for-woocommerce') . esc_html(get_the_title($plan['ID'])) . esc_html__('', 'membership-for-woocommerce') . '</h2>
-													<ul>
-													<li class="product_membership_description_rent ' . esc_html($disable_required) . ' mfw-membership" href="' . esc_url($page_link) . '" target="_blank" >' . esc_html__('Rent up to 1 bag from the  ', 'membership-for-woocommerce') . esc_html(get_the_title($plan['ID'])) . esc_html__('  category', 'membership-for-woocommerce') . '</li>
-                                                    <li>Swap your bag once a month</li>
-                                                    <li>Earn points each month to spend on future purchases</li>
-                                                    <li>Get discount on bag purchases</li>
-													</ul>
-													<a class="button alt ' . esc_html($disable_required) . ' mfw-membership" href="' . esc_url($page_link) . '" target="_blank" >' . esc_html__('  get membership', 'membership-for-woocommerce') . '</a>
-												</div>
-										</div>';
+										// COMMENTING THIS OUT, BECAUSE WE SHOW THE LOWEST TIER MEMBERSHIP ONLY FROM OUR PLUGIN
+										// echo '<div class="plan_suggestion wps_mfw_plan_suggestion" >
+										// 	<div class="custom_membership_description_card">
+                                        //             <h2 class="product_membership_description ' . esc_html($disable_required) . ' mfw-membership" href="' . esc_url($page_link) . '" target="_blank" >' . esc_html__('Rent this bag with  ', 'membership-for-woocommerce') . esc_html(get_the_title($plan['ID'])) . esc_html__('', 'membership-for-woocommerce') . '</h2>
+										// 			<ul>
+										// 			<li class="product_membership_description_rent ' . esc_html($disable_required) . ' mfw-membership" href="' . esc_url($page_link) . '" target="_blank" >' . esc_html__('Rent up to 1 bag from the  ', 'membership-for-woocommerce') . esc_html(get_the_title($plan['ID'])) . esc_html__('  category', 'membership-for-woocommerce') . '</li>
+                                        //             <li>Swap your bag once a month</li>
+                                        //             <li>Earn points each month to spend on future purchases</li>
+                                        //             <li>Get discount on bag purchases</li>
+										// 			</ul>
+										// 			<a class="button alt ' . esc_html($disable_required) . ' mfw-membership" href="' . esc_url($page_link) . '" target="_blank" >' . esc_html__('  get membership', 'membership-for-woocommerce') . '</a>
+										// 		</div>
+										// </div>';
 									}
 								}
 							}
@@ -778,18 +779,19 @@ class Membership_For_Woocommerce_Public {
 											// 	</div>';
 										} else {
 											// Show options to buy plans.
-											echo '<div class="plan_suggestion wps_mfw_plan_suggestion" >
-												<div class="custom_membership_description_card">
-                                                    <h2 class="product_membership_description ' . esc_html($disable_required) . ' mfw-membership" href="' . esc_url($page_link) . '" target="_blank" >' . esc_html__('Rent this bag with  ', 'membership-for-woocommerce') . esc_html(get_the_title($plan['ID'])) . esc_html__('', 'membership-for-woocommerce') . '</h2>
-													<ul>
-													<li class="product_membership_description_rent ' . esc_html($disable_required) . ' mfw-membership" href="' . esc_url($page_link) . '" target="_blank" >' . esc_html__('Rent up to 1 bag from the  ', 'membership-for-woocommerce') . esc_html(get_the_title($plan['ID'])) . esc_html__('  category', 'membership-for-woocommerce') . '</li>
-                                                    <li>Swap your bag once a month</li>
-                                                    <li>Earn points each month to spend on future purchases</li>
-                                                    <li>Get discount on bag purchases</li>
-													</ul>
-													<a class="button alt ' . esc_html($disable_required) . ' mfw-membership" href="' . esc_url($page_link) . '" target="_blank" >' . esc_html__('  get membership', 'membership-for-woocommerce') . '</a>
-												</div>
-											</div>';
+											// COMMENTING THIS OUT, BECAUSE WE SHOW THE LOWEST TIER MEMBERSHIP ONLY FROM OUR PLUGIN
+											// echo '<div class="plan_suggestion wps_mfw_plan_suggestion" >
+											// 	<div class="custom_membership_description_card">
+                                            //         <h2 class="product_membership_description ' . esc_html($disable_required) . ' mfw-membership" href="' . esc_url($page_link) . '" target="_blank" >' . esc_html__('Rent this bag with  ', 'membership-for-woocommerce') . esc_html(get_the_title($plan['ID'])) . esc_html__('', 'membership-for-woocommerce') . '</h2>
+											// 		<ul>
+											// 		<li class="product_membership_description_rent ' . esc_html($disable_required) . ' mfw-membership" href="' . esc_url($page_link) . '" target="_blank" >' . esc_html__('Rent up to 1 bag from the  ', 'membership-for-woocommerce') . esc_html(get_the_title($plan['ID'])) . esc_html__('  category', 'membership-for-woocommerce') . '</li>
+                                            //         <li>Swap your bag once a month</li>
+                                            //         <li>Earn points each month to spend on future purchases</li>
+                                            //         <li>Get discount on bag purchases</li>
+											// 		</ul>
+											// 		<a class="button alt ' . esc_html($disable_required) . ' mfw-membership" href="' . esc_url($page_link) . '" target="_blank" >' . esc_html__('  get membership', 'membership-for-woocommerce') . '</a>
+											// 	</div>
+											// </div>';
 										}
 									}
 								}
@@ -3686,7 +3688,7 @@ class Membership_For_Woocommerce_Public {
 					add_action( 'woocommerce_before_cart', array( $this, 'add_cart_custom_notice_2' ) );
 				}
 			}
-		}
+		} 
 	}
 
 	/**

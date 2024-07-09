@@ -48,70 +48,67 @@ function show_and_register_rent_button_logic()
     $user_id = get_current_user_id();
     // $is_member_meta = get_user_meta($user_id, 'is_member');
     $current_memberships = get_user_meta($user_id, 'mfw_membership_id', true);
+    $html = '';
+    $rent_status = null;
+    if ($current_memberships) {
 
-    if (!$current_memberships) {
-        return;
-    }
-
-    $has_acces_to_product = false;
-    $has_active_membership = false;
-    foreach ($current_memberships as $key => $membership_id) {
-        if ('publish' == get_post_status($membership_id) || 'draft' == get_post_status($membership_id)) {
-            $membership_status = wps_membership_get_meta_data($membership_id, 'member_status', true);
-            if ($membership_status == 'complete') {
-                $membership_plan = wps_membership_get_meta_data($membership_id, 'plan_obj', true);
-                $has_acces_to_product = is_product_accessible_in_users_membership_plan($product_id, $membership_plan);
-                $has_active_membership = true;
+        $has_acces_to_product = false;
+        $has_active_membership = false;
+        foreach ($current_memberships as $key => $membership_id) {
+            if ('publish' == get_post_status($membership_id) || 'draft' == get_post_status($membership_id)) {
+                $membership_status = wps_membership_get_meta_data($membership_id, 'member_status', true);
+                if ($membership_status == 'complete') {
+                    $membership_plan = wps_membership_get_meta_data($membership_id, 'plan_obj', true);
+                    $has_acces_to_product = is_product_accessible_in_users_membership_plan($product_id, $membership_plan);
+                    $has_active_membership = true;
+                }
             }
         }
+
+        $has_active_rent_id = get_rent_id_of_user($user_id);
+        $rent_is_for_this_product = false;
+        if ($has_active_rent_id) {
+            $rent_is_for_this_product = get_product_id_of_rent($has_active_rent_id) == $product_id;
+            $rent_status = get_rent_status_by_id($has_active_rent_id);
+        }
+        $html .= get_rent_button_html($product->is_in_stock(), $has_acces_to_product, $has_active_rent_id, $rent_status, $product_id, $has_active_membership, $rent_is_for_this_product);
     }
 
-    $has_active_rent_id = get_rent_id_of_user($user_id);
-    $rent_status = null;
-    if ($has_active_rent_id) {
-        $rent_status = get_rent_status_by_id($has_active_rent_id);
-        // If the product is not in the cart, delete the rent post and meta data if it exists with rent status "in_cart"
-        // if ($rent_status == RENT_STATUS_IN_CART && !is_product_in_cart($product_id)) {
-        //     delete_rent_and_meta_for_user($has_active_rent_id, $user_id);
-
-        //     // Refresh the status and active rent
-        //     $has_active_rent_id = get_rent_id_of_user($user_id);
-        //     $rent_status = null;
-        //     if ($has_active_rent_id) {
-        //         $rent_status = get_rent_status_by_id($has_active_rent_id);
-        //     }
-        // }
+    if ($rent_status != RENT_STATUS_IN_CART) {
+        $html .= get_lowest_priority_membership_plan_for_product_html($product_id);
     }
-
-    $html = '';
-    $html .= get_rent_button_html($product->is_in_stock(), $has_acces_to_product, $has_active_rent_id, $rent_status, $product_id, $has_active_membership);
-    $html .= get_lowest_priority_membership_plan_for_product_html($product_id);
     echo $html;
 }
 
-function get_rent_button_html($product_in_stock, $has_acces_to_product, $has_active_rent_id, $rent_status, $product_id, $has_active_membership)
+function get_rent_button_html($product_in_stock, $has_acces_to_product, $has_active_rent_id, $rent_status, $product_id, $has_active_membership, $rent_is_for_this_product)
 {
+    $go_to_cart_button_html ='
+            <button id="goToCartButton" class="mls-go-to-cart-btn">Go to cart</button>
+            <script>
+            document.getElementById("goToCartButton").addEventListener("click", function() {
+                if (window.location.hostname == \'localhost\') {
+                                    window.location.href = \'/ritzy-archives/cart\';
+                                } else {
+                                    window.location.href = \'/cart\'; // Redirect to the cart page
+                                }
+            });
+            </script> 
+        ';
     $html = '';
-    if ($product_in_stock && $has_acces_to_product && !$has_active_rent_id) {
+    console_log2('has_active_rent_id', $has_active_rent_id);
+    if ($product_in_stock && $has_acces_to_product && !$has_active_rent_id && !is_product_in_cart($product_id)) {
         $html .= '<button type="button" name=add-to-cart class="msl-rent-button" data-product-id="' . $product_id . '">Rent this bag</button>';
-    } elseif ($has_active_rent_id && $rent_status == RENT_STATUS_IN_CART) {
-        $html .= '<p class="mls-product-already-in-cart">You have a bag in your cart. Remove it first if you would like to rent another one.</p>';
-        $html .= '<button id="goToCartButton" class="mls-go-to-cart-btn"><i class="fa fa-shopping-cart"></i> Go to cart</button>';
-
-        // Add JavaScript for navigation
-        $html .= '
-        <script>
-        document.getElementById("goToCartButton").addEventListener("click", function() {
-             if (window.location.hostname == \'localhost\') {
-                                window.location.href = \'/ritzy-archives/cart\';
-                            } else {
-                                window.location.href = \'/cart\'; // Redirect to the cart page
-                            }
-        });
-        </script>
-    ';
+    } elseif ($product_in_stock && $has_acces_to_product && !$has_active_rent_id && is_product_in_cart($product_id)) {
+        $html .= '<p class="mls-product-already-in-cart">If you would like to rent this bag instead of buying it, remove it from the cart first.</p>';
+        $html .= $go_to_cart_button_html;
+    } elseif ($has_active_rent_id && $rent_status == RENT_STATUS_IN_CART && $rent_is_for_this_product) {
+        $html .= '<p class="mls-rent-product-already-in-cart">You already have this bag rental in your cart. Remove it first if you would like to buy the bag instead.</p>';
+        $html .= $go_to_cart_button_html;
+    } elseif ($has_active_rent_id && $rent_status == RENT_STATUS_IN_CART && !$rent_is_for_this_product) {
+        $html .= '<p class="mls-rent-product-already-in-cart">You already have a bag rental in your cart. Remove it first if you would like to rent another one.</p>';
+        $html .= $go_to_cart_button_html;
     } elseif ($has_active_rent_id) {
-        $html .= '<p class="mls-rent-product-already-in-cart">You already have an active rent, so you can\'t rent another bag, but you can buy them.</p>';
+        $html .= '<p class="mls-has-active-rent">You already have an active rent, so you can\'t rent another bag, but you can buy them.</p>';
     } elseif (!$has_active_membership) {
         // Don't have to show anything here, because the user can't rent the product, but they can buy it.
         $html .= '';
@@ -129,7 +126,8 @@ function get_rent_button_html($product_in_stock, $has_acces_to_product, $has_act
     return $html;
 }
 
-function get_lowest_priority_membership_plan_for_product_html($product_id) {
+function get_lowest_priority_membership_plan_for_product_html($product_id)
+{
     $wps_membership_default_plans_page_id = get_option('wps_membership_default_plans_page', '');
     $all_membership_plans = get_all_membership_plans();
 
@@ -141,7 +139,7 @@ function get_lowest_priority_membership_plan_for_product_html($product_id) {
     // get_lowest_priority_membership_plan
     foreach (MEMBERSHIP_PLANS_PRIORITY as $membershipPlanName) {
         $plan = get_membership_plan_by_name($all_membership_plans, $membershipPlanName);
-        if (is_product_accessible_in_membership_plan($product_id, $plan['ID'])) {
+        if ($plan != null && is_product_accessible_in_membership_plan($product_id, $plan['ID'])) {
             break; // Found an accessible plan, exit the loop
         }
     }
@@ -190,6 +188,12 @@ function add_rent_product_to_cart()
         wp_die();
     }
 
+    //Check if the product is already in the cart
+    if (is_product_in_cart($product_id)) {
+        echo json_encode(array('success' => false, 'message' => 'Product is already in the cart!'));
+        wp_die();
+    }
+
     // Add the product to the cart
     WC()->cart->add_to_cart($product_id);
 
@@ -198,6 +202,8 @@ function add_rent_product_to_cart()
         echo json_encode(array('success' => false, 'message' => 'Product could not be added to cart!'));
         wp_die();
     }
+
+    // Create a rent post
     $rent_post_id = create_rent_post($user_id, $product_id, RENT_STATUS_IN_CART);
 
     // Update the user meta data
