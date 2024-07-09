@@ -74,7 +74,7 @@ function show_and_register_rent_button_logic()
         $html .= get_rent_button_html($product->is_in_stock(), $has_acces_to_product, $has_active_rent_id, $rent_status, $product_id, $has_active_membership, $rent_is_for_this_product);
     }
 
-    if ($rent_status != RENT_STATUS_IN_CART) {
+    if ($rent_status != RENT_STATUS_IN_CART && !$has_acces_to_product) {
         $html .= get_lowest_priority_membership_plan_for_product_html($product_id);
     }
     echo $html;
