@@ -16,6 +16,7 @@ require_once plugin_dir_path(__FILE__) . 'cart-functions.php';
 require_once plugin_dir_path(__FILE__) . 'account-functions.php';
 require_once plugin_dir_path(__FILE__) . 'add-to-cart-button.php';
 require_once plugin_dir_path(__FILE__) . 'membership-functions.php';
+require_once plugin_dir_path(__FILE__) . 'bag-swap-functions.php';
 const HAS_ACTIVE_RENT_META_KEY = 'has_active_rent';
 const RENTED_PRODUCT_ID_META_KEY = 'rented_product_ids';
 
@@ -38,32 +39,23 @@ function my_plugin_enqueue_styles()
 //wp-content\plugins\membership-for-woocommerce\public\class-membership-for-woocommerce-public.php
 //  wps_membership_product_membership_purchase_html method is used to show membership purchase button and other membership related information on single product page.
 //wp-content\plugins\membership-for-woocommerce\membership-for-woocommerce.php
+// $is_member_meta = get_user_meta($user_id, 'is_member');
 //------------------------------------------------------------------------------------------------
 
 function show_and_register_rent_button_logic()
 {
     global $product;
-    $product_id = $product->get_id();
-    // Check if the user has a membership
-    $user_id = get_current_user_id();
-    // $is_member_meta = get_user_meta($user_id, 'is_member');
-    $current_memberships = get_user_meta($user_id, 'mfw_membership_id', true);
     $html = '';
     $rent_status = null;
-    if ($current_memberships) {
+    $has_acces_to_product = false;
+    $product_id = $product->get_id();
+    $user_id = get_current_user_id();
 
-        $has_acces_to_product = false;
-        $has_active_membership = false;
-        foreach ($current_memberships as $key => $membership_id) {
-            if ('publish' == get_post_status($membership_id) || 'draft' == get_post_status($membership_id)) {
-                $membership_status = wps_membership_get_meta_data($membership_id, 'member_status', true);
-                if ($membership_status == 'complete') {
-                    $membership_plan = wps_membership_get_meta_data($membership_id, 'plan_obj', true);
-                    $has_acces_to_product = is_product_accessible_in_users_membership_plan($product_id, $membership_plan);
-                    $has_active_membership = true;
-                }
-            }
-        }
+    // Check if the user has a membership
+    $active_membership_plan_for_user = get_active_membership_plan_of_user_or_null($user_id);
+    if ($active_membership_plan_for_user != null) {
+        $has_active_membership = true;
+        $has_acces_to_product = is_product_accessible_in_users_membership_plan($product_id, $active_membership_plan_for_user);
 
         $has_active_rent_id = get_rent_id_of_user($user_id);
         $rent_is_for_this_product = false;

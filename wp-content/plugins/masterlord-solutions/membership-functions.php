@@ -83,6 +83,32 @@ function get_membership_plan_by_name($membership_plans, $name)
     return null;
 }
 
+/**
+ * Gets the active membership plan of a user or returns null.
+ *
+ * @param int $user_id The user ID.
+ * @return object|null The active membership plan object or null if not found.
+ */
+function get_active_membership_plan_of_user_or_null($user_id)
+{
+    $active_membership_plan = null;
+    $current_memberships = get_user_meta($user_id, 'mfw_membership_id', true);
+    if (!is_array($current_memberships)) {
+        return null;
+    }
+
+    foreach ($current_memberships as $key => $membership_id) {
+        if ('publish' == get_post_status($membership_id) || 'draft' == get_post_status($membership_id)) {
+            $membership_status = wps_membership_get_meta_data($membership_id, 'member_status', true);
+            if ($membership_status == 'complete') {
+                $active_membership_plan = wps_membership_get_meta_data($membership_id, 'plan_obj', true);
+            }
+        }
+    }
+
+    return $active_membership_plan;
+}
+
 function accessible_products_in_membership_plan($membership_plan)
 {
     return !empty($membership_plan['wps_membership_plan_target_ids']) ? maybe_unserialize($membership_plan['wps_membership_plan_target_ids']) : array();

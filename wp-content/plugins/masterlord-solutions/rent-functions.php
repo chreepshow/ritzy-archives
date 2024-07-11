@@ -17,6 +17,11 @@ const RENT_STATUS_DELIVERED = 'delivered';
 const RENT_STATUS_PURCHASED = 'purchased';
 const RENT_STATUS_DRAFT = 'draft';
 const RENT_STATUS_IN_CART = 'in_cart';
+const RENT_STATUS_BAG_SWAP_STARTED = 'bag_swap_started';
+const RENT_STATUS_BAG_SWAP_WAITING_FOR_COURIER_AT_USER = 'bag_swap_waiting_for_courier_at_user';
+const RENT_STATUS_BAG_SWAP_WAITING_FOR_COURIER_AT_HQ = 'bag_swap_waiting_for_courier_at_hq';
+const RENT_STATUS_BAG_SWAP_NEW_BAG_ON_THE_WAY = 'bag_swap_waiting_for_courier_new_bag_on_the_way';
+const RENT_STATUS_BAG_SWAP_NEW_BAG_DELIVERED = 'bag_swap_waiting_for_courier_new_bag_delivered';
 
 const RENT_STATUSES_WITH_LABELS = [
     RENT_STATUS_ACTIVE => [
@@ -47,6 +52,26 @@ const RENT_STATUSES_WITH_LABELS = [
         'label' => 'Purchased',
         'label_count' => 'Purchased'
     ],
+    RENT_STATUS_BAG_SWAP_STARTED => [
+        'label' => 'Bag Swap Started',
+        'label_count' => 'Bag Swap Started (%s)'
+    ],
+    RENT_STATUS_BAG_SWAP_WAITING_FOR_COURIER_AT_USER => [
+        'label' => 'Courier is on the way to pick up the old bag',
+        'label_count' => 'Courier is on the way to pick up the old bag(%s)'
+    ],
+    RENT_STATUS_BAG_SWAP_WAITING_FOR_COURIER_AT_HQ => [
+        'label' => 'Courier picked up the old bag',
+        'label_count' => 'Courier picked up the old bag (%s)'
+    ],
+    RENT_STATUS_BAG_SWAP_NEW_BAG_ON_THE_WAY => [
+        'label' => 'New Bag is on the way',
+        'label_count' => 'New is Bag on the way (%s)'
+    ],
+    RENT_STATUS_BAG_SWAP_NEW_BAG_DELIVERED => [
+        'label' => 'New Bag Delivered',
+        'label_count' => 'New Bag Delivered (%s)'
+    ]
 ];
 
 function register_rent_post_type()
@@ -137,6 +162,18 @@ function get_rent_status_by_id($rent_id)
         return false; // Return false if the rent ID does not exist or there was an error
     }
     return $post_status;
+}
+
+function is_rent_currently_being_swapped($rent_id)
+{
+    $rent_status = get_rent_status_by_id($rent_id);
+    return in_array($rent_status, [
+        RENT_STATUS_BAG_SWAP_STARTED,
+        RENT_STATUS_BAG_SWAP_WAITING_FOR_COURIER_AT_USER,
+        RENT_STATUS_BAG_SWAP_WAITING_FOR_COURIER_AT_HQ,
+        RENT_STATUS_BAG_SWAP_NEW_BAG_ON_THE_WAY,
+        RENT_STATUS_BAG_SWAP_NEW_BAG_DELIVERED
+    ]);
 }
 
 function update_rent_status($rent_post_id, $new_status)
