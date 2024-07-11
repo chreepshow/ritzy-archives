@@ -54,3 +54,16 @@ function reset_bag_swap_count_for_user($user_id) {
     $bag_swap_count = get_bag_swap_count_by_membership_plan($active_membership_plan['post_title']);
     update_user_bag_swap_count($user_id, $bag_swap_count);
 }
+
+// TODO: somewhere need to reset the user bag swap count
+// maybe at login or single product page? This should be renewed every month when the membership plan is renewed
+
+// TODO: start bag swap function
+// check if the user has active membership plan
+// check if the user already started a bag swap (is_rent_currently_being_swapped)
+// check if user has remaining bag swaps
+
+// TODO: Handle product "return" or "swap" action
+// Maybe can be handled with the rent product or should it has its own product type?
+// Stock needs to be updated, another "bag" should be sent to the user and sotck needs to be updated again
+// Shipping should be created in order to track the delivery of the bag
