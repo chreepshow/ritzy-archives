@@ -60,6 +60,7 @@ function reset_bag_swap_count_for_user($user_id) {
 
 // TODO: start bag swap function
 // check if the user has active membership plan
+// check if the user has active rent with status delivered
 // check if the user already started a bag swap (is_rent_currently_being_swapped)
 // check if user has remaining bag swaps
 

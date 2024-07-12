@@ -17,11 +17,12 @@ const RENT_STATUS_DELIVERED = 'delivered';
 const RENT_STATUS_PURCHASED = 'purchased';
 const RENT_STATUS_DRAFT = 'draft';
 const RENT_STATUS_IN_CART = 'in_cart';
-const RENT_STATUS_BAG_SWAP_STARTED = 'bag_swap_started';
-const RENT_STATUS_BAG_SWAP_WAITING_FOR_COURIER_AT_USER = 'bag_swap_waiting_for_courier_at_user';
-const RENT_STATUS_BAG_SWAP_WAITING_FOR_COURIER_AT_HQ = 'bag_swap_waiting_for_courier_at_hq';
-const RENT_STATUS_BAG_SWAP_NEW_BAG_ON_THE_WAY = 'bag_swap_waiting_for_courier_new_bag_on_the_way';
-const RENT_STATUS_BAG_SWAP_NEW_BAG_DELIVERED = 'bag_swap_waiting_for_courier_new_bag_delivered';
+const RENT_STATUS_BAG_SWAP_STARTED = 'bs_started';
+const RENT_STATUS_BAG_SWAP_WAITING_FOR_COURIER_AT_USER = 'bs_waiting_at_user';
+const RENT_STATUS_BAG_SWAP_WAITING_FOR_COURIER_AT_HQ = 'bs_waiting_at_hq';
+const RENT_STATUS_BAG_SWAP_NEW_BAG_ON_THE_WAY = 'bs_new_bag_otw';
+const RENT_STATUS_BAG_SWAP_NEW_BAG_DELIVERED = 'bs_new_bag_delivered';
+const RENT_STATUS_BAG_SWAP_FINISHED = 'bs_finished';
 
 const RENT_STATUSES_WITH_LABELS = [
     RENT_STATUS_ACTIVE => [
@@ -71,6 +72,10 @@ const RENT_STATUSES_WITH_LABELS = [
     RENT_STATUS_BAG_SWAP_NEW_BAG_DELIVERED => [
         'label' => 'New Bag Delivered',
         'label_count' => 'New Bag Delivered (%s)'
+    ],
+    RENT_STATUS_BAG_SWAP_FINISHED => [
+        'label' => 'Bag Swap Finished',
+        'label_count' => 'Bag Swap Finished (%s)'
     ]
 ];
 
@@ -94,7 +99,7 @@ function register_rent_post_type()
     register_post_type('rent', $args);
 }
 
-function create_rent_post($user_id, $product_id, $status)
+function create_rent_post($user_id, $product_id, $status, $bag_swap_started_date = null)
 {
     $postarr = array(
         'post_type' => 'rent',
@@ -103,6 +108,7 @@ function create_rent_post($user_id, $product_id, $status)
         'meta_input' => array(
             'user_id' => $user_id,
             'product_id' => $product_id,
+            'bag_swap_started_date' => $bag_swap_started_date
         ),
     );
     $post_id = wp_insert_post($postarr);
@@ -153,6 +159,51 @@ function delete_rent_and_meta_for_user($rent_id, $user_id)
 function get_product_id_of_rent($rent_id)
 {
     return get_post_meta($rent_id, 'product_id', true);
+}
+
+function start_bag_swap_for_rent($rent_id)
+{
+    // Get current values
+    $current_status = get_rent_status_by_id($rent_id);
+    $current_bag_swap_started_date = get_last_bag_swap_started_date_of_rent($rent_id);
+
+    $new_bag_swap_started_date_time = new DateTime(current_time('Y-m-d H:00:00'));
+
+    // Begin transaction or similar logic to handle rollback in case of error
+    try {
+        // Update status
+        if (!wp_update_post(['ID' => $rent_id, 'post_status' => RENT_STATUS_BAG_SWAP_STARTED])) {
+            throw new Exception('Failed to update rent status.');
+        }
+
+        // Update bag_swap_started_date
+        if (!update_post_meta($rent_id, 'bag_swap_started_date', $new_bag_swap_started_date_time)) {
+            throw new Exception('Failed to update bag swap started date.');
+        }
+
+        // If both updates are successful, return true or some success response
+        return true;
+    } catch (Exception $e) {
+        // If any update fails, revert changes
+        wp_update_post(['ID' => $rent_id, 'post_status' => $current_status]);
+        update_post_meta($rent_id, 'bag_swap_started_date', $current_bag_swap_started_date);
+
+        // Log error or handle it as per requirement
+        error_log($e->getMessage());
+
+        // Return false or some error response
+        return false;
+    }
+}
+
+function update_bag_swap_started_date($rent_id, $date_time)
+{
+    update_post_meta($rent_id, 'bag_swap_started_date', $date_time);
+}
+
+function get_last_bag_swap_started_date_of_rent($rent_id)
+{
+    return get_post_meta($rent_id, 'bag_swap_started_date', true);
 }
 
 function get_rent_status_by_id($rent_id)
@@ -236,21 +287,41 @@ function rent_details_metabox_callback($post)
     $user_id = get_post_meta($post->ID, 'user_id', true);
     $product_id = get_post_meta($post->ID, 'product_id', true);
     $current_status = get_post_status($post->ID, 'rent_status', true);
+    $bag_swap_started_date = get_post_meta($post->ID, 'bag_swap_started_date', true);
 
     // User ID field
-    echo '<p><label for="user_id">User ID:</label>';
+    echo '<p><label for="user_id">User ID: </label>';
     echo '<input type="text" id="user_id" name="user_id" value="' . esc_attr($user_id) . '" /></p>';
 
     // Product ID field
-    echo '<p><label for="product_id">Product ID:</label>';
+    echo '<p><label for="product_id">Product ID: </label>';
     echo '<input type="text" id="product_id" name="product_id" value="' . esc_attr($product_id) . '" /></p>';
 
     // Status dropdown
+    echo '<p><label for="rent_status">Rent status: </label>';
     echo '<select name="rent_status" id="rent_status">';
     foreach (RENT_STATUSES_WITH_LABELS as $status_key => $status_info) {
         echo '<option value="' . esc_attr($status_key) . '"' . selected($current_status, $status_key, false) . '>' . esc_html($status_info['label']) . '</option>';
     }
     echo '</select>';
+
+    // Bag Swap Started field
+    echo '<p><label for="bag_swap_started_date">Last Bag Swap Started: </label>';
+    echo '<input type="text" id="bag_swap_started_date" name="bag_swap_started_date" class="bag-swap-started-date" value="' . esc_attr($bag_swap_started_date) . '" /></p>';
+
+    // Enqueue jQuery UI datepicker
+    echo '<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css" />';
+    echo '<script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>';
+    echo '<script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>';
+    echo '<script>
+        jQuery(document).ready(function($) {
+            $("#bag_swap_started_date").datetimepicker({
+                dateFormat: "yy-mm-dd",
+                timeFormat: "HH:mm:ss",
+                separator: " "
+            });
+        });
+        </script>';
 }
 
 function save_rent_details($post_id)
@@ -287,6 +358,11 @@ function save_rent_details($post_id)
         ));
     }
 
+    // Save Bag Swap Started date
+    if (isset($_POST['bag_swap_started_date'])) {
+        update_post_meta($post_id, 'bag_swap_started_date', sanitize_text_field($_POST['bag_swap_started_date']));
+    }
+
     // Re-hook this function
     add_action('save_post', 'save_rent_details');
 }
@@ -296,6 +372,7 @@ function add_rent_details_columns($columns)
     $columns['user_id'] = 'User ID';
     $columns['product_id'] = 'Product ID';
     $columns['status'] = 'Status';
+    $columns['bag_swap_started_date'] = 'Last Bag Swap Started';
     return $columns;
 }
 
@@ -309,8 +386,16 @@ function rent_details_columns_content($column, $post_id)
             echo get_post_meta($post_id, 'product_id', true);
             break;
         case 'status':
-            $post_status = get_post_status($post_id);
-            echo ucfirst($post_status);
+            $status = get_post_status($post_id);
+            if (array_key_exists($status, RENT_STATUSES_WITH_LABELS)) {
+                echo RENT_STATUSES_WITH_LABELS[$status]['label'];
+            } else {
+                echo 'Unknown Status';
+            }
+            break;
+        case 'bag_swap_started_date':
+            $bag_swap_started_date = get_post_meta($post_id, 'bag_swap_started_date', true);
+            echo $bag_swap_started_date ? esc_html($bag_swap_started_date) : 'Not started';
             break;
     }
 }
