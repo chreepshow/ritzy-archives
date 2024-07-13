@@ -4,7 +4,7 @@
  * Plugin Name: Masterlord Solutions
  * Plugin URI: https://masterlorsolutions.com/
  * Description: This is a plugin that supports renting products.
- * Version: 1.1.0
+ * Version: 1.2.0
  * Author: Peter Koppany
  * Author URI: https://masterlorsolutions.com/
  * License: GPL2
@@ -89,6 +89,8 @@ function get_rent_button_html($product_in_stock, $has_acces_to_product, $has_act
     $html = '';
     if ($product_in_stock && $has_acces_to_product && !$has_active_rent_id && !is_product_in_cart($product_id)) {
         $html .= '<button type="button" id="msl-rent-button" name=add-to-cart class="msl-rent-button" data-product-id="' . $product_id . '">Rent this bag</button>';
+    } elseif ($product_in_stock && $has_acces_to_product && $has_active_rent_id && !is_product_in_cart($product_id) && $rent_status == RENT_STATUS_BAG_SWAP_WAITING_FOR_CHOOSING_BAG) {
+        $html .= '<button type="button" id="msl-rent-button" name=add-to-cart class="msl-rent-button" data-product-id="' . $product_id . '">SWAP TO THIS BAG</button>';
     } elseif ($product_in_stock && $has_acces_to_product && !$has_active_rent_id && is_product_in_cart($product_id)) {
         $html .= '<p class="mls-product-already-in-cart">If you would like to rent this bag instead of buying it, remove it from the cart first.</p>';
         $html .= $go_to_cart_button_html;
@@ -194,11 +196,19 @@ function add_rent_product_to_cart()
         wp_die();
     }
 
-    // Create a rent post
-    $rent_post_id = create_rent_post($user_id, $product_id, RENT_STATUS_IN_CART);
+    // TODO
+    // $rent_id = get_rent_post_by_user_id_and_product_id($user_id, $product_id);
+    // $rent_status = null;
+    // if($rent_id) {
+    //     $rent_status = get_rent_status_by_id($rent_id);
+    // }
 
-    // Update the user meta data
-    update_rent_id_of_user($user_id, $rent_post_id);
+    // if ($rent_status == RENT_STATUS_BAG_SWAP_WAITING_FOR_CHOOSING_BAG) {
+    //     update_rent_status($rent_id, RENT_STATUS_IN_CART);
+    // } else {
+        $rent_post_id = create_rent_post($user_id, $product_id, RENT_STATUS_IN_CART);
+        update_rent_id_of_user($user_id, $rent_post_id);
+    // }
 
     // Send a response back to the AJAX request
     echo json_encode(array('success' => true, 'message' => 'Product added to cart successfully!'));

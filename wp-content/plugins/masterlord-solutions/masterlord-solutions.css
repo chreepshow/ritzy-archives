@@ -12,3 +12,49 @@
 .mls-product-already-in-cart {
     margin-bottom:0;
 }
+
+.account-bs-container {
+    align-items: center;
+    background-color: #F3F4F6;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 24px;
+    width: 100%;
+}
+
+.account-bs-label-container {
+    width: 100%;
+    display: flex;
+    font-size: 16px;
+    font-weight: 600;
+    justify-content: space-between;
+    line-height: 24px;
+}
+
+.account-bs-label-free {
+    background-color: #D6AD61;
+    padding: 0 4px;
+}
+
+.account-bs-button {
+    background-color: black;
+    color: white;
+    width: 100%;
+}
+
+.account-bs-button:hover {
+    background-color: #333;
+    color: white;
+}
+
+.account-bs-button:focus {
+    background-color: #333;
+    color: white;
+}
+
+/* .account-bs-button[clicked] {
+    background-color: #333;
+    color: white;
+    opacity: 0.3;
+} */

@@ -18,8 +18,11 @@ const RENT_STATUS_PURCHASED = 'purchased';
 const RENT_STATUS_DRAFT = 'draft';
 const RENT_STATUS_IN_CART = 'in_cart';
 const RENT_STATUS_BAG_SWAP_STARTED = 'bs_started';
+const RENT_STATUS_BAG_SWAP_WAITING_FOR_CHOOSING_BAG = 'bs_waiting_for_bag';
 const RENT_STATUS_BAG_SWAP_WAITING_FOR_COURIER_AT_USER = 'bs_waiting_at_user';
 const RENT_STATUS_BAG_SWAP_WAITING_FOR_COURIER_AT_HQ = 'bs_waiting_at_hq';
+// TODO
+// BAG_SWAP_CURRENTLY_UNDER_REVIEW
 const RENT_STATUS_BAG_SWAP_NEW_BAG_ON_THE_WAY = 'bs_new_bag_otw';
 const RENT_STATUS_BAG_SWAP_NEW_BAG_DELIVERED = 'bs_new_bag_delivered';
 const RENT_STATUS_BAG_SWAP_FINISHED = 'bs_finished';
@@ -56,6 +59,10 @@ const RENT_STATUSES_WITH_LABELS = [
     RENT_STATUS_BAG_SWAP_STARTED => [
         'label' => 'Bag Swap Started',
         'label_count' => 'Bag Swap Started (%s)'
+    ],
+    RENT_STATUS_BAG_SWAP_WAITING_FOR_CHOOSING_BAG => [
+        'label' => 'Waiting for user to choose new bag',
+        'label_count' => 'Waiting for user to choose bag (%s)'
     ],
     RENT_STATUS_BAG_SWAP_WAITING_FOR_COURIER_AT_USER => [
         'label' => 'Courier is on the way to pick up the old bag',
@@ -177,7 +184,7 @@ function start_bag_swap_for_rent($rent_id)
         }
 
         // Update bag_swap_started_date
-        if (!update_post_meta($rent_id, 'bag_swap_started_date', $new_bag_swap_started_date_time)) {
+        if (!update_post_meta($rent_id, 'bag_swap_started_date', $new_bag_swap_started_date_time->format('Y-m-d H:i:s'))) {
             throw new Exception('Failed to update bag swap started date.');
         }
 
@@ -213,6 +220,17 @@ function get_rent_status_by_id($rent_id)
         return false; // Return false if the rent ID does not exist or there was an error
     }
     return $post_status;
+}
+
+function is_rent_currently_able_to_be_bag_swapped($rent_id)
+{
+    $rent_status = get_rent_status_by_id($rent_id);
+    return in_array($rent_status, [
+        RENT_STATUS_ACTIVE,
+        RENT_STATUS_DELIVERED,
+        RENT_STATUS_BAG_SWAP_FINISHED,
+        RENT_STATUS_BAG_SWAP_NEW_BAG_DELIVERED
+    ]);
 }
 
 function is_rent_currently_being_swapped($rent_id)
