@@ -15,6 +15,7 @@ use WC_Data_Store;
 use WC_Subscriptions_Product;
 use WC_Validation;
 use Exception;
+use CPSW\Inc\Logger;
 
 /**
  * Payment Request Api.
@@ -22,6 +23,28 @@ use Exception;
 class Payment_Request_Api extends Card_Payments {
 
 	use Get_Instance;
+
+	/**
+	 * Is express checkout enabled.
+	 *
+	 * @var string
+	 */
+	public $express_checkout;
+
+	/**
+	 * Statement Descriptor.
+	 *
+	 * @var string
+	 */
+	public $statement_descriptor;
+
+	/**
+	 * Capture Method.
+	 *
+	 * @var string
+	 */
+	public $capture_method;
+
 
 	/**
 	 * Constructor
@@ -115,7 +138,8 @@ class Payment_Request_Api extends Card_Payments {
 	public function payment_request_button() {
 		$gateways = WC()->payment_gateways->get_available_payment_gateways();
 
-		if ( ! isset( $gateways['cpsw_stripe'] ) ) {
+		// Return if both of the payment method is not set. This will decide to display the express checkout button for both of the gateway options.
+		if ( ! isset( $gateways['cpsw_stripe'] ) && ! isset( $gateways['cpsw_stripe_element'] ) ) {
 			return;
 		}
 
@@ -130,22 +154,67 @@ class Payment_Request_Api extends Card_Payments {
 		if ( 'yes' !== $this->express_checkout ) {
 			return;
 		}
-
-		$container_class = 'cpsw-product';
-		$button_tag      = 'button';
-		$button_class    = 'button alt';
-
+		// Don't show if product on current page is not supported. Trial subscriptions with shipping are not supported.
 		if ( $this->is_product() ) {
-			$container_class = 'cpsw-product';
-		} elseif ( is_checkout() ) {
-			$container_class = 'checkout';
-		} elseif ( is_cart() ) {
-			$container_class = 'cart';
-			$button_class    = 'button alt wc-forward';
-			$button_tag      = 'a';
+			$product = $this->get_product();
+			if ( empty( $product ) || ! is_object( $product ) ) {
+				return;
+			}
+			if ( class_exists( 'WC_Subscriptions_Product' ) ) {
+				$trial_length = WC_Subscriptions_Product::get_trial_length( $product );
+				if ( ! empty( $trial_length ) || 0 < $trial_length ) {
+					return;
+				}
+			}
 		}
 
-		$options            = Helper::get_gateway_settings( 'cpsw_stripe' );
+		// Don't show if product on current page is not supported. Trial subscriptions with shipping are not supported.
+		if ( is_checkout() || is_cart() ) {
+			$cart = WC()->cart->get_cart();
+
+			if ( empty( $cart ) ) {
+				return;
+			}
+
+			foreach ( $cart as $cart_item ) {
+
+				if ( empty( $cart_item ) || ! is_array( $cart_item ) ) {
+					return;
+				}
+
+				$product_id = isset( $cart_item['product_id'] ) ? $cart_item['product_id'] : 0;
+				$product    = wc_get_product( $product_id );
+				if ( empty( $product ) || ! is_object( $product ) ) {
+					return;
+				}
+				if ( class_exists( 'WC_Subscriptions_Product' ) ) {
+					$trial_length = WC_Subscriptions_Product::get_trial_length( $product );
+					if ( ! empty( $trial_length ) || 0 < $trial_length ) {
+						return;
+					}
+				}
+			}
+		}
+
+		$options                = wp_unslash( Helper::get_gateway_settings( 'cpsw_stripe' ) );
+		$container_class        = 'cpsw-product';
+		$button_tag             = 'button';
+		$button_class           = 'button alt';
+		$is_separator_available = false;
+
+		if ( $this->is_product() ) {
+			$container_class        = 'cpsw-product';
+			$is_separator_available = ! empty( $options['express_checkout_separator_product'] );
+		} elseif ( is_checkout() ) {
+			$container_class        = 'checkout';
+			$is_separator_available = ! empty( $options['express_checkout_separator_checkout'] );
+		} elseif ( is_cart() ) {
+			$container_class        = 'cart';
+			$button_class           = 'button alt wc-forward';
+			$button_tag             = 'a';
+			$is_separator_available = ! empty( $options['express_checkout_separator_cart'] );
+		}
+
 		$separator_below    = true;
 		$position_class     = 'above';
 		$alignment_class    = '';
@@ -172,20 +241,49 @@ class Payment_Request_Api extends Card_Payments {
 		}
 
 		if ( 'cpsw-product' === $container_class ) {
-			if ( 'below' === $options['express_checkout_product_page_position'] ) {
-				$separator_below = false;
-				$position_class  = 'below';
+
+			$product_page_button_position = ! empty( $options['express_checkout_product_page_position'] ) ? $options['express_checkout_product_page_position'] : 'below';
+			$express_checkout_button_type = ! empty( $options['express_checkout_button_type'] ) ? $options['express_checkout_button_type'] : 'default';
+
+			// Apply the button position if the button type is not default.
+			if ( 'default' !== $express_checkout_button_type ) {
+				// Set the button position to Above if the button position is set to Above.
+				if ( 'above' === $product_page_button_position ) {
+					$separator_below = true;
+					$position_class  = 'above';
+				}
+
+				// Set the button position to Below if the button position is set to below or the button type is default.
+				if ( 'below' === $product_page_button_position ) {
+					$separator_below = false;
+					$position_class  = 'below';
+				}
+
+				// Set the button position to inline if the button position is set to inline or the button type is default.
+				if ( 'inline' === $product_page_button_position ) {
+					$separator_below = false;
+					$position_class  = 'inline';
+				}
+			} else {
+				if ( 'above' === $product_page_button_position ) {
+					$separator_below = true;
+					$position_class  = 'above';
+				} elseif ( 'inline' === $product_page_button_position ) {
+					$separator_below = false;
+					$position_class  = 'inline';
+				} else {
+					$separator_below = false;
+					$position_class  = 'below';
+				}
 			}
 
-			if ( 'inline' === $options['express_checkout_product_page_position'] ) {
-				$separator_below = false;
-				$position_class  = 'inline';
-			}
 
 			if ( 'yes' === $options['express_checkout_product_sticky_footer'] ) {
 				$container_class .= ' sticky';
 			}
 		}
+
+		$separator_availability_class = ! $is_separator_available ? 'cpsw-button-wrapper--without-separator' : '';
 
 		?>
 		<div id="cpsw-payment-request-wrapper" class="cpsw-payment-request-main-wrapper <?php echo esc_attr( $container_class . ' ' . $position_class . ' ' . $alignment_class ); ?>" style="display: none;">
@@ -194,56 +292,62 @@ class Payment_Request_Api extends Card_Payments {
 				$this->payment_request_button_separator();
 			}
 
+				/**
+				 * Express checkout button before action
+				 *
+				 * @since 1.4.5
+				 */
+				do_action( 'cpsw_payment_request_button_before' );
+			?>
+				<fieldset class="cpsw-payment-request-button-wrapper <?php echo esc_attr( $separator_availability_class ); ?>">
+					<?php
+					if ( ! empty( trim( $options['express_checkout_title'] ) ) ) {
+						if ( 'classic' === $options['express_checkout_checkout_page_layout'] ) {
+							?>
+							<legend id="cpsw-payment-request-title"><?php echo esc_html( Helper::get_setting( 'express_checkout_title', 'cpsw_stripe' ) ); ?></legend>
+							<?php
+						} else {
+							?>
+							<h3 id="cpsw-payment-request-title"><?php echo esc_html( Helper::get_setting( 'express_checkout_title', 'cpsw_stripe' ) ); ?></h3>
+							<?php
+						}
+					}
+					if ( ! empty( trim( $options['express_checkout_tagline'] ) ) ) {
+						?>
+							<p id="cpsw-payment-request-tagline"><?php echo wp_kses_post( Helper::get_setting( 'express_checkout_tagline', 'cpsw_stripe' ) ); ?></p>
+							<?php
+					}
+					?>
+					<div id="cpsw-payment-request-custom-button" style="<?php echo esc_attr( $button_width ); ?>">
+						<<?php echo esc_attr( $button_tag ); ?> type="button" lang="auto" class="cpsw-payment-request-custom-button-render cpsw_express_checkout_button cpsw-express-checkout-button <?php echo esc_attr( $button_class ); ?>" style="<?php echo esc_attr( $button_width ); ?> <?php echo esc_attr( $button_inner_width ); ?>">
+							<div class="cpsw-express-checkout-button-inner" tabindex="-1">
+								<div class="cpsw-express-checkout-button-shines">
+									<div class="cpsw-express-checkout-button-shine cpsw-express-checkout-button-shine--scroll"></div>
+									<div class="cpsw-express-checkout-button-shine cpsw-express-checkout-button-shine--hover"></div>
+								</div>
+								<div class="cpsw-express-checkout-button-content">
+									<?php echo esc_html( $button_label ); ?>
+									<img src="" class="cpsw-express-checkout-button-icon">
+								</div>
+								<div class="cpsw-express-checkout-button-overlay"></div>
+								<div class="cpsw-express-checkout-button-border"></div>
+							</div>
+					</<?php echo esc_attr( $button_tag ); ?>>
+					</div>
+				</fieldset>
+			<?php
+
 			/**
-			 * Express checkout button before action
+			 * Express checkout button after action
 			 *
 			 * @since 1.4.5
 			 */
-			do_action( 'cpsw_payment_request_button_before' );
-			?>
-			<div class="cpsw-payment-request-button-wrapper">
-			<?php
-			if ( ! empty( trim( $options['express_checkout_title'] ) ) ) {
-				?>
-				<h3 id="cpsw-payment-request-title"><?php echo esc_html( Helper::get_setting( 'express_checkout_title', 'cpsw_stripe' ) ); ?></h3>
-					<?php
-			}
-			if ( ! empty( trim( $options['express_checkout_tagline'] ) ) ) {
-				?>
-				<p id="cpsw-payment-request-tagline"><?php echo wp_kses_post( Helper::get_setting( 'express_checkout_tagline', 'cpsw_stripe' ) ); ?></p>
-				<?php
+			do_action( 'cpsw_payment_request_button_after' );
+
+			if ( $separator_below ) {
+				$this->payment_request_button_separator();
 			}
 			?>
-				<div id="cpsw-payment-request-custom-button" style="<?php echo esc_attr( $button_width ); ?>">
-					<<?php echo esc_attr( $button_tag ); ?> type="button" lang="auto" class="cpsw-payment-request-custom-button-render cpsw_express_checkout_button cpsw-express-checkout-button <?php echo esc_attr( $button_class ); ?>" style="<?php echo esc_attr( $button_width ); ?> <?php echo esc_attr( $button_inner_width ); ?>">
-						<div class="cpsw-express-checkout-button-inner" tabindex="-1">
-							<div class="cpsw-express-checkout-button-shines">
-								<div class="cpsw-express-checkout-button-shine cpsw-express-checkout-button-shine--scroll"></div>
-								<div class="cpsw-express-checkout-button-shine cpsw-express-checkout-button-shine--hover"></div>
-							</div>
-							<div class="cpsw-express-checkout-button-content">
-								<?php echo esc_html( $button_label ); ?>
-								<img src="" class="cpsw-express-checkout-button-icon">
-							</div>
-							<div class="cpsw-express-checkout-button-overlay"></div>
-							<div class="cpsw-express-checkout-button-border"></div>
-						</div>
-				</<?php echo esc_attr( $button_tag ); ?>>
-				</div>
-			</div>
-		<?php
-
-		/**
-		 * Express checkout button after action
-		 *
-		 * @since 1.4.5
-		 */
-		do_action( 'cpsw_payment_request_button_after' );
-
-		if ( $separator_below ) {
-			$this->payment_request_button_separator();
-		}
-		?>
 		</div>
 		<?php
 	}
@@ -270,8 +374,12 @@ class Payment_Request_Api extends Card_Payments {
 
 		$options           = Helper::get_gateway_settings( 'cpsw_stripe' );
 		$alignment_class   = '';
-		$separator_text    = $options['express_checkout_separator_product'];
+		$separator_text    = '';
 		$display_separator = true;
+
+		if ( 'cpsw-product' === $container_class ) {
+			$separator_text = $options['express_checkout_separator_product'];
+		}
 
 		if ( 'checkout' === $container_class ) {
 			$alignment_class = $options['express_checkout_button_alignment'];
@@ -288,7 +396,7 @@ class Payment_Request_Api extends Card_Payments {
 			$separator_text = $options['express_checkout_separator_cart'];
 		}
 
-		if ( 'cpsw-product' === $container_class && 'inline' === $options['express_checkout_product_page_position'] ) {
+		if ( 'cpsw-product' === $container_class && ( 'inline' === $options['express_checkout_product_page_position'] && 'custom' === $options['express_checkout_button_type'] ) ) {
 			$display_separator = false;
 		}
 
@@ -736,7 +844,8 @@ class Payment_Request_Api extends Card_Payments {
 	 */
 	public function ajax_update_shipping_address() {
 		check_ajax_referer( 'cpsw_shipping_address', 'shipping_address_nonce' );
-
+		/* translators: %1$1s class name, %2$2s function name  */
+		Logger::info( __CLASS__ . '::' . __FUNCTION__ . 'Updating shipping address.', true );
 		$shipping_address          = filter_input_array(
 			INPUT_POST,
 			[
@@ -750,8 +859,9 @@ class Payment_Request_Api extends Card_Payments {
 		);
 		$product_view_options      = filter_input_array( INPUT_POST, [ 'is_product_page' => FILTER_SANITIZE_STRING ] );
 		$should_show_itemized_view = ! isset( $product_view_options['is_product_page'] ) ? true : filter_var( $product_view_options['is_product_page'], FILTER_VALIDATE_BOOLEAN );
-
-		$data = $this->get_shipping_options( $shipping_address, $should_show_itemized_view );
+		$data                      = $this->get_shipping_options( $shipping_address, $should_show_itemized_view );
+		/* Translators: %1$1s class name, %2$2s function name  */
+		Logger::info( __CLASS__ . '::' . __FUNCTION__ . 'Processed shipping address.', true );
 		wp_send_json( $data );
 	}
 
@@ -762,7 +872,8 @@ class Payment_Request_Api extends Card_Payments {
 	 */
 	public function ajax_update_shipping_option() {
 		check_ajax_referer( 'cpsw_shipping_option', 'shipping_option_nonce' );
-
+		/* translators: %1$1s class name, %2$2s function name  */
+		Logger::info( __CLASS__ . '::' . __FUNCTION__ . 'Updating shipping options.', true );
 		if ( ! defined( 'WOOCOMMERCE_CART' ) ) {
 			define( 'WOOCOMMERCE_CART', true );
 		}
@@ -779,6 +890,8 @@ class Payment_Request_Api extends Card_Payments {
 		$data          += $this->build_display_items( $should_show_itemized_view );
 		$data['result'] = 'success';
 
+		/* Translators: %1$1s class name, %2$2s function name  */
+		Logger::info( __CLASS__ . '::' . __FUNCTION__ . 'Processed shipping options.', true );
 		wp_send_json( $data );
 	}
 
@@ -799,7 +912,6 @@ class Payment_Request_Api extends Card_Payments {
 
 			$packages          = WC()->shipping->get_packages();
 			$shipping_rate_ids = [];
-
 			if ( ! empty( $packages ) && WC()->customer->has_calculated_shipping() ) {
 				foreach ( $packages as $package ) {
 					if ( empty( $package['rates'] ) ) {

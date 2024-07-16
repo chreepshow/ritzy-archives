@@ -48,6 +48,29 @@ abstract class Abstract_Payment_Gateway extends WC_Payment_Gateway {
 		add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, [ $this, 'process_admin_options' ] );
 		add_action( 'woocommerce_admin_order_totals_after_total', [ $this, 'get_stripe_order_data' ] );
 		add_action( 'wp_ajax_create_setup_intent', [ $this, 'create_setup_intent' ] );
+		add_filter( 'admin_body_class', [ $this, 'add_custom_body_class' ] );
+	}
+
+	/**
+	 * Add custom class to body tag on specific payment settings page
+	 *
+	 * @since 1.9.0
+	 *
+	 * @param array|string $classes The existing body classes.
+	 * @return array|string The modified body classes.
+	 */
+	public function add_custom_body_class( $classes ) {
+		if ( 'cpsw_stripe_element' !== $this->id ) {
+			$page = isset( $_GET['page'] ) ? sanitize_text_field( wp_unslash( $_GET['page'] ) ) : ''; //phpcs:ignore WordPress.Security.NonceVerification.Recommended
+
+			// Check if we are on the specific WooCommerce settings page.
+			if ( $page && 'wc-settings' === $page && isset( $_GET['tab'] ) && 'checkout' === $_GET['tab'] && isset( $_GET['section'] ) && $this->id === $_GET['section'] ) { //phpcs:ignore WordPress.Security.NonceVerification.Recommended
+				// Add custom class to body tag based on 'Element' setting's field value.
+				$classes .= ' cpsw_' . Helper::get_setting( 'cpsw_element_type' ) . '_element';
+			}
+		}
+
+		return $classes;
 	}
 
 	/**
@@ -84,6 +107,20 @@ abstract class Abstract_Payment_Gateway extends WC_Payment_Gateway {
 	 */
 	public function add_gateway_class( $methods ) {
 		array_unshift( $methods, $this );
+
+		// Select gateways based on element type selected on settings. 
+		if ( is_admin() && isset( $_GET['page'] ) && 'wc-settings' === $_GET['page'] && ! isset( $_GET['section'] ) ) { // phpcs:disable WordPress.Security.NonceVerification.Recommended
+			if ( 'payment' !== Helper::get_setting( 'cpsw_element_type' ) ) {
+				// Loop through the $methods array to find and remove the gateway with the key 'cpsw_stripe_element'.
+				foreach ( $methods as $key => $gateway ) {
+					if ( is_object( $gateway ) && isset( $gateway->id ) && 'cpsw_stripe_element' === $gateway->id ) {
+						unset( $methods[ $key ] );
+						break;
+					}
+				}
+			}
+		}
+
 		return $methods;
 	}
 
@@ -139,6 +176,10 @@ abstract class Abstract_Payment_Gateway extends WC_Payment_Gateway {
 	 * @return boolean
 	 */
 	public function is_available() {
+		if ( 'cpsw_stripe_element' !== $this->id && 'payment' === Helper::get_setting( 'cpsw_element_type' ) ) {
+			return false;
+		}
+
 		if ( 'yes' !== $this->enabled ) {
 			return false;
 		}
@@ -628,10 +669,18 @@ abstract class Abstract_Payment_Gateway extends WC_Payment_Gateway {
 			$order->payment_complete( $response->id );
 			/* translators: order id */
 			Logger::info( sprintf( __( 'Payment successful Order id - %1s', 'checkout-plugins-stripe-woo' ), $order->get_id() ), true );
+			$payment_method_type = '';
+			if ( isset( $response->payment_method_details ) ) {
+				if ( isset( $response->payment_method_details->card ) && isset( $response->payment_method_details->card->brand ) ) {
+					$payment_method_type = $response->payment_method_details->card->brand;
+				} elseif ( isset( $response->payment_method_details->type ) ) {
+					$payment_method_type = $response->payment_method_details->type;
+				}
+			}
+			
+			$source_name = 'cpsw_stripe' === $this->id ? $payment_method_type : $response->payment_method_details->type;
 
-			$source_name = 'cpsw_stripe' === $this->id ? ucfirst( $response->payment_method_details->card->brand ) : ucfirst( $response->payment_method_details->type );
-
-			$order->add_order_note( __( 'Payment Status: ', 'checkout-plugins-stripe-woo' ) . ucfirst( $response->status ) . ', ' . __( 'Source: Payment is Completed via ', 'checkout-plugins-stripe-woo' ) . $source_name );
+			$order->add_order_note( __( 'Payment Status: ', 'checkout-plugins-stripe-woo' ) . ucfirst( $response->status ) . ', ' . __( 'Source: Payment is Completed via ', 'checkout-plugins-stripe-woo' ) . ucfirst( $source_name ) );
 		} else {
 			/* translators: transaction id */
 			$order->update_status( 'on-hold', sprintf( __( 'Charge authorized (Charge ID: %s). Process order to take payment, or cancel to remove the pre-authorization. Attempting to refund the order in part or in full will release the authorization and cancel the payment.', 'checkout-plugins-stripe-woo' ), $response->id ) );

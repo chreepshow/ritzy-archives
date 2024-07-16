@@ -3,12 +3,12 @@ Contributors: brainstormforce
 Tags: stripe, credit card, apple pay, google pay, express checkout
 Requires at least: 5.4
 Tested up to: 6.5
-Stable tag: 1.8.1
+Stable tag: 1.9.1
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Stripe Payments For WooCommerce delivers a simple, secure way to accept credit card payments, Apple Pay, and Google Pay on your WooCommerce store. Reduce payment friction and boost conversions using this free plugin!
+Use Stripe Payments For WooCommerce for easy, secure transactions, including credit cards, Apple Pay, and Google Pay. Boost sales with this free plugin!
 
 == Description ==
 
@@ -115,6 +115,24 @@ We understand the need for a quality product backed by dedicated support that ca
 4. Express Checkout Button on Checkout Page
 
 == Changelog ==
+
+= 1.9.1 - WEDNESDAY, 10th July 2024 =
+* Improvement: Default values for few express checkout settings fields updated.
+* Improvement: Improved the conditions to display the separator on checkout page. Now you can hide the separator text by keeping the field empty.
+* Fix: Corrected Express checkout button alignment and width issue on checkout page.
+* Fix: Addressed the issue where the admin notice for Payment Elements was not getting dismissed.
+
+= 1.9.0 - WEDNESDAY, 3rd July 2024 =
+* New: Introduced the "[Payment Element](https://checkoutplugins.com/docs/smarter-way-to-display-payment-methods/)," a smarter way to display payment methods on the checkout page.
+* Improvement: Improved the Express Checkout implementation with link pay support and button customization options.
+* Fix: Fixed the JavaScript error for the "Add Payment Method" option on the My Account page.
+* Fix: Corrected the positioning of the express checkout button on product pages.
+* Fix: Resolved hide/show issues with backend settings for product page options.
+* Fix: Addressed the issue where the Button Width backend option was hidden in some cases.
+* Fix: Fixed the issue where the express checkout separator text was not displayed on the Checkout page in some cases.
+* Fix: Ensured payment options are displayed on the WooCommerce Blocks checkout page.
+* Fix: Fixed UI issues with the sticky button position on mobile devices.
+* Fix: Resolved error notices for undefined variables in local gateways.
 
 = 1.8.1 - THURSDAY, 2nd May 2024 =
 * Improvement: Modified the statement descriptor param for card payments as per the guidelines by stripe.

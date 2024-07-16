@@ -181,9 +181,17 @@
 			success( response ) {
 				if ( response.success === true ) {
 					alert( cpsw_ajax_object.create_webhook );
+					$( '.cpsw_create_webhook_key_test_notice' ).html( '' );
+					$( '.cpsw_create_webhook_key_live_notice' ).html( '' );
 					window.location.href = cpsw_ajax_object.dashboard_url;
 				} else if ( response.success === false ) {
+					const clickedId = $( e.target ).attr( 'id' );
 					alert( response.data.message );
+					if ( clickedId === 'cpsw_create_webhook_key_test' ) {
+						$( '.cpsw_create_webhook_key_test_notice' ).html( response?.data?.message );
+					} else {
+						$( '.cpsw_create_webhook_key_live_notice' ).html( response?.data?.message );
+					}
 				}
 				$( 'body' ).css( 'cursor', 'default' );
 				$.unblockUI();
@@ -306,5 +314,72 @@
 
 	$( function() {
 		CPSWAdminPaymentSettings.init();
+	} );
+
+	$( document ).ready( function() {
+		const message = cpsw_ajax_object.not_applicable_settings_notice;
+
+		const iconElement = $( '<span>', {
+			class: 'dashicons dashicons-warning',
+			css: {
+				color: '#facc15',
+				'padding-right': '10px',
+			},
+		} );
+
+		const contentElement = $( '<div>' ).html( message );
+
+		contentElement.prepend( iconElement );
+
+		const overlayElement = $( '<div>', {
+			class: 'overlay',
+		} ).append( contentElement );
+
+		$( 'body.cpsw_payment_element table.form-table tbody' ).append( overlayElement );
+	} );
+
+	$( document ).ready( function() {
+		const labelElement = document.querySelector( 'label[for="woocommerce_cpsw_stripe_element_enabled"]' );
+
+		if ( labelElement ) {
+			const parentThElement = labelElement.closest( 'th' );
+			if ( parentThElement ) {
+				// Removing padding of the hidden 'enabled' setting field of stripe options.
+				// Remove the padding of the parent <th> element
+				parentThElement.style.padding = '0';
+
+				const forminpElement = parentThElement.nextElementSibling;
+				if ( forminpElement && forminpElement.classList.contains( 'forminp' ) ) {
+					// Remove the padding of the <th> element with class 'forminp'
+					forminpElement.style.padding = '0';
+				}
+			}
+		}
+	} );
+	$( document ).ready( function() {
+		$( '.cpsw-dismissible-notice .notice-dismiss' ).on( 'click', function( event ) {
+			const $notice = $( this ).closest( '.cpsw-dismissible-notice' );
+			const noticeId = $notice.attr( 'id' );
+			event.preventDefault();
+
+			$.ajax( {
+				url: cpsw_ajax_object.ajax_url,
+				type: 'POST',
+				data: {
+					action: 'dismiss_cpsw_notice',
+					_security: cpsw_ajax_object.admin_nonce,
+					notice_id: noticeId,
+				},
+				success() {
+					$notice.fadeOut( 'slow', function() {
+						$notice.remove();
+					} );
+				},
+				error( jqXHR, textStatus, errorThrown ) {
+					// eslint-disable-next-line no-console
+					console.error( 'Error dismissing notice:', textStatus, errorThrown );
+				},
+			} );
+		} );
 	} );
 }( jQuery ) );

@@ -10,6 +10,7 @@ namespace CPSW\Gateway\BlockSupport;
 
 use Automattic\WooCommerce\Blocks\Payments\Integrations\AbstractPaymentMethodType;
 use Automattic\WooCommerce\Blocks\Assets\AssetDataRegistry;
+use CPSW\Inc\Traits\Subscription_Helper as SH;
 use CPSW\Inc\Helper;
 use WC_HTTPS;
 
@@ -20,6 +21,9 @@ use WC_HTTPS;
  * @since 1.6.0
  */
 final class Credit_Card_Payments extends AbstractPaymentMethodType {
+
+	use SH;
+
 	/**
 	 * Payment method name defined by payment methods extending this class.
 	 *
@@ -55,6 +59,14 @@ final class Credit_Card_Payments extends AbstractPaymentMethodType {
 	public $container;
 
 	/**
+	 * Supported Features.
+	 *
+	 * @var array
+	 * @since 1.9.0
+	 */
+	public $features;
+
+	/**
 	 * Constructor
 	 *
 	 * @param mixed $payment_request_configuration  The Stripe Payment Request configuration used for Payment
@@ -65,6 +77,17 @@ final class Credit_Card_Payments extends AbstractPaymentMethodType {
 		$this->container       = \Automattic\WooCommerce\Blocks\Package::container();
 		$this->assets_registry = $this->container->get( AssetDataRegistry::class );
 		add_action( 'woocommerce_blocks_checkout_enqueue_data', array( $this, 'enqueue_checkout_data' ) );
+
+		// Add supported features of for the blocks checkout.
+		$this->features = $this->add_subscription_filters(
+			[
+				'products',
+				'refunds',
+				'tokenization',
+				'add_payment_method',
+				'pre-orders',
+			]
+		);
 	}
 
 	/**
@@ -111,6 +134,7 @@ final class Credit_Card_Payments extends AbstractPaymentMethodType {
 				'inline_cc'          => Helper::get_setting( 'inline_cc', 'cpsw_stripe' ),
 				'allowed_cards'      => Helper::get_setting( 'allowed_cards', 'cpsw_stripe' ),
 				'order_button_text'  => Helper::get_setting( 'order_button_text', 'cpsw_stripe' ),
+				'features'           => $this->features,
 			];
 
 			$localize_data = apply_filters( 'cpsw_stripe_localize_data', $localize_data );
@@ -223,7 +247,7 @@ final class Credit_Card_Payments extends AbstractPaymentMethodType {
 	}
 
 	/**
-	 * Returns the title string to use in the UI (customisable via admin settings screen).
+	 * Returns the title string to use in the UI (customizable via admin settings screen).
 	 *
 	 * @since 1.6.0
 	 * @return string Title / label string

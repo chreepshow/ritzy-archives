@@ -75,7 +75,8 @@ class Frontend_Scripts {
 			'yes' === Helper::get_setting( 'enabled', 'cpsw_p24' ) ||
 			'yes' === Helper::get_setting( 'enabled', 'cpsw_wechat' ) ||
 			'yes' === Helper::get_setting( 'enabled', 'cpsw_bancontact' ) ||
-			'yes' === Helper::get_setting( 'enabled', 'cpsw_sepa' )
+			'yes' === Helper::get_setting( 'enabled', 'cpsw_sepa' ) ||
+			'yes' === Helper::get_setting( 'enabled', 'cpsw_stripe_element' )
 		) {
 			$this->enqueue_card_payments_scripts( $public_key );
 		}
@@ -97,20 +98,23 @@ class Frontend_Scripts {
 		wp_register_style( $this->prefix . 'stripe-elements', $this->assets_url . 'css/stripe-elements.css', [], $this->version );
 		wp_enqueue_style( $this->prefix . 'stripe-elements' );
 
+		// Get the current Cart Total.
+		$cart_total = WC()->cart->total;
+
 		wp_localize_script(
 			$this->prefix . 'stripe-elements',
 			'cpsw_global_settings',
 			[
-				'public_key'              => $public_key,
-				'cpsw_version'            => CPSW_VERSION,
-				'inline_cc'               => Helper::get_setting( 'inline_cc', 'cpsw_stripe' ),
-				'is_ssl'                  => is_ssl(),
-				'mode'                    => Helper::get_payment_mode(),
-				'ajax_url'                => admin_url( 'admin-ajax.php' ),
-				'js_nonce'                => wp_create_nonce( 'cpsw_js_error_nonce' ),
-				'allowed_cards'           => Helper::get_setting( 'allowed_cards', 'cpsw_stripe' ),
-				'stripe_localized'        => Helper::get_localized_messages(),
-				'default_cards'           => [
+				'public_key'                  => $public_key,
+				'cpsw_version'                => CPSW_VERSION,
+				'inline_cc'                   => Helper::get_setting( 'inline_cc', 'cpsw_stripe' ),
+				'is_ssl'                      => is_ssl(),
+				'mode'                        => Helper::get_payment_mode(),
+				'ajax_url'                    => admin_url( 'admin-ajax.php' ),
+				'js_nonce'                    => wp_create_nonce( 'cpsw_js_error_nonce' ),
+				'allowed_cards'               => Helper::get_setting( 'allowed_cards', 'cpsw_stripe' ),
+				'stripe_localized'            => Helper::get_localized_messages(),
+				'default_cards'               => [
 					'mastercard' => __( 'MasterCard', 'checkout-plugins-stripe-woo' ),
 					'visa'       => __( 'Visa', 'checkout-plugins-stripe-woo' ),
 					'amex'       => __( 'American Express', 'checkout-plugins-stripe-woo' ),
@@ -119,11 +123,11 @@ class Frontend_Scripts {
 					'diners'     => __( 'Diners Club', 'checkout-plugins-stripe-woo' ),
 					'unionpay'   => __( 'UnionPay', 'checkout-plugins-stripe-woo' ),
 				],
-				'not_allowed_string'      => __( 'is not allowed', 'checkout-plugins-stripe-woo' ),
-				'get_home_url'            => get_home_url(),
-				'current_user_billing'    => $this->get_current_user_billing_details(),
-				'changing_payment_method' => $this->is_changing_payment_method_for_subscription(),
-				'sepa_options'            => [
+				'not_allowed_string'          => __( 'is not allowed', 'checkout-plugins-stripe-woo' ),
+				'get_home_url'                => get_home_url(),
+				'current_user_billing'        => $this->get_current_user_billing_details(),
+				'changing_payment_method'     => $this->is_changing_payment_method_for_subscription(),
+				'sepa_options'                => [
 					'supportedCountries' => [ 'SEPA' ],
 					'placeholderCountry' => WC()->countries->get_base_country(),
 					'style'              => [
@@ -133,9 +137,30 @@ class Frontend_Scripts {
 						],
 					],
 				],
-				'is_cart_amount_zero'     => WC()->cart->total > 0 ? 'no' : 'yes',
-				'empty_sepa_iban_message' => __( 'Please enter a IBAN number to proceed.', 'checkout-plugins-stripe-woo' ),
-				'empty_bank_message'      => __( 'Please select a bank to proceed.', 'checkout-plugins-stripe-woo' ),
+				'payment_element_settings'    => [
+					'appearance'            => [
+						'theme' => Helper::get_setting( 'appearance', 'cpsw_stripe_element' ),
+					],
+					'mode'                  => $cart_total < 1 ? 'setup' : 'payment', // Set the payment mode. Use-case: If the cart total is less than zero then it is a setup request otherwise it is an payment request.
+					'currency'              => strtolower( get_woocommerce_currency() ),
+					'amount'                => Helper::get_the_formatted_amount( $cart_total ),
+					'paymentMethodTypes'    => Helper::get_available_gateways(),
+					'paymentMethodCreation' => 'manual',
+				],
+				'payment_element_options'     => [
+					'layout'  => [
+						'type'             => Helper::get_setting( 'layout', 'cpsw_stripe_element' ),
+						'defaultCollapsed' => false,
+					],
+					'wallets' => [
+						'applePay'  => 'never',
+						'googlePay' => 'never',
+					],
+				],
+				'savecard_supported_gateways' => Helper::$savecard_supported_gateways,
+				'is_cart_amount_zero'         => $cart_total > 0 ? 'no' : 'yes',
+				'empty_sepa_iban_message'     => __( 'Please enter a IBAN number to proceed.', 'checkout-plugins-stripe-woo' ),
+				'empty_bank_message'          => __( 'Please select a bank to proceed.', 'checkout-plugins-stripe-woo' ),
 			]
 		);
 
@@ -159,16 +184,16 @@ class Frontend_Scripts {
 				apply_filters(
 					'cpsw_payment_request_localization',
 					[
-						'ajax_url'        => admin_url( 'admin-ajax.php' ),
-						'ajax_endpoint'   => WC_AJAX::get_endpoint( '%%endpoint%%' ),
-						'public_key'      => $public_key,
-						'cpsw_version'    => CPSW_VERSION,
-						'mode'            => Helper::get_payment_mode(),
-						'currency_code'   => strtolower( get_woocommerce_currency() ),
-						'country_code'    => substr( get_option( 'woocommerce_default_country' ), 0, 2 ),
-						'needs_shipping'  => $needs_shipping,
-						'phone_required'  => 'required' === get_option( 'woocommerce_checkout_phone_field', 'required' ),
-						'nonce'           => [
+						'ajax_url'                     => admin_url( 'admin-ajax.php' ),
+						'ajax_endpoint'                => WC_AJAX::get_endpoint( '%%endpoint%%' ),
+						'public_key'                   => $public_key,
+						'cpsw_version'                 => CPSW_VERSION,
+						'mode'                         => Helper::get_payment_mode(),
+						'currency_code'                => strtolower( get_woocommerce_currency() ),
+						'country_code'                 => substr( get_option( 'woocommerce_default_country' ), 0, 2 ),
+						'needs_shipping'               => $needs_shipping,
+						'phone_required'               => 'required' === get_option( 'woocommerce_checkout_phone_field', 'required' ),
+						'nonce'                        => [
 							'checkout'              => wp_create_nonce( 'cpsw_checkout' ),
 							'payment'               => wp_create_nonce( 'cpsw_payment_request' ),
 							'add_to_cart'           => wp_create_nonce( 'cpsw_add_to_cart' ),
@@ -177,28 +202,40 @@ class Frontend_Scripts {
 							'shipping_option'       => wp_create_nonce( 'cpsw_shipping_option' ),
 							'js_nonce'              => wp_create_nonce( 'cpsw_js_error_nonce' ),
 						],
-						'style'           => [
+						'style'                        => [
 							'theme'                 => Helper::get_setting( 'express_checkout_button_theme', 'cpsw_stripe' ),
 							'icon'                  => Helper::get_setting( 'express_checkout_button_icon', 'cpsw_stripe' ),
 							'button_position'       => Helper::get_setting( 'express_checkout_product_page_position', 'cpsw_stripe' ),
 							'checkout_button_width' => absint( Helper::get_setting( 'express_checkout_button_width', 'cpsw_stripe' ) ),
 							'button_length'         => strlen( $button_text ),
 						],
-						'icons'           => [
+						'icons'                        => [
 							'applepay_gray'   => CPSW_URL . 'assets/icon/apple-pay-gray.svg',
 							'applepay_light'  => CPSW_URL . 'assets/icon/apple-pay-light.svg',
 							'gpay_light'      => CPSW_URL . 'assets/icon/gpay_light.svg',
 							'gpay_gray'       => CPSW_URL . 'assets/icon/gpay_gray.svg',
 							'payment_request' => CPSW_URL . 'assets/icon/payment-request-icon.svg',
 						],
-						'is_product_page' => is_product() || wc_post_content_has_shortcode( 'product_page' ),
-						'is_responsive'   => Helper::get_setting( 'express_checkout_product_sticky_footer', 'cpsw_stripe' ),
-						'is_checkout'     => is_checkout(),
-						'is_cart'         => is_cart(),
+						'is_product_page'              => is_product() || wc_post_content_has_shortcode( 'product_page' ),
+						'is_responsive'                => Helper::get_setting( 'express_checkout_product_sticky_footer', 'cpsw_stripe' ),
+						'is_checkout'                  => is_checkout(),
+						'is_cart'                      => is_cart(),
+						'express_checkout_button_type' => Helper::get_setting( 'express_checkout_button_type', 'cpsw_stripe' ),
+						'disabled_wallets'             => $this->get_disabled_wallets(),
+						'element_type'                 => Helper::get_setting( 'cpsw_element_type' ),
 					]
 				)
 			);
 		}
+	}
+
+	/**
+	 * Get shipping methods.
+	 *
+	 * @return array
+	 */
+	public function get_shipping_methods() {
+		return WC()->session->get( 'chosen_shipping_methods', array() );
 	}
 
 	/**
@@ -225,4 +262,38 @@ class Frontend_Scripts {
 
 		return apply_filters( 'cpsw_current_user_billing_details', $details, get_current_user_id() );
 	}
+
+	/**
+	 * Get array of wallets to disable
+	 *
+	 * @since 1.9.0
+	 *
+	 * @return array
+	 */
+	public function get_disabled_wallets() {
+		// Get the list of disabled wallets.
+		$disabled_wallets = apply_filters( 'cpsw_disabled_wallets', [] );
+		$payment_methods  = [];
+		$filtered_wallets = [];
+
+		if ( ! empty( $disabled_wallets ) ) {
+			// Define the allowed wallets.
+			$allowed_wallets = [ 'link', 'applePay', 'googlePay' ];
+		
+			// Filter the disabled wallets to include only those that are allowed.
+			$filtered_wallets = array_values( array_intersect( $disabled_wallets, $allowed_wallets ) );
+
+			// Set the payment methods for each disabled wallet to 'never'.
+			foreach ( $filtered_wallets as $wallet ) {
+				$payment_methods[ $wallet ] = 'never';
+			}
+		}
+
+		// Return the filtered wallets for both button types.
+		return [
+			'for_payment_request_button' => $filtered_wallets,
+			'for_express_checkout'       => $payment_methods,
+		];
+	}
+	
 }

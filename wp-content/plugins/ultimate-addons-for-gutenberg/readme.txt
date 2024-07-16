@@ -5,7 +5,7 @@ Tags: gutenberg, blocks, gutenberg blocks, editor, block
 Requires at least: 5.6
 Requires PHP: 7.4
 Tested up to: 6.5
-Stable tag: 2.13.2
+Stable tag: 2.14.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -211,51 +211,29 @@ When you use the Spectra along with the free Astra theme, you get a huge library
 
 == Credits ==
 
-Our external packages use [Rating Star Component](https://github.com/n49/react-stars) that are distributed under the terms of the ISC. While [Slick](https://github.com/akiran/react-slick), [Lottie](https://github.com/chenqingspring/react-lottie) and [Striptags](https://github.com/ericnorris/striptags) is distributed under the terms of the MIT.
+Our external packages use [Rating Star Component](https://github.com/n49/react-stars) that are distributed under the terms of the ISC. While [Slick](https://github.com/akiran/react-slick), [Lottie](https://github.com/chenqingspring/react-lottie) and [Striptags](https://github.com/ericnorris/striptags) is distributed under the terms of the MIT. Additionally, we incorporate [dnd kit](https://github.com/clauderic/dnd-kit) licensed under the MIT License.
 
 == Changelog ==
 
-= 2.13.2 - Monday, 13th May 2024 =
-* Improvement: Info Box - Added an option to enable semantic paragraphs.
-* Improvement: Call To Action - Added an option to enable semantic paragraphs.
-* Fix: Container - Resolved an issue wherein an extra margin would appear towards the left of the container.
-* Fix: Container - Resolved an issue wherein animations would not work as intended.
-* Fix: Buttons - Resolved an issue wherein the overall button alignment would not work as intended in responsive devices.
-* Fix: Forms - Resolved an issue wherein the submit button would not work as intended when full width is selected.
-* Fix: Modal - Resolved an issue wherein modal does not work as expected for responsive devices.
+= 2.14.0 - Monday, 8th July 2024 = 
+* Fix: Global - Optimized the `Ultimate Addons for Gutenberg` database updation and resolved the editor refresh and RichText issues. Read more about migration [here](https://wpspectra.com/docs/spectra-database-update-instructions/).
 
-= 2.13.1 - Friday, 3rd May 2024 =
-* Security Fix: Hardened the security of the plugin. Props: Ngô Thiên An (ancorn_).
-* Improvement: Core - Updated asset URL generation logic to prevent caching issues.
-* Improvement: Buttons - Improved the accessibility for better user interaction.
-* Fix: Global - Resolved an issue wherein the sidebar block border not displayed.
+= 2.13.9 - Thursday, 4th July 2024 =
+* Improvement: Global - Added an update notice for users that used to use `Ultimate Addons for Gutenberg` to update their database to ensure compatibility with the Heading and Info-box block defaults. Read more [here](https://wpspectra.com/docs/spectra-database-update-instructions/).
+* Fix: Container - Resolved an issue wherein WordPress core blocks inside the container were aligning to the center in tablet/mobile view in the editor.
 
-= 2.13.0 - Thursday, 25th April 2024 =
-* New: Introducing the Header Title-bar - Make more space for editing!
-* Feature: Container - Added new layout type 'grid'.
-* Improvement: Buttons - Added a flex-wrap toggle for multiple button rows instead of shrink-to-fit buttons.
-* Improvement: Countdown - Modified options to remove days, hours, minutes and seconds fields.
-* Improvement: Call To Action - Modified button text font-size to inherit from theme by default.
-* Improvement: Info Box - Modified CTA padding to inherit padding from theme by default.
-* Improvement: Info Box – Added the inherit-from-theme secondary-button option for Astra child themes.
-* Improvement: Call To Action – Added the inherit-from-theme secondary-button option for Astra child themes.
-* Fix: Heading - Resolved an issue wherein toolbar icon would not appear as indended.
-* Fix: Forms - Resolved an issue wherein the padding unit would not work as expected in responsive devices.
-* Fix: Theme Fonts - Resolved a font rendering issue for some Latin characters in FSE themes.
-* Fix: Testimonial - Resolved an issue wherein the padding would not work as intended in responsive devices.
-* Fix: Global - Resolved an issue wherein the editor sidebar would appear a bit shaky while switching between panels.
+= 2.13.8 - Thursday, 27th June 2024 =
+* This update addressed a security bug. Props to Patchstack for privately reporting it to our team. Please make sure you are using the latest version on your website.
 
-= 2.12.9 - Monday, 22nd April 2024 =
-* Security Fix: Hardened the security of the plugin. Props: Wordfence.
+= 2.13.7 - Tuesday, 18th June 2024 =
+* Fix: Forms - Resolved an issue wherein the select dropdown padding would not work as intended with the Astra theme.
+* Fix: How-To - Resolved an issue that would cause all blocks to encounter an error when using the How-To steps with a dynamic image.
+* Fix: Post Grid - Resolved an issue that would cause an error when selecting the Post Type as Site Builder and the Image Layout as Background.
+* Fix: Post Timeline - Resolved an issue wherein the font size would not work as intended in responsive devices.
+* Fix: Global - Resolved an issue wherein labels from the icon library would not be available for translation on wordpress.org.
 
-= 2.12.8 - Wednesday, 10th April 2024 =
-* Improvement: Google Maps - Added a toggle to switch between Roadmap View and Satellite View.
-* Improvement: Global - Improved the block-name identification for the default fallback attributes.
-* Improvement: Global - Added WPML compatibility to the 'How To', 'Buttons', 'Forms' and 'Marketing Button' blocks.
-* Fix: Container - Resolved an issue wherein the link control content and edit icon would overflow out-of-screen after entering lengthy URLs.
-* Fix: Counter - Resolved an issue wherein the total number resets to default on end number change.
-* Fix: Icon - Resolved an issue wherein a few icons would not load on the frontend.
-* Fix: Global - Resolved an issue that would cause block-styling to break when used for a custom archive template of specific post types in FSE themes.
+= 2.13.6 - Thursday, 13th June 2024 =
+* Fix: FAQ - Resolved an issue wherein the FAQ questions could not utilize line breaks or bold text.
 
 The full changelog is available [here](https://wpspectra.com/whats-new/).
 

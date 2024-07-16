@@ -9,11 +9,15 @@
 namespace CPSW\Inc;
 
 use WC_HTTPS;
+use CPSW\Gateway\Stripe\Stripe_Api;
+use CPSW\Inc\Traits\Subscription_Helper;
 
 /**
  * Stripe Webhook.
  */
 class Helper {
+
+	use Subscription_Helper;
 
 	/**
 	 * Default global values
@@ -32,6 +36,7 @@ class Helper {
 		'cpsw_test_webhook_secret' => '',
 		'cpsw_account_id'          => '',
 		'cpsw_debug_log'           => 'yes',
+		'cpsw_element_type'        => 'card',
 	];
 
 	/**
@@ -64,7 +69,7 @@ class Helper {
 		return apply_filters(
 			'cpsw_stripe_gateway_defaults_settings',
 			[
-				'woocommerce_cpsw_stripe_settings' => [
+				'woocommerce_cpsw_stripe_settings'         => [
 					'enabled'                             => 'no',
 					'inline_cc'                           => 'yes',
 					'order_status'                        => '',
@@ -94,12 +99,16 @@ class Helper {
 					'express_checkout_button_width'       => '',
 					'express_checkout_button_alignment'   => 'left',
 					'express_checkout_separator_cart'     => __( 'OR', 'checkout-plugins-stripe-woo' ),
-					'express_checkout_separator_checkout' => __( 'OR', 'checkout-plugins-stripe-woo' ),
-					'express_checkout_checkout_page_position' => 'above-checkout',
-					'express_checkout_checkout_page_layout' => 'custom',
+					'express_checkout_separator_checkout' => '',
+					'express_checkout_checkout_page_position' => 'above-billing',
+					'express_checkout_checkout_page_layout' => 'classic',
+					'express_checkout_button_type'        => 'custom',
 				],
-				'woocommerce_cpsw_alipay_settings' => [
+				'woocommerce_cpsw_alipay_settings'         => [
 					'enabled' => 'no',
+				],
+				'woocommerce_cpsw_stripe_element_settings' => [
+					'layout' => 'tabs',
 				],
 			]
 		);
@@ -151,7 +160,8 @@ class Helper {
 	 * @return mixed
 	 */
 	public static function get_global_setting( $key ) {
-		$db_data = get_option( $key );
+		$db_data                                    = get_option( $key );
+		self::$global_defaults['cpsw_element_type'] = self::default_element_type();
 		return $db_data ? $db_data : self::$global_defaults[ $key ];
 	}
 
@@ -295,6 +305,8 @@ class Helper {
 					'checkout-plugins-stripe-woo'
 				),
 				'account_number_invalid'                 => __( 'The bank account number provided is invalid (e.g., missing digits). Bank account information varies from country to country. We recommend creating validations in your entry forms based on the bank account formats we provide.', 'checkout-plugins-stripe-woo' ),
+				'processing_error_for_element'           => __( 'An error occurred while processing the payment. Use a different payment method or try again later.', 'checkout-plugins-stripe-woo' ),
+				'cashapp_country_error'                  => __( 'Payments with Cash App Pay support only US country.', 'checkout-plugins-stripe-woo' ),
 			]
 		);
 
@@ -320,9 +332,9 @@ class Helper {
 	 * Get icon details of a particular gateway.
 	 *
 	 * @since 1.7.0
-	 * 
+	 *
 	 * @param string $gateway gateway unique id or name to fetch icon.
-	 * 
+	 *
 	 * @return array
 	 */
 	public static function get_payment_icon( $gateway ) {
@@ -332,7 +344,7 @@ class Helper {
 		}
 
 		$icon_url = WC_HTTPS::force_https_url( CPSW_URL . 'assets/icon/' );
-	
+
 		$icons = [
 			'cpsw_alipay'     => [
 				'src'   => $icon_url . 'alipay.svg',
@@ -377,10 +389,10 @@ class Helper {
 				'width' => '50px',
 			],
 		];
-	
+
 		return ! empty( $icons[ $gateway ] ) ? $icons[ $gateway ] : [];
 	}
-	
+
 	/**
 	 * Get test mode description for all local gateways
 	 *
@@ -403,6 +415,94 @@ class Helper {
 	}
 
 	/**
+	 * Returns amount as per currency type
+	 *
+	 * @since 1.9.0
+	 *
+	 * @param string $total amount to be processed.
+	 *
+	 * @return int
+	 */
+	public static function get_the_formatted_amount( $total ) {
+		return absint( wc_format_decimal( ( (float) $total * 100 ), wc_get_price_decimals() ) ); // In cents.
+	}
+
+	/**
+	 * Array containing the Stripe ID of supported payment gateways for Payment element.
+	 *
+	 * @var array
+	 * @since 1.9.0
+	 */
+	public static $supported_gateways = [
+		'card'       => 'Card',
+		'ideal'      => 'iDEAL',
+		'bancontact' => 'Bancontact',
+		'p24'        => 'Przelewy24',
+		'alipay'     => 'Alipay',
+		'klarna'     => 'Klarna',
+		'sepa_debit' => 'SEPA',
+		'wechat_pay' => 'WeChat',
+	];
+
+	/**
+	 * Array containing the Stripe ID of Additional payment gateways for Payment element.
+	 *
+	 * @var array
+	 * @since 1.9.0
+	 */
+	public static $additional_gateways = [
+		'giropay' => 'Giropay',
+		'eps'     => 'EPS',
+		'cashapp' => 'CashApp',
+	];
+
+	/**
+	 * Array defining supported currencies for each Payment element.
+	 *
+	 * Leave empty if all are supported, otherwise provide an array with keys matching the `['id']` value from `$this->supported_gateways`.
+	 *
+	 * @var array
+	 * @since 1.9.0
+	 */
+	public static function gateway_supported_currency() {
+		return [
+			'card'       => [],
+			'ideal'      => [ 'EUR' ],
+			'giropay'    => [ 'EUR' ],
+			'bancontact' => [ 'EUR' ],
+			'eps'        => [ 'EUR' ],
+			'p24'        => [ 'EUR', 'PLN' ],
+			'alipay'     => self::get_supported_currency_for_gateway( 'alipay' ),
+			'klarna'     => self::get_supported_currency_for_gateway( 'klarna' ),
+			'sepa_debit' => [ 'EUR' ],
+			'wechat_pay' => self::get_supported_currency_for_gateway( 'wechat_pay' ),
+			'cashapp'    => [ 'USD' ],
+		];
+	}
+
+	/**
+	 * Array containing the Stripe ID of supported payment gateways which support subscription for Payment element.
+	 *
+	 * @var array
+	 * @since 1.9.0
+	 */
+	public static $subscription_supported_gateways = [
+		'sepa_debit',
+		'card',
+	];
+
+	/**
+	 * Array containing the Stripe ID of payment gateways which support save card for Payment element.
+	 *
+	 * @var array
+	 * @since 1.9.0
+	 */
+	public static $savecard_supported_gateways = [
+		'sepa_debit',
+		'card',
+	];
+
+	/**
 	 * Get test mode description for SEPA
 	 *
 	 * @return string
@@ -417,12 +517,311 @@ class Helper {
 	 * Get  SEPA Direct Debit mandate description for SEPA gateway
 	 *
 	 * Reference : https://stripe.com/docs/payments/sepa-debit/accept-a-payment?platform=web&ui=element#add-and-configure-an-component
-	 * 
+	 *
 	 * @return string
 	 * @since 1.8.0
 	 */
 	public static function get_sepa_mandate_description() {
 		/* translators: HTML Entities. */
 		return apply_filters( 'cpsw_sepa_mandate_description', sprintf( __( 'By providing your IBAN and confirming this payment, you are authorizing %s and Stripe, our payment service provider, to send instructions to your bank to debit your account and your bank to debit your account in accordance with those instructions. You are entitled to a refund from your bank under the terms and conditions of your agreement with your bank. A refund must be claimed within 8 weeks starting from the date on which your account was debited.', 'checkout-plugins-stripe-woo' ), self::get_setting( 'company_name', 'cpsw_sepa' ) ) );
+	}
+
+	/**
+	 * Get order button text
+	 *
+	 * @param string $gateway Gateway id.
+	 *
+	 * @return string
+	 * @since 1.9.0
+	 */
+	public static function get_order_button_text( $gateway ) {
+		return self::get_setting( 'order_button_text', $gateway ) ? self::get_setting( 'order_button_text', $gateway ) : __( 'Place order', 'checkout-plugins-stripe-woo' );
+
+	}
+
+	/**
+	 * Retrieves the default country and currency associated with the Stripe account.
+	 *
+	 * @since 1.9.0
+	 * @return array|false
+	 */
+	public static function get_stripe_default_country() {
+		if ( empty( self::get_setting( 'cpsw_account_id' ) ) ) {
+			return false;
+		}
+
+		$account_default_country_currency = get_transient( 'cpsw_stripe_account_default_country_currency' );
+
+		if ( false === $account_default_country_currency ) {
+			$stripe_api   = new Stripe_Api();
+			$response     = $stripe_api->accounts( 'retrieve', [ self::get_setting( 'cpsw_account_id' ) ] );
+			$account_info = $response['success'] ? $response['data'] : false;
+
+			if ( ! $account_info ) {
+				return false;
+			}
+
+			$account_default_country_currency = [
+				'country'  => strtoupper( $account_info->country ),
+				'currency' => strtoupper( $account_info->default_currency ),
+			];
+			delete_transient( 'cpsw_stripe_account_default_country_currency' );
+			set_transient( 'cpsw_stripe_account_default_country_currency', $account_default_country_currency, 60 * MINUTE_IN_SECONDS );
+		}
+
+		return $account_default_country_currency;
+	}
+
+	/**
+	 * Retrieves the supported currency for the specified payment gateway.
+	 *
+	 * @since 1.9.0
+	 * @param string $gateway_name The name of the payment gateway.
+	 * @return array Returns supported currency/currencies.
+	 */
+	public static function get_supported_currency_for_gateway( $gateway_name ) {
+		$country_info = self::get_stripe_default_country();
+		$country      = $country_info['country'] ?? null;
+		$currency     = $country_info['currency'] ?? null;
+
+		switch ( $gateway_name ) {
+			case 'alipay':
+				$alipay_currency = [ 'CNY' ];
+				switch ( $country ) {
+					case 'AU':
+						$alipay_currency = [ 'AUD', 'CNY' ];
+						break;
+					case 'CA':
+						$alipay_currency = [ 'CAD', 'CNY' ];
+						break;
+					case 'UK':
+						$alipay_currency = [ 'GBP', 'CNY' ];
+						break;
+					case 'HK':
+						$alipay_currency = [ 'HKD', 'CNY' ];
+						break;
+					case 'JP':
+						$alipay_currency = [ 'JPY', 'CNY' ];
+						break;
+					case 'MY':
+						$alipay_currency = [ 'MYR', 'CNY' ];
+						break;
+					case 'NZ':
+						$alipay_currency = [ 'NZD', 'CNY' ];
+						break;
+					case 'SG':
+						$alipay_currency = [ 'SGD', 'CNY' ];
+						break;
+					case 'US':
+						$alipay_currency = [ 'USD', 'CNY' ];
+						break;
+				}
+
+				$alipay_euro_countries = [ 'AT', 'BE', 'BG', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR', 'DE', 'GR', 'IE', 'IT', 'LV', 'LT', 'LU', 'MT', 'NL', 'NO', 'PT', 'RO', 'SK', 'SI', 'ES', 'SE', 'CH' ];
+				if ( in_array( $country, $alipay_euro_countries, true ) ) {
+					$alipay_currency = [ 'EUR', 'CNY' ];
+				}
+
+				return $alipay_currency;
+
+			case 'klarna':
+				$klarna_currency                 = [ $currency ];
+				$klarna_eea_uk_switzerland_codes = [ 'AT', 'BE', 'BG', 'CY', 'CZ', 'DE', 'DK', 'EE', 'ES', 'FI', 'FR', 'GB', 'GR', 'HR', 'HU', 'IE', 'IS', 'IT', 'LI', 'LT', 'LU', 'LV', 'MT', 'NL', 'PL', 'PT', 'RO', 'SE', 'SI', 'SK', 'CH' ];
+
+				if ( in_array( $country, $klarna_eea_uk_switzerland_codes, true ) ) {
+					$klarna_currency = [ 'AUD', 'CAD', 'CHF', 'CZK', 'DKK', 'EUR', 'GBP', 'NOK', 'NZD', 'PLN', 'SEK', 'USD' ];
+				}
+
+				return $klarna_currency;
+
+			case 'wechat_pay':
+				$wechat_currency = [ 'CNY' ];
+
+				switch ( $country ) {
+					case 'AU':
+						$wechat_currency = [ 'AUD', 'CNY' ];
+						break;
+					case 'CA':
+						$wechat_currency = [ 'CAD', 'CNY' ];
+						break;
+					case 'AT':
+					case 'BE':
+					case 'DK':
+					case 'FI':
+					case 'FR':
+					case 'DE':
+					case 'IE':
+					case 'IT':
+					case 'LU':
+					case 'NL':
+					case 'NO':
+					case 'PT':
+					case 'ES':
+					case 'SE':
+						$wechat_currency = [ 'EUR', 'CNY' ];
+						break;
+					case 'UK':
+						$wechat_currency = [ 'GBP', 'CNY' ];
+						break;
+					case 'HK':
+						$wechat_currency = [ 'HKD', 'CNY' ];
+						break;
+					case 'JP':
+						$wechat_currency = [ 'JPY', 'CNY' ];
+						break;
+					case 'SG':
+						$wechat_currency = [ 'SGD', 'CNY' ];
+						break;
+					case 'US':
+						$wechat_currency = [ 'USD', 'CNY' ];
+						break;
+					case 'DK':
+						$wechat_currency = [ 'DKK', 'CNY' ];
+						break;
+					case 'NO':
+						$wechat_currency = [ 'NOK', 'CNY' ];
+						break;
+					case 'SE':
+						$wechat_currency = [ 'SEK', 'CNY' ];
+						break;
+					case 'CH':
+						$wechat_currency = [ 'CHF', 'CNY' ];
+						break;
+				}
+
+				return $wechat_currency;
+
+			// Add cases for other gateways as needed...
+
+			default:
+				return [];
+		}
+	}
+
+	/**
+	 * Get supported gateways based on current currency
+	 *
+	 * @since 1.9.0
+	 * @return array
+	 */
+	public static function get_available_gateways() {
+		$gateways = [];
+
+		foreach ( array_keys( self::$supported_gateways ) as $key ) {
+			$settings_key = $key;
+			if ( 'sepa_debit' === $key ) {
+				$settings_key = 'sepa';
+			} elseif ( 'wechat_pay' === $key ) {
+				$settings_key = 'wechat';
+			} elseif ( 'card' === $key ) {
+				$settings_key = 'stripe';
+			}
+
+			$settings = self::get_gateway_settings( 'cpsw_' . $settings_key );
+			// Check if the payment method is enabled.
+			if ( isset( $settings['enabled'] ) && 'yes' === $settings['enabled'] ) {
+				// Add the payment method key to the enabled payment methods array.
+				$supported_gateways[] = $key;
+			}
+		}
+
+		$additional_gateways = self::get_setting( 'additional_methods', 'cpsw_stripe_element' );
+
+		// If there are some additional gateways then merge it in the supported gateways.
+		if ( ! empty( $additional_gateways ) && is_array( $additional_gateways ) ) {
+			$supported_gateways = array_merge( $additional_gateways, $supported_gateways );
+		}
+
+		// If there are no supported gateways then return.
+		if ( empty( $supported_gateways ) && ! is_array( $supported_gateways ) ) {
+			return;
+		}
+
+		// Check if cart has subscription product.
+		// If so, show gateways for recurring payments only.
+		$subscription_helper = new self();
+		if ( $subscription_helper->is_subscription_item_in_cart() ) {
+			$supported_gateways = array_intersect( self::$subscription_supported_gateways, $supported_gateways );
+		}
+
+		$gateway_supported_currency = self::gateway_supported_currency();
+		// Loop through supported gateways.
+		foreach ( $supported_gateways as $gateway ) {
+			// Check if the gateway supports the current currency.
+			if ( empty( $gateway_supported_currency[ $gateway ] ) || in_array( get_woocommerce_currency(), $gateway_supported_currency[ $gateway ] ) ) {
+				$gateways[] = $gateway;
+			}
+		}
+
+		return $gateways;
+	}
+
+	/**
+	 * Default value for cpsw_element_type based on condition.
+	 *
+	 * @since 1.9.1
+	 * @return string
+	 */
+	public static function default_element_type() {
+		$all_gateways = [
+			'cpsw_stripe',
+			'cpsw_alipay',
+			'cpsw_ideal',
+			'cpsw_klarna',
+			'cpsw_sepa',
+			'cpsw_bancontact',
+			'cpsw_p24',
+			'cpsw_wechat',
+		];
+
+		foreach ( $all_gateways as $payment_method ) {
+			$enabled = self::get_setting( 'enabled', $payment_method );
+			if ( 'yes' === $enabled ) {
+				return 'card';
+			}
+		}
+
+		return 'payment';
+	}
+
+	/**
+	 * Checks if the current page is a CPSW settings page for a specific payment method.
+	 * 
+	 * @since 1.9.1
+	 * @return bool
+	 */
+	public static function is_cpsw_settings_page() {
+		$allowed_sections = apply_filters(
+			'cpsw_allow_admin_scripts_methods',
+			array(
+				'cpsw_stripe',
+				'cpsw_alipay',
+				'cpsw_ideal',
+				'cpsw_klarna',
+				'cpsw_sepa',
+				'cpsw_bancontact',
+				'cpsw_p24',
+				'cpsw_wechat',
+				'cpsw_stripe_element',
+			)
+		);
+	
+		if ( ! is_admin() ) {
+			return false;
+		}
+	
+		if ( ! isset( $_GET['page'] ) || 'wc-settings' !== $_GET['page'] || ! isset( $_GET['tab'] ) ) {//phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			return false; // Basic checks for settings page.
+		}
+	
+		if ( 'cpsw_api_settings' === $_GET['tab'] ) {//phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			return true; // Matches the "cpsw_api_settings" tab.
+		}
+	
+		if ( isset( $_GET['section'] ) && in_array( sanitize_text_field( $_GET['section'] ), $allowed_sections, true ) ) {//phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			return true; // Matches a section starting with "cpsw_" and in the allowed list.
+		}
+	
+		return false;
 	}
 }

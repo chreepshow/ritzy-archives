@@ -744,6 +744,8 @@ class UAGB_Init_Blocks {
 			),
 		);
 
+		$inherit_from_theme = 'deleted' !== UAGB_Admin_Helper::get_admin_settings_option( 'uag_btn_inherit_from_theme_fallback', 'deleted' ) ? 'disabled' : UAGB_Admin_Helper::get_admin_settings_option( 'uag_btn_inherit_from_theme', 'disabled' );
+
 		$localized_params = array(
 			'cf7_is_active'                           => class_exists( 'WPCF7_ContactForm' ),
 			'gf_is_active'                            => class_exists( 'GFForms' ),
@@ -778,7 +780,7 @@ class UAGB_Init_Blocks {
 			'uag_select_font_globally'                => $selected_fonts,
 			'uagb_old_user_less_than_2'               => get_option( 'uagb-old-user-less-than-2' ),
 			'collapse_panels'                         => UAGB_Admin_Helper::get_admin_settings_option( 'uag_collapse_panels', 'enabled' ),
-			'enable_legacy_blocks'                    => UAGB_Admin_Helper::get_admin_settings_option( 'uag_enable_legacy_blocks', ( 'yes' === get_option( 'uagb-old-user-less-than-2' ) ) ? 'yes' : 'no' ),
+			'enable_legacy_blocks'                    => UAGB_Admin_Helper::get_admin_settings_option( 'uag_enable_legacy_blocks' ),
 			'copy_paste'                              => UAGB_Admin_Helper::get_admin_settings_option( 'uag_copy_paste', 'enabled' ),
 			'enable_on_page_css_button'               => UAGB_Admin_Helper::get_admin_settings_option( 'uag_enable_on_page_css_button', 'yes' ),
 			'content_width'                           => $content_width,
@@ -789,8 +791,8 @@ class UAGB_Init_Blocks {
 			'recaptcha_secret_key_v2'                 => UAGB_Admin_Helper::get_admin_settings_option( 'uag_recaptcha_secret_key_v2', '' ),
 			'recaptcha_secret_key_v3'                 => UAGB_Admin_Helper::get_admin_settings_option( 'uag_recaptcha_secret_key_v3', '' ),
 			'blocks_editor_spacing'                   => apply_filters( 'uagb_default_blocks_editor_spacing', UAGB_Admin_Helper::get_admin_settings_option( 'uag_blocks_editor_spacing', 0 ) ),
-			'load_font_awesome_5'                     => UAGB_Admin_Helper::get_admin_settings_option( 'uag_load_font_awesome_5', ( 'yes' === get_option( 'uagb-old-user-less-than-2' ) ) ? 'enabled' : 'disabled' ),
-			'auto_block_recovery'                     => UAGB_Admin_Helper::get_admin_settings_option( 'uag_auto_block_recovery', ( 'yes' === get_option( 'uagb-old-user-less-than-2' ) ) ? 'enabled' : 'disabled' ),
+			'load_font_awesome_5'                     => UAGB_Admin_Helper::get_admin_settings_option( 'uag_load_font_awesome_5' ),
+			'auto_block_recovery'                     => UAGB_Admin_Helper::get_admin_settings_option( 'uag_auto_block_recovery' ),
 			'font_awesome_5_polyfill'                 => array(),
 			'spectra_custom_fonts'                    => apply_filters( 'spectra_system_fonts', array() ),
 			'spectra_pro_status'                      => is_plugin_active( 'spectra-pro/spectra-pro.php' ),
@@ -805,6 +807,7 @@ class UAGB_Init_Blocks {
 			'is_site_editor'                          => $screen->id,
 			'current_post_id'                         => get_the_ID(),
 			'btn_inherit_from_theme'                  => UAGB_Admin_Helper::get_admin_settings_option( 'uag_btn_inherit_from_theme', 'disabled' ),
+			'btn_inherit_from_theme_fallback'         => $inherit_from_theme,
 			'wp_version'                              => get_bloginfo( 'version' ),
 			'is_block_theme'                          => UAGB_Admin_Helper::is_block_theme(),
 			'is_customize_preview'                    => is_customize_preview(),
@@ -814,30 +817,6 @@ class UAGB_Init_Blocks {
 			'header_titlebar_status'                  => UAGB_Admin_Helper::get_admin_settings_option( 'uag_enable_header_titlebar', 'enabled' ),
 			'is_astra_based_theme'                    => defined( 'ASTRA_THEME_SETTINGS' ),
 		);
-
-		if ( 'enabled' === $uag_enable_quick_action_sidebar ) {
-			$default_allowed_quick_sidebar_blocks = apply_filters(
-				'uagb_quick_sidebar_allowed_blocks',
-				array(
-					'uagb/container',
-					'uagb/advanced-heading',
-					'uagb/image',
-					'uagb/icon',
-					'uagb/buttons',
-					'uagb/info-box',
-					'uagb/call-to-action',
-				)
-			);
-
-			if ( ! is_array( $default_allowed_quick_sidebar_blocks ) ) {
-				$default_allowed_quick_sidebar_blocks = array();
-			}
-
-			$quick_sidebar_allowed_blocks = \UAGB_Admin_Helper::get_admin_settings_option( 'uagb_quick_sidebar_allowed_blocks', $default_allowed_quick_sidebar_blocks );
-			$quick_sidebar_allowed_blocks = ! empty( $quick_sidebar_allowed_blocks ) && is_array( $quick_sidebar_allowed_blocks ) ? $quick_sidebar_allowed_blocks : $default_allowed_quick_sidebar_blocks;
-
-			$localized_params['quick_sidebar_allowed_blocks'] = $quick_sidebar_allowed_blocks;
-		}
 
 		wp_localize_script(
 			'uagb-block-editor-js',

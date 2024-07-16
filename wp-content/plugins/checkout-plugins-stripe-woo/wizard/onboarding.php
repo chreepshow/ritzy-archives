@@ -246,6 +246,7 @@ class Onboarding {
 			'get_payment_mode'                        => Helper::get_payment_mode(),
 			'get_webhook_secret'                      => Helper::get_webhook_secret(),
 			'webhook_url'                             => esc_url( get_home_url() . '/wp-json/cpsw/v1/webhook' ),
+			'get_element'                             => Helper::get_setting( 'cpsw_element_type' ),
 		];
 	}
 
@@ -340,6 +341,9 @@ class Onboarding {
 		if ( empty( $gateway_status ) || ! is_array( $gateway_status ) ) {
 			wp_send_json_success( [ 'message' => 'no gateway selected' ] );
 		}
+
+		// Update element type before activating any gateway to ensure backward compatibility.
+		update_option( 'cpsw_element_type', Helper::default_element_type() );
 
 		$gateways = WC()->payment_gateways->payment_gateways();
 

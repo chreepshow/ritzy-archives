@@ -70,6 +70,10 @@ class Local_Gateway extends Abstract_Payment_Gateway {
 	 * @return boolean
 	 */
 	public function is_available() {
+		if ( 'payment' === Helper::get_setting( 'cpsw_element_type' ) ) {
+			return false;
+		}
+
 		if ( 'yes' !== $this->enabled ) {
 			return false;
 		}
@@ -97,6 +101,11 @@ class Local_Gateway extends Abstract_Payment_Gateway {
 	 * @return string
 	 */
 	protected function get_payment_description( $desc ) {
+		// Early return if the element type is a payment element since it doesn't support country-based settings.
+		if ( 'payment' === Helper::get_setting( 'cpsw_element_type' ) ) {
+			return $desc;
+		}
+
 		if ( 'all_except' === $this->get_option( 'allowed_countries' ) ) {
 			// translators: %s: except countries.
 			$desc .= sprintf( __( ' & billing country is not <strong>%s</strong>', 'checkout-plugins-stripe-woo' ), implode( ', ', $this->get_option( 'except_countries', array() ) ) );

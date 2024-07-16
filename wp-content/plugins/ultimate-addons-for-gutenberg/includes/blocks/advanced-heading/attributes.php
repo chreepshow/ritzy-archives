@@ -9,7 +9,7 @@
 
 $highLight_border_attribute = UAGB_Block_Helper::uag_generate_border_attribute( 'highLight' );
 
-$enable_legacy_blocks = UAGB_Admin_Helper::get_admin_settings_option( 'uag_enable_legacy_blocks', ( 'yes' === get_option( 'uagb-old-user-less-than-2' ) ) ? 'yes' : 'no' );
+$enable_legacy_blocks = UAGB_Admin_Helper::get_admin_settings_option( 'uag_enable_legacy_blocks' );
 
 $heading_alignment_default = ( 'yes' === get_option( 'uagb-old-user-less-than-2' ) ) ? 'center' : '';
 $subheading_toggle_default = 'yes' === get_option( 'uagb-old-user-less-than-2' );

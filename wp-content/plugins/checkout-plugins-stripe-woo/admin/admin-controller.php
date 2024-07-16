@@ -39,6 +39,7 @@ class Admin_Controller {
 		'cpsw_pub_key',
 		'cpsw_secret_key',
 		'cpsw_con_status',
+		'cpsw_element_type',
 		'cpsw_mode',
 		'cpsw_live_webhook_secret',
 		'cpsw_test_webhook_secret',
@@ -75,15 +76,31 @@ class Admin_Controller {
 	 */
 	public function __construct() {
 		$this->init();
-
 		foreach ( $this->settings_keys as $key ) {
 			$this->settings[ $key ] = get_option( $key );
 		}
 
+		$this->init_navigations();
+
+		// Show navigation tab for payment element's settings ( Stripe options ) only if the element type setting field's value is 'payment'.
+		if ( 'payment' !== Helper::get_setting( 'cpsw_element_type' ) ) {
+			unset( $this->navigation['cpsw_stripe_element'] );
+		}
+	}
+
+	/**
+	 * Initialize Navigation.
+	 *
+	 * Sets up the navigation array with all navigation tabs.
+	 *
+	 * @since 1.9.0
+	 * @return array The initialized navigation array.
+	 */
+	private function init_navigations() {
 		$this->navigation = apply_filters(
 			'cpsw_settings_navigation',
 			[
-				'cpsw_api_settings'     => __( 'Stripe API Settings', 'checkout-plugins-stripe-woo' ),
+				'cpsw_api_settings'     => __( 'Settings', 'checkout-plugins-stripe-woo' ),
 				'cpsw_stripe'           => __( 'Credit Cards', 'checkout-plugins-stripe-woo' ),
 				'cpsw_express_checkout' => __( 'Express Checkout', 'checkout-plugins-stripe-woo' ),
 				'cpsw_alipay'           => __( 'Alipay', 'checkout-plugins-stripe-woo' ),
@@ -93,8 +110,11 @@ class Admin_Controller {
 				'cpsw_p24'              => __( 'Przelewy24', 'checkout-plugins-stripe-woo' ),
 				'cpsw_wechat'           => __( 'WeChat', 'checkout-plugins-stripe-woo' ),
 				'cpsw_bancontact'       => __( 'Bancontact', 'checkout-plugins-stripe-woo' ),
+				'cpsw_stripe_element'   => __( 'Stripe Options', 'checkout-plugins-stripe-woo' ),
 			]
 		);
+
+		return $this->navigation;
 	}
 
 	/**
@@ -129,6 +149,7 @@ class Admin_Controller {
 		add_action( 'wp_ajax_cpsw_create_webhook', [ $this, 'create_webhook_action' ] );
 		add_action( 'wp_ajax_cpsw_js_errors', [ $this, 'js_errors' ] );
 		add_action( 'wp_ajax_nopriv_cpsw_js_errors', [ $this, 'js_errors' ] );
+		add_action( 'wp_ajax_dismiss_cpsw_notice', [ $this, 'dismiss_payment_element_notice' ] );
 
 		add_action( 'woocommerce_settings_save_cpsw_api_settings', [ $this, 'check_connection_on_updates' ] );
 		add_filter( 'woocommerce_save_settings_checkout_cpsw_express_checkout', [ $this, 'cpsw_express_checkout_option_updates' ] );
@@ -178,9 +199,9 @@ class Admin_Controller {
 						unset( $radio_checkbox[ $k ] );
 					} else {
 						if ( is_array( $value ) ) {
-							$express_checkout[ $k ] = array_map( 'sanitize_text_field', $value );
+							$express_checkout[ $k ] = array_map( 'sanitize_text_field', wp_unslash( $value ) );
 						} else {
-							$express_checkout[ $k ] = sanitize_text_field( $value );
+							$express_checkout[ $k ] = sanitize_text_field( wp_unslash( $value ) );
 						}
 					}
 
@@ -205,6 +226,13 @@ class Admin_Controller {
 	 * @since 0.0.1
 	 */
 	public function initialise_warnings() {
+		// If Stripe checkout is not enabled.
+		if ( Helper::is_cpsw_settings_page() ) {
+			if ( 'payment' !== Helper::get_setting( 'cpsw_element_type' ) ) {
+				add_action( 'admin_notices', [ $this, 'stripe_checkout_notice' ] );
+			}
+		}
+
 		// If keys are not set bail.
 		if ( ! $this->are_keys_set() ) {
 			add_action( 'admin_notices', [ $this, 'are_keys_set_check' ] );
@@ -237,20 +265,7 @@ class Admin_Controller {
 	 * @since 0.0.1
 	 */
 	public function enqueue_scripts() {
-		$version               = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? time() : CPSW_VERSION;
-		$allow_scripts_methods = apply_filters(
-			'cpsw_allow_admin_scripts_methods',
-			[
-				'cpsw_stripe',
-				'cpsw_alipay',
-				'cpsw_ideal',
-				'cpsw_klarna',
-				'cpsw_sepa',
-				'cpsw_bancontact',
-				'cpsw_p24',
-				'cpsw_wechat',
-			]
-		);
+		$version = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? time() : CPSW_VERSION;
 
 		if ( false !== get_transient( 'cpsw_stripe_sepa_client_secret' ) ) {
 			wp_register_script( 'cpsw-stripe-elements-external', 'https://js.stripe.com/v3/', [], $version, true );
@@ -276,7 +291,7 @@ class Admin_Controller {
 		}
 
 		// Admin enqueue scripts using $_GET to determine scope, nonce verification not required.
-		if ( isset( $_GET['page'] ) && 'wc-settings' === $_GET['page'] && isset( $_GET['tab'] ) && ( 'cpsw_api_settings' === $_GET['tab'] || isset( $_GET['section'] ) && ( in_array( sanitize_text_field( $_GET['section'] ), $allow_scripts_methods, true ) ) ) ) { //phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		if ( Helper::is_cpsw_settings_page() ) {    
 			wp_register_style( 'cpsw-admin-style', plugins_url( 'assets/css/admin.css', __FILE__ ), [], $version, 'all' );
 			wp_enqueue_style( 'cpsw-admin-style' );
 
@@ -289,25 +304,32 @@ class Admin_Controller {
 				apply_filters(
 					'cpsw_admin_localize_script_args',
 					[
-						'site_url'                 => get_site_url() . '/wp-admin/admin.php?page=wc-settings',
-						'ajax_url'                 => admin_url( 'admin-ajax.php' ),
-						'cpsw_mode'                => Helper::get_payment_mode(),
-						'admin_nonce'              => wp_create_nonce( 'cpsw_admin_nonce' ),
-						'dashboard_url'            => admin_url( 'admin.php?page=wc-settings&tab=cpsw_api_settings' ),
-						'generic_error'            => __( 'Something went wrong! Please reload the page and try again.', 'checkout-plugins-stripe-woo' ),
-						'test_btn_label'           => __( 'Connect to Stripe', 'checkout-plugins-stripe-woo' ),
-						'stripe_key_notice'        => __( 'Please enter all keys to connect to stripe.', 'checkout-plugins-stripe-woo' ),
-						'stripe_key_error'         => __( 'You must enter your API keys or connect the plugin before performing a connection test. Mode:', 'checkout-plugins-stripe-woo' ),
-						'stripe_key_unavailable'   => __( 'Keys Unavailable.', 'checkout-plugins-stripe-woo' ),
-						'stripe_disconnect'        => __( 'Your Stripe account has been disconnected.', 'checkout-plugins-stripe-woo' ),
-						'delete_webhook'           => __( 'Your Stripe webhook secret key has been deleted.', 'checkout-plugins-stripe-woo' ),
-						'create_webhook'           => __( 'Your Stripe webhook secret key has been created.', 'checkout-plugins-stripe-woo' ),
-						'stripe_connect_other_acc' => __( 'You can connect other Stripe account now.', 'checkout-plugins-stripe-woo' ),
-						'is_connected'             => $this->is_stripe_connected(),
+						'site_url'                       => get_site_url() . '/wp-admin/admin.php?page=wc-settings',
+						'ajax_url'                       => admin_url( 'admin-ajax.php' ),
+						'cpsw_mode'                      => Helper::get_payment_mode(),
+						'admin_nonce'                    => wp_create_nonce( 'cpsw_admin_nonce' ),
+						'dashboard_url'                  => admin_url( 'admin.php?page=wc-settings&tab=cpsw_api_settings' ),
+						'generic_error'                  => __( 'Something went wrong! Please reload the page and try again.', 'checkout-plugins-stripe-woo' ),
+						'test_btn_label'                 => __( 'Connect to Stripe', 'checkout-plugins-stripe-woo' ),
+						'stripe_key_notice'              => __( 'Please enter all keys to connect to stripe.', 'checkout-plugins-stripe-woo' ),
+						'stripe_key_error'               => __( 'You must enter your API keys or connect the plugin before performing a connection test. Mode:', 'checkout-plugins-stripe-woo' ),
+						'stripe_key_unavailable'         => __( 'Keys Unavailable.', 'checkout-plugins-stripe-woo' ),
+						'stripe_disconnect'              => __( 'Your Stripe account has been disconnected.', 'checkout-plugins-stripe-woo' ),
+						'delete_webhook'                 => __( 'Your Stripe webhook secret key has been deleted.', 'checkout-plugins-stripe-woo' ),
+						'create_webhook'                 => __( 'Your Stripe webhook secret key has been created.', 'checkout-plugins-stripe-woo' ),
+						'stripe_connect_other_acc'       => __( 'You can connect other Stripe account now.', 'checkout-plugins-stripe-woo' ),
+						'is_connected'                   => $this->is_stripe_connected(),
 						// Localizing get values for use in JS, nonce verification not required.
-						'is_manually_connected'    => isset( $_GET['connect'] ) ? sanitize_text_field( $_GET['connect'] ) : '', //phpcs:ignore WordPress.Security.NonceVerification.Recommended
-						'cpsw_admin_settings_tab'  => isset( $_GET['tab'] ) ? sanitize_text_field( $_GET['tab'] ) : '', //phpcs:ignore WordPress.Security.NonceVerification.Recommended
-						'cpsw_admin_current_page'  => isset( $_GET['section'] ) ? sanitize_text_field( $_GET['section'] ) : '', //phpcs:ignore WordPress.Security.NonceVerification.Recommended
+						'is_manually_connected'          => isset( $_GET['connect'] ) ? sanitize_text_field( $_GET['connect'] ) : '', //phpcs:ignore WordPress.Security.NonceVerification.Recommended
+						'cpsw_admin_settings_tab'        => isset( $_GET['tab'] ) ? sanitize_text_field( $_GET['tab'] ) : '', //phpcs:ignore WordPress.Security.NonceVerification.Recommended
+						'cpsw_admin_current_page'        => isset( $_GET['section'] ) ? sanitize_text_field( $_GET['section'] ) : '', //phpcs:ignore WordPress.Security.NonceVerification.Recommended
+						'store_currency'                 => get_woocommerce_currency(),
+						'not_applicable_settings_notice' => sprintf(
+							/* translators: HTML Markup - Link to the documentation. The placeholders %1$s and %2$s are for HTML tags. */
+							esc_html__( 'These settings are not applicable for Payment Element. To know more %1$sclick here%2$s.', 'checkout-plugins-stripe-woo' ),
+							'<a href="https://checkoutplugins.com/docs/smarter-way-to-display-payment-methods/" target="_blank">',
+							'</a>'
+						),
 					]
 				)
 			);
@@ -324,9 +346,9 @@ class Admin_Controller {
 			wp_register_script( 'cpsw-express-checkout-js', plugins_url( 'assets/js/express-checkout.js', __FILE__ ), [ 'jquery', 'cpsw-stripe-external' ], $version, true );
 			wp_enqueue_script( 'cpsw-express-checkout-js' );
 
-			$public_key  = ( 'live' === Helper::get_payment_mode() ) ? Helper::get_setting( 'cpsw_pub_key' ) : Helper::get_setting( 'cpsw_test_pub_key' );
-			$button_text = empty( Helper::get_setting( 'express_checkout_button_text', 'cpsw_stripe' ) ) ? __( 'Pay now', 'checkout-plugins-stripe-woo' ) : Helper::get_setting( 'express_checkout_button_text', 'cpsw_stripe' );
-
+			$public_key     = ( 'live' === Helper::get_payment_mode() ) ? Helper::get_setting( 'cpsw_pub_key' ) : Helper::get_setting( 'cpsw_test_pub_key' );
+			$saved_btn_text = Helper::get_setting( 'express_checkout_button_text', 'cpsw_stripe' );
+			$button_text    = empty( $saved_btn_text ) ? __( 'Pay now', 'checkout-plugins-stripe-woo' ) : esc_html( wp_unslash( $saved_btn_text ) );
 			wp_localize_script(
 				'cpsw-express-checkout-js',
 				'cpsw_express_checkout',
@@ -356,6 +378,12 @@ class Admin_Controller {
 				)
 			);
 		}
+
+		// Admin enqueue scripts using $_GET to determine scope, nonce verification not required.
+		if ( isset( $_GET['page'] ) && 'wc-settings' === $_GET['page'] && isset( $_GET['tab'] ) && ( 'checkout' === $_GET['tab'] ) ) { //phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			wp_register_style( 'cpsw-checkout-style', plugins_url( 'assets/css/payments-tab.css', __FILE__ ), [], $version, 'all' );
+			wp_enqueue_style( 'cpsw-checkout-style' );
+		}   
 	}
 
 	/**
@@ -403,6 +431,73 @@ class Admin_Controller {
 	 */
 	public function ssl_not_connect() {
 		echo wp_kses_post( '<div class="notice notice-error"><p>' . __( 'No SSL was detected, Stripe live mode requires SSL.', 'checkout-plugins-stripe-woo' ) . '</p></div>' );
+	}
+
+	/**
+	 * Display notice for enabling Stripe Checkout.
+	 *
+	 * @since 1.9.0
+	 *
+	 * @return void
+	 */
+	public function stripe_checkout_notice() {
+		$notice_id = 'payment_element_notice';
+		if ( 'no' === get_option( 'cpsw_show_' . $notice_id . '_notice' ) ) {
+			return;
+		}
+
+		$setting_url = esc_url( admin_url( 'admin.php?page=wc-settings&tab=cpsw_api_settings' ) );
+		$message     = sprintf(
+				// Translators: %1$s, %2$s are placeholders for HTML tags.
+			__( 'Experience the convenience of the new Stripe options. Head to your%1$s settings %2$s and choose Payment Element option under Element to give it a try.', 'checkout-plugins-stripe-woo' ),
+			'<a href="' . $setting_url . '" class="cpsw-notice-link">',
+			'</a>'
+		);
+		$cta_action = sprintf(
+			// Translators: %1$s, %2$s are placeholders for Link HTML tags.
+			__( '%1$sTry now%2$s', 'checkout-plugins-stripe-woo' ),
+			'<a class="button" href="' . $setting_url . '">',
+			'</a>'
+		);
+
+		$output              = '<div id="' . $notice_id . '" class="cpsw-notice cpsw-dismissible-notice notice notice-info is-dismissible">';
+			$output         .= '<div class="cpsw-notice-container">';
+				$output     .= '<div class="cpsw-notice-message">';
+					$output .= '<h3 class="cpsw-notice-heading" style="font-size:15px;">' . __( 'Discover a smarter way to display payment methods!', 'checkout-plugins-stripe-woo' ) . '</h3>';
+					$output .= '<p class="cpsw-notice-description">' . $message . '</p>';
+					$output .= '<p class="cpsw-notice-cta">' . $cta_action . '</p>';
+				$output     .= '</div>';
+			$output         .= '</div>';
+		$output             .= '</div>';
+
+		echo wp_kses_post( $output );
+	}
+
+	/**
+	 * Ajax callback function triggered when a notice is dismissed.
+	 *
+	 * @since 1.9.1
+	 *
+	 * @return void
+	 */
+	public function dismiss_payment_element_notice() {
+		if ( ! is_admin() ) {
+			return;
+		}
+	
+		if ( ! isset( $_POST['_security'] ) || ! wp_verify_nonce( sanitize_text_field( $_POST['_security'] ), 'cpsw_admin_nonce' ) ) {
+			wp_send_json_error( [ 'message' => __( 'Invalid Nonce', 'checkout-plugins-stripe-woo' ) ] );
+			return;
+		}
+
+		// Get the notice ID.
+		$notice_id = isset( $_POST['notice_id'] ) ? sanitize_key( $_POST['notice_id'] ) : '';
+
+		// Update an option to mark notice as dismissed.
+		update_option( 'cpsw_show_' . $notice_id . '_notice', 'no' );
+
+		// Success response.
+		wp_send_json_success( null, 200 );
 	}
 
 	/**
@@ -855,11 +950,11 @@ class Admin_Controller {
 				<label for="<?php echo esc_attr( $value['id'] ); ?>"><?php echo esc_html( $value['title'] ); ?> </label>
 			</th>
 			<td class="form-wc form-wc-<?php echo esc_attr( $value['class'] ); ?>">
-				<fieldset>
-					<div class="cpsw_express_checkout_preview_wrapper">
+				<div class="cpsw_express_checkout_preview_wrapper_section">
+					<fieldset class="cpsw_express_checkout_preview_wrapper">
 						<div class="cpsw_express_checkout_preview"></div>
 						<div id="cpsw-payment-request-custom-button" class="cpsw-payment-request-custom-button-admin">
-							<button lang="auto" class="cpsw-payment-request-custom-button-render cpsw_express_checkout_button cpsw-express-checkout-button large" role="button" type="submit" style="height: 40px;">
+							<button lang="auto" id="cpsw-payment-request-custom-button-preview-render" class="cpsw-payment-request-custom-button-render cpsw_express_checkout_button cpsw-express-checkout-button large" role="button" type="submit" style="height: 40px;">
 								<div class="cpsw-express-checkout-button-inner" tabindex="-1">
 									<div class="cpsw-express-checkout-button-shines">
 										<div class="cpsw-express-checkout-button-shine cpsw-express-checkout-button-shine--scroll"></div>
@@ -874,8 +969,12 @@ class Admin_Controller {
 								</div>
 							</button>
 						</div>
-					</div>
-				</fieldset>
+						<div  id="cpsw-default-button">
+							<button lang="auto" id="cpsw-payment-request-default-button-preview-render" class=" cpsw_express_checkout_button cpsw-express-checkout-button large" role="button" type="submit" style="border: unset;">
+							</button>
+						</div>
+					</fieldset>
+				</div>
 				<?php if ( ! empty( $value['desc'] ) ) { ?>
 				<fieldset class="cpsw_express_checkout_preview_description">
 					<div class="notice inline notice-warning cpsw_inline_notice" style="margin: 5px 0 -10px;padding:10px 20px;">
@@ -1067,6 +1166,13 @@ class Admin_Controller {
 	 * @return void
 	 */
 	public function update_settings() {
+		if ( isset( $_POST['cpsw_element_type'] ) ) { //phpcs:ignore WordPress.Security.NonceVerification.Missing
+			$this->init_navigations();
+			if ( 'payment' !== $_POST['cpsw_element_type'] ) { //phpcs:ignore WordPress.Security.NonceVerification.Missing
+				unset( $this->navigation['cpsw_stripe_element'] );
+			}
+		}
+
 		woocommerce_update_options( $this->get_settings() );
 	}
 
@@ -1116,7 +1222,7 @@ class Admin_Controller {
 	public function get_settings() {
 		$settings = [
 			'section_title'       => [
-				'name' => __( 'Stripe API Settings', 'checkout-plugins-stripe-woo' ),
+				'name' => __( 'Settings', 'checkout-plugins-stripe-woo' ),
 				'type' => 'title',
 				'id'   => 'cpsw_title',
 			],
@@ -1183,6 +1289,18 @@ class Admin_Controller {
 				],
 				'desc'     => __( 'No live transactions are processed in test mode. To fully use test mode, you must have a sandbox (test) account for the payment gateway you are testing.', 'checkout-plugins-stripe-woo' ),
 				'id'       => 'cpsw_mode',
+				'desc_tip' => true,
+			],
+			'element_type'        => [
+				'name'     => __( 'Element', 'checkout-plugins-stripe-woo' ),
+				'type'     => 'select',
+				'options'  => [
+					'payment' => __( 'Payment Element', 'checkout-plugins-stripe-woo' ),
+					'card'    => __( 'Card Element', 'checkout-plugins-stripe-woo' ),
+				],
+				'desc'     => __( 'Payment Element is recommended for better accessibility', 'checkout-plugins-stripe-woo' ),
+				'id'       => 'cpsw_element_type',
+				'default'  => Helper::default_element_type(),
 				'desc_tip' => true,
 			],
 			'webhook_url'         => [
@@ -1257,6 +1375,8 @@ class Admin_Controller {
 				<fieldset>
 					<button id="cpsw_create_webhook_key_test" data-mode="test" class="button" type="button"><?php esc_html_e( 'Create Webhook Automatically', 'checkout-plugins-stripe-woo' ); ?></button>
 				</fieldset>
+				<fieldset class="cpsw_create_webhook_key_test_notice">
+				</fieldset>
 			</td>
 		</tr>
 		<?php
@@ -1282,6 +1402,8 @@ class Admin_Controller {
 			<td class="form-wc form-wc-<?php echo esc_attr( $value['class'] ); ?>">
 				<fieldset>
 					<button id="cpsw_create_webhook_key_live" data-mode="live" class="button" type="button"><?php esc_html_e( 'Create Webhook Automatically', 'checkout-plugins-stripe-woo' ); ?></button>
+				</fieldset>
+				<fieldset class="cpsw_create_webhook_key_live_notice">
 				</fieldset>
 			</td>
 		</tr>
@@ -1672,6 +1794,7 @@ class Admin_Controller {
 			unset( $array['live_create_webhook'] );
 			unset( $array['live_delete_webhook'] );
 			unset( $array['debug_log'] );
+			unset( $array['element_type'] );
 			unset( $array['test_conn_button'] );
 
 			$webhook_options = apply_filters(
@@ -2016,7 +2139,7 @@ class Admin_Controller {
 						'name' => __( 'Express Checkout', 'checkout-plugins-stripe-woo' ),
 						'type' => 'title',
 						/* translators: HTML Markup*/
-						'desc' => sprintf( __( 'Accept payments using Apple Pay, Google Pay, and Browser Payment Method.%1$1sExpress Checkout uses Payment Request API which is based on client\'s browser and saved cards.%1$1sPlease check the %2$2sprerequisites%3$3s for Apple Pay, Google Pay, and Browser Payment Method.', 'checkout-plugins-stripe-woo' ), '<br/>', '<a href="https://stripe.com/docs/stripe-js/elements/payment-request-button#html-js-testing" target="_blank">', '</a>' ),
+						'desc' => sprintf( __( 'You can now accept payments using Apple Pay, Google Pay, and Browser Payment Method with our Express Checkout feature.%1$1sThis feature uses Payment Request API which is based on client\'s browser and saved cards for seamless payment experience.%1$1sPlease check the %2$2sprerequisites%3$3s for Apple Pay, Google Pay, and Browser Payment Method before getting started.%1$1sPlease note that the Stripe does not support Google Pay and Apple Pay on Stripe Checkout and Elements for Stripe merchant accounts and customers in India. %4$4sClick here to read more.%3$3s', 'checkout-plugins-stripe-woo' ), '<br/>', '<a href="https://docs.stripe.com/stripe-js/elements/payment-request-button?client=html#prerequisites" target="_blank">', '</a>', '<a href="https://support.stripe.com/questions/supported-payment-methods-currencies-and-businesses-for-stripe-accounts-in-india" target="_blank">' ),
 						'id'   => 'cpsw_express_checkout',
 					],
 					'enable'                      => [
@@ -2024,6 +2147,18 @@ class Admin_Controller {
 						'id'    => 'cpsw_express_checkout_enabled',
 						'type'  => 'checkbox',
 						'value' => $values['express_checkout_enabled'],
+					],
+					'express_button_type'         => [
+						'title'    => __( 'Checkout button type', 'checkout-plugins-stripe-woo' ),
+						'type'     => 'select',
+						'id'       => 'cpsw_express_checkout_button_type',
+						'desc'     => __( 'Choose express checkout button type.', 'checkout-plugins-stripe-woo' ),
+						'value'    => $values['express_checkout_button_type'],
+						'options'  => [
+							'custom'  => __( 'Custom', 'checkout-plugins-stripe-woo' ),
+							'default' => __( 'Default', 'checkout-plugins-stripe-woo' ),
+						],
+						'desc_tip' => true,
 					],
 					'button_location'             => [
 						'title'    => __( 'Show button on', 'checkout-plugins-stripe-woo' ),
@@ -2148,6 +2283,7 @@ class Admin_Controller {
 							'custom'  => __( 'Custom', 'checkout-plugins-stripe-woo' ),
 							'classic' => __( 'Classic', 'checkout-plugins-stripe-woo' ),
 						],
+						'default'  => 'classic',
 						'desc_tip' => true,
 					],
 					'checkout_button_position'    => [
@@ -2161,6 +2297,7 @@ class Admin_Controller {
 							'above-checkout' => __( 'Above checkout form', 'checkout-plugins-stripe-woo' ),
 							'above-billing'  => __( 'Above billing details', 'checkout-plugins-stripe-woo' ),
 						],
+						'default'  => 'above-billing',
 						'desc_tip' => true,
 					],
 					'title'                       => [
@@ -2186,7 +2323,7 @@ class Admin_Controller {
 						'type'     => 'number',
 						'class'    => 'cpsw_checkout_options',
 						'id'       => 'cpsw_express_checkout_button_width',
-						'desc'     => __( 'Select width for button (in px). Default width 100%', 'checkout-plugins-stripe-woo' ),
+						'desc'     => __( 'Select width for button (in px). Minimum width is 120px. Leave empty for 100% width.', 'checkout-plugins-stripe-woo' ),
 						'value'    => $values['express_checkout_button_width'],
 						'desc_tip' => true,
 					],
@@ -2195,7 +2332,7 @@ class Admin_Controller {
 						'type'     => 'select',
 						'class'    => 'cpsw_checkout_options',
 						'id'       => 'cpsw_express_checkout_button_alignment',
-						'desc'     => __( 'This setting will align title, tagline and button based on selection on Checkout page.', 'checkout-plugins-stripe-woo' ),
+						'desc'     => __( 'This setting will align title, tagline and button based on selection on Checkout page. This is only applicable for custom layout.', 'checkout-plugins-stripe-woo' ),
 						'value'    => $values['express_checkout_button_alignment'],
 						'options'  => [
 							'left'   => __( 'Left', 'checkout-plugins-stripe-woo' ),

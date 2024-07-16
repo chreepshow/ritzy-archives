@@ -241,7 +241,7 @@ class Plugin {
 	public function api_request() {
 
 		if ( ! current_user_can( 'manage_ast_block_templates' ) ) {
-			wp_send_json_error( __( 'You are not allowed to perform this action', 'ast-block-templates' ) );
+			wp_send_json_error( __( 'You are not allowed to perform this action', 'ultimate-addons-for-gutenberg' ) );
 		}
 
 		// Verify Nonce.
@@ -266,11 +266,11 @@ class Plugin {
 		$response = wp_safe_remote_get( $complete_url );
 
 		if ( is_wp_error( $response ) ) {
-			wp_send_json_error( __( 'Something went wrong', 'ast-block-templates' ) );
+			wp_send_json_error( __( 'Something went wrong', 'ultimate-addons-for-gutenberg' ) );
 		}
 
 		if ( 200 !== $response['response']['code'] ) {
-			wp_send_json_error( __( 'Something went wrong', 'ast-block-templates' ) );
+			wp_send_json_error( __( 'Something went wrong', 'ultimate-addons-for-gutenberg' ) );
 		}
 
 		$body = json_decode( wp_remote_retrieve_body( $response ) );
@@ -289,7 +289,7 @@ class Plugin {
 	public function hide_notices() {
 
 		if ( ! current_user_can( 'manage_ast_block_templates' ) ) {
-			wp_send_json_error( __( 'You are not allowed to perform this action', 'ast-block-templates' ) );
+			wp_send_json_error( __( 'You are not allowed to perform this action', 'ultimate-addons-for-gutenberg' ) );
 		}
 
 		check_ajax_referer( 'ast-block-templates-ajax-nonce', '_ajax_nonce' );
@@ -333,7 +333,7 @@ class Plugin {
 	public function get_color_palette() {
 
 		if ( ! current_user_can( 'manage_ast_block_templates' ) ) {
-			wp_send_json_error( __( 'You are not allowed to perform this action', 'ast-block-templates' ) );
+			wp_send_json_error( __( 'You are not allowed to perform this action', 'ultimate-addons-for-gutenberg' ) );
 		}
 
 		check_ajax_referer( 'ast-block-templates-ajax-nonce', '_ajax_nonce' );
@@ -357,7 +357,7 @@ class Plugin {
 	public function import_wpforms( $wpforms_url = '' ) {
 
 		if ( ! current_user_can( 'manage_ast_block_templates' ) ) {
-			wp_send_json_error( __( 'You are not allowed to perform this action', 'ast-block-templates' ) );
+			wp_send_json_error( __( 'You are not allowed to perform this action', 'ultimate-addons-for-gutenberg' ) );
 		}
 		// Verify Nonce.
 		check_ajax_referer( 'ast-block-templates-ajax-nonce', '_ajax_nonce' );
@@ -433,7 +433,7 @@ class Plugin {
 				wp_send_json_error( $file_path );
 			}
 		} else {
-			wp_send_json_error( __( 'Something went wrong', 'ast-block-templates' ) );
+			wp_send_json_error( __( 'Something went wrong', 'ultimate-addons-for-gutenberg' ) );
 		}
 
 		update_option( 'ast_block_templates_wpforms_ids_mapping', $ids_mapping );
@@ -447,7 +447,7 @@ class Plugin {
 	public function import_block() {
 
 		if ( ! current_user_can( 'manage_ast_block_templates' ) ) {
-			wp_send_json_error( __( 'You are not allowed to perform this action', 'ast-block-templates' ) );
+			wp_send_json_error( __( 'You are not allowed to perform this action', 'ultimate-addons-for-gutenberg' ) );
 		}
 		// Verify Nonce.
 		check_ajax_referer( 'ast-block-templates-ajax-nonce', '_ajax_nonce' );
@@ -516,7 +516,7 @@ class Plugin {
 			$dynamic_content = ( isset( $category_content[ $category ] ) ) ? $category_content[ $category ] : array();
 			$content = $this->replace( $content, $dynamic_content );
 		} else {
-			$this->maybe_import_images( $content );
+			$content = $this->maybe_import_images( $content );
 		}
 
 		// Update content.
@@ -527,7 +527,7 @@ class Plugin {
 	 * Import Images if required.
 	 *
 	 * @param string $content block content.
-	 * @return void
+	 * @return string
 	 */
 	public function maybe_import_images( $content ) {
 
@@ -538,7 +538,7 @@ class Plugin {
 
 		// Not have any link.
 		if ( empty( $all_links ) ) {
-			return;
+			return $content;
 		}
 
 		$link_mapping = array();
@@ -590,6 +590,7 @@ class Plugin {
 			$new_url = str_replace( '/', '/\\', $new_url );
 			$content = str_replace( $old_url, $new_url, $content );
 		}
+		return $content;
 	}
 
 	/**
@@ -757,7 +758,7 @@ class Plugin {
 	public function activate_plugin() {
 
 		if ( ! current_user_can( 'activate_plugins' ) ) {
-			wp_send_json_error( __( 'You are not allowed to perform this action.', 'ast-block-templates' ) );
+			wp_send_json_error( __( 'You are not allowed to perform this action.', 'ultimate-addons-for-gutenberg' ) );
 		}
 		// Verify Nonce.
 		check_ajax_referer( 'ast-block-templates-ajax-nonce', 'security' );
@@ -788,7 +789,7 @@ class Plugin {
 	public function template_importer() {
 
 		if ( ! current_user_can( 'manage_ast_block_templates' ) ) {
-			wp_send_json_error( __( 'You are not allowed to perform this action', 'ast-block-templates' ) );
+			wp_send_json_error( __( 'You are not allowed to perform this action', 'ultimate-addons-for-gutenberg' ) );
 		}
 		// Verify Nonce.
 		check_ajax_referer( 'ast-block-templates-ajax-nonce', '_ajax_nonce' );
@@ -800,7 +801,7 @@ class Plugin {
 
 		// Early return.
 		if ( '' == $api_uri ) {
-			wp_send_json_error( __( 'Something wrong', 'ast-block-templates' ) );
+			wp_send_json_error( __( 'Something wrong', 'ultimate-addons-for-gutenberg' ) );
 		}
 
 		$api_args = apply_filters(
@@ -964,6 +965,7 @@ class Plugin {
 		if ( ! empty( $business_details['social_profiles'] ) ) {
 			$business_details = $this->maybe_parse_social_profiles( $business_details );
 		}
+		$pro_url = apply_filters( 'ast_block_templates_pro_url', 'https://wpastra.com/starter-templates-plans/?utm_source=gutenberg-templates&utm_medium=dashboard&utm_campaign=Starter-Template-Backend' );
 
 		wp_localize_script(
 			'ast-block-templates',
@@ -981,7 +983,7 @@ class Plugin {
 					'wpforms_status'          => $this->get_plugin_status( 'spectra-pro/spectra-pro.php' ),
 					'astra_sites_status'          => $this->get_plugin_status( 'astra-sites/astra-sites.php' ),
 					'_ajax_nonce'             => wp_create_nonce( 'ast-block-templates-ajax-nonce' ),
-					'button_text'             => esc_html__( 'Design Library', 'ast-block-templates' ),
+					'button_text'             => esc_html__( 'Design Library', 'ultimate-addons-for-gutenberg' ),
 					'display_button_logo'     => true,
 					'popup_logo_uri'          => AST_BLOCK_TEMPLATES_URI . 'dist/spectra-logo.svg',
 					'button_logo'             => AST_BLOCK_TEMPLATES_URI . 'dist/spectra.svg',
@@ -991,7 +993,7 @@ class Plugin {
 					'suggestion_link'         => 'https://wpastra.com/sites-suggestions/?utm_source=demo-import-panel&utm_campaign=astra-sites&utm_medium=suggestions',
 					'license_status'          => $license_status,
 					'isPro'                   => defined( 'ASTRA_PRO_SITES_NAME' ) ? true : false,
-					'getProURL'               => defined( 'ASTRA_PRO_SITES_NAME' ) ? esc_url( admin_url( 'plugins.php?bsf-inline-license-form=astra-pro-sites' ) ) : esc_url( 'https://wpastra.com/starter-templates-plans/?utm_source=gutenberg-templates&utm_medium=dashboard&utm_campaign=Starter-Template-Backend' ),
+					'getProURL'               => esc_url( defined( 'ASTRA_PRO_SITES_NAME' ) ? ( admin_url( 'plugins.php?bsf-inline-license-form=astra-pro-sites' ) ) : $pro_url ),
 					'astra_theme_css'         => isset( $astra_theme_css ) ? $astra_theme_css : '',
 					'site_url'                => site_url(),
 					'global-styles'           => preg_replace( '/(?<!-)(\\bbody\\b)(?!-)/i', '.st-block-container', wp_get_global_stylesheet() ),

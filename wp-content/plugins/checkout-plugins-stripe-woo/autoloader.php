@@ -13,12 +13,15 @@ use CPSW\Gateway\Stripe\Sepa;
 use CPSW\Gateway\Stripe\Alipay;
 use CPSW\Gateway\Stripe\Klarna;
 use CPSW\Gateway\Stripe\Payment_Request_Api;
+use CPSW\Gateway\Stripe\Link_Payment_Token;
 use CPSW\Gateway\Stripe\Ideal;
 use CPSW\Gateway\Stripe\Bancontact;
 use CPSW\Gateway\Stripe\P24;
 use CPSW\Gateway\Stripe\Wechat;
+use CPSW\Gateway\Stripe\Payment_Element;
 use CPSW\Compatibility\Apple_Pay;
 use CPSW\Admin\Admin_Controller;
+use CPSW\Admin\Backward_Compatibility;
 use CPSW\Gateway\Stripe\Webhook;
 use CPSW\Gateway\Stripe\Frontend_Scripts;
 use CPSW\Wizard\Onboarding;
@@ -26,10 +29,12 @@ use CPSW\Gateway\BlockSupport\Credit_Card_Payments;
 use CPSW\Gateway\BlockSupport\Ideal_Payments;
 use CPSW\Gateway\BlockSupport\Alipay_Payments;
 use CPSW\Gateway\BlockSupport\Klarna_Payments;
+use CPSW\Gateway\BlockSupport\Stripe_Element;
 use CPSW\Gateway\BlockSupport\Sepa_Payments;
 use CPSW\Gateway\BlockSupport\Wechat_Payments;
 use CPSW\Gateway\BlockSupport\P24_Payments;
 use CPSW\Gateway\BlockSupport\Bancontact_Payments;
+
 
 /**
  * CPSW_Loader
@@ -120,6 +125,7 @@ class CPSW_Loader {
 	 * @return void
 	 */
 	public function setup_classes() {
+		Backward_compatibility::get_instance();
 		Admin_Controller::get_instance();
 		Apple_Pay::get_instance();
 	}
@@ -175,6 +181,7 @@ class CPSW_Loader {
 
 		Sepa::get_instance();
 		Wechat::get_instance();
+		Payment_Element::get_instance();
 		Bancontact::get_instance();
 		P24::get_instance();
 		Klarna::get_instance();
@@ -183,6 +190,7 @@ class CPSW_Loader {
 		Card_Payments::get_instance();
 		Payment_Request_Api::get_instance();
 		Webhook::get_instance();
+		Link_Payment_Token::get_instance();
 	}
 
 	/**
@@ -336,6 +344,7 @@ class CPSW_Loader {
 					Ideal_Payments::class,
 					Alipay_Payments::class,
 					Klarna_Payments::class,
+					Stripe_Element::class,
 					Bancontact_Payments::class,
 					Sepa_Payments::class,
 					Wechat_Payments::class,

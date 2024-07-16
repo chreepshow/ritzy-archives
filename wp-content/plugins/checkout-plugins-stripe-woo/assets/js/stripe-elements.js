@@ -17,6 +17,7 @@
 	const stripe = Stripe( pubKey );
 	const elements = stripe.elements();
 	let savedCard = false;
+	let savedPaymentElementMethod = false;
 	let card = null;
 	let cardNumber = null;
 	let cardExpiry = null;
@@ -24,10 +25,13 @@
 	let paymentForm = null;
 	let paymentMethod = '';
 	let paymentMethodSepa = '';
+	let paymentElementMethod = '';
+	let paymentType = '';
 	let isAllowedCard = '';
 	let selectedGatewayId = '';
 	let selectedIdealBank = '';
 	let selectedP24Bank = '';
+	let selectedPaymentElementType = '';
 	let sepaIBAN = false;
 	let emptySepaIBANMessage = cpsw_global_settings.empty_sepa_iban_message;
 	const currentUserBilling = cpsw_global_settings.current_user_billing;
@@ -167,10 +171,209 @@
 		},
 	};
 
+	const paymentElementSettings = cpsw_global_settings.payment_element_settings;
+	const theme = paymentElementSettings.appearance.theme;
+	switch ( theme ) {
+		case 'minimal':
+			paymentElementSettings.appearance = {
+				theme: 'flat',
+				variables: {
+					fontFamily: ' "Gill Sans", sans-serif',
+					fontLineHeight: '1.5',
+					borderRadius: '10px',
+					colorBackground: '#F6F8FA',
+					accessibleColorOnColorPrimary: '#262626',
+				},
+				rules: {
+					'.Block': {
+						backgroundColor: 'var(--colorBackground)',
+						boxShadow: 'none',
+						padding: '12px',
+					},
+					'.Input': {
+						padding: '12px',
+					},
+					'.Input:disabled, .Input--invalid:disabled': {
+						color: 'lightgray',
+					},
+					'.Tab': {
+						padding: '10px 12px 8px 12px',
+						border: 'none',
+					},
+					'.Tab:hover': {
+						border: 'none',
+						boxShadow: '0px 1px 1px rgba(0, 0, 0, 0.03), 0px 3px 7px rgba(18, 42, 66, 0.04)',
+					},
+					'.Tab--selected, .Tab--selected:focus, .Tab--selected:hover': {
+						border: 'none',
+						backgroundColor: '#fff',
+						boxShadow: '0 0 0 1.5px var(--colorPrimaryText), 0px 1px 1px rgba(0, 0, 0, 0.03), 0px 3px 7px rgba(18, 42, 66, 0.04)',
+					},
+					'.Label': {
+						fontWeight: '500',
+					},
+				},
+			};
+			break;
+		case 'bubblegum':
+			paymentElementSettings.appearance = {
+				theme: 'stripe',
+				variables: {
+					fontWeightNormal: '500',
+					borderRadius: '2px',
+					colorPrimary: '#f360a6',
+					tabIconSelectedColor: '#fff',
+					gridRowSpacing: '16px',
+				},
+				rules: {
+					'.Tab, .Input, .Block, .CheckboxInput, .CodeInput': {
+						boxShadow: '0px 3px 10px rgba(18, 42, 66, 0.08)',
+					},
+					'.Block': {
+						borderColor: 'transparent',
+					},
+					'.BlockDivider': {
+						backgroundColor: '#ebebeb',
+					},
+					'.Tab, .Tab:hover, .Tab:focus': {
+						border: '0',
+					},
+					'.Tab--selected, .Tab--selected:hover': {
+						backgroundColor: '#f360a6',
+						color: '#fff',
+					},
+				},
+			};
+			break;
+		case 'ninety-five':
+			paymentElementSettings.appearance = {
+				theme: 'flat',
+				variables: {
+					fontFamily: 'Verdana',
+					fontLineHeight: '1.5',
+					borderRadius: '0',
+					colorBackground: '#fff',
+					focusBoxShadow: 'none',
+					focusOutline: '-webkit-focus-ring-color auto 1px',
+					tabIconSelectedColor: 'var(--colorText)',
+				},
+				rules: {
+					'.Input, .CheckboxInput, .CodeInput': {
+						transition: 'none',
+						boxShadow: 'inset -1px -1px #ffffff, inset 1px 1px #0a0a0a, inset -2px -2px #dfdfdf, inset 2px 2px #808080',
+					},
+					'.Input': {
+						padding: '12px',
+					},
+					'.Input--invalid': {
+						color: '#DF1B41',
+					},
+					'.Tab, .Block, .PickerItem--selected': {
+						backgroundColor: '#dfdfdf',
+						boxShadow: 'inset -1px -1px #0a0a0a, inset 1px 1px #ffffff, inset -2px -2px #808080, inset 2px 2px #dfdfdf',
+					},
+					'.Tab': {
+						transition: 'none',
+					},
+					'.Tab:hover': {
+						backgroundColor: '#eee',
+					},
+					'.Tab--selected, .Tab--selected:focus, .Tab--selected:hover': {
+						color: 'var(--colorText)',
+						backgroundColor: '#ccc',
+					},
+					'.Tab:focus, .Tab--selected:focus': {
+						boxShadow: 'inset -1px -1px #0a0a0a, inset 1px 1px #ffffff, inset -2px -2px #808080, inset 2px 2px #dfdfdf',
+						outline: 'none',
+					},
+					'.Tab:focus-visible': {
+						outline: 'var(--focusOutline)',
+					},
+					'.PickerItem': {
+						backgroundColor: '#dfdfdf',
+						boxShadow: 'inset -1px -1px #0a0a0a, inset 1px 1px #ffffff, inset -2px -2px #808080, inset 2px 2px #dfdfdf',
+						transition: 'none',
+					},
+					'.PickerItem:hover': {
+						backgroundColor: '#eee',
+					},
+					'.PickerItem--highlight': {
+						outline: '1px solid blue',
+					},
+					'.PickerItem--selected:hover': {
+						backgroundColor: '#dfdfdf',
+					},
+				},
+			};
+			break;
+		case 'dark-blue':
+			paymentElementSettings.appearance = {
+				theme: 'night',
+				variables: {
+					fontFamily: 'Sohne, system-ui, sans-serif',
+					fontWeightNormal: '500',
+					borderRadius: '8px',
+					colorBackground: '#0A2540',
+					colorPrimary: '#EFC078',
+					accessibleColorOnColorPrimary: '#1A1B25',
+					colorText: 'white',
+					colorTextPlaceholder: '#727F96',
+					tabIconColor: 'white',
+					logoColor: 'dark',
+				},
+				rules: {
+					'.Input, .Block': {
+						backgroundColor: '#0A2540',
+						border: '1.5px solid var(--colorPrimary)',
+					},
+					'.Tab': {
+						color: 'white',
+					},
+				},
+			};
+			break;
+		default:
+			paymentElementSettings.appearance = { theme: 'stripe' };
+			break;
+	}
+	const paymentElementOptions = cpsw_global_settings.payment_element_options;
+
+	paymentElementOptions.fields = {
+		billingDetails: {
+			name: getBillingDetails().name ? 'never' : 'auto',
+			email: getBillingDetails().email ? 'never' : 'auto',
+			phone: getBillingDetails().phone ? 'never' : 'auto',
+			address: {
+				country: getBillingDetails().address?.country ? 'never' : 'never',
+				line1: getBillingDetails().address?.line1 ? 'never' : 'auto',
+				line2: getBillingDetails().address?.line2 ? 'never' : 'auto',
+				city: getBillingDetails().address?.city ? 'never' : 'auto',
+				state: getBillingDetails().address?.state ? 'never' : 'auto',
+				postalCode: getBillingDetails().address?.postal_code ? 'never' : 'never',
+			},
+		},
+	};
+
 	// Create an instance of the idealBank Element
 	const ideal = elements.create( 'idealBank', options );
 	// Create an instance of the p24 Element
 	const p24 = elements.create( 'p24Bank', options );
+
+	const elementsForPayment = stripe.elements( paymentElementSettings );
+	// Create an instance of the Payment Element
+	const paymentElement = elementsForPayment.create( 'payment', paymentElementOptions );
+	const saveCardGateways = cpsw_global_settings.savecard_supported_gateways;
+
+	paymentElement.on( 'change', ( event ) => {
+		selectedPaymentElementType = event.value.type;
+		if ( ! saveCardGateways.includes( selectedPaymentElementType ) ) {
+			$( '.cpsw-payment-element-save-method' ).hide();
+			$( 'input[name="wc-cpsw_stripe_element-new-payment-method"]' ).prop( 'checked', false );
+			$( 'input[name="wc-cpsw_stripe_element-new-payment-method"]' ).trigger( 'change' );
+		} else {
+			$( '.cpsw-payment-element-save-method' ).show();
+		}
+	} );
 
 	ideal.on( 'change', function( event ) {
 		selectedIdealBank = event.value;
@@ -238,11 +441,20 @@
 		$( '.cpsw_stripe_p24_form .cpsw_stripe_p24_select' ).css( { backgroundColor: '#fff' } );
 	}
 
+	function mountPaymentElement() {
+		if ( 0 === $( '.cpsw_stripe_element_payment_form' ).length ) {
+			return false;
+		}
+
+		paymentElement.mount( '#cpsw_stripe_payment_element' );
+	}
+
 	function mountGateways() {
 		mountCard();
 		mountIdeal();
 		mountP24();
 		mountSepa();
+		mountPaymentElement();
 	}
 
 	function createStripePaymentMethod() {
@@ -322,7 +534,43 @@
 					}
 				} );
 				break;
-
+			case 'cpsw_stripe_element':
+				if ( selectedPaymentElementType === 'cashapp' && getBillingDetails().address?.country?.toLowerCase() !== 'us' ) {
+					$( '.woocommerce-notices-wrapper:first-child' ).html( '<div class="woocommerce-error cpsw-errors">' + getStripeLocalizedMessage( 'cashapp_country_error', null ) + '</div>' ).show();
+					window.scrollTo( { top: 0, behavior: 'smooth' } );
+					return false;
+				}
+				elements.submit();
+				stripe.createPaymentMethod( {
+					elements: elementsForPayment,
+					params: {
+						billing_details: $( 'form.woocommerce-checkout' ).length ? getBillingDetails() : currentUserBilling,
+					},
+				} ).then( function( result ) {
+					$( '.woocommerce-error' ).remove();
+					if ( result.paymentMethod ) {
+						paymentElementMethod = result.paymentMethod.id;
+						paymentType = result.paymentMethod.type;
+						$( '.cpsw_payment_method' ).remove();
+						paymentForm.append(
+							"<input type='hidden' class='cpsw_payment_method' name='payment_method_created' value='" +
+							paymentElementMethod +
+							"'/><input type='hidden' class='cpsw_payment_type' name='selected_payment_type' value='" +
+							paymentType +
+							"'/>",
+						);
+						paymentForm.trigger( 'submit' );
+					} else if ( result.error ) {
+						$( 'form.woocommerce-checkout' ).unblock();
+						$( 'form#order_review' ).unblock();
+						$( 'form#add_payment_method' ).unblock();
+						logError( result.error );
+						$( '.woocommerce-notices-wrapper:first-child' ).html( '<div class="woocommerce-error cpsw-errors">' + getStripeLocalizedMessage( result.error.code, result.error.message ) + '</div>' ).show();
+						window.scrollTo( { top: 0, behavior: 'smooth' } );
+						return false;
+					}
+				} );
+				break;
 			default:
 				break;
 		}
@@ -517,6 +765,41 @@
 					}
 				} );
 				break;
+			case 'cpsw_stripe_element':
+				const redirect = selectedPaymentElementType === 'card' ? 'always' : 'if_required';
+				stripe.confirmPayment( {
+					elements: elementsForPayment,
+					clientSecret,
+					confirmParams: {
+						return_url: homeURL + redirectURL,
+						payment_method_data: {
+							billing_details: getBillingDetails(),
+						},
+						payment_method_options: {
+							wechat_pay: {
+								client: 'web',
+							},
+							card: {
+								setup_future_usage: 'off_session',
+							},
+						},
+					},
+					redirect,
+				} ).then( function( result ) {
+					if ( result.error ) {
+						// Show error to your customer (e.g., insufficient funds)
+						$( '.woocommerce-error' ).remove();
+						wcCheckoutForm.unblock();
+						logError( result.error );
+						$( '.woocommerce-notices-wrapper:first-child' ).html( '<div class="woocommerce-error cpsw-errors">' + getStripeLocalizedMessage( result.error.code, result.error.message ) + '</div>' ).show();
+						window.scrollTo( { top: 0, behavior: 'smooth' } );
+						wcCheckoutForm.removeClass( 'processing' );
+					}
+					wcCheckoutForm.removeClass( 'processing' );
+					wcCheckoutForm.unblock();
+					paymentElementMethod = '';
+				} );
+				break;
 			default:
 				break;
 		}
@@ -589,7 +872,7 @@
 	}
 
 	function selectedGateway() {
-		const allPaymentMethods = [ 'cpsw_stripe', 'cpsw_alipay', 'cpsw_ideal', 'cpsw_klarna', 'cpsw_p24', 'cpsw_bancontact', 'cpsw_wechat', 'cpsw_sepa' ];
+		const allPaymentMethods = [ 'cpsw_stripe', 'cpsw_alipay', 'cpsw_ideal', 'cpsw_klarna', 'cpsw_p24', 'cpsw_bancontact', 'cpsw_wechat', 'cpsw_sepa', 'cpsw_stripe_element' ];
 
 		if ( 0 < $( '.wc_payment_method' ).length ) {
 			const selectedPaymentMethod = $( '.wc_payment_method input[name="payment_method"]:checked' ).val();
@@ -637,6 +920,17 @@
 			$( '.cpsw_stripe_sepa_payment_form' ).fadeIn();
 		} else {
 			$( '.cpsw_stripe_sepa_payment_form' ).fadeOut();
+		}
+	}
+
+	function hideShowPaymentElement() {
+		const isSavedPaymentElement = ( 'new' === $( "input[name='wc-cpsw_stripe_element-payment-token']:checked" ).val() );
+		if ( isSavedPaymentElement ) {
+			$( '.cpsw_stripe_element_payment_form' ).show();
+			savedPaymentElementMethod = false;
+		} else {
+			$( '.cpsw_stripe_element_payment_form' ).hide();
+			savedPaymentElementMethod = true;
 		}
 	}
 
@@ -718,6 +1012,13 @@
 			return false;
 		}
 
+		if ( 'cpsw_stripe_element' === selectedGateway() && ! savedPaymentElementMethod && '' === paymentElementMethod ) {
+			e.preventDefault();
+			createStripePaymentMethod();
+
+			return false;
+		}
+
 		return true;
 	};
 
@@ -772,7 +1073,7 @@
 		}
 	} );
 
-	$( 'form.woocommerce-checkout' ).on( 'submit checkout_place_order_cpsw_stripe checkout_place_order_cpsw_sepa', processingSubmit );
+	$( 'form.woocommerce-checkout' ).on( 'submit checkout_place_order_cpsw_stripe checkout_place_order_cpsw_sepa checkout_place_order_cpsw_stripe_element', processingSubmit );
 
 	if ( $( 'form#order_review' ).length ) {
 		showSavedCards();
@@ -794,6 +1095,9 @@
 		$( 'input[type=radio][name="wc-cpsw_stripe-payment-token"]' ).change( function() {
 			hideShowElements();
 		} );
+		$( 'input[type=radio][name="wc-cpsw_stripe_element-payment-token"]' ).change( function() {
+			hideShowPaymentElement();
+		} );
 		mountGateways();
 		$( "input[name='wc-cpsw-payment-token']" ).click( function() {
 			hideShowCard();
@@ -802,6 +1106,10 @@
 
 	$( "input[name='wc-cpsw_sepa-payment-token']" ).click( function() {
 		hideShowSepaIBAN();
+	} );
+
+	$( "input[type=radio][name='wc-cpsw_stripe_element-payment-token']" ).change( function() {
+		hideShowPaymentElement();
 	} );
 
 	$( 'input[type=radio][name="wc-cpsw_stripe-payment-token"]' ).change( function() {
@@ -833,11 +1141,18 @@
 		}
 	}
 
+	// Check if the payment method is available on the checkout page
+	if ( $( '.cpsw_stripe_element_payment_form' ).length ) {
+		// Adding custom class to the body tag
+		$( 'body' ).addClass( 'cpsw_stripe_option_enabled' );
+	}
+
 	window.addEventListener( 'hashchange', onHashChange );
 	mountGateways();
 	if ( $( 'form#order_review' ).length ) {
 		hideShowCard();
 		hideShowSepaIBAN();
 		hideShowElements();
+		hideShowPaymentElement();
 	}
 }( jQuery ) );

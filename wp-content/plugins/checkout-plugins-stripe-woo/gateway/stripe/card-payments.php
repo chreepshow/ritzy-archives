@@ -14,6 +14,7 @@ use CPSW\Inc\Traits\Get_Instance;
 use CPSW\Inc\Traits\Subscriptions;
 use CPSW\Gateway\Abstract_Payment_Gateway;
 use CPSW\Gateway\Stripe\Stripe_Api;
+use CPSW\Gateway\Stripe\Link_Payment_Token;
 use WC_AJAX;
 use WC_HTTPS;
 use WC_Payment_Token_CC;
@@ -103,7 +104,7 @@ class Card_Payments extends Abstract_Payment_Gateway {
 	 * Gateway form fields
 	 *
 	 * @return void
-$	 */
+	 */
 	public function init_form_fields() {
 		$this->form_fields = apply_filters(
 			'cpsw_card_payment_form_fields',
@@ -200,8 +201,8 @@ $	 */
 					'title'       => __( 'Order Button Label', 'checkout-plugins-stripe-woo' ),
 					'type'        => 'text',
 					'description' => __( 'Customize label for Order button', 'checkout-plugins-stripe-woo' ),
-					'default'     => __( 'Pay via Stripe', 'checkout-plugins-stripe-woo' ),
 					'desc_tip'    => true,
+					'placeholder' => 'Place order',
 				],
 			]
 		);
@@ -239,11 +240,18 @@ $	 */
 			$customer_id     = $this->get_customer_id( $order );
 			$idempotency_key = $payment_method . '_' . $order->get_order_key();
 
+			$payment_method_types = [ $this->payment_method_types ];
+
+			if ( isset( $_POST['payment_request_type'] ) && 'link' === $_POST['payment_request_type'] ) { //phpcs:ignore WordPress.Security.NonceVerification.Missing
+				// Add link in $payment_method_types array.
+				$payment_method_types[] = 'link';
+			}
+
 			$data = [
 				'amount'               => $this->get_formatted_amount( $order->get_total() ),
 				'currency'             => get_woocommerce_currency(),
 				'description'          => $this->get_order_description( $order ),
-				'payment_method_types' => [ $this->payment_method_types ],
+				'payment_method_types' => $payment_method_types,
 				'payment_method'       => $payment_method,
 				'metadata'             => $this->get_metadata( $order_id ),
 				'customer'             => $customer_id,
@@ -420,15 +428,27 @@ $	 */
 	 */
 	public function create_payment_token_for_user( $user_id, $payment_method ) {
 		$token = new WC_Payment_Token_CC();
-		$token->set_expiry_month( $payment_method->card->exp_month );
-		$token->set_expiry_year( $payment_method->card->exp_year );
-		$token->set_card_type( strtolower( $payment_method->card->brand ) );
-		$token->set_last4( $payment_method->card->last4 );
-		$token->set_gateway_id( $this->id );
-		$token->set_token( $payment_method->id );
-		$token->set_user_id( $user_id );
-		$token->save();
-
+		if ( ! is_object( $payment_method ) ) {
+			return $token;
+		}
+		if ( 'link' === $payment_method->type ) {
+			$token = Link_Payment_Token::get_instance();
+			$token->set_email( $payment_method->link->email );
+			$token->set_gateway_id( $this->id );
+			$token->set_token( $payment_method->id );
+			$token->set_payment_method_type( $payment_method->type );
+			$token->set_user_id( $user_id );
+			$token->save();
+		} else {
+			$token->set_expiry_month( $payment_method->card->exp_month );
+			$token->set_expiry_year( $payment_method->card->exp_year );
+			$token->set_card_type( strtolower( $payment_method->card->brand ) );
+			$token->set_last4( $payment_method->card->last4 );
+			$token->set_gateway_id( $this->id );
+			$token->set_token( $payment_method->id );
+			$token->set_user_id( $user_id );
+			$token->save();
+		}
 		return $token;
 	}
 

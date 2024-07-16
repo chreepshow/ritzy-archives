@@ -11,6 +11,8 @@
 	const jsNonce = cpsw_payment_request.nonce.js_nonce;
 	const endpoint = cpsw_payment_request.ajax_endpoint;
 	const isResponsive = cpsw_payment_request.is_responsive;
+	const expressCheckoutButtonType = cpsw_payment_request.express_checkout_button_type;
+	const disabledWallets = cpsw_payment_request.disabled_wallets;
 	let addToCartButton = '';
 	let addToCartQuantity = '';
 	let productWrapper = '';
@@ -54,6 +56,7 @@
 				requestPayerPhone: true,
 				requestShipping: cpsw_payment_request.product.requestShipping,
 				displayItems: cpsw_payment_request.product.displayItems,
+				disableWallets: disabledWallets.for_payment_request_button,
 			};
 			generatePaymentButton( data );
 		} else {
@@ -75,7 +78,9 @@
 						requestPayerPhone: true,
 						requestShipping: response.shipping_required,
 						displayItems: response.order_data.displayItems,
+						disableWallets: disabledWallets.for_payment_request_button,
 					};
+
 					generatePaymentButton( data );
 				},
 			} );
@@ -83,6 +88,18 @@
 	}
 
 	function generatePaymentButton( data ) {
+		if ( 'default' === expressCheckoutButtonType ) {
+			defaultExpressCheckout( data );
+			return;
+		}
+
+		const prButton = $( '.cpsw-payment-request-custom-button-render' );
+
+		// Validate if express checkout button is exist.
+		if ( ! prButton.length ) {
+			return;
+		}
+
 		try {
 			const paymentRequest = stripe.paymentRequest( data );
 			let iconUrl = '';
@@ -92,8 +109,6 @@
 			} else {
 				smallScreen = false;
 			}
-
-			const prButton = $( '.cpsw-payment-request-custom-button-render' );
 
 			if ( $( document ).width() > 600 ) {
 				$( '#cpsw-payment-request-wrapper' ).removeClass( 'sticky' );
@@ -142,7 +157,8 @@
 
 				attachPaymentRequestButtonEventListeners( prButton, paymentRequest );
 
-				$( '#cpsw-payment-request-wrapper' ).css( 'display', 'inline-block' );
+				$( '#cpsw-payment-request-wrapper' ).css( 'display', 'block' );
+
 				$( '.cpsw-payment-request-main-wrapper' ).addClass( 'cpsw-payment-request-is-visible' );
 
 				makeButtonInline();
@@ -169,6 +185,7 @@
 						buttonIconWidth = '26px';
 					}
 					$( '.cpsw-express-checkout-button-icon' ).css( 'width', buttonIconWidth );
+					$( '.cpsw-express-checkout-button-icon' ).css( 'max-width', buttonIconWidth );
 					$( '.cpsw-express-checkout-button-icon' ).addClass( 'cpsw-express-checkout-button-icon-top' );
 				}
 			} );
@@ -211,14 +228,19 @@
 	}
 
 	function updateShippingAddress( address ) {
+		let postCode = address.postalCode;
+		if ( address?.postal_code ) {
+			postCode = address.postal_code;
+		}
+
 		const data = {
 			shipping_address_nonce: nonce.shipping,
 			country: address.country,
 			state: address.region,
-			postcode: address.postalCode,
+			postcode: postCode,
 			city: address.city,
-			address: typeof address.addressLine[ 0 ] === 'undefined' ? '' : address.addressLine[ 0 ],
-			address_2: typeof address.addressLine[ 1 ] === 'undefined' ? '' : address.addressLine[ 1 ],
+			address: address?.addressLine?.[ 0 ] ? address.addressLine[ 0 ] : '',
+			address_2: address?.addressLine?.[ 1 ] ? address.addressLine[ 1 ] : '',
 			payment_request_type: requestType,
 			is_product_page: isProductPage,
 		};
@@ -484,14 +506,17 @@
 		};
 	}
 
+	// Prepare payament method data for Payment request button element or custom button type.
 	function preparePaymentMethod( event ) {
 		const paymentMethod = event.paymentMethod;
 		const billingDetails = paymentMethod.billing_details;
 		const email = billingDetails.email;
 		const phone = billingDetails.phone;
 		const billing = billingDetails.address;
-		const name = billingDetails.name;
+		const name = billingDetails.name ? billingDetails.name : event.payerName;
 		const shipping = event.shippingAddress;
+		const shippingOption = event.shippingOption;
+		const cpswPaymentMethod = cpsw_payment_request.element_type === 'payment' ? 'cpsw_stripe_element' : 'cpsw_stripe';
 		const data = {
 			checkout_nonce: nonce.checkout,
 			billing_first_name: null !== name ? name.split( ' ' ).slice( 0, 1 ).join( ' ' ) : '',
@@ -514,10 +539,10 @@
 			shipping_city: '',
 			shipping_state: '',
 			shipping_postcode: '',
-			shipping_method: [ null === event.shippingOption ? null : event.shippingOption.id ],
+			shipping_method: [ shippingOption ? shippingOption.id : null ],
 			order_comments: '',
-			payment_method: 'cpsw_stripe',
-			ship_to_different_address: 1,
+			payment_method: cpswPaymentMethod,
+			ship_to_different_address: shipping && 1,
 			terms: 1,
 			payment_method_created: paymentMethod.id,
 			payment_request_type: requestType,
@@ -538,21 +563,83 @@
 		return data;
 	}
 
+	// Prepare payament method data for Express checkout element or default button type.
+	function preparePaymentMethodCustom( event, eventType ) {
+		const billingDetails = event.billingDetails;
+		const email = billingDetails.email;
+		const phone = billingDetails.phone;
+		const billing = billingDetails.address;
+		const name = billingDetails.name;
+		const shipping = event.shippingAddress;
+		const cpswPaymentMethod = cpsw_payment_request.element_type === 'payment' ? 'cpsw_stripe_element' : 'cpsw_stripe';
+		const data = {
+			checkout_nonce: nonce.checkout,
+			billing_first_name: null !== name ? name.split( ' ' ).slice( 0, 1 ).join( ' ' ) : '',
+			billing_last_name: null !== name ? name.split( ' ' ).slice( 1 ).join( ' ' ) : '',
+			billing_company: '',
+			billing_email: null !== email ? email : null,
+			billing_phone: null !== phone ? phone : null,
+			billing_country: null !== billing ? billing.country : '',
+			billing_address_1: null !== billing ? billing.line1 : '',
+			billing_address_2: null !== billing ? billing.line2 : '',
+			billing_city: null !== billing ? billing.city : '',
+			billing_state: null !== billing ? billing.state : '',
+			billing_postcode: null !== billing ? billing.postal_code : '',
+			shipping_first_name: '',
+			shipping_last_name: '',
+			shipping_company: '',
+			shipping_country: '',
+			shipping_address_1: '',
+			shipping_address_2: '',
+			shipping_city: '',
+			shipping_state: '',
+			shipping_postcode: '',
+			shipping_method: [ ! event?.shippingRate?.id ? null : event.shippingRate.id ],
+			order_comments: '',
+			payment_method: cpswPaymentMethod,
+			ship_to_different_address: shipping && 1,
+			terms: 1,
+			payment_method_created: event.paymentMethodId,
+			payment_request_type: eventType,
+		};
+
+		if ( shipping ) {
+			data.shipping_first_name = shipping.name.split( ' ' ).slice( 0, 1 ).join( ' ' );
+			data.shipping_last_name = shipping.name.split( ' ' ).slice( 1 ).join( ' ' );
+			data.shipping_company = '';
+			data.shipping_country = shipping.address.country;
+			data.shipping_address_1 = typeof shipping.address.line1 === 'undefined' ? '' : shipping.address.line1;
+			data.shipping_address_2 = typeof shipping.address.line2 === 'undefined' ? '' : shipping.address.line2;
+			data.shipping_city = shipping.address.city;
+			data.shipping_state = shipping.address.state;
+			data.shipping_postcode = shipping.address.postal_code;
+		}
+
+		return data;
+	}
+
 	function cpswAdjustButtonOnCheckoutPage() {
 		if ( isCheckoutPage && $( '.place-order #place_order' ).length > 0 ) {
 			const wcCheckoutButton = $( '.place-order #place_order' );
 			const cpswExpressCheckoutButtonWrap = $( '.cpsw-payment-request-custom-button-render' );
 			const cpswExpressCheckoutButton = $( '#cpsw-payment-request-custom-button' );
+			const cpswExpressCheckoutButtonWidth = style.checkout_button_width ? style.checkout_button_width + 'px' : '100%';
+
 			if ( $( '.place-order #place_order' ).outerHeight() > 30 ) {
 				cpswExpressCheckoutButtonWrap.css( 'height', $( '.place-order #place_order' ).outerHeight() + 'px' );
 			}
 			cpswExpressCheckoutButtonWrap.css( 'font-size', $( '.place-order #place_order' ).css( 'font-size' ) );
 
-			if ( $( '.cpsw-payment-request-button-wrapper' ).width() < style.checkout_button_width ) {
+			if ( style.checkout_button_width && style.checkout_button_width < 120 ) {
+				cpswExpressCheckoutButtonWrap.css( 'width', '120px' );
+			} else {
+				if ( $( '.cpsw-payment-request-button-wrapper' ).width() < style.checkout_button_width ) {
+					cpswExpressCheckoutButton.css( 'width', '100%' );
+				} else {
+					cpswExpressCheckoutButtonWrap.css( 'width', cpswExpressCheckoutButtonWidth );
+				}
+				cpswExpressCheckoutButtonWrap.css( 'max-width', '100%' );
 				cpswExpressCheckoutButton.css( 'width', '100%' );
-				cpswExpressCheckoutButton.css( 'min-width', '100px' );
-				cpswExpressCheckoutButtonWrap.css( 'width', '100%' );
-				cpswExpressCheckoutButtonWrap.css( 'min-width', '100px' );
 			}
 
 			cpswStyleExpressCheckoutButton( cpswExpressCheckoutButtonWrap, wcCheckoutButton );
@@ -595,10 +682,10 @@
 					addToCartMinWidth = wcAddToCartButton.outerWidth();
 					addToCartMinWidth = addToCartMinWidth < 120 ? 150 : addToCartMinWidth;
 
-					if ( $( 'form.cart' ).width() < 500 ) {
+					if ( $( 'form.cart' ).width() < 600 ) {
 						makeButtonInline();
 					}
-					wcAddToCartButton.css( makeWidth, addToCartMinWidth + 'px' );
+					// wcAddToCartButton.css( makeWidth, addToCartMinWidth + 'px' );
 				} else {
 					$( 'form.grouped_form button.single_add_to_cart_button' ).css( makeWidth, addToCartMinWidth + 'px' );
 					const themeKadenceButton = $( '.theme-kadence button.single_add_to_cart_button' );
@@ -620,6 +707,11 @@
 					$( '.theme-twentytwentytwo #cpsw-payment-request-separator' ).css( makeWidth, wcAddToCartButton.outerWidth() + 'px' );
 				}
 			}
+
+			if ( 'default' === expressCheckoutButtonType ) {
+				$( '.cpsw-payment-request-button-wrapper' ).css( makeWidth, '100%' );
+				cpswExpressCheckoutWrapper.css( 'width', '100%' );
+			}
 			cpswStyleExpressCheckoutButton( cpswExpressCheckoutButton, wcAddToCartButton );
 		}
 	}
@@ -636,8 +728,9 @@
 		cpswExpressCheckoutButton.css( 'max-height', wcDefaultClass.outerHeight() + 'px' );
 	}
 
-	function createPaymentMethod( event ) {
-		const data = preparePaymentMethod( event );
+	function createPaymentMethod( event, eventType, isExpressElement ) {
+		// Set payment method data based on button type
+		const data = isExpressElement ? preparePaymentMethodCustom( event, eventType ) : preparePaymentMethod( event );
 		return $.ajax( {
 			type: 'POST',
 			data,
@@ -662,6 +755,25 @@
 	}
 
 	function confirmPayment( event, clientSecret, redirectURL ) {
+		if ( 'link' === event?.expressPaymentType ) {
+			const currentUrl = window.location.href;
+			const returnUrl = currentUrl + redirectURL;
+
+			stripe.confirmPayment( { clientSecret, confirmParams: { return_url: returnUrl } } ).then( function( result ) {
+				if ( result.error ) {
+					// Show error to your customer
+					$( '.woocommerce-error' ).remove();
+					$( 'form.woocommerce-checkout' ).unblock();
+					logError( result.error );
+					abortPayment( event, result.error.message );
+				}
+
+				removeLoadingExpressCheckout();
+			} );
+
+			return;
+		}
+
 		stripe.confirmCardPayment( clientSecret, {} ).then( function( result ) {
 			if ( result.error ) {
 				// Show error to your customer
@@ -679,7 +791,7 @@
 							opacity: 0.6,
 						},
 					} );
-					event.complete( 'success' );
+					// event.complete( 'success' );
 					window.location = redirectURL;
 				}
 			}
@@ -724,7 +836,11 @@
 	}
 
 	function abortPayment( event, message ) {
-		event.complete( 'fail' );
+		// Check event complete is function or not.
+		if ( 'function' === typeof event?.complete ) {
+			event.complete( 'fail' );
+		}
+
 		displayErrorMessage( message );
 	}
 
@@ -786,11 +902,236 @@
 
 	initializePaymentButton();
 
+	function defaultExpressCheckout( data ) {
+		const addToCart = $( '.single_add_to_cart_button' );
+
+		const appearance = { /* appearance */ };
+		const elementOptions = {
+			paymentMethods: {
+				googlePay: 'always',
+				applePay: 'always',
+				link: 'auto',
+			},
+		};
+
+		// Update the paymentMethods with disabledWallets for Express Checkout
+		Object.assign( elementOptions.paymentMethods, disabledWallets.for_express_checkout );
+
+		const elements = stripe.elements( {
+			mode: 'payment',
+			appearance,
+			paymentMethodCreation: 'manual',
+			amount: data.total.amount,
+			currency: data.currency,
+			payment_method_types: [ 'link', 'card' ],
+		} );
+
+		if ( isProductPage ) {
+			// Update amount on variation change.
+			$( document.body ).on( 'woocommerce_variation_has_changed', function() {
+				if ( addToCart.is( '.disabled' ) ) {
+					$( '#cpsw-payment-request-custom-button' ).addClass( 'payment-method-disabled' );
+					return;
+				}
+				$( '#cpsw-payment-request-custom-button' ).removeClass( 'payment-method-disabled' );
+				addLoadingExpressCheckout();
+
+				$.when( getSelectedProductData() ).then( function( response ) {
+					if ( response.error ) {
+						displayErrorMessage( response.error );
+					} else {
+						$.when( elements.update( { amount: response.total.amount } ) ).then( function() {
+							removeLoadingExpressCheckout();
+						} );
+					}
+				} );
+			} );
+
+			// Update amount on quantity change.
+			$( 'form.cart .quantity' ).on( 'input', '.qty', debounce( 250, function() {
+				if ( addToCart.is( '.disabled' ) ) {
+					return;
+				}
+				addLoadingExpressCheckout();
+
+				$.when( getSelectedProductData() ).then( function( response ) {
+					if ( response.error ) {
+						displayErrorMessage( response.error );
+					} else {
+						$.when( elements.update( { amount: response.total.amount } ) ).then( function() {
+							removeLoadingExpressCheckout();
+						} );
+					}
+				} );
+			} ) );
+		}
+
+		const expressCheckoutElement = elements.create( 'expressCheckout', elementOptions );
+
+		const defaultButton = $( '#cpsw-payment-request-custom-button' );
+		if ( defaultButton.length > 0 ) {
+			expressCheckoutElement.mount( '#cpsw-payment-request-custom-button' );
+		}
+
+		expressCheckoutElement.on( 'ready', ( availablePaymentMethods ) => {
+			const methodsAvailable = availablePaymentMethods?.availablePaymentMethods;
+			const methodKeys = methodsAvailable && Object.keys( methodsAvailable );
+
+			// check if all available payment methods are included in disabled wallets array.
+			// If so, dont render the express checkout field.
+			const allAvailableMethodsDisabled = methodKeys?.some( ( method ) => {
+				return methodsAvailable[ method ] && disabledWallets.for_payment_request_button.includes( method );
+			} );
+
+			if ( allAvailableMethodsDisabled || ! methodsAvailable ) {
+				return;
+			}
+
+			if ( availablePaymentMethods ) {
+				$( '#cpsw-payment-request-wrapper' ).css( 'display', 'block' );
+				cpswAdjustButtonOnProductPage();
+				if ( $( document ).width() > 600 ) {
+					$( '#cpsw-payment-request-wrapper' ).removeClass( 'sticky' );
+				}
+
+				if ( $( '#cpsw-payment-request-separator' ).hasClass( 'cpsw-product' ) ) {
+					if ( smallScreen && $( '#cpsw-payment-request-wrapper' ).hasClass( 'sticky' ) ) {
+						$( '#cpsw-payment-request-separator' ).hide();
+					} else if ( ! $( '#cpsw-payment-request-wrapper' ).hasClass( 'inline' ) ) {
+						$( '#cpsw-payment-request-separator' ).show();
+					}
+				}
+
+				// If selected has class cart then show separator.
+				if ( $( '#cpsw-payment-request-separator' ).hasClass( 'cart' ) ) {
+					$( '#cpsw-payment-request-separator' ).show();
+				}
+			}
+		} );
+
+		expressCheckoutElement.on( 'click', ( event ) => {
+			if ( isProductPage ) {
+				// First check if product can be added to cart.
+				if ( addToCart.is( '.disabled' ) ) {
+					event.preventDefault();
+					addToCart.trigger( 'click' );
+					return;
+				}
+				addProductToCart();
+			}
+
+			const options = {
+				emailRequired: true,
+				phoneNumberRequired: true,
+				shippingAddressRequired: data?.requestShipping,
+			};
+
+			let shippingOptions = cpsw_payment_request?.product?.shippingOptions;
+
+			// Initially if requestShipping is true and shippingOptions is not set then set default shipping option. and in shippingaddresschange event we will update shippingOptions.
+			if ( data?.requestShipping && ! shippingOptions ) {
+				shippingOptions = { id: 'pending', displayName: 'Pending', amount: 0 };
+			}
+
+			// Convert object key label into displayName
+			if ( shippingOptions?.label ) {
+				shippingOptions.displayName = shippingOptions.label;
+				delete shippingOptions.label;
+			}
+
+			// Set shippingRates only if requestShipping is true.
+			if ( data?.requestShipping ) {
+				options.shippingRates = [ shippingOptions ];
+			}
+
+			event.resolve( options );
+			addLoadingExpressCheckout();
+		} );
+
+		/** It will fired when changing the shipping address in payment method */
+		expressCheckoutElement.on( 'shippingaddresschange', ( event ) => {
+			// handle shippingaddresschange event
+			$.when( updateShippingAddress( event.address ) ).then( ( response ) => {
+				let payload = { status: 'fail' };
+				// Convert response.shipping_options array object key label into displayName.
+				if ( response?.shipping_options ) {
+					response.shipping_options.forEach( ( item ) => {
+						if ( item?.label ) {
+							item.displayName = item.label;
+							delete item.label;
+						}
+					} );
+				}
+
+				if ( 'success' === response.result ) {
+					/** Update the order total and available shipping options*/
+					elements.update( { amount: response.total.amount } );
+					payload = { shippingRates: response.shipping_options };
+					event.resolve( payload );
+				}
+			} );
+		} );
+
+		/** It will fired when changing the shipping options in payment method */
+		expressCheckoutElement.on( 'shippingratechange', function( event ) {
+			$.when( updateShippingOption( event.shippingRate,
+			) ).then( ( response ) => {
+				if ( 'success' === response.result ) {
+					const payLoad = { status: 'success' };
+					/** Update the order total after changed shipping option*/
+					elements.update( { amount: response.total.amount } );
+					event.resolve( payLoad );
+				} else {
+					event.reject( { status: 'fail' } );
+				}
+			} );
+		} );
+
+		expressCheckoutElement.on( 'confirm', async function( event ) {
+			const { error: submitError } = await elements.submit();
+
+			// Handle any errors from the submit process.
+			if ( submitError ) {
+				abortPayment( event, submitError.message );
+				return;
+			}
+
+			// Create a PaymentMethod using the details collected by the Express Checkout Element
+			const paymentMethodObj = await stripe.createPaymentMethod( { elements } );
+			// Add paymentMethodId in event object.
+			event = { ...event, paymentMethodId: paymentMethodObj.paymentMethod.id };
+			$.when( createPaymentMethod( event, event.expressPaymentType, true ) ).then( function( response ) {
+				if ( 'success' === response.result ) {
+					confirmPaymentIntent( event, response.redirect );
+				} else {
+					abortPayment( event, response.messages );
+					removeLoadingExpressCheckout();
+				}
+			} );
+		} );
+
+		expressCheckoutElement.on( 'cancel', function() {
+			// handle cancel event
+			removeLoadingExpressCheckout();
+		} );
+	}
+
+	function addLoadingExpressCheckout( ) {
+		if ( $( '#cpsw-payment-request-custom-button' ).data( 'blockUI.isBlocked' ) ) {
+			return;
+		}
+
+		$( '#cpsw-payment-request-custom-button' ).addClass( 'cpsw_request_button_blocked' ).block( { message: null } );
+	}
+
+	function removeLoadingExpressCheckout() {
+		$( '#cpsw-payment-request-custom-button' ).removeClass( 'cpsw_request_button_blocked' ).unblock();
+	}
+
 	$( document.body ).on( 'updated_cart_totals', function() {
 		initializePaymentButton();
 	} );
 
-	// We need to refresh payment request data when total is updated.
 	$( document.body ).on( 'updated_checkout', function() {
 		initializePaymentButton();
 	} );
@@ -802,7 +1143,7 @@
 
 			if ( $( document ).width() > 600 ) {
 				$( '#cpsw-payment-request-wrapper' ).removeClass( 'sticky' );
-				$( '#cpsw-payment-request-separator' ).show();
+				// $( '#cpsw-payment-request-separator' ).show();
 			} else {
 				if ( 'yes' === isResponsive ) {
 					$( '#cpsw-payment-request-wrapper' ).addClass( 'sticky' );

@@ -15,6 +15,14 @@
 	} );
 
 	function generateExpressCheckoutDemo() {
+		const buttonType = $( '#cpsw_express_checkout_button_type' ).val();
+		if ( 'default' === buttonType ) {
+			generateDefaultButtonDemo();
+			return;
+		}
+		// Hide preview of default button.
+		$( '#cpsw-default-button' ).hide();
+
 		try {
 			const data = {
 				country: 'US',
@@ -44,6 +52,7 @@
 				} );
 
 				if ( $( '.cpsw_express_checkout_preview_wrapper .cpsw_express_checkout_preview' ).length > 0 ) {
+					$( '#cpsw-payment-request-custom-button' ).show();
 					$( '.cpsw-payment-request-custom-button-admin' ).show();
 					$( '.cpsw_button_preview_label' ).css( { display: 'block' } );
 					$( '.cpsw_preview_notice' ).css( { display: 'block' } );
@@ -62,7 +71,7 @@
 						prButton.css( 'width', '112px' );
 						prButton.css( 'min-width', '112px' );
 					} else {
-						prButton.css( 'min-width', buttonWidth );
+						prButton.css( 'width', buttonWidth );
 					}
 
 					$( '.cpsw_express_checkout_preview_wrapper' ).css( { textAlign: expressButtonAlignment } );
@@ -108,6 +117,53 @@
 		}
 	}
 
+	/**
+	 * Generate Default Button Demo
+	 */
+	function generateDefaultButtonDemo() {
+		// Hide preview of custom button.
+		$( '#cpsw-payment-request-custom-button' ).hide();
+		const options = {
+			mode: 'payment',
+			amount: 1099,
+			currency: 'usd',
+			// Customizable with appearance API.
+			appearance: {/*...*/},
+			paymentMethodCreation: 'manual',
+			payment_method_types: [ 'link', 'card' ],
+		};
+
+		const elementOptions = {
+			paymentMethods: {
+				googlePay: 'always',
+				applePay: 'always',
+			},
+		};
+
+		// Set up Stripe.js and Elements to use in checkout form
+		const elements = stripe.elements( options );
+
+		// Make default button preview div visible before mounting.
+		$( '#cpsw-default-button' ).show();
+		// Create and mount the Express Checkout Element
+		const expressCheckoutElement = elements.create( 'expressCheckout', elementOptions );
+		expressCheckoutElement.mount( '#cpsw-payment-request-default-button-preview-render' );
+
+		if ( $( '.cpsw_express_checkout_preview_wrapper .cpsw_express_checkout_preview' ).length > 0 ) {
+			$( '.cpsw_button_preview_label' ).css( { display: 'block' } );
+			$( '.cpsw_preview_notice' ).css( { display: 'block' } );
+			$( '.cpsw_express_checkout_preview_wrapper .cpsw_express_checkout_preview' ).fadeIn();
+			$( '.cpsw_preview_title' ).html( $( '#cpsw_express_checkout_title' ).val() );
+			$( '.cpsw_preview_tagline' ).html( $( '#cpsw_express_checkout_tagline' ).val() );
+
+			removeAllButtonThemes();
+		}
+
+		expressCheckoutElement.on( 'confirm', async ( event ) => {
+			event.preventDefault();
+		} );
+	}
+
 	function removeAllButtonThemes() {
 		$( '.cpsw-payment-request-custom-button-render' ).removeClass( 'cpsw-express-checkout-payment-button--dark' );
 		$( '.cpsw-payment-request-custom-button-render' ).removeClass( 'cpsw-express-checkout-payment-button--light' );
@@ -122,8 +178,10 @@
 
 	function addCheckoutPreviewElement() {
 		removeCheckoutPreviewElement();
-		$( '.cpsw_express_checkout_preview_wrapper' ).prepend( '<h3 class="cpsw_preview_title"></h3><p class="cpsw_preview_tagline"></p>' );
-		$( '.cpsw_express_checkout_preview_wrapper' ).after( '<p class="cpsw_preview_notice">' + messages.checkout_note + '</p>' );
+		const checkoutTitle = $( '#cpsw_express_checkout_title' ).val();
+		const checkoutTagline = $( '#cpsw_express_checkout_tagline' ).val();
+		$( '.cpsw_express_checkout_preview_wrapper' ).prepend( '<legend class="cpsw_preview_title">' + checkoutTitle + '</legend><p class="cpsw_preview_tagline"> ' + checkoutTagline + '</p>' );
+		$( '.cpsw_express_checkout_preview_wrapper' ).after( '<p class="cpsw_preview_notice" style="display:block">' + messages.checkout_note + '</p>' );
 
 		$( '.cpsw_express_checkout_preview_wrapper' ).css( { textAlign: $( '#cpsw_express_checkout_button_alignment' ).val() } );
 		if ( $( '#cpsw_express_checkout_button_alignment' ).val() === 'center' ) {
@@ -192,8 +250,10 @@
 		const checkoutPageLayout = $( '#cpsw_express_checkout_checkout_page_layout' ).val();
 
 		if ( checkoutPageLayout === 'classic' ) {
-			$( '#cpsw_express_checkout_button_alignment' ).parents( 'tr' ).hide();
-			$( '.cpsw_express_checkout_preview_wrapper' ).addClass( 'cpsw-classic' );
+			$( document ).ready( function() {
+				$( '#cpsw_express_checkout_button_alignment' ).parents( 'tr' ).hide();
+				$( '.cpsw_express_checkout_preview_wrapper' ).addClass( 'cpsw-classic' );
+			} );
 		} else {
 			$( '#cpsw_express_checkout_button_alignment' ).parents( 'tr' ).show();
 			$( '.cpsw_express_checkout_preview_wrapper' ).removeClass( 'cpsw-classic' );
@@ -206,7 +266,7 @@
 		toggleOptions();
 		cpswExpressCheckoutLayoutEffects();
 
-		$( '#cpsw_express_checkout_button_text, #cpsw_express_checkout_button_theme' ).change( function() {
+		$( '#cpsw_express_checkout_button_text, #cpsw_express_checkout_button_theme, #cpsw_express_checkout_button_type' ).change( function() {
 			style = {
 				text: '' === $( '#cpsw_express_checkout_button_text' ).val() ? messages.default_text : $( '#cpsw_express_checkout_button_text' ).val(),
 				theme: $( '#cpsw_express_checkout_button_theme' ).val(),
@@ -214,6 +274,9 @@
 			$( '.cpsw_express_checkout_preview_wrapper .cpsw-payment-request-custom-button-admin' ).hide();
 			generateExpressCheckoutDemo( style );
 		} );
+
+		// Hide/Show the options which are based on the button type.
+		setupInputsByButtonTypes( $( '#cpsw_express_checkout_button_type' )?.val() );
 
 		$( '#cpsw_express_checkout_checkout_page_layout' ).change( function() {
 			cpswExpressCheckoutLayoutEffects();
@@ -224,12 +287,12 @@
 		} );
 
 		if ( $( document ).width() > 1200 ) {
-			const buttonPreview = $( '.cpsw_express_checkout_preview_wrapper' ).parents( 'fieldset' );
+			const buttonPreview = $( '.cpsw_express_checkout_preview_wrapper' ).parents( '.cpsw_express_checkout_preview_wrapper_section' );
 			buttonPreview.parents( 'tr' ).hide();
 			$( '.submit' ).after( '<div class="cpsw_floating_preview"><span class="cpsw_button_preview_label">Button preview</div>' );
 			$( '.cpsw_floating_preview' ).append( buttonPreview );
 
-			const maxTop = $( '#cpsw_express_checkout-description' ).offset().top - 60;
+			const maxTop = $( '#cpsw_express_checkout-description' ).offset().top + 100;
 			const absoluteLeft = 900 - jQuery( '#adminmenuwrap' ).width();
 			$( '.cpsw_floating_preview' ).css(
 				{
@@ -295,4 +358,39 @@
 			}
 		} );
 	} );
+
+	// Toggle inputs by button types functionality.
+
+	function toggleInputsByButtonTypes() {
+		$( document ).on( 'change', '#cpsw_express_checkout_button_type', function() {
+			const buttonType = $( this ).val();
+			setupInputsByButtonTypes( buttonType );
+		} );
+	}
+
+	function setupInputsByButtonTypes( buttonType ) {
+		if ( ! buttonType ) {
+			return;
+		}
+
+		const toggleInputs = [
+			$( '#cpsw_express_checkout_button_text' ).closest( 'tr' ),
+			$( '#cpsw_express_checkout_button_theme' ).closest( 'tr' ),
+			$( '#cpsw_express_checkout_button_layout' ).closest( 'tr' ),
+			$( '#cpsw_express_checkout_button_width' ).closest( 'tr' ),
+		];
+
+		// Hide toggleInputs if buttonType is default
+		if ( 'default' === buttonType ) {
+			toggleInputs.forEach( ( input ) => input.hide() );
+		} else if ( 'custom' === buttonType ) {
+			toggleInputs.forEach( ( input ) => input.show() );
+		}
+	}
+
+	// To making high priority to toggleInputsByButtonTypes function.
+	setTimeout( () => {
+		setupInputsByButtonTypes( $( '#cpsw_express_checkout_button_type' )?.val() );
+	}, 500 );
+	toggleInputsByButtonTypes();
 }( jQuery ) );

@@ -22,7 +22,7 @@
 
 // ** Database settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
-define('DB_NAME', 'ritzy_archives');
+define('DB_NAME', 'ritzy_archives2');
 
 /** Database username */
 define('DB_USER', 'root');
