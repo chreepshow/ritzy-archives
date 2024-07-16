@@ -1,0 +1,80 @@
+<!-- start Simple Custom CSS and JS -->
+<style type="text/css">
+/* Hide Membership Product tooltip */
+div.mfw-product-meta-membership-wrap {
+    display: none !important;
+}
+
+.woocommerce ul.products li.product .price, 
+.woocommerce div.product p.price, 
+.woocommerce div.product span.price {
+    font-weight: 400; /* Changes font weight to regular */
+}
+
+/* Product card details */
+.ast-woo-product-category {
+	text-transform: uppercase;
+    margin-bottom: 4px !important; /* Adjust this value as needed */
+}
+
+h2.woocommerce-loop-product__title {
+	margin-bottom: 8px !important;
+    font-weight: 500; /* Adjust the weight slightly thicker than normal */
+    font-size: 18px !important; /* Increasing the font size slightly */
+}
+
+
+/* Styling the WooCommerce sorting dropdown */
+.select2-container--default .select2-selection--single,
+.woocommerce-ordering select {
+    color: #333; /* Font color */
+    background-color: #f3f4f6 !important; /* Light background for the dropdown */
+    border: 1px solid #ccc !important; /* Subtle border color */
+    padding: 8px 16px !important; /* Adequate padding for easy interaction */
+    height: 40px !important; /* Fixed height for uniform appearance */
+    cursor: pointer; /* Cursor indicates the dropdown can be interacted with */
+}
+
+/* Hover state for the dropdown */
+.select2-container--default .select2-selection--single:hover,
+.woocommerce-ordering select:hover {
+    border-color: #999 !important; /* Darker border on hover for feedback */
+}
+
+/* Focus state to improve accessibility */
+.select2-container--default .select2-selection--single:focus,
+.woocommerce-ordering select:focus {
+    border-color: #555 !important; /* Even darker for focused state */
+    outline: none; /* Removing default outline */
+}
+
+/* Dropdown arrow color customization with Select2 */
+.select2-container--default .select2-selection--single .select2-selection__arrow b {
+    border-color: #333 transparent transparent transparent; /* Arrow color */
+}
+
+/* Adjusting the font weight for headings and labels */
+h3.wp-block-heading, /* Targeting specific headings like 'Condition' */
+label.wp-block-search__label,
+span.wc-block-components-checkbox__label { /* Targeting labels near the checkboxes */
+    font-weight: 400; /* Making font weight regular */
+}
+
+/* Center align the checkbox labels vertically */
+ul.wc-block-components-checkbox-list .wc-block-components-checkbox-list__item {
+    display: flex !important;
+    align-items: center !important; /* Ensures vertical alignment is centered */
+    margin-bottom: 16px !important; /* Maintains spacing consistency */
+}
+
+/* Increase the font weight of the labels */
+ul.wc-block-components-checkbox-list .wc-block-components-checkbox-list__item label {
+    font-weight: 500 !important; /* Slightly bolder text, adjust as needed */
+}
+
+.wc-block-components-filter-reset-button{
+	padding : .5em 1em !important;
+	text-decoration: none !important;
+}
+</style>
+<!-- end Simple Custom CSS and JS -->

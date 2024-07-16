@@ -1,0 +1,6106 @@
+2024-07-10T05:28:24+00:00 INFO ENVIRONMENT: array (
+  'WP_User' => 'Guest (non logged-in user)',
+  'HTTP_REFERER' => '--',
+  'HTTP_USER_AGENT' => 'NetworkingExtension/8618.2.12.10.9 CFNetwork/1496.0.7 Darwin/23.5.0',
+  'REQUEST_URI' => '/apple-touch-icon.png',
+  'DOING_AJAX' => false,
+  'DOING_CRON' => false,
+  'WP_CLI' => false,
+)
+2024-07-10T05:28:24+00:00 INFO REQUEST GET https://public-api.wordpress.com/wpcom/v2/sites/%s/wcpay/currency/rates?test_mode=1&currency_from=eur
+2024-07-10T05:28:24+00:00 INFO HEADERS: array (
+  'Content-Type' => 'application/json; charset=utf-8',
+  'User-Agent' => 'WooCommerce Payments/7.6.0',
+)
+2024-07-10T05:28:24+00:00 INFO RESPONSE: array (
+  'AED' => 3.973067,
+  'AFN' => 77.015264,
+  'ALL' => 100.366881,
+  'AMD' => 419.992545,
+  'ANG' => 1.951293,
+  'AOA' => 942.318851,
+  'ARS' => 992.181542,
+  'AUD' => 1.604615,
+  'AWG' => 1.947052,
+  'AZN' => 1.838882,
+  'BAM' => 1.956687,
+  'BBD' => 2.163391,
+  'BDT' => 127.217679,
+  'BGN' => 1.956419,
+  'BHD' => 0.40777,
+  'BIF' => 3116.439266,
+  'BMD' => 1.081695,
+  'BND' => 1.461669,
+  'BOB' => 7.481391,
+  'BRL' => 5.86095,
+  'BSD' => 1.081695,
+  'BTC' => 1.9E-5,
+  'BTN' => 90.387588,
+  'BWP' => 14.650843,
+  'BYN' => 3.543386,
+  'BZD' => 2.1825,
+  'CAD' => 1.474486,
+  'CDF' => 3080.288536,
+  'CHF' => 0.97109,
+  'CLF' => 0.036673,
+  'CLP' => 1011.915126,
+  'CNH' => 7.887257,
+  'CNY' => 7.869874,
+  'COP' => 4379.904064,
+  'CRC' => 578.86553,
+  'CUC' => 1.081695,
+  'CUP' => 27.853654,
+  'CVE' => 110.315504,
+  'CZK' => 25.277488,
+  'DJF' => 192.787226,
+  'DKK' => 7.459804,
+  'DOP' => 64.009306,
+  'DZD' => 145.263064,
+  'EGP' => 51.997201,
+  'ERN' => 16.225429,
+  'ETB' => 62.130948,
+  'EUR' => 1,
+  'FJD' => 2.437384,
+  'FKP' => 0.845762,
+  'GBP' => 0.845762,
+  'GEL' => 2.963845,
+  'GGP' => 0.845762,
+  'GHS' => 16.673635,
+  'GIP' => 0.845762,
+  'GMD' => 73.284856,
+  'GNF' => 9323.343021,
+  'GTQ' => 8.40885,
+  'GYD' => 226.522703,
+  'HKD' => 8.449809,
+  'HNL' => 26.81628,
+  'HRK' => 7.53484,
+  'HTG' => 143.13553,
+  'HUF' => 393.920973,
+  'IDR' => 17584.416005,
+  'ILS' => 3.972991,
+  'IMP' => 0.845762,
+  'INR' => 90.305607,
+  'IQD' => 1418.346483,
+  'IRR' => 45525.850458,
+  'ISK' => 149.111696,
+  'JEP' => 0.845762,
+  'JMD' => 169.717703,
+  'JOD' => 0.766597,
+  'JPY' => 174.699727,
+  'KES' => 138.045953,
+  'KGS' => 92.638872,
+  'KHR' => 4456.043912,
+  'KMF' => 491.630808,
+  'KPW' => 973.52576,
+  'KRW' => 1499.122818,
+  'KWD' => 0.331134,
+  'KYD' => 0.902321,
+  'KZT' => 520.073032,
+  'LAK' => 23939.63258,
+  'LBP' => 96965.272113,
+  'LKR' => 329.165794,
+  'LRD' => 210.478319,
+  'LSL' => 19.631097,
+  'LYD' => 5.254454,
+  'MAD' => 10.665334,
+  'MDL' => 19.272715,
+  'MGA' => 4868.287922,
+  'MKD' => 61.557501,
+  'MMK' => 2383.342498,
+  'MNT' => 3731.848746,
+  'MOP' => 8.712749,
+  'MUR' => 50.580077,
+  'MVR' => 16.723009,
+  'MWK' => 1877.461263,
+  'MXN' => 19.35147,
+  'MYR' => 5.088835,
+  'MZN' => 69.131138,
+  'NAD' => 19.630369,
+  'NGN' => 1520.863576,
+  'NIO' => 39.85825,
+  'NOK' => 11.477732,
+  'NPR' => 144.620194,
+  'NZD' => 1.779085,
+  'OMR' => 0.416397,
+  'PAB' => 1.081695,
+  'PEN' => 4.10426,
+  'PGK' => 4.232938,
+  'PHP' => 63.193725,
+  'PKR' => 301.428848,
+  'PLN' => 4.256106,
+  'PYG' => 8164.037499,
+  'QAR' => 3.947908,
+  'RON' => 4.972661,
+  'RSD' => 117.046284,
+  'RUB' => 94.639207,
+  'RWF' => 1416.547635,
+  'SAR' => 4.057095,
+  'SBD' => 9.124966,
+  'SCR' => 14.950777,
+  'SDG' => 650.098868,
+  'SEK' => 11.413021,
+  'SGD' => 1.460741,
+  'SHP' => 0.845762,
+  'SLL' => 22682.609354,
+  'SOS' => 618.783787,
+  'SRD' => 32.634747,
+  'SSP' => 140.901628,
+  'STD' => 24102.118081,
+  'SVC' => 9.473425,
+  'SYP' => 2717.791863,
+  'SZL' => 19.624167,
+  'THB' => 39.398047,
+  'TJS' => 11.530826,
+  'TMT' => 3.785933,
+  'TND' => 3.379147,
+  'TOP' => 2.547188,
+  'TRY' => 35.608653,
+  'TTD' => 7.331425,
+  'TWD' => 35.250283,
+  'TZS' => 2874.616046,
+  'UAH' => 44.147312,
+  'UGX' => 4011.789481,
+  'USD' => 1.081695,
+  'UYU' => 43.343837,
+  'UZS' => 13662.182717,
+  'VND' => 27506.55578,
+  'VUV' => 128.421028,
+  'WST' => 3.028747,
+  'XAF' => 655.957,
+  'XAG' => 0.034932,
+  'XAU' => 0.000457,
+  'XCD' => 2.923336,
+  'XDR' => 0.822384,
+  'XOF' => 655.957,
+  'XPD' => 0.00111,
+  'XPF' => 119.331742,
+  'XPT' => 0.001098,
+  'YER' => 270.829459,
+  'ZAR' => 19.632551,
+  'ZMW' => 26.771495,
+  'ZWL' => 348.305883,
+)
+2024-07-10T06:46:35+00:00 INFO Order price is 0 ( Payment Request button disabled )
+2024-07-10T07:41:10+00:00 INFO ENVIRONMENT: array (
+  'WP_User' => 'Guest (non logged-in user)',
+  'HTTP_REFERER' => '--',
+  'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:45.0) Gecko/20100101 Firefox/45.0',
+  'REQUEST_URI' => '/wp-admin/tools.php?page=backup_manager&download_backup_file=..wp-config.php',
+  'DOING_AJAX' => false,
+  'DOING_CRON' => false,
+  'WP_CLI' => false,
+)
+2024-07-10T07:41:10+00:00 INFO REQUEST GET https://public-api.wordpress.com/wpcom/v2/sites/%s/wcpay/accounts?test_mode=0
+2024-07-10T07:41:10+00:00 INFO HEADERS: array (
+  'Content-Type' => 'application/json; charset=utf-8',
+  'User-Agent' => 'WooCommerce Payments/7.6.0',
+)
+2024-07-10T07:41:13+00:00 INFO RESPONSE: array (
+  'account_id' => 'acct_1PJA0PFxlPKzr7zD',
+  'email' => '(redacted)',
+  'live_publishable_key' => 'pk_live_iBIpeqzKOOx2Y8PFCRBfyMU000Q7xVG4Sn',
+  'test_publishable_key' => 'pk_test_51ETDmyFuiXB5oUVxwSobQMW5Tno1GclIq7ePZWzLeW4q8oa7Zb8hI5VfwI5sNT5nXuKYinLukNvGCXmsQXAoDGHG00MqHqlYHR',
+  'is_live' => true,
+  'created' => '2024-05-22 07:54:39',
+  'has_pending_requirements' => false,
+  'has_future_requirements' => true,
+  'has_overdue_requirements' => false,
+  'details_submitted' => true,
+  'current_deadline' => NULL,
+  'status' => 'enabled',
+  'capabilities' => 
+  array (
+    'bancontact_payments' => 'active',
+    'card_payments' => 'active',
+    'eps_payments' => 'active',
+    'giropay_payments' => 'active',
+    'ideal_payments' => 'active',
+    'p24_payments' => 'active',
+    'transfers' => 'active',
+    'bank_transfer_payments' => 'unrequested',
+    'blik_payments' => 'unrequested',
+    'cartes_bancaires_payments' => 'unrequested',
+    'link_payments' => 'unrequested',
+    'mobilepay_payments' => 'unrequested',
+    'multibanco_payments' => 'unrequested',
+    'sepa_bank_transfer_payments' => 'unrequested',
+    'sepa_debit_payments' => 'unrequested',
+    'sofort_payments' => 'unrequested',
+    'twint_payments' => 'unrequested',
+  ),
+  'capability_requirements' => 
+  array (
+    'bancontact_payments' => 
+    array (
+    ),
+    'bank_transfer_payments' => 
+    array (
+    ),
+    'blik_payments' => 
+    array (
+    ),
+    'card_payments' => 
+    array (
+    ),
+    'cartes_bancaires_payments' => 
+    array (
+    ),
+    'eps_payments' => 
+    array (
+    ),
+    'giropay_payments' => 
+    array (
+    ),
+    'ideal_payments' => 
+    array (
+    ),
+    'link_payments' => 
+    array (
+    ),
+    'mobilepay_payments' => 
+    array (
+    ),
+    'multibanco_payments' => 
+    array (
+    ),
+    'p24_payments' => 
+    array (
+    ),
+    'sepa_bank_transfer_payments' => 
+    array (
+    ),
+    'sepa_debit_payments' => 
+    array (
+    ),
+    'sofort_payments' => 
+    array (
+    ),
+    'transfers' => 
+    array (
+    ),
+    'twint_payments' => 
+    array (
+    ),
+  ),
+  'payments_enabled' => true,
+  'deposits' => 
+  array (
+    'status' => 'enabled',
+    'restrictions' => 'deposits_unrestricted',
+    'interval' => 'daily',
+    'weekly_anchor' => '',
+    'monthly_anchor' => NULL,
+    'delay_days' => 3,
+    'completed_waiting_period' => false,
+    'minimum_manual_deposit_amounts' => 
+    array (
+      'aud' => 500,
+      'bgn' => 100,
+      'cad' => 500,
+      'chf' => 500,
+      'czk' => 3000,
+      'dkk' => 5000,
+      'eur' => 500,
+      'gbp' => 500,
+      'hkd' => 5000,
+      'huf' => 36000,
+      'nok' => 5000,
+      'nzd' => 500,
+      'jpy' => 50,
+      'sek' => 5000,
+      'sgd' => 500,
+      'usd' => 500,
+      'ron' => 500,
+      'pln' => 500,
+      'aed' => 200,
+    ),
+    'minimum_scheduled_deposit_amounts' => 
+    array (
+      'aed' => 200,
+      'aud' => 0,
+      'bgn' => 100,
+      'cad' => 0,
+      'chf' => 500,
+      'czk' => 3000,
+      'dkk' => 2000,
+      'eur' => 100,
+      'gbp' => 100,
+      'hkd' => 0,
+      'huf' => 36000,
+      'jpy' => 1,
+      'nok' => 2000,
+      'nzd' => 0,
+      'pln' => 500,
+      'ron' => 500,
+      'sek' => 2000,
+      'sgd' => 100,
+      'usd' => 0,
+    ),
+  ),
+  'lifetime_total_payment_volume' => 0,
+  'requirements' => 
+  array (
+    'errors' => 
+    array (
+    ),
+  ),
+  'statement_descriptor' => 'MASTERLORDSOLUTIONS',
+  'statement_descriptor_kanji' => '',
+  'statement_descriptor_kana' => '',
+  'latest_tos_agreement' => 
+  array (
+    'date' => '2024-05-22 07:54:39',
+    'source' => 'signup',
+    'is_current_version' => true,
+  ),
+  'fees' => 
+  array (
+    'base' => 
+    array (
+      'percentage_rate' => 0.015,
+      'fixed_rate' => 2000,
+      'currency' => 'huf',
+    ),
+    'discount' => 
+    array (
+    ),
+    'card' => 
+    array (
+      'base' => 
+      array (
+        'percentage_rate' => 0.015,
+        'fixed_rate' => 2000,
+        'currency' => 'huf',
+      ),
+      'additional' => 
+      array (
+        'percentage_rate' => 0.02,
+        'fixed_rate' => 0,
+        'currency' => 'huf',
+      ),
+      'fx' => 
+      array (
+        'percentage_rate' => 0.02,
+        'fixed_rate' => 0,
+        'currency' => 'huf',
+      ),
+      'discount' => 
+      array (
+      ),
+    ),
+    'bancontact' => 
+    array (
+      'base' => 
+      array (
+        'percentage_rate' => 0.014,
+        'fixed_rate' => 8500,
+        'currency' => 'huf',
+      ),
+      'additional' => 
+      array (
+        'percentage_rate' => 0,
+        'fixed_rate' => 0,
+        'currency' => 'huf',
+      ),
+      'fx' => 
+      array (
+        'percentage_rate' => 0,
+        'fixed_rate' => 0,
+        'currency' => 'huf',
+      ),
+      'discount' => 
+      array (
+      ),
+    ),
+    'eps' => 
+    array (
+      'base' => 
+      array (
+        'percentage_rate' => 0.018,
+        'fixed_rate' => 8500,
+        'currency' => 'huf',
+      ),
+      'additional' => 
+      array (
+        'percentage_rate' => 0,
+        'fixed_rate' => 0,
+        'currency' => 'huf',
+      ),
+      'fx' => 
+      array (
+        'percentage_rate' => 0,
+        'fixed_rate' => 0,
+        'currency' => 'huf',
+      ),
+      'discount' => 
+      array (
+      ),
+    ),
+    'ideal' => 
+    array (
+      'base' => 
+      array (
+        'percentage_rate' => 0,
+        'fixed_rate' => 10500,
+        'currency' => 'huf',
+      ),
+      'additional' => 
+      array (
+        'percentage_rate' => 0,
+        'fixed_rate' => 0,
+        'currency' => 'huf',
+      ),
+      'fx' => 
+      array (
+        'percentage_rate' => 0,
+        'fixed_rate' => 0,
+        'currency' => 'huf',
+      ),
+      'discount' => 
+      array (
+      ),
+    ),
+    'giropay' => 
+    array (
+      'base' => 
+      array (
+        'percentage_rate' => 0.014,
+        'fixed_rate' => 8500,
+        'currency' => 'huf',
+      ),
+      'additional' => 
+      array (
+        'percentage_rate' => 0,
+        'fixed_rate' => 0,
+        'currency' => 'huf',
+      ),
+      'fx' => 
+      array (
+        'percentage_rate' => 0,
+        'fixed_rate' => 0,
+        'currency' => 'huf',
+      ),
+      'discount' => 
+      array (
+      ),
+    ),
+    'p24' => 
+    array (
+      'base' => 
+      array (
+        'percentage_rate' => 0.022,
+        'fixed_rate' => 8500,
+        'currency' => 'huf',
+      ),
+      'additional' => 
+      array (
+        'percentage_rate' => 0,
+        'fixed_rate' => 0,
+        'currency' => 'huf',
+      ),
+      'fx' => 
+      array (
+        'percentage_rate' => 0,
+        'fixed_rate' => 0,
+        'currency' => 'huf',
+      ),
+      'discount' => 
+      array (
+      ),
+    ),
+  ),
+  'capital' => 
+  array (
+    'has_active_loan' => false,
+    'has_previous_loans' => false,
+    'loans' => 
+    array (
+    ),
+  ),
+  'fraud_services' => 
+  array (
+    'stripe' => 
+    array (
+    ),
+    'sift' => 
+    array (
+      'beacon_key' => 'affbdadb36',
+      'sandbox_beacon_key' => '6ad0ad748b',
+    ),
+  ),
+  'store_currencies' => 
+  array (
+    'default' => 'huf',
+    'supported' => 
+    array (
+      0 => 'huf',
+    ),
+  ),
+  'customer_currencies' => 
+  array (
+    'supported' => 
+    array (
+      0 => 'usd',
+      1 => 'aed',
+      2 => 'afn',
+      3 => 'all',
+      4 => 'amd',
+      5 => 'ang',
+      6 => 'aoa',
+      7 => 'ars',
+      8 => 'aud',
+      9 => 'awg',
+      10 => 'azn',
+      11 => 'bam',
+      12 => 'bbd',
+      13 => 'bdt',
+      14 => 'bgn',
+      15 => 'bif',
+      16 => 'bmd',
+      17 => 'bnd',
+      18 => 'bob',
+      19 => 'brl',
+      20 => 'bsd',
+      21 => 'bwp',
+      22 => 'byn',
+      23 => 'bzd',
+      24 => 'cad',
+      25 => 'cdf',
+      26 => 'chf',
+      27 => 'clp',
+      28 => 'cny',
+      29 => 'cop',
+      30 => 'crc',
+      31 => 'cve',
+      32 => 'czk',
+      33 => 'djf',
+      34 => 'dkk',
+      35 => 'dop',
+      36 => 'dzd',
+      37 => 'egp',
+      38 => 'etb',
+      39 => 'eur',
+      40 => 'fjd',
+      41 => 'fkp',
+      42 => 'gbp',
+      43 => 'gel',
+      44 => 'gip',
+      45 => 'gmd',
+      46 => 'gnf',
+      47 => 'gtq',
+      48 => 'gyd',
+      49 => 'hkd',
+      50 => 'hnl',
+      51 => 'htg',
+      52 => 'huf',
+      53 => 'idr',
+      54 => 'ils',
+      55 => 'inr',
+      56 => 'isk',
+      57 => 'jmd',
+      58 => 'jpy',
+      59 => 'kes',
+      60 => 'kgs',
+      61 => 'khr',
+      62 => 'kmf',
+      63 => 'krw',
+      64 => 'kyd',
+      65 => 'kzt',
+      66 => 'lak',
+      67 => 'lbp',
+      68 => 'lkr',
+      69 => 'lrd',
+      70 => 'lsl',
+      71 => 'mad',
+      72 => 'mdl',
+      73 => 'mga',
+      74 => 'mkd',
+      75 => 'mmk',
+      76 => 'mnt',
+      77 => 'mop',
+      78 => 'mur',
+      79 => 'mvr',
+      80 => 'mwk',
+      81 => 'mxn',
+      82 => 'myr',
+      83 => 'mzn',
+      84 => 'nad',
+      85 => 'ngn',
+      86 => 'nio',
+      87 => 'nok',
+      88 => 'npr',
+      89 => 'nzd',
+      90 => 'pab',
+      91 => 'pen',
+      92 => 'pgk',
+      93 => 'php',
+      94 => 'pkr',
+      95 => 'pln',
+      96 => 'pyg',
+      97 => 'qar',
+      98 => 'ron',
+      99 => 'rsd',
+      100 => 'rub',
+      101 => 'rwf',
+      102 => 'sar',
+      103 => 'sbd',
+      104 => 'scr',
+      105 => 'sek',
+      106 => 'sgd',
+      107 => 'shp',
+      108 => 'sle',
+      109 => 'sos',
+      110 => 'srd',
+      111 => 'std',
+      112 => 'szl',
+      113 => 'thb',
+      114 => 'tjs',
+      115 => 'top',
+      116 => 'try',
+      117 => 'ttd',
+      118 => 'twd',
+      119 => 'tzs',
+      120 => 'uah',
+      121 => 'ugx',
+      122 => 'uyu',
+      123 => 'uzs',
+      124 => 'vnd',
+      125 => 'vuv',
+      126 => 'wst',
+      127 => 'xaf',
+      128 => 'xcd',
+      129 => 'xof',
+      130 => 'xpf',
+      131 => 'yer',
+      132 => 'zar',
+      133 => 'zmw',
+    ),
+  ),
+  'country' => '(redacted)',
+  'instant_deposits_eligible' => false,
+  'card_present_eligible' => false,
+  'has_card_readers_available' => false,
+  'platform_checkout_eligible' => false,
+  'platform_direct_checkout_eligible' => false,
+  'business_profile' => 
+  array (
+    'name' => '(redacted)',
+    'url' => 'https://masterlordsolutions.com/',
+    'support_address' => 
+    array (
+    ),
+    'support_email' => NULL,
+    'support_phone' => NULL,
+  ),
+  'branding' => 
+  array (
+    'icon' => NULL,
+    'logo' => NULL,
+    'primary_color' => NULL,
+    'secondary_color' => NULL,
+  ),
+  'locale' => 'en_US',
+  'has_more_failed_events' => false,
+  'has_submitted_vat_data' => false,
+  'is_documents_enabled' => true,
+  'card_testing_protection_eligible' => false,
+  'progressive_onboarding' => 
+  array (
+    'is_enabled' => false,
+    'is_complete' => false,
+    'tpv' => NULL,
+    'first_transaction_date' => NULL,
+    'kyc_deadline_date' => NULL,
+  ),
+  'fraud_mitigation_settings' => 
+  array (
+    'avs_check_enabled' => false,
+    'cvc_check_enabled' => true,
+  ),
+  'is_deferred_intent_creation_upe_enabled' => true,
+  'pre_check_save_my_info' => false,
+)
+2024-07-10T07:41:13+00:00 INFO ENVIRONMENT: array (
+  'WP_User' => 'Guest (non logged-in user)',
+  'HTTP_REFERER' => '--',
+  'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:45.0) Gecko/20100101 Firefox/45.0',
+  'REQUEST_URI' => '/wp-admin/tools.php?page=backup_manager&download_backup_file=..wp-config.php',
+  'DOING_AJAX' => false,
+  'DOING_CRON' => false,
+  'WP_CLI' => false,
+)
+2024-07-10T07:41:13+00:00 INFO REQUEST POST https://public-api.wordpress.com/wpcom/v2/sites/%s/wcpay/compatibility
+2024-07-10T07:41:13+00:00 INFO HEADERS: array (
+  'Content-Type' => 'application/json; charset=utf-8',
+  'User-Agent' => 'WooCommerce Payments/7.6.0',
+  'Idempotency-Key' => '6f27aa4c-ac4a-4d05-8e7a-027f2f76b2ee',
+)
+2024-07-10T07:41:13+00:00 INFO BODY: array (
+  'test_mode' => true,
+  'compatibility_data' => 
+  array (
+    'woopayments_version' => '7.6.0',
+    'woocommerce_version' => '9.0.2',
+    'woocommerce_permalinks' => 
+    array (
+      'product_base' => 'product',
+      'category_base' => 'product-category',
+      'tag_base' => 'product-tag',
+      'attribute_base' => '',
+      'use_verbose_page_rules' => false,
+    ),
+    'woocommerce_shop' => 'https://masterlordsolutions.com/store/',
+    'woocommerce_cart' => 'https://masterlordsolutions.com/cart/',
+    'woocommerce_checkout' => 'https://masterlordsolutions.com/checkout/',
+    'blog_theme' => 'astra-child',
+    'active_plugins' => 
+    array (
+      0 => 'astra-sites/astra-sites.php',
+      1 => 'code-snippets/code-snippets.php',
+      2 => 'custom-css-js/custom-css-js.php',
+      3 => 'duplicate-page/duplicatepage.php',
+      4 => 'masterlord-solutions/masterlord-solutions.php',
+      5 => 'membership-for-woocommerce/membership-for-woocommerce.php',
+      6 => 'mwb-bookings-for-woocommerce/mwb-bookings-for-woocommerce.php',
+      7 => 'subscriptions-for-woocommerce/subscriptions-for-woocommerce.php',
+      8 => 'ultimate-addons-for-gutenberg/ultimate-addons-for-gutenberg.php',
+      9 => 'variation-swatches-woo/variation-swatches-woo.php',
+      10 => 'what-the-file/what-the-file.php',
+      11 => 'woo-update-manager/woo-update-manager.php',
+      12 => 'woocommerce-payments/woocommerce-payments.php',
+      13 => 'woocommerce/woocommerce.php',
+      14 => 'wp-file-manager/file_folder_manager.php',
+    ),
+    'post_types_count' => 
+    array (
+      'post' => 0,
+      'page' => 8,
+      'attachment' => 0,
+      'product' => 9,
+      'rent' => 0,
+      'wps_cpt_members' => 3,
+      'wps_cpt_membership' => 3,
+    ),
+  ),
+)
+2024-07-10T07:41:13+00:00 INFO RESPONSE: array (
+  'result' => 'success',
+)
+2024-07-10T13:03:09+00:00 INFO ENVIRONMENT: array (
+  'WP_User' => 'Guest (non logged-in user)',
+  'HTTP_REFERER' => '--',
+  'HTTP_USER_AGENT' => 'Mozilla',
+  'REQUEST_URI' => '/',
+  'DOING_AJAX' => false,
+  'DOING_CRON' => false,
+  'WP_CLI' => false,
+)
+2024-07-10T13:03:09+00:00 INFO REQUEST GET https://public-api.wordpress.com/wpcom/v2/sites/%s/wcpay/currency/rates?test_mode=1&currency_from=eur
+2024-07-10T13:03:09+00:00 INFO HEADERS: array (
+  'Content-Type' => 'application/json; charset=utf-8',
+  'User-Agent' => 'WooCommerce Payments/7.6.0',
+)
+2024-07-10T13:03:10+00:00 INFO RESPONSE: array (
+  'AED' => 3.976186,
+  'AFN' => 76.92728,
+  'ALL' => 100.351166,
+  'AMD' => 419.988418,
+  'ANG' => 1.950693,
+  'AOA' => 943.057476,
+  'ARS' => 992.424042,
+  'AUD' => 1.605788,
+  'AWG' => 1.948578,
+  'AZN' => 1.840323,
+  'BAM' => 1.956194,
+  'BBD' => 2.165086,
+  'BDT' => 127.176826,
+  'BGN' => 1.95654,
+  'BHD' => 0.408012,
+  'BIF' => 3115.718099,
+  'BMD' => 1.082543,
+  'BND' => 1.461008,
+  'BOB' => 7.479576,
+  'BRL' => 5.869441,
+  'BSD' => 1.082543,
+  'BTC' => 1.9E-5,
+  'BTN' => 90.400725,
+  'BWP' => 14.637085,
+  'BYN' => 3.542247,
+  'BZD' => 2.18176,
+  'CAD' => 1.476121,
+  'CDF' => 3079.502675,
+  'CHF' => 0.972274,
+  'CLF' => 0.036702,
+  'CLP' => 1005.563518,
+  'CNH' => 7.893327,
+  'CNY' => 7.876584,
+  'COP' => 4341.339064,
+  'CRC' => 577.716098,
+  'CUC' => 1.082543,
+  'CUP' => 27.875486,
+  'CVE' => 110.287234,
+  'CZK' => 25.382365,
+  'DJF' => 192.720597,
+  'DKK' => 7.460197,
+  'DOP' => 63.924361,
+  'DZD' => 145.364978,
+  'EGP' => 51.940421,
+  'ERN' => 16.238147,
+  'ETB' => 62.523475,
+  'EUR' => 1,
+  'FJD' => 2.418618,
+  'FKP' => 0.84533,
+  'GBP' => 0.84533,
+  'GEL' => 2.966168,
+  'GGP' => 0.84533,
+  'GHS' => 16.641507,
+  'GIP' => 0.84533,
+  'GMD' => 73.342299,
+  'GNF' => 9317.918867,
+  'GTQ' => 8.39777,
+  'GYD' => 226.447688,
+  'HKD' => 8.455696,
+  'HNL' => 26.809145,
+  'HRK' => 7.534313,
+  'HTG' => 143.092159,
+  'HUF' => 392.565249,
+  'IDR' => 17558.226943,
+  'ILS' => 3.958812,
+  'IMP' => 0.84533,
+  'INR' => 90.406265,
+  'IQD' => 1417.922311,
+  'IRR' => 45561.535353,
+  'ISK' => 149.09867,
+  'JEP' => 0.84533,
+  'JMD' => 169.804215,
+  'JOD' => 0.767198,
+  'JPY' => 174.812859,
+  'KES' => 138.007879,
+  'KGS' => 92.545424,
+  'KHR' => 4448.929599,
+  'KMF' => 492.016167,
+  'KPW' => 974.288846,
+  'KRW' => 1498.380986,
+  'KWD' => 0.331321,
+  'KYD' => 0.90199,
+  'KZT' => 517.268227,
+  'LAK' => 23955.207259,
+  'LBP' => 96943.392042,
+  'LKR' => 328.77939,
+  'LRD' => 210.414348,
+  'LSL' => 19.570325,
+  'LYD' => 5.251058,
+  'MAD' => 10.654333,
+  'MDL' => 19.180043,
+  'MGA' => 4871.024057,
+  'MKD' => 61.610625,
+  'MMK' => 2385.210653,
+  'MNT' => 3734.773911,
+  'MOP' => 8.708135,
+  'MUR' => 50.619719,
+  'MVR' => 16.736117,
+  'MWK' => 1876.888865,
+  'MXN' => 19.294806,
+  'MYR' => 5.089577,
+  'MZN' => 69.185326,
+  'NAD' => 19.570686,
+  'NGN' => 1522.055687,
+  'NIO' => 39.838396,
+  'NOK' => 11.599516,
+  'NPR' => 144.641173,
+  'NZD' => 1.781246,
+  'OMR' => 0.416677,
+  'PAB' => 1.082543,
+  'PEN' => 4.098064,
+  'PGK' => 4.231973,
+  'PHP' => 63.077633,
+  'PKR' => 301.445665,
+  'PLN' => 4.254924,
+  'PYG' => 8154.002124,
+  'QAR' => 3.944275,
+  'RON' => 4.973095,
+  'RSD' => 117.026164,
+  'RUB' => 95.229456,
+  'RWF' => 1416.599017,
+  'SAR' => 4.060131,
+  'SBD' => 9.132119,
+  'SCR' => 15.180251,
+  'SDG' => 650.608441,
+  'SEK' => 11.407686,
+  'SGD' => 1.460568,
+  'SHP' => 0.84533,
+  'SLL' => 22700.388847,
+  'SOS' => 618.629967,
+  'SRD' => 32.660327,
+  'SSP' => 141.012072,
+  'STD' => 24121.010239,
+  'SVC' => 9.470996,
+  'SYP' => 2719.922172,
+  'SZL' => 19.565943,
+  'THB' => 39.349361,
+  'TJS' => 11.527429,
+  'TMT' => 3.788901,
+  'TND' => 3.370473,
+  'TOP' => 2.549756,
+  'TRY' => 35.627553,
+  'TTD' => 7.34448,
+  'TWD' => 35.267483,
+  'TZS' => 2873.706089,
+  'UAH' => 44.112092,
+  'UGX' => 4009.921687,
+  'USD' => 1.082543,
+  'UYU' => 43.378743,
+  'UZS' => 13670.955088,
+  'VND' => 27514.123269,
+  'VUV' => 128.521689,
+  'WST' => 3.031121,
+  'XAF' => 655.957,
+  'XAG' => 0.034862,
+  'XAU' => 0.000455,
+  'XCD' => 2.925627,
+  'XDR' => 0.822173,
+  'XOF' => 655.957,
+  'XPD' => 0.001101,
+  'XPF' => 119.331742,
+  'XPT' => 0.001088,
+  'YER' => 271.041746,
+  'ZAR' => 19.547373,
+  'ZMW' => 26.79248,
+  'ZWL' => 348.578898,
+)
+2024-07-10T13:03:10+00:00 INFO ENVIRONMENT: array (
+  'WP_User' => 'Guest (non logged-in user)',
+  'HTTP_REFERER' => '--',
+  'HTTP_USER_AGENT' => 'WordPress/6.5.5; https://masterlordsolutions.com',
+  'REQUEST_URI' => '/wp-cron.php?doing_wp_cron=1720616590.0723299980163574218750',
+  'DOING_AJAX' => false,
+  'DOING_CRON' => true,
+  'WP_CLI' => false,
+)
+2024-07-10T13:03:10+00:00 INFO REQUEST GET https://public-api.wordpress.com/wpcom/v2/wcpay/woopay/compatibility?test_mode=1
+2024-07-10T13:03:10+00:00 INFO HEADERS: array (
+  'Content-Type' => 'application/json; charset=utf-8',
+  'User-Agent' => 'WooCommerce Payments/7.6.0',
+)
+2024-07-10T13:03:10+00:00 INFO RESPONSE: array (
+  'incompatible_extensions' => 
+  array (
+    0 => 'class-wcdonation',
+    1 => 'woocommerce-table-rate-shipping',
+    2 => 'woocommerce-memberships-for-teams',
+    3 => 'woocommerce-checkout-add-ons',
+    4 => 'woocommerce-checkout-field-editor',
+    5 => 'woocommerce-eu-vat-number',
+    6 => 'woocommerce-order-delivery',
+    7 => 'woocommerce-pdf-product-vouchers',
+    8 => 'woocommerce-shipping-local-pickup-plus',
+    9 => 'woocommerce-shipping-multiple-addresses',
+    10 => 'woocommerce-smart-coupons',
+    11 => 'woocommerce-subscriptions-gifting',
+    12 => 'advanced-product-fields-for-woocommerce',
+  ),
+  'adapted_extensions' => 
+  array (
+    0 => 'woocommerce-points-and-rewards',
+    1 => 'woocommerce-gift-cards',
+  ),
+  'available_countries' => 
+  array (
+    0 => 'US',
+  ),
+)
+2024-07-10T14:36:04+00:00 INFO ENVIRONMENT: array (
+  'WP_User' => 'masterlordsolutions.com',
+  'HTTP_REFERER' => 'https://masterlordsolutions.com/',
+  'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+  'REQUEST_URI' => '/wp-admin/about.php',
+  'DOING_AJAX' => false,
+  'DOING_CRON' => false,
+  'WP_CLI' => false,
+)
+2024-07-10T14:36:04+00:00 INFO REQUEST GET https://public-api.wordpress.com/wpcom/v2/sites/%s/wcpay/accounts?test_mode=0
+2024-07-10T14:36:04+00:00 INFO HEADERS: array (
+  'Content-Type' => 'application/json; charset=utf-8',
+  'User-Agent' => 'WooCommerce Payments/7.6.0',
+)
+2024-07-10T14:36:07+00:00 INFO RESPONSE: array (
+  'account_id' => 'acct_1PJA0PFxlPKzr7zD',
+  'email' => '(redacted)',
+  'live_publishable_key' => 'pk_live_iBIpeqzKOOx2Y8PFCRBfyMU000Q7xVG4Sn',
+  'test_publishable_key' => 'pk_test_51ETDmyFuiXB5oUVxwSobQMW5Tno1GclIq7ePZWzLeW4q8oa7Zb8hI5VfwI5sNT5nXuKYinLukNvGCXmsQXAoDGHG00MqHqlYHR',
+  'is_live' => true,
+  'created' => '2024-05-22 07:54:39',
+  'has_pending_requirements' => false,
+  'has_future_requirements' => true,
+  'has_overdue_requirements' => false,
+  'details_submitted' => true,
+  'current_deadline' => NULL,
+  'status' => 'enabled',
+  'capabilities' => 
+  array (
+    'bancontact_payments' => 'active',
+    'card_payments' => 'active',
+    'eps_payments' => 'active',
+    'giropay_payments' => 'active',
+    'ideal_payments' => 'active',
+    'p24_payments' => 'active',
+    'transfers' => 'active',
+    'bank_transfer_payments' => 'unrequested',
+    'blik_payments' => 'unrequested',
+    'cartes_bancaires_payments' => 'unrequested',
+    'link_payments' => 'unrequested',
+    'mobilepay_payments' => 'unrequested',
+    'multibanco_payments' => 'unrequested',
+    'sepa_bank_transfer_payments' => 'unrequested',
+    'sepa_debit_payments' => 'unrequested',
+    'sofort_payments' => 'unrequested',
+    'twint_payments' => 'unrequested',
+  ),
+  'capability_requirements' => 
+  array (
+    'bancontact_payments' => 
+    array (
+    ),
+    'bank_transfer_payments' => 
+    array (
+    ),
+    'blik_payments' => 
+    array (
+    ),
+    'card_payments' => 
+    array (
+    ),
+    'cartes_bancaires_payments' => 
+    array (
+    ),
+    'eps_payments' => 
+    array (
+    ),
+    'giropay_payments' => 
+    array (
+    ),
+    'ideal_payments' => 
+    array (
+    ),
+    'link_payments' => 
+    array (
+    ),
+    'mobilepay_payments' => 
+    array (
+    ),
+    'multibanco_payments' => 
+    array (
+    ),
+    'p24_payments' => 
+    array (
+    ),
+    'sepa_bank_transfer_payments' => 
+    array (
+    ),
+    'sepa_debit_payments' => 
+    array (
+    ),
+    'sofort_payments' => 
+    array (
+    ),
+    'transfers' => 
+    array (
+    ),
+    'twint_payments' => 
+    array (
+    ),
+  ),
+  'payments_enabled' => true,
+  'deposits' => 
+  array (
+    'status' => 'enabled',
+    'restrictions' => 'deposits_unrestricted',
+    'interval' => 'daily',
+    'weekly_anchor' => '',
+    'monthly_anchor' => NULL,
+    'delay_days' => 3,
+    'completed_waiting_period' => false,
+    'minimum_manual_deposit_amounts' => 
+    array (
+      'aud' => 500,
+      'bgn' => 100,
+      'cad' => 500,
+      'chf' => 500,
+      'czk' => 3000,
+      'dkk' => 5000,
+      'eur' => 500,
+      'gbp' => 500,
+      'hkd' => 5000,
+      'huf' => 36000,
+      'nok' => 5000,
+      'nzd' => 500,
+      'jpy' => 50,
+      'sek' => 5000,
+      'sgd' => 500,
+      'usd' => 500,
+      'ron' => 500,
+      'pln' => 500,
+      'aed' => 200,
+    ),
+    'minimum_scheduled_deposit_amounts' => 
+    array (
+      'aed' => 200,
+      'aud' => 0,
+      'bgn' => 100,
+      'cad' => 0,
+      'chf' => 500,
+      'czk' => 3000,
+      'dkk' => 2000,
+      'eur' => 100,
+      'gbp' => 100,
+      'hkd' => 0,
+      'huf' => 36000,
+      'jpy' => 1,
+      'nok' => 2000,
+      'nzd' => 0,
+      'pln' => 500,
+      'ron' => 500,
+      'sek' => 2000,
+      'sgd' => 100,
+      'usd' => 0,
+    ),
+  ),
+  'lifetime_total_payment_volume' => 0,
+  'requirements' => 
+  array (
+    'errors' => 
+    array (
+    ),
+  ),
+  'statement_descriptor' => 'MASTERLORDSOLUTIONS',
+  'statement_descriptor_kanji' => '',
+  'statement_descriptor_kana' => '',
+  'latest_tos_agreement' => 
+  array (
+    'date' => '2024-05-22 07:54:39',
+    'source' => 'signup',
+    'is_current_version' => true,
+  ),
+  'fees' => 
+  array (
+    'base' => 
+    array (
+      'percentage_rate' => 0.015,
+      'fixed_rate' => 2000,
+      'currency' => 'huf',
+    ),
+    'discount' => 
+    array (
+    ),
+    'card' => 
+    array (
+      'base' => 
+      array (
+        'percentage_rate' => 0.015,
+        'fixed_rate' => 2000,
+        'currency' => 'huf',
+      ),
+      'additional' => 
+      array (
+        'percentage_rate' => 0.02,
+        'fixed_rate' => 0,
+        'currency' => 'huf',
+      ),
+      'fx' => 
+      array (
+        'percentage_rate' => 0.02,
+        'fixed_rate' => 0,
+        'currency' => 'huf',
+      ),
+      'discount' => 
+      array (
+      ),
+    ),
+    'bancontact' => 
+    array (
+      'base' => 
+      array (
+        'percentage_rate' => 0.014,
+        'fixed_rate' => 8500,
+        'currency' => 'huf',
+      ),
+      'additional' => 
+      array (
+        'percentage_rate' => 0,
+        'fixed_rate' => 0,
+        'currency' => 'huf',
+      ),
+      'fx' => 
+      array (
+        'percentage_rate' => 0,
+        'fixed_rate' => 0,
+        'currency' => 'huf',
+      ),
+      'discount' => 
+      array (
+      ),
+    ),
+    'eps' => 
+    array (
+      'base' => 
+      array (
+        'percentage_rate' => 0.018,
+        'fixed_rate' => 8500,
+        'currency' => 'huf',
+      ),
+      'additional' => 
+      array (
+        'percentage_rate' => 0,
+        'fixed_rate' => 0,
+        'currency' => 'huf',
+      ),
+      'fx' => 
+      array (
+        'percentage_rate' => 0,
+        'fixed_rate' => 0,
+        'currency' => 'huf',
+      ),
+      'discount' => 
+      array (
+      ),
+    ),
+    'ideal' => 
+    array (
+      'base' => 
+      array (
+        'percentage_rate' => 0,
+        'fixed_rate' => 10500,
+        'currency' => 'huf',
+      ),
+      'additional' => 
+      array (
+        'percentage_rate' => 0,
+        'fixed_rate' => 0,
+        'currency' => 'huf',
+      ),
+      'fx' => 
+      array (
+        'percentage_rate' => 0,
+        'fixed_rate' => 0,
+        'currency' => 'huf',
+      ),
+      'discount' => 
+      array (
+      ),
+    ),
+    'giropay' => 
+    array (
+      'base' => 
+      array (
+        'percentage_rate' => 0.014,
+        'fixed_rate' => 8500,
+        'currency' => 'huf',
+      ),
+      'additional' => 
+      array (
+        'percentage_rate' => 0,
+        'fixed_rate' => 0,
+        'currency' => 'huf',
+      ),
+      'fx' => 
+      array (
+        'percentage_rate' => 0,
+        'fixed_rate' => 0,
+        'currency' => 'huf',
+      ),
+      'discount' => 
+      array (
+      ),
+    ),
+    'p24' => 
+    array (
+      'base' => 
+      array (
+        'percentage_rate' => 0.022,
+        'fixed_rate' => 8500,
+        'currency' => 'huf',
+      ),
+      'additional' => 
+      array (
+        'percentage_rate' => 0,
+        'fixed_rate' => 0,
+        'currency' => 'huf',
+      ),
+      'fx' => 
+      array (
+        'percentage_rate' => 0,
+        'fixed_rate' => 0,
+        'currency' => 'huf',
+      ),
+      'discount' => 
+      array (
+      ),
+    ),
+  ),
+  'capital' => 
+  array (
+    'has_active_loan' => false,
+    'has_previous_loans' => false,
+    'loans' => 
+    array (
+    ),
+  ),
+  'fraud_services' => 
+  array (
+    'stripe' => 
+    array (
+    ),
+    'sift' => 
+    array (
+      'beacon_key' => 'affbdadb36',
+      'sandbox_beacon_key' => '6ad0ad748b',
+    ),
+  ),
+  'store_currencies' => 
+  array (
+    'default' => 'huf',
+    'supported' => 
+    array (
+      0 => 'huf',
+    ),
+  ),
+  'customer_currencies' => 
+  array (
+    'supported' => 
+    array (
+      0 => 'usd',
+      1 => 'aed',
+      2 => 'afn',
+      3 => 'all',
+      4 => 'amd',
+      5 => 'ang',
+      6 => 'aoa',
+      7 => 'ars',
+      8 => 'aud',
+      9 => 'awg',
+      10 => 'azn',
+      11 => 'bam',
+      12 => 'bbd',
+      13 => 'bdt',
+      14 => 'bgn',
+      15 => 'bif',
+      16 => 'bmd',
+      17 => 'bnd',
+      18 => 'bob',
+      19 => 'brl',
+      20 => 'bsd',
+      21 => 'bwp',
+      22 => 'byn',
+      23 => 'bzd',
+      24 => 'cad',
+      25 => 'cdf',
+      26 => 'chf',
+      27 => 'clp',
+      28 => 'cny',
+      29 => 'cop',
+      30 => 'crc',
+      31 => 'cve',
+      32 => 'czk',
+      33 => 'djf',
+      34 => 'dkk',
+      35 => 'dop',
+      36 => 'dzd',
+      37 => 'egp',
+      38 => 'etb',
+      39 => 'eur',
+      40 => 'fjd',
+      41 => 'fkp',
+      42 => 'gbp',
+      43 => 'gel',
+      44 => 'gip',
+      45 => 'gmd',
+      46 => 'gnf',
+      47 => 'gtq',
+      48 => 'gyd',
+      49 => 'hkd',
+      50 => 'hnl',
+      51 => 'htg',
+      52 => 'huf',
+      53 => 'idr',
+      54 => 'ils',
+      55 => 'inr',
+      56 => 'isk',
+      57 => 'jmd',
+      58 => 'jpy',
+      59 => 'kes',
+      60 => 'kgs',
+      61 => 'khr',
+      62 => 'kmf',
+      63 => 'krw',
+      64 => 'kyd',
+      65 => 'kzt',
+      66 => 'lak',
+      67 => 'lbp',
+      68 => 'lkr',
+      69 => 'lrd',
+      70 => 'lsl',
+      71 => 'mad',
+      72 => 'mdl',
+      73 => 'mga',
+      74 => 'mkd',
+      75 => 'mmk',
+      76 => 'mnt',
+      77 => 'mop',
+      78 => 'mur',
+      79 => 'mvr',
+      80 => 'mwk',
+      81 => 'mxn',
+      82 => 'myr',
+      83 => 'mzn',
+      84 => 'nad',
+      85 => 'ngn',
+      86 => 'nio',
+      87 => 'nok',
+      88 => 'npr',
+      89 => 'nzd',
+      90 => 'pab',
+      91 => 'pen',
+      92 => 'pgk',
+      93 => 'php',
+      94 => 'pkr',
+      95 => 'pln',
+      96 => 'pyg',
+      97 => 'qar',
+      98 => 'ron',
+      99 => 'rsd',
+      100 => 'rub',
+      101 => 'rwf',
+      102 => 'sar',
+      103 => 'sbd',
+      104 => 'scr',
+      105 => 'sek',
+      106 => 'sgd',
+      107 => 'shp',
+      108 => 'sle',
+      109 => 'sos',
+      110 => 'srd',
+      111 => 'std',
+      112 => 'szl',
+      113 => 'thb',
+      114 => 'tjs',
+      115 => 'top',
+      116 => 'try',
+      117 => 'ttd',
+      118 => 'twd',
+      119 => 'tzs',
+      120 => 'uah',
+      121 => 'ugx',
+      122 => 'uyu',
+      123 => 'uzs',
+      124 => 'vnd',
+      125 => 'vuv',
+      126 => 'wst',
+      127 => 'xaf',
+      128 => 'xcd',
+      129 => 'xof',
+      130 => 'xpf',
+      131 => 'yer',
+      132 => 'zar',
+      133 => 'zmw',
+    ),
+  ),
+  'country' => '(redacted)',
+  'instant_deposits_eligible' => false,
+  'card_present_eligible' => false,
+  'has_card_readers_available' => false,
+  'platform_checkout_eligible' => false,
+  'platform_direct_checkout_eligible' => false,
+  'business_profile' => 
+  array (
+    'name' => '(redacted)',
+    'url' => 'https://masterlordsolutions.com/',
+    'support_address' => 
+    array (
+    ),
+    'support_email' => NULL,
+    'support_phone' => NULL,
+  ),
+  'branding' => 
+  array (
+    'icon' => NULL,
+    'logo' => NULL,
+    'primary_color' => NULL,
+    'secondary_color' => NULL,
+  ),
+  'locale' => 'en_US',
+  'has_more_failed_events' => false,
+  'has_submitted_vat_data' => false,
+  'is_documents_enabled' => true,
+  'card_testing_protection_eligible' => false,
+  'progressive_onboarding' => 
+  array (
+    'is_enabled' => false,
+    'is_complete' => false,
+    'tpv' => NULL,
+    'first_transaction_date' => NULL,
+    'kyc_deadline_date' => NULL,
+  ),
+  'fraud_mitigation_settings' => 
+  array (
+    'avs_check_enabled' => false,
+    'cvc_check_enabled' => true,
+  ),
+  'is_deferred_intent_creation_upe_enabled' => true,
+  'pre_check_save_my_info' => false,
+)
+2024-07-10T14:36:07+00:00 INFO ENVIRONMENT: array (
+  'WP_User' => 'masterlordsolutions.com',
+  'HTTP_REFERER' => 'https://masterlordsolutions.com/',
+  'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+  'REQUEST_URI' => '/wp-admin/about.php',
+  'DOING_AJAX' => false,
+  'DOING_CRON' => false,
+  'WP_CLI' => false,
+)
+2024-07-10T14:36:07+00:00 INFO REQUEST POST https://public-api.wordpress.com/wpcom/v2/sites/%s/wcpay/compatibility
+2024-07-10T14:36:07+00:00 INFO HEADERS: array (
+  'Content-Type' => 'application/json; charset=utf-8',
+  'User-Agent' => 'WooCommerce Payments/7.6.0',
+  'Idempotency-Key' => 'f32356c9-4994-4f1b-9e76-2c63b70d22a3',
+)
+2024-07-10T14:36:07+00:00 INFO BODY: array (
+  'test_mode' => true,
+  'compatibility_data' => 
+  array (
+    'woopayments_version' => '7.6.0',
+    'woocommerce_version' => '9.0.2',
+    'woocommerce_permalinks' => 
+    array (
+      'product_base' => 'product',
+      'category_base' => 'product-category',
+      'tag_base' => 'product-tag',
+      'attribute_base' => '',
+      'use_verbose_page_rules' => false,
+    ),
+    'woocommerce_shop' => 'https://masterlordsolutions.com/store/',
+    'woocommerce_cart' => 'https://masterlordsolutions.com/cart/',
+    'woocommerce_checkout' => 'https://masterlordsolutions.com/checkout/',
+    'blog_theme' => 'astra-child',
+    'active_plugins' => 
+    array (
+      0 => 'astra-sites/astra-sites.php',
+      1 => 'code-snippets/code-snippets.php',
+      2 => 'custom-css-js/custom-css-js.php',
+      3 => 'duplicate-page/duplicatepage.php',
+      4 => 'masterlord-solutions/masterlord-solutions.php',
+      5 => 'membership-for-woocommerce/membership-for-woocommerce.php',
+      6 => 'mwb-bookings-for-woocommerce/mwb-bookings-for-woocommerce.php',
+      7 => 'subscriptions-for-woocommerce/subscriptions-for-woocommerce.php',
+      8 => 'ultimate-addons-for-gutenberg/ultimate-addons-for-gutenberg.php',
+      9 => 'variation-swatches-woo/variation-swatches-woo.php',
+      10 => 'what-the-file/what-the-file.php',
+      11 => 'woo-update-manager/woo-update-manager.php',
+      12 => 'woocommerce-payments/woocommerce-payments.php',
+      13 => 'woocommerce/woocommerce.php',
+      14 => 'wp-file-manager/file_folder_manager.php',
+    ),
+    'post_types_count' => 
+    array (
+      'post' => 0,
+      'page' => 8,
+      'attachment' => 0,
+      'product' => 9,
+      'rent' => 0,
+      'wps_cpt_members' => 3,
+      'wps_cpt_membership' => 3,
+    ),
+  ),
+)
+2024-07-10T14:36:08+00:00 INFO RESPONSE: array (
+  'result' => 'success',
+)
+2024-07-10T14:36:09+00:00 INFO ENVIRONMENT: array (
+  'WP_User' => 'masterlordsolutions.com',
+  'HTTP_REFERER' => 'https://masterlordsolutions.com/',
+  'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+  'REQUEST_URI' => '/wp-admin/about.php',
+  'DOING_AJAX' => false,
+  'DOING_CRON' => false,
+  'WP_CLI' => false,
+)
+2024-07-10T14:36:09+00:00 INFO REQUEST GET https://public-api.wordpress.com/wpcom/v2/sites/%s/wcpay/disputes/status_counts?test_mode=1
+2024-07-10T14:36:09+00:00 INFO HEADERS: array (
+  'Content-Type' => 'application/json; charset=utf-8',
+  'User-Agent' => 'WooCommerce Payments/7.6.0',
+)
+2024-07-10T14:36:09+00:00 INFO RESPONSE: array (
+)
+2024-07-10T14:45:34+00:00 INFO Order price is 0 ( Payment Request button disabled )
+2024-07-10T14:45:34+00:00 INFO Order price is 0 ( Payment Request button disabled )
+2024-07-10T14:46:05+00:00 INFO ENVIRONMENT: array (
+  'WP_User' => 'masterlordsolutions.com',
+  'HTTP_REFERER' => 'https://masterlordsolutions.com/checkout/',
+  'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+  'REQUEST_URI' => '/?wc-ajax=checkout',
+  'DOING_AJAX' => true,
+  'DOING_CRON' => false,
+  'WP_CLI' => false,
+)
+2024-07-10T14:46:05+00:00 INFO REQUEST POST https://public-api.wordpress.com/wpcom/v2/sites/%s/wcpay/customers
+2024-07-10T14:46:05+00:00 INFO HEADERS: array (
+  'Content-Type' => 'application/json; charset=utf-8',
+  'User-Agent' => 'WooCommerce Payments/7.6.0',
+  'Idempotency-Key' => '17f44c14-b599-4a68-8f13-e69c83fc90b6',
+)
+2024-07-10T14:46:05+00:00 INFO BODY: array (
+  'test_mode' => true,
+  'name' => '(redacted)',
+  'description' => 'Name: test test, Username: masterlordsolutions.com',
+  'email' => '(redacted)',
+  'phone' => '(redacted)',
+  'address' => 
+  array (
+    'line1' => '(redacted)',
+    'line2' => '(redacted)',
+    'postal_code' => '(redacted)',
+    'city' => '(redacted)',
+    'state' => '(redacted)',
+    'country' => '(redacted)',
+  ),
+  'session_id' => 'st_1QJMzJzj$Jcy2Q2tfYv.RFz7skFDW_1',
+)
+2024-07-10T14:46:06+00:00 INFO RESPONSE: array (
+  'id' => 'cus_QRvdHZRcwVnZfi',
+  'object' => 'customer',
+  'address' => 
+  array (
+    'city' => '(redacted)',
+    'country' => '(redacted)',
+    'line1' => '(redacted)',
+    'line2' => '(redacted)',
+    'postal_code' => '(redacted)',
+    'state' => '(redacted)',
+  ),
+  'balance' => 0,
+  'created' => 1720622765,
+  'currency' => NULL,
+  'default_currency' => NULL,
+  'default_source' => NULL,
+  'delinquent' => false,
+  'description' => 'Name: test test, Username: masterlordsolutions.com',
+  'discount' => NULL,
+  'email' => '(redacted)',
+  'invoice_prefix' => '15A8DE5D',
+  'invoice_settings' => 
+  array (
+    'custom_fields' => NULL,
+    'default_payment_method' => NULL,
+    'footer' => NULL,
+    'rendering_options' => NULL,
+  ),
+  'livemode' => false,
+  'metadata' => 'stdClass()',
+  'name' => '(redacted)',
+  'next_invoice_sequence' => 1,
+  'phone' => '(redacted)',
+  'preferred_locales' => 
+  array (
+  ),
+  'shipping' => NULL,
+  'tax_exempt' => 'none',
+  'test_clock' => NULL,
+)
+2024-07-10T14:46:06+00:00 INFO ENVIRONMENT: array (
+  'WP_User' => 'masterlordsolutions.com',
+  'HTTP_REFERER' => 'https://masterlordsolutions.com/checkout/',
+  'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+  'REQUEST_URI' => '/?wc-ajax=checkout',
+  'DOING_AJAX' => true,
+  'DOING_CRON' => false,
+  'WP_CLI' => false,
+)
+2024-07-10T14:46:06+00:00 INFO REQUEST POST https://public-api.wordpress.com/wpcom/v2/sites/%s/wcpay/intentions
+2024-07-10T14:46:06+00:00 INFO HEADERS: array (
+  'Content-Type' => 'application/json; charset=utf-8',
+  'User-Agent' => 'WooCommerce Payments/7.6.0',
+  'Idempotency-Key' => 'fb1e2166-6e0e-4e9a-9aa1-69b36cea439a',
+)
+2024-07-10T14:46:06+00:00 INFO BODY: array (
+  'test_mode' => true,
+  'confirm' => 'true',
+  'capture_method' => 'automatic',
+  'is_platform_payment_method' => false,
+  'woopay_has_subscription' => false,
+  'save_payment_method_to_platform' => false,
+  'amount' => 24900,
+  'currency' => 'eur',
+  'payment_method' => 'pm_1Pb1mSFxlPKzr7zDqSXlJmFb',
+  'customer' => 'cus_QRvdHZRcwVnZfi',
+  'metadata' => 
+  array (
+    'customer_name' => '(redacted)',
+    'customer_email' => '(redacted)',
+    'site_url' => 'https://masterlordsolutions.com',
+    'order_id' => 3538,
+    'order_number' => '3538',
+    'order_key' => 'wc_order_yukPTrcoF1nna',
+    'payment_type' => 'WCPay\\Constants\\Payment_Type()',
+    'checkout_type' => 'checkout',
+    'client_version' => '7.6.0',
+    'subscription_payment' => 'no',
+    'fraud_prevention_data_shopper_ip_hash' => '66462f5d8e9110fe23cb987193d0819c73d445148066a9172b9c52cf0b634d27cb179199a378c4d367396c2af6cb211b91860fea958af66c248f56ddfa45a48c',
+    'fraud_prevention_data_shopper_ua_hash' => 'd012eedd7c7caa0752bfc77ce6f6f002',
+    'fraud_prevention_data_ip_country' => 'HU',
+    'fraud_prevention_data_cart_contents' => 1,
+    'fraud_prevention_data_available' => true,
+  ),
+  'description' => 'Online Payment for Order #3538 for masterlordsolutions.com blog_id 233372720',
+  'payment_method_types' => 
+  array (
+    0 => 'card',
+  ),
+  'cvc_confirmation' => NULL,
+  'setup_future_usage' => 'off_session',
+)
+2024-07-10T14:46:08+00:00 INFO RESPONSE: array (
+  'id' => 'pi_3Pb1mVFxlPKzr7zD1ce7PNfM',
+  'object' => 'payment_intent',
+  'amount' => 24900,
+  'amount_capturable' => 0,
+  'amount_details' => 
+  array (
+    'tip' => 
+    array (
+    ),
+  ),
+  'amount_received' => 24900,
+  'amount_subtotal' => 24900,
+  'application' => 'ca_Ex84e31yMTLaNU5ozQvi5woLclpIDVpX',
+  'application_fee_amount' => 1375,
+  'automatic_payment_methods' => NULL,
+  'canceled_at' => NULL,
+  'cancellation_reason' => NULL,
+  'capture_method' => 'automatic',
+  'charges' => 
+  array (
+    'object' => 'list',
+    'data' => 
+    array (
+      0 => 
+      array (
+        'id' => 'ch_3Pb1mVFxlPKzr7zD1OFCsG5I',
+        'object' => 'charge',
+        'amount' => 24900,
+        'amount_captured' => 24900,
+        'amount_refunded' => 0,
+        'application' => 'ca_Ex84e31yMTLaNU5ozQvi5woLclpIDVpX',
+        'application_fee' => 'fee_1Pb1mVFxlPKzr7zDS84ipyRj',
+        'application_fee_amount' => 1375,
+        'balance_transaction' => 
+        array (
+          'id' => 'txn_3Pb1mVFxlPKzr7zD1K9YDExf',
+          'object' => 'balance_transaction',
+          'amount' => 9761771,
+          'available_on' => 1721174400,
+          'created' => 1720622767,
+          'currency' => 'huf',
+          'description' => 'Online Payment for Order #3538 for masterlordsolutions.com blog_id 233372720',
+          'exchange_rate' => 392.039,
+          'fee' => 539054,
+          'fee_details' => 
+          array (
+            0 => 
+            array (
+              'amount' => 539054,
+              'application' => 'ca_Ex84e31yMTLaNU5ozQvi5woLclpIDVpX',
+              'currency' => 'huf',
+              'description' => 'WooPayments application fee',
+              'type' => 'application_fee',
+            ),
+          ),
+          'net' => 9222717,
+          'reporting_category' => 'charge',
+          'source' => 'ch_3Pb1mVFxlPKzr7zD1OFCsG5I',
+          'status' => 'pending',
+          'type' => 'charge',
+        ),
+        'billing_details' => 
+        array (
+          'address' => 
+          array (
+            'city' => '(redacted)',
+            'country' => '(redacted)',
+            'line1' => '(redacted)',
+            'line2' => '(redacted)',
+            'postal_code' => '(redacted)',
+            'state' => '(redacted)',
+          ),
+          'email' => '(redacted)',
+          'name' => '(redacted)',
+          'phone' => '(redacted)',
+        ),
+        'calculated_statement_descriptor' => 'MASTERLORDSOLUTIONS',
+        'captured' => true,
+        'created' => 1720622767,
+        'currency' => 'eur',
+        'customer' => 'cus_QRvdHZRcwVnZfi',
+        'description' => 'Online Payment for Order #3538 for masterlordsolutions.com blog_id 233372720',
+        'destination' => NULL,
+        'dispute' => NULL,
+        'disputed' => false,
+        'failure_balance_transaction' => NULL,
+        'failure_code' => NULL,
+        'failure_message' => NULL,
+        'fraud_details' => 
+        array (
+        ),
+        'invoice' => NULL,
+        'livemode' => false,
+        'metadata' => 
+        array (
+          'checkout_type' => 'checkout',
+          'client_version' => '7.6.0',
+          'customer_email' => '(redacted)',
+          'customer_name' => '(redacted)',
+          'fraud_prevention_data_available' => '1',
+          'fraud_prevention_data_cart_contents' => '1',
+          'fraud_prevention_data_ip_country' => 'HU',
+          'fraud_prevention_data_shopper_ip_hash' => '66462f5d8e9110fe23cb987193d0819c73d445148066a9172b9c52cf0b634d27cb179199a378c4d367396c2af6cb211b91860fea958af66c248f56ddfa45a48c',
+          'fraud_prevention_data_shopper_ua_hash' => 'd012eedd7c7caa0752bfc77ce6f6f002',
+          'order_id' => '3538',
+          'order_key' => 'wc_order_yukPTrcoF1nna',
+          'order_number' => '3538',
+          'payment_type' => 'single',
+          'site_url' => 'https://masterlordsolutions.com',
+          'subscription_payment' => 'no',
+        ),
+        'on_behalf_of' => NULL,
+        'order' => NULL,
+        'outcome' => 
+        array (
+          'network_status' => 'approved_by_network',
+          'reason' => NULL,
+          'risk_level' => 'normal',
+          'risk_score' => 44,
+          'seller_message' => 'Payment complete.',
+          'type' => 'authorized',
+        ),
+        'paid' => true,
+        'payment_intent' => 'pi_3Pb1mVFxlPKzr7zD1ce7PNfM',
+        'payment_method' => 'pm_1Pb1mSFxlPKzr7zDqSXlJmFb',
+        'payment_method_details' => 
+        array (
+          'card' => 
+          array (
+            'amount_authorized' => 24900,
+            'brand' => 'visa',
+            'checks' => 
+            array (
+              'address_line1_check' => 'pass',
+              'address_postal_code_check' => 'pass',
+              'cvc_check' => 'pass',
+            ),
+            'country' => '(redacted)',
+            'description' => 'Visa Classic',
+            'exp_month' => 12,
+            'exp_year' => 2025,
+            'extended_authorization' => 
+            array (
+              'status' => 'disabled',
+            ),
+            'fingerprint' => '0SEufZLr8JkcLcfi',
+            'funding' => 'credit',
+            'iin' => '424242',
+            'incremental_authorization' => 
+            array (
+              'status' => 'unavailable',
+            ),
+            'installments' => NULL,
+            'issuer' => 'Stripe Payments UK Limited',
+            'last4' => '4242',
+            'mandate' => NULL,
+            'multicapture' => 
+            array (
+              'status' => 'unavailable',
+            ),
+            'network' => 'visa',
+            'network_token' => 
+            array (
+              'used' => false,
+            ),
+            'overcapture' => 
+            array (
+              'maximum_amount_capturable' => 24900,
+              'status' => 'unavailable',
+            ),
+            'three_d_secure' => NULL,
+            'wallet' => NULL,
+          ),
+          'type' => 'card',
+        ),
+        'radar_options' => 
+        array (
+        ),
+        'receipt_email' => NULL,
+        'receipt_number' => NULL,
+        'receipt_url' => 'https://pay.stripe.com/receipts/payment/CAcaFwoVYWNjdF8xUEpBMFBGeGxQS3pyN3pEKLC9urQGMgaoS3OZw046LBbk6_Qdhq547IAo86qJKPy6V7TMWUjM2UFuXN6pQjb3GZYcfG1arzaZ3y2q',
+        'refunded' => false,
+        'refunds' => 
+        array (
+          'object' => 'list',
+          'data' => 
+          array (
+          ),
+          'has_more' => false,
+          'total_count' => 0,
+          'url' => '/v1/charges/ch_3Pb1mVFxlPKzr7zD1OFCsG5I/refunds',
+        ),
+        'review' => NULL,
+        'shipping' => NULL,
+        'source' => NULL,
+        'source_transfer' => NULL,
+        'statement_descriptor' => NULL,
+        'statement_descriptor_suffix' => NULL,
+        'status' => 'succeeded',
+        'transfer_data' => NULL,
+        'transfer_group' => NULL,
+      ),
+    ),
+    'has_more' => false,
+    'total_count' => 1,
+    'url' => '/v1/charges?payment_intent=pi_3Pb1mVFxlPKzr7zD1ce7PNfM',
+  ),
+  'client_secret' => '(redacted)',
+  'confirmation_method' => 'automatic',
+  'created' => 1720622767,
+  'currency' => 'eur',
+  'customer' => 'cus_QRvdHZRcwVnZfi',
+  'description' => 'Online Payment for Order #3538 for masterlordsolutions.com blog_id 233372720',
+  'invoice' => NULL,
+  'last_payment_error' => NULL,
+  'latest_charge' => 'ch_3Pb1mVFxlPKzr7zD1OFCsG5I',
+  'level3' => NULL,
+  'livemode' => false,
+  'metadata' => 
+  array (
+    'checkout_type' => 'checkout',
+    'client_version' => '7.6.0',
+    'customer_email' => '(redacted)',
+    'customer_name' => '(redacted)',
+    'fraud_prevention_data_available' => '1',
+    'fraud_prevention_data_cart_contents' => '1',
+    'fraud_prevention_data_ip_country' => 'HU',
+    'fraud_prevention_data_shopper_ip_hash' => '66462f5d8e9110fe23cb987193d0819c73d445148066a9172b9c52cf0b634d27cb179199a378c4d367396c2af6cb211b91860fea958af66c248f56ddfa45a48c',
+    'fraud_prevention_data_shopper_ua_hash' => 'd012eedd7c7caa0752bfc77ce6f6f002',
+    'order_id' => '3538',
+    'order_key' => 'wc_order_yukPTrcoF1nna',
+    'order_number' => '3538',
+    'payment_type' => 'single',
+    'site_url' => 'https://masterlordsolutions.com',
+    'subscription_payment' => 'no',
+  ),
+  'next_action' => NULL,
+  'on_behalf_of' => NULL,
+  'payment_method' => 'pm_1Pb1mSFxlPKzr7zDqSXlJmFb',
+  'payment_method_configuration_details' => NULL,
+  'payment_method_options' => 
+  array (
+    'card' => 
+    array (
+      'installments' => NULL,
+      'mandate_options' => NULL,
+      'network' => NULL,
+      'request_three_d_secure' => 'automatic',
+    ),
+  ),
+  'payment_method_types' => 
+  array (
+    0 => 'card',
+  ),
+  'processing' => NULL,
+  'receipt_email' => NULL,
+  'review' => NULL,
+  'setup_future_usage' => 'off_session',
+  'shipping' => NULL,
+  'source' => NULL,
+  'statement_descriptor' => NULL,
+  'statement_descriptor_suffix' => NULL,
+  'status' => 'succeeded',
+  'total_details' => 
+  array (
+    'amount_discount' => 0,
+    'amount_tax' => 0,
+  ),
+  'transfer_data' => NULL,
+  'transfer_group' => NULL,
+  'fee_history' => 
+  array (
+    0 => 
+    array (
+      'type' => 'base',
+      'additional_type' => '',
+      'fee_id' => 'base-hu-card-fee',
+      'percentage_rate' => 0.015,
+      'fixed_rate' => 2000,
+      'currency' => 'huf',
+    ),
+    1 => 
+    array (
+      'type' => 'additional',
+      'additional_type' => 'international',
+      'fee_id' => 'additional-hu-card-intl-fee',
+      'percentage_rate' => 0.02,
+      'fixed_rate' => 0,
+      'currency' => 'huf',
+    ),
+    2 => 
+    array (
+      'type' => 'additional',
+      'additional_type' => 'fx',
+      'fee_id' => 'additional-hu-card-fx-fee',
+      'percentage_rate' => 0.02,
+      'fixed_rate' => 0,
+      'currency' => 'huf',
+    ),
+  ),
+)
+2024-07-10T14:46:08+00:00 INFO ENVIRONMENT: array (
+  'WP_User' => 'masterlordsolutions.com',
+  'HTTP_REFERER' => 'https://masterlordsolutions.com/checkout/',
+  'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+  'REQUEST_URI' => '/?wc-ajax=checkout',
+  'DOING_AJAX' => true,
+  'DOING_CRON' => false,
+  'WP_CLI' => false,
+)
+2024-07-10T14:46:08+00:00 INFO REQUEST GET https://public-api.wordpress.com/wpcom/v2/sites/%s/wcpay/payment_methods/pm_1Pb1mSFxlPKzr7zDqSXlJmFb?test_mode=1
+2024-07-10T14:46:08+00:00 INFO HEADERS: array (
+  'Content-Type' => 'application/json; charset=utf-8',
+  'User-Agent' => 'WooCommerce Payments/7.6.0',
+)
+2024-07-10T14:46:08+00:00 INFO RESPONSE: array (
+  'id' => 'pm_1Pb1mSFxlPKzr7zDqSXlJmFb',
+  'object' => 'payment_method',
+  'allow_redisplay' => 'unspecified',
+  'billing_details' => 
+  array (
+    'address' => 
+    array (
+      'city' => '(redacted)',
+      'country' => '(redacted)',
+      'line1' => '(redacted)',
+      'line2' => '(redacted)',
+      'postal_code' => '(redacted)',
+      'state' => '(redacted)',
+    ),
+    'email' => '(redacted)',
+    'name' => '(redacted)',
+    'phone' => '(redacted)',
+  ),
+  'card' => 
+  array (
+    'brand' => 'visa',
+    'checks' => 
+    array (
+      'address_line1_check' => 'pass',
+      'address_postal_code_check' => 'pass',
+      'cvc_check' => 'pass',
+    ),
+    'country' => '(redacted)',
+    'description' => 'Visa Classic',
+    'display_brand' => 'visa',
+    'exp_month' => 12,
+    'exp_year' => 2025,
+    'fingerprint' => '0SEufZLr8JkcLcfi',
+    'funding' => 'credit',
+    'generated_from' => NULL,
+    'iin' => '424242',
+    'issuer' => 'Stripe Payments UK Limited',
+    'last4' => '4242',
+    'networks' => 
+    array (
+      'available' => 
+      array (
+        0 => 'visa',
+      ),
+      'preferred' => NULL,
+    ),
+    'three_d_secure_usage' => 
+    array (
+      'supported' => true,
+    ),
+    'wallet' => NULL,
+  ),
+  'created' => 1720622764,
+  'customer' => 'cus_QRvdHZRcwVnZfi',
+  'livemode' => false,
+  'metadata' => 'stdClass()',
+  'radar_options' => 
+  array (
+  ),
+  'type' => 'card',
+)
+2024-07-10T14:46:08+00:00 INFO ENVIRONMENT: array (
+  'WP_User' => 'masterlordsolutions.com',
+  'HTTP_REFERER' => 'https://masterlordsolutions.com/checkout/',
+  'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+  'REQUEST_URI' => '/?wc-ajax=checkout',
+  'DOING_AJAX' => true,
+  'DOING_CRON' => false,
+  'WP_CLI' => false,
+)
+2024-07-10T14:46:08+00:00 INFO REQUEST GET https://public-api.wordpress.com/wpcom/v2/sites/%s/wcpay/payment_methods?test_mode=1&customer=cus_QRvdHZRcwVnZfi&type=card&limit=100
+2024-07-10T14:46:08+00:00 INFO HEADERS: array (
+  'Content-Type' => 'application/json; charset=utf-8',
+  'User-Agent' => 'WooCommerce Payments/7.6.0',
+)
+2024-07-10T14:46:09+00:00 INFO RESPONSE: array (
+  'object' => 'list',
+  'data' => 
+  array (
+    0 => 
+    array (
+      'id' => 'pm_1Pb1mSFxlPKzr7zDqSXlJmFb',
+      'object' => 'payment_method',
+      'allow_redisplay' => 'unspecified',
+      'billing_details' => 
+      array (
+        'address' => 
+        array (
+          'city' => '(redacted)',
+          'country' => '(redacted)',
+          'line1' => '(redacted)',
+          'line2' => '(redacted)',
+          'postal_code' => '(redacted)',
+          'state' => '(redacted)',
+        ),
+        'email' => '(redacted)',
+        'name' => '(redacted)',
+        'phone' => '(redacted)',
+      ),
+      'card' => 
+      array (
+        'brand' => 'visa',
+        'checks' => 
+        array (
+          'address_line1_check' => 'pass',
+          'address_postal_code_check' => 'pass',
+          'cvc_check' => 'pass',
+        ),
+        'country' => '(redacted)',
+        'description' => 'Visa Classic',
+        'display_brand' => 'visa',
+        'exp_month' => 12,
+        'exp_year' => 2025,
+        'fingerprint' => '0SEufZLr8JkcLcfi',
+        'funding' => 'credit',
+        'generated_from' => NULL,
+        'iin' => '424242',
+        'issuer' => 'Stripe Payments UK Limited',
+        'last4' => '4242',
+        'networks' => 
+        array (
+          'available' => 
+          array (
+            0 => 'visa',
+          ),
+          'preferred' => NULL,
+        ),
+        'three_d_secure_usage' => 
+        array (
+          'supported' => true,
+        ),
+        'wallet' => NULL,
+      ),
+      'created' => 1720622764,
+      'customer' => 'cus_QRvdHZRcwVnZfi',
+      'livemode' => false,
+      'metadata' => 
+      array (
+      ),
+      'radar_options' => 
+      array (
+      ),
+      'type' => 'card',
+    ),
+  ),
+  'has_more' => false,
+  'url' => '/v1/payment_methods',
+)
+2024-07-10T14:46:09+00:00 INFO ENVIRONMENT: array (
+  'WP_User' => 'masterlordsolutions.com',
+  'HTTP_REFERER' => 'https://masterlordsolutions.com/checkout/',
+  'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+  'REQUEST_URI' => '/?wc-ajax=checkout',
+  'DOING_AJAX' => true,
+  'DOING_CRON' => false,
+  'WP_CLI' => false,
+)
+2024-07-10T14:46:09+00:00 INFO REQUEST POST https://public-api.wordpress.com/wpcom/v2/sites/%s/wcpay/customers/cus_QRvdHZRcwVnZfi
+2024-07-10T14:46:09+00:00 INFO HEADERS: array (
+  'Content-Type' => 'application/json; charset=utf-8',
+  'User-Agent' => 'WooCommerce Payments/7.6.0',
+  'Idempotency-Key' => '9ae5db95-8a7b-4a59-8435-1375780f0f51',
+)
+2024-07-10T14:46:09+00:00 INFO BODY: array (
+  'test_mode' => true,
+  'invoice_settings' => 
+  array (
+    'default_payment_method' => 'pm_1Pb1mSFxlPKzr7zDqSXlJmFb',
+  ),
+)
+2024-07-10T14:46:09+00:00 INFO RESPONSE: array (
+  'id' => 'cus_QRvdHZRcwVnZfi',
+  'object' => 'customer',
+  'address' => 
+  array (
+    'city' => '(redacted)',
+    'country' => '(redacted)',
+    'line1' => '(redacted)',
+    'line2' => '(redacted)',
+    'postal_code' => '(redacted)',
+    'state' => '(redacted)',
+  ),
+  'balance' => 0,
+  'created' => 1720622765,
+  'currency' => NULL,
+  'default_currency' => NULL,
+  'default_source' => NULL,
+  'delinquent' => false,
+  'description' => 'Name: test test, Username: masterlordsolutions.com',
+  'discount' => NULL,
+  'email' => '(redacted)',
+  'invoice_prefix' => '15A8DE5D',
+  'invoice_settings' => 
+  array (
+    'custom_fields' => NULL,
+    'default_payment_method' => 'pm_1Pb1mSFxlPKzr7zDqSXlJmFb',
+    'footer' => NULL,
+    'rendering_options' => NULL,
+  ),
+  'livemode' => false,
+  'metadata' => 'stdClass()',
+  'name' => '(redacted)',
+  'next_invoice_sequence' => 1,
+  'phone' => '(redacted)',
+  'preferred_locales' => 
+  array (
+  ),
+  'shipping' => NULL,
+  'tax_exempt' => 'none',
+  'test_clock' => NULL,
+)
+2024-07-10T14:46:11+00:00 INFO Webhook received: payment_intent.succeeded
+2024-07-10T14:46:11+00:00 INFO Webhook body: array (
+  'id' => 'evt_3Pb1mVFxlPKzr7zD1o2jUIvt',
+  'type' => 'payment_intent.succeeded',
+  'livemode' => false,
+  'account' => 'acct_1PJA0PFxlPKzr7zD',
+  'data' => 
+  array (
+    'object' => 
+    array (
+      'id' => 'pi_3Pb1mVFxlPKzr7zD1ce7PNfM',
+      'object' => 'payment_intent',
+      'amount' => 24900,
+      'amount_capturable' => 0,
+      'amount_details' => 
+      array (
+        'tip' => 
+        array (
+        ),
+      ),
+      'amount_received' => 24900,
+      'application' => 'ca_Ex84e31yMTLaNU5ozQvi5woLclpIDVpX',
+      'application_fee_amount' => 1375,
+      'automatic_payment_methods' => NULL,
+      'canceled_at' => NULL,
+      'cancellation_reason' => NULL,
+      'capture_method' => 'automatic',
+      'client_secret' => '(redacted)',
+      'confirmation_method' => 'automatic',
+      'created' => 1720622767,
+      'currency' => 'eur',
+      'customer' => 'cus_QRvdHZRcwVnZfi',
+      'description' => 'Online Payment for Order #3538 for masterlordsolutions.com blog_id 233372720',
+      'invoice' => NULL,
+      'last_payment_error' => NULL,
+      'latest_charge' => 'ch_3Pb1mVFxlPKzr7zD1OFCsG5I',
+      'livemode' => false,
+      'metadata' => 
+      array (
+        'fraud_prevention_data_cart_contents' => '1',
+        'client_version' => '7.6.0',
+        'site_url' => 'https://masterlordsolutions.com',
+        'fraud_prevention_data_available' => '1',
+        'fraud_prevention_data_shopper_ip_hash' => '66462f5d8e9110fe23cb987193d0819c73d445148066a9172b9c52cf0b634d27cb179199a378c4d367396c2af6cb211b91860fea958af66c248f56ddfa45a48c',
+        'order_number' => '3538',
+        'checkout_type' => 'checkout',
+        'order_id' => '3538',
+        'order_key' => 'wc_order_yukPTrcoF1nna',
+        'subscription_payment' => 'no',
+        'fraud_prevention_data_shopper_ua_hash' => 'd012eedd7c7caa0752bfc77ce6f6f002',
+        'customer_email' => '(redacted)',
+        'customer_name' => '(redacted)',
+        'fraud_prevention_data_ip_country' => 'HU',
+        'payment_type' => 'single',
+      ),
+      'next_action' => NULL,
+      'on_behalf_of' => NULL,
+      'payment_method' => 'pm_1Pb1mSFxlPKzr7zDqSXlJmFb',
+      'payment_method_configuration_details' => NULL,
+      'payment_method_options' => 
+      array (
+        'card' => 
+        array (
+          'installments' => NULL,
+          'mandate_options' => NULL,
+          'network' => NULL,
+          'request_three_d_secure' => 'automatic',
+        ),
+      ),
+      'payment_method_types' => 
+      array (
+        0 => 'card',
+      ),
+      'processing' => NULL,
+      'receipt_email' => NULL,
+      'review' => NULL,
+      'setup_future_usage' => 'off_session',
+      'shipping' => NULL,
+      'source' => NULL,
+      'statement_descriptor' => NULL,
+      'statement_descriptor_suffix' => NULL,
+      'status' => 'succeeded',
+      'transfer_data' => NULL,
+      'transfer_group' => NULL,
+      'amount_subtotal' => 24900,
+      'charges' => 
+      array (
+        'object' => 'list',
+        'data' => 
+        array (
+          0 => 
+          array (
+            'id' => 'ch_3Pb1mVFxlPKzr7zD1OFCsG5I',
+            'object' => 'charge',
+            'amount' => 24900,
+            'amount_captured' => 24900,
+            'amount_refunded' => 0,
+            'application' => 'ca_Ex84e31yMTLaNU5ozQvi5woLclpIDVpX',
+            'application_fee' => 'fee_1Pb1mVFxlPKzr7zDS84ipyRj',
+            'application_fee_amount' => 1375,
+            'balance_transaction' => 'txn_3Pb1mVFxlPKzr7zD1K9YDExf',
+            'billing_details' => 
+            array (
+              'address' => 
+              array (
+                'city' => '(redacted)',
+                'country' => '(redacted)',
+                'line1' => '(redacted)',
+                'line2' => '(redacted)',
+                'postal_code' => '(redacted)',
+                'state' => '(redacted)',
+              ),
+              'email' => '(redacted)',
+              'name' => '(redacted)',
+              'phone' => '(redacted)',
+            ),
+            'calculated_statement_descriptor' => 'MASTERLORDSOLUTIONS',
+            'captured' => true,
+            'created' => 1720622767,
+            'currency' => 'eur',
+            'customer' => 'cus_QRvdHZRcwVnZfi',
+            'description' => 'Online Payment for Order #3538 for masterlordsolutions.com blog_id 233372720',
+            'destination' => NULL,
+            'dispute' => NULL,
+            'disputed' => false,
+            'failure_balance_transaction' => NULL,
+            'failure_code' => NULL,
+            'failure_message' => NULL,
+            'fraud_details' => 
+            array (
+            ),
+            'invoice' => NULL,
+            'livemode' => false,
+            'metadata' => 
+            array (
+              'fraud_prevention_data_cart_contents' => '1',
+              'client_version' => '7.6.0',
+              'site_url' => 'https://masterlordsolutions.com',
+              'fraud_prevention_data_available' => '1',
+              'fraud_prevention_data_shopper_ip_hash' => '66462f5d8e9110fe23cb987193d0819c73d445148066a9172b9c52cf0b634d27cb179199a378c4d367396c2af6cb211b91860fea958af66c248f56ddfa45a48c',
+              'order_number' => '3538',
+              'checkout_type' => 'checkout',
+              'order_id' => '3538',
+              'order_key' => 'wc_order_yukPTrcoF1nna',
+              'subscription_payment' => 'no',
+              'fraud_prevention_data_shopper_ua_hash' => 'd012eedd7c7caa0752bfc77ce6f6f002',
+              'customer_email' => '(redacted)',
+              'customer_name' => '(redacted)',
+              'fraud_prevention_data_ip_country' => 'HU',
+              'payment_type' => 'single',
+            ),
+            'on_behalf_of' => NULL,
+            'order' => NULL,
+            'outcome' => 
+            array (
+              'network_status' => 'approved_by_network',
+              'reason' => NULL,
+              'risk_level' => 'normal',
+              'risk_score' => 44,
+              'seller_message' => 'Payment complete.',
+              'type' => 'authorized',
+            ),
+            'paid' => true,
+            'payment_intent' => 'pi_3Pb1mVFxlPKzr7zD1ce7PNfM',
+            'payment_method' => 'pm_1Pb1mSFxlPKzr7zDqSXlJmFb',
+            'payment_method_details' => 
+            array (
+              'card' => 
+              array (
+                'amount_authorized' => 24900,
+                'brand' => 'visa',
+                'checks' => 
+                array (
+                  'address_line1_check' => 'pass',
+                  'address_postal_code_check' => 'pass',
+                  'cvc_check' => 'pass',
+                ),
+                'country' => '(redacted)',
+                'description' => 'Visa Classic',
+                'exp_month' => 12,
+                'exp_year' => 2025,
+                'extended_authorization' => 
+                array (
+                  'status' => 'disabled',
+                ),
+                'fingerprint' => '0SEufZLr8JkcLcfi',
+                'funding' => 'credit',
+                'iin' => '424242',
+                'incremental_authorization' => 
+                array (
+                  'status' => 'unavailable',
+                ),
+                'installments' => NULL,
+                'issuer' => 'Stripe Payments UK Limited',
+                'last4' => '4242',
+                'mandate' => NULL,
+                'multicapture' => 
+                array (
+                  'status' => 'unavailable',
+                ),
+                'network' => 'visa',
+                'network_token' => 
+                array (
+                  'used' => false,
+                ),
+                'overcapture' => 
+                array (
+                  'maximum_amount_capturable' => 24900,
+                  'status' => 'unavailable',
+                ),
+                'three_d_secure' => NULL,
+                'wallet' => NULL,
+              ),
+              'type' => 'card',
+            ),
+            'radar_options' => 
+            array (
+            ),
+            'receipt_email' => NULL,
+            'receipt_number' => NULL,
+            'receipt_url' => 'https://pay.stripe.com/receipts/payment/CAcaFwoVYWNjdF8xUEpBMFBGeGxQS3pyN3pEKLC9urQGMgZS63_93Bs6LBYn3i4A0IJu9w8DJ233yj-A31XTYqWdvKzaPay06wQHkyMkRv66DkOp7uW5',
+            'refunded' => false,
+            'refunds' => 
+            array (
+              'object' => 'list',
+              'data' => 
+              array (
+              ),
+              'has_more' => false,
+              'total_count' => 0,
+              'url' => '/v1/charges/ch_3Pb1mVFxlPKzr7zD1OFCsG5I/refunds',
+            ),
+            'review' => NULL,
+            'shipping' => NULL,
+            'source' => NULL,
+            'source_transfer' => NULL,
+            'statement_descriptor' => NULL,
+            'statement_descriptor_suffix' => NULL,
+            'status' => 'succeeded',
+            'transfer_data' => NULL,
+            'transfer_group' => NULL,
+          ),
+        ),
+        'has_more' => false,
+        'total_count' => 1,
+        'url' => '/v1/charges?payment_intent=pi_3Pb1mVFxlPKzr7zD1ce7PNfM',
+      ),
+      'level3' => NULL,
+      'total_details' => 
+      array (
+        'amount_discount' => 0,
+        'amount_tax' => 0,
+      ),
+    ),
+  ),
+)
+2024-07-10T14:46:11+00:00 INFO Order price is 0 ( Payment Request button disabled )
+2024-07-10T14:46:35+00:00 INFO ENVIRONMENT: array (
+  'WP_User' => 'Guest (non logged-in user)',
+  'HTTP_REFERER' => '--',
+  'HTTP_USER_AGENT' => 'WordPress/6.5.5; https://masterlordsolutions.com',
+  'REQUEST_URI' => '/wp-cron.php?doing_wp_cron=1720622795.7166149616241455078125',
+  'DOING_AJAX' => false,
+  'DOING_CRON' => true,
+  'WP_CLI' => false,
+)
+2024-07-10T14:46:35+00:00 INFO REQUEST GET https://public-api.wordpress.com/wpcom/v2/sites/%s/wcpay/timeline/pi_3Pb1mVFxlPKzr7zD1ce7PNfM?test_mode=1
+2024-07-10T14:46:35+00:00 INFO HEADERS: array (
+  'Content-Type' => 'application/json; charset=utf-8',
+  'User-Agent' => 'WooCommerce Payments/7.6.0',
+)
+2024-07-10T14:46:36+00:00 INFO RESPONSE: array (
+  'data' => 
+  array (
+    0 => 
+    array (
+      'type' => 'captured',
+      'amount' => 24900,
+      'amount_captured' => 24900,
+      'fee' => 1375,
+      'fee_rates' => 
+      array (
+        'percentage' => 0.05500000000000001,
+        'fixed' => 5,
+        'fixed_currency' => 'EUR',
+        'history' => 
+        array (
+          0 => 
+          array (
+            'type' => 'base',
+            'additional_type' => '',
+            'fee_id' => 'base-hu-card-fee',
+            'percentage_rate' => 0.015,
+            'fixed_rate' => 2000,
+            'currency' => 'huf',
+          ),
+          1 => 
+          array (
+            'type' => 'additional',
+            'additional_type' => 'international',
+            'fee_id' => 'additional-hu-card-intl-fee',
+            'percentage_rate' => 0.02,
+            'fixed_rate' => 0,
+            'currency' => 'huf',
+          ),
+          2 => 
+          array (
+            'type' => 'additional',
+            'additional_type' => 'fx',
+            'fee_id' => 'additional-hu-card-fx-fee',
+            'percentage_rate' => 0.02,
+            'fixed_rate' => 0,
+            'currency' => 'huf',
+          ),
+        ),
+      ),
+      'currency' => 'EUR',
+      'datetime' => 1720622767,
+      'deposit' => NULL,
+      'transaction_id' => 'txn_3Pb1mVFxlPKzr7zD1K9YDExf',
+      'transaction_details' => 
+      array (
+        'customer_currency' => 'EUR',
+        'customer_amount' => 24900,
+        'customer_amount_captured' => 24900,
+        'customer_fee' => 1375,
+        'store_currency' => 'HUF',
+        'store_amount' => 9761771,
+        'store_amount_captured' => 9761771,
+        'store_fee' => 539054,
+      ),
+    ),
+    1 => 
+    array (
+      'type' => 'authorized',
+      'datetime' => 1720622767,
+      'amount' => 24900,
+      'currency' => 'EUR',
+    ),
+    2 => 
+    array (
+      'type' => 'started',
+      'datetime' => 1720622767,
+      'amount' => 24900,
+      'currency' => 'EUR',
+    ),
+  ),
+)
+2024-07-10T14:47:06+00:00 INFO ENVIRONMENT: array (
+  'WP_User' => 'masterlordsolutions.com',
+  'HTTP_REFERER' => '--',
+  'HTTP_USER_AGENT' => 'WordPress/6.5.5; https://masterlordsolutions.com',
+  'REQUEST_URI' => '/wp-admin/admin-ajax.php?action=as_async_request_queue_runner&nonce=7d7a9e9276',
+  'DOING_AJAX' => true,
+  'DOING_CRON' => false,
+  'WP_CLI' => false,
+)
+2024-07-10T14:47:06+00:00 INFO REQUEST POST https://public-api.wordpress.com/wpcom/v2/sites/%s/wcpay/tracking/order
+2024-07-10T14:47:06+00:00 INFO HEADERS: array (
+  'Content-Type' => 'application/json; charset=utf-8',
+  'User-Agent' => 'WooCommerce Payments/7.6.0',
+  'Idempotency-Key' => '9e21914b-98da-446d-adaa-124df0b4f004',
+)
+2024-07-10T14:47:06+00:00 INFO BODY: array (
+  'test_mode' => true,
+  'order_data' => 
+  array (
+    'id' => 3538,
+    'parent_id' => 0,
+    'status' => 'processing',
+    'currency' => 'EUR',
+    'version' => '9.0.2',
+    'prices_include_tax' => false,
+    'date_created' => 'WC_DateTime()',
+    'date_modified' => 'WC_DateTime()',
+    'discount_total' => '0',
+    'discount_tax' => '0',
+    'shipping_total' => '0',
+    'shipping_tax' => '0',
+    'cart_tax' => '0',
+    'total' => '249',
+    'total_tax' => '0',
+    'customer_id' => 1,
+    'order_key' => 'wc_order_yukPTrcoF1nna',
+    'billing' => 
+    array (
+      'first_name' => '(redacted)',
+      'last_name' => '(redacted)',
+      'company' => '(redacted)',
+      'address_1' => '(redacted)',
+      'address_2' => '(redacted)',
+      'city' => '(redacted)',
+      'state' => '(redacted)',
+      'postcode' => '(redacted)',
+      'country' => '(redacted)',
+      'email' => '(redacted)',
+      'phone' => '(redacted)',
+    ),
+    'shipping' => 
+    array (
+      'first_name' => '(redacted)',
+      'last_name' => '(redacted)',
+      'company' => '(redacted)',
+      'address_1' => '(redacted)',
+      'address_2' => '(redacted)',
+      'city' => '(redacted)',
+      'state' => '(redacted)',
+      'postcode' => '(redacted)',
+      'country' => '(redacted)',
+      'phone' => '(redacted)',
+    ),
+    'payment_method' => 'woocommerce_payments',
+    'payment_method_title' => 'Visa credit card',
+    'transaction_id' => 'pi_3Pb1mVFxlPKzr7zD1ce7PNfM',
+    'customer_ip_address' => '104.28.218.103',
+    'customer_user_agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+    'created_via' => 'checkout',
+    'customer_note' => '',
+    'date_completed' => NULL,
+    'date_paid' => 'WC_DateTime()',
+    'cart_hash' => '16300f5303a3811a4b01f6b4ce262e2b',
+    'order_stock_reduced' => true,
+    'download_permissions_granted' => true,
+    'new_order_email_sent' => true,
+    'recorded_sales' => true,
+    'recorded_coupon_usage_counts' => true,
+    'number' => '3538',
+    'meta_data' => 
+    array (
+      0 => 'WC_Meta_Data()',
+      1 => 'WC_Meta_Data()',
+      2 => 'WC_Meta_Data()',
+      3 => 'WC_Meta_Data()',
+      4 => 'WC_Meta_Data()',
+      5 => 'WC_Meta_Data()',
+      6 => 'WC_Meta_Data()',
+      7 => 'WC_Meta_Data()',
+      8 => 'WC_Meta_Data()',
+      9 => 'WC_Meta_Data()',
+      10 => 'WC_Meta_Data()',
+      11 => 'WC_Meta_Data()',
+      12 => 'WC_Meta_Data()',
+      13 => 'WC_Meta_Data()',
+      14 => 'WC_Meta_Data()',
+      15 => 'WC_Meta_Data()',
+      16 => 'WC_Meta_Data()',
+      17 => 'WC_Meta_Data()',
+      18 => 'WC_Meta_Data()',
+      19 => 'WC_Meta_Data()',
+      20 => 'WC_Meta_Data()',
+      21 => 'WC_Meta_Data()',
+      22 => 'WC_Meta_Data()',
+    ),
+    'line_items' => 
+    array (
+      75 => 'WC_Order_Item_Product()',
+    ),
+    'tax_lines' => 
+    array (
+    ),
+    'shipping_lines' => 
+    array (
+    ),
+    'fee_lines' => 
+    array (
+    ),
+    'coupon_lines' => 
+    array (
+    ),
+    '_payment_method_id' => 'pm_1Pb1mSFxlPKzr7zDqSXlJmFb',
+    '_stripe_customer_id' => 'cus_QRvdHZRcwVnZfi',
+    '_wcpay_mode' => 'test',
+  ),
+  'update' => false,
+)
+2024-07-10T14:47:07+00:00 INFO RESPONSE: array (
+  'result' => 'success',
+)
+2024-07-10T14:47:12+00:00 INFO ENVIRONMENT: array (
+  'WP_User' => 'masterlordsolutions.com',
+  'HTTP_REFERER' => '--',
+  'HTTP_USER_AGENT' => 'WordPress/6.5.5; https://masterlordsolutions.com',
+  'REQUEST_URI' => '/wp-admin/admin-ajax.php?action=as_async_request_queue_runner&nonce=7d7a9e9276',
+  'DOING_AJAX' => true,
+  'DOING_CRON' => false,
+  'WP_CLI' => false,
+)
+2024-07-10T14:47:12+00:00 INFO REQUEST POST https://public-api.wordpress.com/wpcom/v2/sites/%s/wcpay/tracking/order
+2024-07-10T14:47:12+00:00 INFO HEADERS: array (
+  'Content-Type' => 'application/json; charset=utf-8',
+  'User-Agent' => 'WooCommerce Payments/7.6.0',
+  'Idempotency-Key' => '3727f3ce-5c3f-4111-8f6f-98b15e52aa22',
+)
+2024-07-10T14:47:12+00:00 INFO BODY: array (
+  'test_mode' => true,
+  'order_data' => 
+  array (
+    'id' => 3538,
+    'parent_id' => 0,
+    'status' => 'processing',
+    'currency' => 'EUR',
+    'version' => '9.0.2',
+    'prices_include_tax' => false,
+    'date_created' => 'WC_DateTime()',
+    'date_modified' => 'WC_DateTime()',
+    'discount_total' => '0',
+    'discount_tax' => '0',
+    'shipping_total' => '0',
+    'shipping_tax' => '0',
+    'cart_tax' => '0',
+    'total' => '249',
+    'total_tax' => '0',
+    'customer_id' => 1,
+    'order_key' => 'wc_order_yukPTrcoF1nna',
+    'billing' => 
+    array (
+      'first_name' => '(redacted)',
+      'last_name' => '(redacted)',
+      'company' => '(redacted)',
+      'address_1' => '(redacted)',
+      'address_2' => '(redacted)',
+      'city' => '(redacted)',
+      'state' => '(redacted)',
+      'postcode' => '(redacted)',
+      'country' => '(redacted)',
+      'email' => '(redacted)',
+      'phone' => '(redacted)',
+    ),
+    'shipping' => 
+    array (
+      'first_name' => '(redacted)',
+      'last_name' => '(redacted)',
+      'company' => '(redacted)',
+      'address_1' => '(redacted)',
+      'address_2' => '(redacted)',
+      'city' => '(redacted)',
+      'state' => '(redacted)',
+      'postcode' => '(redacted)',
+      'country' => '(redacted)',
+      'phone' => '(redacted)',
+    ),
+    'payment_method' => 'woocommerce_payments',
+    'payment_method_title' => 'Visa credit card',
+    'transaction_id' => 'pi_3Pb1mVFxlPKzr7zD1ce7PNfM',
+    'customer_ip_address' => '104.28.218.103',
+    'customer_user_agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+    'created_via' => 'checkout',
+    'customer_note' => '',
+    'date_completed' => NULL,
+    'date_paid' => 'WC_DateTime()',
+    'cart_hash' => '16300f5303a3811a4b01f6b4ce262e2b',
+    'order_stock_reduced' => true,
+    'download_permissions_granted' => true,
+    'new_order_email_sent' => true,
+    'recorded_sales' => true,
+    'recorded_coupon_usage_counts' => true,
+    'number' => '3538',
+    'meta_data' => 
+    array (
+      0 => 'WC_Meta_Data()',
+      1 => 'WC_Meta_Data()',
+      2 => 'WC_Meta_Data()',
+      3 => 'WC_Meta_Data()',
+      4 => 'WC_Meta_Data()',
+      5 => 'WC_Meta_Data()',
+      6 => 'WC_Meta_Data()',
+      7 => 'WC_Meta_Data()',
+      8 => 'WC_Meta_Data()',
+      9 => 'WC_Meta_Data()',
+      10 => 'WC_Meta_Data()',
+      11 => 'WC_Meta_Data()',
+      12 => 'WC_Meta_Data()',
+      13 => 'WC_Meta_Data()',
+      14 => 'WC_Meta_Data()',
+      15 => 'WC_Meta_Data()',
+      16 => 'WC_Meta_Data()',
+      17 => 'WC_Meta_Data()',
+      18 => 'WC_Meta_Data()',
+      19 => 'WC_Meta_Data()',
+      20 => 'WC_Meta_Data()',
+      21 => 'WC_Meta_Data()',
+      22 => 'WC_Meta_Data()',
+      23 => 'WC_Meta_Data()',
+    ),
+    'line_items' => 
+    array (
+      75 => 'WC_Order_Item_Product()',
+    ),
+    'tax_lines' => 
+    array (
+    ),
+    'shipping_lines' => 
+    array (
+    ),
+    'fee_lines' => 
+    array (
+    ),
+    'coupon_lines' => 
+    array (
+    ),
+    '_payment_method_id' => 'pm_1Pb1mSFxlPKzr7zDqSXlJmFb',
+    '_stripe_customer_id' => 'cus_QRvdHZRcwVnZfi',
+    '_wcpay_mode' => 'test',
+  ),
+  'update' => true,
+)
+2024-07-10T14:47:13+00:00 INFO RESPONSE: array (
+  'result' => 'success',
+)
+2024-07-10T14:48:05+00:00 INFO ENVIRONMENT: array (
+  'WP_User' => 'masterlordsolutions.com',
+  'HTTP_REFERER' => 'https://masterlordsolutions.com/wp-admin/admin.php?page=wc-orders&action=edit&id=3538',
+  'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+  'REQUEST_URI' => '/wp-json/wc/v3/payments/charges/ch_3Pb1mVFxlPKzr7zD1OFCsG5I?_locale=user',
+  'DOING_AJAX' => false,
+  'DOING_CRON' => false,
+  'WP_CLI' => false,
+)
+2024-07-10T14:48:05+00:00 INFO REQUEST GET https://public-api.wordpress.com/wpcom/v2/sites/%s/wcpay/charges/ch_3Pb1mVFxlPKzr7zD1OFCsG5I?test_mode=1
+2024-07-10T14:48:05+00:00 INFO HEADERS: array (
+  'Content-Type' => 'application/json; charset=utf-8',
+  'User-Agent' => 'WooCommerce Payments/7.6.0',
+)
+2024-07-10T14:48:05+00:00 INFO RESPONSE: array (
+  'id' => 'ch_3Pb1mVFxlPKzr7zD1OFCsG5I',
+  'object' => 'charge',
+  'amount' => 24900,
+  'amount_captured' => 24900,
+  'amount_refunded' => 0,
+  'application' => 'ca_Ex84e31yMTLaNU5ozQvi5woLclpIDVpX',
+  'application_fee' => 'fee_1Pb1mVFxlPKzr7zDS84ipyRj',
+  'application_fee_amount' => 1375,
+  'balance_transaction' => 
+  array (
+    'id' => 'txn_3Pb1mVFxlPKzr7zD1K9YDExf',
+    'object' => 'balance_transaction',
+    'amount' => 9761771,
+    'available_on' => 1721174400,
+    'created' => 1720622767,
+    'currency' => 'huf',
+    'description' => 'Online Payment for Order #3538 for masterlordsolutions.com blog_id 233372720',
+    'exchange_rate' => 392.039,
+    'fee' => 539054,
+    'fee_details' => 
+    array (
+      0 => 
+      array (
+        'amount' => 539054,
+        'application' => 'ca_Ex84e31yMTLaNU5ozQvi5woLclpIDVpX',
+        'currency' => 'huf',
+        'description' => 'WooPayments application fee',
+        'type' => 'application_fee',
+      ),
+    ),
+    'net' => 9222717,
+    'reporting_category' => 'charge',
+    'source' => 'ch_3Pb1mVFxlPKzr7zD1OFCsG5I',
+    'status' => 'pending',
+    'type' => 'charge',
+  ),
+  'billing_details' => 
+  array (
+    'address' => 
+    array (
+      'city' => '(redacted)',
+      'country' => '(redacted)',
+      'line1' => '(redacted)',
+      'line2' => '(redacted)',
+      'postal_code' => '(redacted)',
+      'state' => '(redacted)',
+    ),
+    'email' => '(redacted)',
+    'name' => '(redacted)',
+    'phone' => '(redacted)',
+  ),
+  'calculated_statement_descriptor' => 'MASTERLORDSOLUTIONS',
+  'captured' => true,
+  'created' => 1720622767,
+  'currency' => 'eur',
+  'customer' => 'cus_QRvdHZRcwVnZfi',
+  'description' => 'Online Payment for Order #3538 for masterlordsolutions.com blog_id 233372720',
+  'destination' => NULL,
+  'dispute' => NULL,
+  'disputed' => false,
+  'failure_balance_transaction' => NULL,
+  'failure_code' => NULL,
+  'failure_message' => NULL,
+  'fraud_details' => 
+  array (
+  ),
+  'invoice' => NULL,
+  'livemode' => false,
+  'metadata' => 
+  array (
+    'checkout_type' => 'checkout',
+    'client_version' => '7.6.0',
+    'customer_email' => '(redacted)',
+    'customer_name' => '(redacted)',
+    'fraud_prevention_data_available' => '1',
+    'fraud_prevention_data_cart_contents' => '1',
+    'fraud_prevention_data_ip_country' => 'HU',
+    'fraud_prevention_data_shopper_ip_hash' => '66462f5d8e9110fe23cb987193d0819c73d445148066a9172b9c52cf0b634d27cb179199a378c4d367396c2af6cb211b91860fea958af66c248f56ddfa45a48c',
+    'fraud_prevention_data_shopper_ua_hash' => 'd012eedd7c7caa0752bfc77ce6f6f002',
+    'order_id' => '3538',
+    'order_key' => 'wc_order_yukPTrcoF1nna',
+    'order_number' => '3538',
+    'payment_type' => 'single',
+    'site_url' => 'https://masterlordsolutions.com',
+    'subscription_payment' => 'no',
+  ),
+  'on_behalf_of' => NULL,
+  'order' => NULL,
+  'outcome' => 
+  array (
+    'network_status' => 'approved_by_network',
+    'reason' => NULL,
+    'risk_level' => 'normal',
+    'risk_score' => 44,
+    'seller_message' => 'Payment complete.',
+    'type' => 'authorized',
+  ),
+  'paid' => true,
+  'payment_intent' => 'pi_3Pb1mVFxlPKzr7zD1ce7PNfM',
+  'payment_method' => 'pm_1Pb1mSFxlPKzr7zDqSXlJmFb',
+  'payment_method_details' => 
+  array (
+    'card' => 
+    array (
+      'amount_authorized' => 24900,
+      'brand' => 'visa',
+      'checks' => 
+      array (
+        'address_line1_check' => 'pass',
+        'address_postal_code_check' => 'pass',
+        'cvc_check' => 'pass',
+      ),
+      'country' => '(redacted)',
+      'description' => 'Visa Classic',
+      'exp_month' => 12,
+      'exp_year' => 2025,
+      'extended_authorization' => 
+      array (
+        'status' => 'disabled',
+      ),
+      'fingerprint' => '0SEufZLr8JkcLcfi',
+      'funding' => 'credit',
+      'iin' => '424242',
+      'incremental_authorization' => 
+      array (
+        'status' => 'unavailable',
+      ),
+      'installments' => NULL,
+      'issuer' => 'Stripe Payments UK Limited',
+      'last4' => '4242',
+      'mandate' => NULL,
+      'multicapture' => 
+      array (
+        'status' => 'unavailable',
+      ),
+      'network' => 'visa',
+      'network_token' => 
+      array (
+        'used' => false,
+      ),
+      'overcapture' => 
+      array (
+        'maximum_amount_capturable' => 24900,
+        'status' => 'unavailable',
+      ),
+      'three_d_secure' => NULL,
+      'wallet' => NULL,
+    ),
+    'type' => 'card',
+  ),
+  'radar_options' => 
+  array (
+  ),
+  'receipt_email' => NULL,
+  'receipt_number' => NULL,
+  'receipt_url' => 'https://pay.stripe.com/receipts/payment/CAcaFwoVYWNjdF8xUEpBMFBGeGxQS3pyN3pEKKW-urQGMgZ9cthDqhI6LBY7wDLls7vkRU6AFbU7q4gDMy5rIJyyRQEuEFkQ3XHLZGoHEXWPzFZqKa6-',
+  'refunded' => false,
+  'refunds' => 
+  array (
+    'object' => 'list',
+    'data' => 
+    array (
+    ),
+    'has_more' => false,
+    'total_count' => 0,
+    'url' => '/v1/charges/ch_3Pb1mVFxlPKzr7zD1OFCsG5I/refunds',
+  ),
+  'review' => NULL,
+  'shipping' => NULL,
+  'source' => NULL,
+  'source_transfer' => NULL,
+  'statement_descriptor' => NULL,
+  'statement_descriptor_suffix' => NULL,
+  'status' => 'succeeded',
+  'transfer_data' => NULL,
+  'transfer_group' => NULL,
+)
+2024-07-10T14:48:18+00:00 INFO ENVIRONMENT: array (
+  'WP_User' => 'masterlordsolutions.com',
+  'HTTP_REFERER' => 'https://masterlordsolutions.com/wp-admin/admin.php?page=wc-orders',
+  'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+  'REQUEST_URI' => '/wp-admin/admin.php?page=wc-orders&s=&search-filter=all&_wpnonce=cbd27d2ccf&_wp_http_referer=wp-adminadmin.phppagewc-orders&action=mark_completed&m=0&_customer_user=&paged=1&id=3538&action2=mark_completed',
+  'DOING_AJAX' => false,
+  'DOING_CRON' => false,
+  'WP_CLI' => false,
+)
+2024-07-10T14:48:18+00:00 INFO REQUEST GET https://public-api.wordpress.com/wpcom/v2/sites/%s/wcpay/intentions/pi_3Pb1mVFxlPKzr7zD1ce7PNfM?test_mode=1
+2024-07-10T14:48:18+00:00 INFO HEADERS: array (
+  'Content-Type' => 'application/json; charset=utf-8',
+  'User-Agent' => 'WooCommerce Payments/7.6.0',
+)
+2024-07-10T14:48:19+00:00 INFO RESPONSE: array (
+  'id' => 'pi_3Pb1mVFxlPKzr7zD1ce7PNfM',
+  'object' => 'payment_intent',
+  'amount' => 24900,
+  'amount_capturable' => 0,
+  'amount_details' => 
+  array (
+    'tip' => 
+    array (
+    ),
+  ),
+  'amount_received' => 24900,
+  'amount_subtotal' => 24900,
+  'application' => 'ca_Ex84e31yMTLaNU5ozQvi5woLclpIDVpX',
+  'application_fee_amount' => 1375,
+  'automatic_payment_methods' => NULL,
+  'canceled_at' => NULL,
+  'cancellation_reason' => NULL,
+  'capture_method' => 'automatic',
+  'charges' => 
+  array (
+    'object' => 'list',
+    'data' => 
+    array (
+      0 => 
+      array (
+        'id' => 'ch_3Pb1mVFxlPKzr7zD1OFCsG5I',
+        'object' => 'charge',
+        'amount' => 24900,
+        'amount_captured' => 24900,
+        'amount_refunded' => 0,
+        'application' => 'ca_Ex84e31yMTLaNU5ozQvi5woLclpIDVpX',
+        'application_fee' => 'fee_1Pb1mVFxlPKzr7zDS84ipyRj',
+        'application_fee_amount' => 1375,
+        'balance_transaction' => 
+        array (
+          'id' => 'txn_3Pb1mVFxlPKzr7zD1K9YDExf',
+          'object' => 'balance_transaction',
+          'amount' => 9761771,
+          'available_on' => 1721174400,
+          'created' => 1720622767,
+          'currency' => 'huf',
+          'description' => 'Online Payment for Order #3538 for masterlordsolutions.com blog_id 233372720',
+          'exchange_rate' => 392.039,
+          'fee' => 539054,
+          'fee_details' => 
+          array (
+            0 => 
+            array (
+              'amount' => 539054,
+              'application' => 'ca_Ex84e31yMTLaNU5ozQvi5woLclpIDVpX',
+              'currency' => 'huf',
+              'description' => 'WooPayments application fee',
+              'type' => 'application_fee',
+            ),
+          ),
+          'net' => 9222717,
+          'reporting_category' => 'charge',
+          'source' => 'ch_3Pb1mVFxlPKzr7zD1OFCsG5I',
+          'status' => 'pending',
+          'type' => 'charge',
+        ),
+        'billing_details' => 
+        array (
+          'address' => 
+          array (
+            'city' => '(redacted)',
+            'country' => '(redacted)',
+            'line1' => '(redacted)',
+            'line2' => '(redacted)',
+            'postal_code' => '(redacted)',
+            'state' => '(redacted)',
+          ),
+          'email' => '(redacted)',
+          'name' => '(redacted)',
+          'phone' => '(redacted)',
+        ),
+        'calculated_statement_descriptor' => 'MASTERLORDSOLUTIONS',
+        'captured' => true,
+        'created' => 1720622767,
+        'currency' => 'eur',
+        'customer' => 'cus_QRvdHZRcwVnZfi',
+        'description' => 'Online Payment for Order #3538 for masterlordsolutions.com blog_id 233372720',
+        'destination' => NULL,
+        'dispute' => NULL,
+        'disputed' => false,
+        'failure_balance_transaction' => NULL,
+        'failure_code' => NULL,
+        'failure_message' => NULL,
+        'fraud_details' => 
+        array (
+        ),
+        'invoice' => NULL,
+        'livemode' => false,
+        'metadata' => 
+        array (
+          'checkout_type' => 'checkout',
+          'client_version' => '7.6.0',
+          'customer_email' => '(redacted)',
+          'customer_name' => '(redacted)',
+          'fraud_prevention_data_available' => '1',
+          'fraud_prevention_data_cart_contents' => '1',
+          'fraud_prevention_data_ip_country' => 'HU',
+          'fraud_prevention_data_shopper_ip_hash' => '66462f5d8e9110fe23cb987193d0819c73d445148066a9172b9c52cf0b634d27cb179199a378c4d367396c2af6cb211b91860fea958af66c248f56ddfa45a48c',
+          'fraud_prevention_data_shopper_ua_hash' => 'd012eedd7c7caa0752bfc77ce6f6f002',
+          'order_id' => '3538',
+          'order_key' => 'wc_order_yukPTrcoF1nna',
+          'order_number' => '3538',
+          'payment_type' => 'single',
+          'site_url' => 'https://masterlordsolutions.com',
+          'subscription_payment' => 'no',
+        ),
+        'on_behalf_of' => NULL,
+        'order' => NULL,
+        'outcome' => 
+        array (
+          'network_status' => 'approved_by_network',
+          'reason' => NULL,
+          'risk_level' => 'normal',
+          'risk_score' => 44,
+          'seller_message' => 'Payment complete.',
+          'type' => 'authorized',
+        ),
+        'paid' => true,
+        'payment_intent' => 'pi_3Pb1mVFxlPKzr7zD1ce7PNfM',
+        'payment_method' => 'pm_1Pb1mSFxlPKzr7zDqSXlJmFb',
+        'payment_method_details' => 
+        array (
+          'card' => 
+          array (
+            'amount_authorized' => 24900,
+            'brand' => 'visa',
+            'checks' => 
+            array (
+              'address_line1_check' => 'pass',
+              'address_postal_code_check' => 'pass',
+              'cvc_check' => 'pass',
+            ),
+            'country' => '(redacted)',
+            'description' => 'Visa Classic',
+            'exp_month' => 12,
+            'exp_year' => 2025,
+            'extended_authorization' => 
+            array (
+              'status' => 'disabled',
+            ),
+            'fingerprint' => '0SEufZLr8JkcLcfi',
+            'funding' => 'credit',
+            'iin' => '424242',
+            'incremental_authorization' => 
+            array (
+              'status' => 'unavailable',
+            ),
+            'installments' => NULL,
+            'issuer' => 'Stripe Payments UK Limited',
+            'last4' => '4242',
+            'mandate' => NULL,
+            'multicapture' => 
+            array (
+              'status' => 'unavailable',
+            ),
+            'network' => 'visa',
+            'network_token' => 
+            array (
+              'used' => false,
+            ),
+            'overcapture' => 
+            array (
+              'maximum_amount_capturable' => 24900,
+              'status' => 'unavailable',
+            ),
+            'three_d_secure' => NULL,
+            'wallet' => NULL,
+          ),
+          'type' => 'card',
+        ),
+        'radar_options' => 
+        array (
+        ),
+        'receipt_email' => NULL,
+        'receipt_number' => NULL,
+        'receipt_url' => 'https://pay.stripe.com/receipts/payment/CAcaFwoVYWNjdF8xUEpBMFBGeGxQS3pyN3pEKLK-urQGMgbBipQiHN46LBZHaq84L6fVP4aq7Qg2fJVQD5JS8NpXalWMKANvyTumhFQGfZA0gcByJtrA',
+        'refunded' => false,
+        'refunds' => 
+        array (
+          'object' => 'list',
+          'data' => 
+          array (
+          ),
+          'has_more' => false,
+          'total_count' => 0,
+          'url' => '/v1/charges/ch_3Pb1mVFxlPKzr7zD1OFCsG5I/refunds',
+        ),
+        'review' => NULL,
+        'shipping' => NULL,
+        'source' => NULL,
+        'source_transfer' => NULL,
+        'statement_descriptor' => NULL,
+        'statement_descriptor_suffix' => NULL,
+        'status' => 'succeeded',
+        'transfer_data' => NULL,
+        'transfer_group' => NULL,
+      ),
+    ),
+    'has_more' => false,
+    'total_count' => 1,
+    'url' => '/v1/charges?payment_intent=pi_3Pb1mVFxlPKzr7zD1ce7PNfM',
+  ),
+  'client_secret' => '(redacted)',
+  'confirmation_method' => 'automatic',
+  'created' => 1720622767,
+  'currency' => 'eur',
+  'customer' => 'cus_QRvdHZRcwVnZfi',
+  'description' => 'Online Payment for Order #3538 for masterlordsolutions.com blog_id 233372720',
+  'invoice' => NULL,
+  'last_payment_error' => NULL,
+  'latest_charge' => 'ch_3Pb1mVFxlPKzr7zD1OFCsG5I',
+  'level3' => NULL,
+  'livemode' => false,
+  'metadata' => 
+  array (
+    'checkout_type' => 'checkout',
+    'client_version' => '7.6.0',
+    'customer_email' => '(redacted)',
+    'customer_name' => '(redacted)',
+    'fraud_prevention_data_available' => '1',
+    'fraud_prevention_data_cart_contents' => '1',
+    'fraud_prevention_data_ip_country' => 'HU',
+    'fraud_prevention_data_shopper_ip_hash' => '66462f5d8e9110fe23cb987193d0819c73d445148066a9172b9c52cf0b634d27cb179199a378c4d367396c2af6cb211b91860fea958af66c248f56ddfa45a48c',
+    'fraud_prevention_data_shopper_ua_hash' => 'd012eedd7c7caa0752bfc77ce6f6f002',
+    'order_id' => '3538',
+    'order_key' => 'wc_order_yukPTrcoF1nna',
+    'order_number' => '3538',
+    'payment_type' => 'single',
+    'site_url' => 'https://masterlordsolutions.com',
+    'subscription_payment' => 'no',
+  ),
+  'next_action' => NULL,
+  'on_behalf_of' => NULL,
+  'payment_method' => 'pm_1Pb1mSFxlPKzr7zDqSXlJmFb',
+  'payment_method_configuration_details' => NULL,
+  'payment_method_options' => 
+  array (
+    'card' => 
+    array (
+      'installments' => NULL,
+      'mandate_options' => NULL,
+      'network' => NULL,
+      'request_three_d_secure' => 'automatic',
+    ),
+  ),
+  'payment_method_types' => 
+  array (
+    0 => 'card',
+  ),
+  'processing' => NULL,
+  'receipt_email' => NULL,
+  'review' => NULL,
+  'setup_future_usage' => 'off_session',
+  'shipping' => NULL,
+  'source' => NULL,
+  'statement_descriptor' => NULL,
+  'statement_descriptor_suffix' => NULL,
+  'status' => 'succeeded',
+  'total_details' => 
+  array (
+    'amount_discount' => 0,
+    'amount_tax' => 0,
+  ),
+  'transfer_data' => NULL,
+  'transfer_group' => NULL,
+)
+2024-07-10T14:48:26+00:00 INFO ENVIRONMENT: array (
+  'WP_User' => 'Guest (non logged-in user)',
+  'HTTP_REFERER' => '--',
+  'HTTP_USER_AGENT' => 'WordPress/6.5.5; https://masterlordsolutions.com',
+  'REQUEST_URI' => '/wp-cron.php?doing_wp_cron=1720622906.2684249877929687500000',
+  'DOING_AJAX' => false,
+  'DOING_CRON' => true,
+  'WP_CLI' => false,
+)
+2024-07-10T14:48:26+00:00 INFO REQUEST POST https://public-api.wordpress.com/wpcom/v2/sites/%s/wcpay/tracking/order
+2024-07-10T14:48:26+00:00 INFO HEADERS: array (
+  'Content-Type' => 'application/json; charset=utf-8',
+  'User-Agent' => 'WooCommerce Payments/7.6.0',
+  'Idempotency-Key' => 'e78e9edf-5706-403e-b530-6dce619496b5',
+)
+2024-07-10T14:48:26+00:00 INFO BODY: array (
+  'test_mode' => true,
+  'order_data' => 
+  array (
+    'id' => 3538,
+    'parent_id' => 0,
+    'status' => 'completed',
+    'currency' => 'EUR',
+    'version' => '9.0.2',
+    'prices_include_tax' => false,
+    'date_created' => 'WC_DateTime()',
+    'date_modified' => 'WC_DateTime()',
+    'discount_total' => '0',
+    'discount_tax' => '0',
+    'shipping_total' => '0',
+    'shipping_tax' => '0',
+    'cart_tax' => '0',
+    'total' => '249',
+    'total_tax' => '0',
+    'customer_id' => 1,
+    'order_key' => 'wc_order_yukPTrcoF1nna',
+    'billing' => 
+    array (
+      'first_name' => '(redacted)',
+      'last_name' => '(redacted)',
+      'company' => '(redacted)',
+      'address_1' => '(redacted)',
+      'address_2' => '(redacted)',
+      'city' => '(redacted)',
+      'state' => '(redacted)',
+      'postcode' => '(redacted)',
+      'country' => '(redacted)',
+      'email' => '(redacted)',
+      'phone' => '(redacted)',
+    ),
+    'shipping' => 
+    array (
+      'first_name' => '(redacted)',
+      'last_name' => '(redacted)',
+      'company' => '(redacted)',
+      'address_1' => '(redacted)',
+      'address_2' => '(redacted)',
+      'city' => '(redacted)',
+      'state' => '(redacted)',
+      'postcode' => '(redacted)',
+      'country' => '(redacted)',
+      'phone' => '(redacted)',
+    ),
+    'payment_method' => 'woocommerce_payments',
+    'payment_method_title' => 'Visa credit card',
+    'transaction_id' => 'pi_3Pb1mVFxlPKzr7zD1ce7PNfM',
+    'customer_ip_address' => '104.28.218.103',
+    'customer_user_agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+    'created_via' => 'checkout',
+    'customer_note' => '',
+    'date_completed' => 'WC_DateTime()',
+    'date_paid' => 'WC_DateTime()',
+    'cart_hash' => '16300f5303a3811a4b01f6b4ce262e2b',
+    'order_stock_reduced' => true,
+    'download_permissions_granted' => true,
+    'new_order_email_sent' => true,
+    'recorded_sales' => true,
+    'recorded_coupon_usage_counts' => true,
+    'number' => '3538',
+    'meta_data' => 
+    array (
+      0 => 'WC_Meta_Data()',
+      1 => 'WC_Meta_Data()',
+      2 => 'WC_Meta_Data()',
+      3 => 'WC_Meta_Data()',
+      4 => 'WC_Meta_Data()',
+      5 => 'WC_Meta_Data()',
+      6 => 'WC_Meta_Data()',
+      7 => 'WC_Meta_Data()',
+      8 => 'WC_Meta_Data()',
+      9 => 'WC_Meta_Data()',
+      10 => 'WC_Meta_Data()',
+      11 => 'WC_Meta_Data()',
+      12 => 'WC_Meta_Data()',
+      13 => 'WC_Meta_Data()',
+      14 => 'WC_Meta_Data()',
+      15 => 'WC_Meta_Data()',
+      16 => 'WC_Meta_Data()',
+      17 => 'WC_Meta_Data()',
+      18 => 'WC_Meta_Data()',
+      19 => 'WC_Meta_Data()',
+      20 => 'WC_Meta_Data()',
+      21 => 'WC_Meta_Data()',
+      22 => 'WC_Meta_Data()',
+      23 => 'WC_Meta_Data()',
+      24 => 'WC_Meta_Data()',
+    ),
+    'line_items' => 
+    array (
+      75 => 'WC_Order_Item_Product()',
+    ),
+    'tax_lines' => 
+    array (
+    ),
+    'shipping_lines' => 
+    array (
+    ),
+    'fee_lines' => 
+    array (
+    ),
+    'coupon_lines' => 
+    array (
+    ),
+    '_payment_method_id' => 'pm_1Pb1mSFxlPKzr7zDqSXlJmFb',
+    '_stripe_customer_id' => 'cus_QRvdHZRcwVnZfi',
+    '_wcpay_mode' => 'test',
+  ),
+  'update' => true,
+)
+2024-07-10T14:48:27+00:00 INFO RESPONSE: array (
+  'result' => 'success',
+)
+2024-07-10T14:49:53+00:00 INFO ENVIRONMENT: array (
+  'WP_User' => 'masterlordsolutions.com',
+  'HTTP_REFERER' => 'https://masterlordsolutions.com/wp-login.php?redirect_to=httpsmasterlordsolutions.com',
+  'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+  'REQUEST_URI' => '/',
+  'DOING_AJAX' => false,
+  'DOING_CRON' => false,
+  'WP_CLI' => false,
+)
+2024-07-10T14:49:53+00:00 INFO REQUEST POST https://public-api.wordpress.com/wpcom/v2/sites/%s/wcpay/tracking/link-session
+2024-07-10T14:49:53+00:00 INFO HEADERS: array (
+  'Content-Type' => 'application/json; charset=utf-8',
+  'User-Agent' => 'WooCommerce Payments/7.6.0',
+  'Idempotency-Key' => '44688141-87f3-4d78-b77b-50fc0c0187d2',
+)
+2024-07-10T14:49:53+00:00 INFO BODY: array (
+  'test_mode' => true,
+  'session' => 'st_1QJMzJzj$Jcy2Q2tfYv.RFz7skFDW_t_755be7772cf9d56dd27ab9c682c0c9',
+  'customer' => 'cus_QRvdHZRcwVnZfi',
+)
+2024-07-10T14:49:53+00:00 INFO RESPONSE: array (
+  'result' => 'success',
+)
+2024-07-10T14:51:24+00:00 INFO ENVIRONMENT: array (
+  'WP_User' => 'masterlordsolutions.com',
+  'HTTP_REFERER' => 'https://masterlordsolutions.com/cart/',
+  'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+  'REQUEST_URI' => '/checkout/',
+  'DOING_AJAX' => false,
+  'DOING_CRON' => false,
+  'WP_CLI' => false,
+)
+2024-07-10T14:51:24+00:00 INFO REQUEST GET https://public-api.wordpress.com/wpcom/v2/sites/%s/wcpay/payment_methods?test_mode=1&customer=cus_QRvdHZRcwVnZfi&type=card&limit=100
+2024-07-10T14:51:24+00:00 INFO HEADERS: array (
+  'Content-Type' => 'application/json; charset=utf-8',
+  'User-Agent' => 'WooCommerce Payments/7.6.0',
+)
+2024-07-10T14:51:24+00:00 INFO RESPONSE: array (
+  'object' => 'list',
+  'data' => 
+  array (
+    0 => 
+    array (
+      'id' => 'pm_1Pb1mSFxlPKzr7zDqSXlJmFb',
+      'object' => 'payment_method',
+      'allow_redisplay' => 'unspecified',
+      'billing_details' => 
+      array (
+        'address' => 
+        array (
+          'city' => '(redacted)',
+          'country' => '(redacted)',
+          'line1' => '(redacted)',
+          'line2' => '(redacted)',
+          'postal_code' => '(redacted)',
+          'state' => '(redacted)',
+        ),
+        'email' => '(redacted)',
+        'name' => '(redacted)',
+        'phone' => '(redacted)',
+      ),
+      'card' => 
+      array (
+        'brand' => 'visa',
+        'checks' => 
+        array (
+          'address_line1_check' => 'pass',
+          'address_postal_code_check' => 'pass',
+          'cvc_check' => 'pass',
+        ),
+        'country' => '(redacted)',
+        'description' => 'Visa Classic',
+        'display_brand' => 'visa',
+        'exp_month' => 12,
+        'exp_year' => 2025,
+        'fingerprint' => '0SEufZLr8JkcLcfi',
+        'funding' => 'credit',
+        'generated_from' => NULL,
+        'iin' => '424242',
+        'issuer' => 'Stripe Payments UK Limited',
+        'last4' => '4242',
+        'networks' => 
+        array (
+          'available' => 
+          array (
+            0 => 'visa',
+          ),
+          'preferred' => NULL,
+        ),
+        'three_d_secure_usage' => 
+        array (
+          'supported' => true,
+        ),
+        'wallet' => NULL,
+      ),
+      'created' => 1720622764,
+      'customer' => 'cus_QRvdHZRcwVnZfi',
+      'livemode' => false,
+      'metadata' => 
+      array (
+      ),
+      'radar_options' => 
+      array (
+      ),
+      'type' => 'card',
+    ),
+  ),
+  'has_more' => false,
+  'url' => '/v1/payment_methods',
+)
+2024-07-10T14:53:12+00:00 INFO ENVIRONMENT: array (
+  'WP_User' => 'masterlordsolutions.com',
+  'HTTP_REFERER' => 'https://masterlordsolutions.com/wp-login.php',
+  'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+  'REQUEST_URI' => '/wp-admin/user-new.php',
+  'DOING_AJAX' => false,
+  'DOING_CRON' => false,
+  'WP_CLI' => false,
+)
+2024-07-10T14:53:12+00:00 INFO REQUEST POST https://public-api.wordpress.com/wpcom/v2/sites/%s/wcpay/tracking/link-session
+2024-07-10T14:53:12+00:00 INFO HEADERS: array (
+  'Content-Type' => 'application/json; charset=utf-8',
+  'User-Agent' => 'WooCommerce Payments/7.6.0',
+  'Idempotency-Key' => 'dbe243d5-4ee3-40c8-96ec-3b91555bb2b1',
+)
+2024-07-10T14:53:12+00:00 INFO BODY: array (
+  'test_mode' => true,
+  'session' => 'st_1QJMzJzj$Jcy2Q2tfYv.RFz7skFDW_t_5f3f1df30e1aba76d8efb90cfd07fb',
+  'customer' => 'cus_QRvdHZRcwVnZfi',
+)
+2024-07-10T14:53:12+00:00 INFO RESPONSE: array (
+  'result' => 'success',
+)
+2024-07-10T14:53:12+00:00 INFO ENVIRONMENT: array (
+  'WP_User' => 'masterlordsolutions.com',
+  'HTTP_REFERER' => 'https://masterlordsolutions.com/wp-login.php',
+  'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+  'REQUEST_URI' => '/wp-login.php',
+  'DOING_AJAX' => false,
+  'DOING_CRON' => false,
+  'WP_CLI' => false,
+)
+2024-07-10T14:53:12+00:00 INFO REQUEST POST https://public-api.wordpress.com/wpcom/v2/sites/%s/wcpay/tracking/link-session
+2024-07-10T14:53:12+00:00 INFO HEADERS: array (
+  'Content-Type' => 'application/json; charset=utf-8',
+  'User-Agent' => 'WooCommerce Payments/7.6.0',
+  'Idempotency-Key' => '158bc0e2-ccea-4fec-9102-c5d60c9dc6da',
+)
+2024-07-10T14:53:12+00:00 INFO BODY: array (
+  'test_mode' => true,
+  'session' => 'st_1QJMzJzj$Jcy2Q2tfYv.RFz7skFDW_t_5f3f1df30e1aba76d8efb90cfd07fb',
+  'customer' => 'cus_QRvdHZRcwVnZfi',
+)
+2024-07-10T14:53:12+00:00 INFO RESPONSE: array (
+  'result' => 'success',
+)
+2024-07-10T14:54:11+00:00 INFO ENVIRONMENT: array (
+  'WP_User' => 'shitcock@shitcock.com',
+  'HTTP_REFERER' => 'https://masterlordsolutions.com/checkout/',
+  'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+  'REQUEST_URI' => '/?wc-ajax=checkout',
+  'DOING_AJAX' => true,
+  'DOING_CRON' => false,
+  'WP_CLI' => false,
+)
+2024-07-10T14:54:11+00:00 INFO REQUEST POST https://public-api.wordpress.com/wpcom/v2/sites/%s/wcpay/customers
+2024-07-10T14:54:11+00:00 INFO HEADERS: array (
+  'Content-Type' => 'application/json; charset=utf-8',
+  'User-Agent' => 'WooCommerce Payments/7.6.0',
+  'Idempotency-Key' => '45c3d12b-ba42-4c95-949e-24065adfbeb1',
+)
+2024-07-10T14:54:11+00:00 INFO BODY: array (
+  'test_mode' => true,
+  'name' => '(redacted)',
+  'description' => 'Name: Cock Shit, Username: shitcock@shitcock.com',
+  'email' => '(redacted)',
+  'phone' => '(redacted)',
+  'address' => 
+  array (
+    'line1' => '(redacted)',
+    'line2' => '(redacted)',
+    'postal_code' => '(redacted)',
+    'city' => '(redacted)',
+    'state' => '(redacted)',
+    'country' => '(redacted)',
+  ),
+  'session_id' => 'st_1QJMzJzj$Jcy2Q2tfYv.RFz7skFDW_16',
+)
+2024-07-10T14:54:12+00:00 INFO RESPONSE: array (
+  'id' => 'cus_QRvlU6deVab4ao',
+  'object' => 'customer',
+  'address' => 
+  array (
+    'city' => '(redacted)',
+    'country' => '(redacted)',
+    'line1' => '(redacted)',
+    'line2' => '(redacted)',
+    'postal_code' => '(redacted)',
+    'state' => '(redacted)',
+  ),
+  'balance' => 0,
+  'created' => 1720623252,
+  'currency' => NULL,
+  'default_currency' => NULL,
+  'default_source' => NULL,
+  'delinquent' => false,
+  'description' => 'Name: Cock Shit, Username: shitcock@shitcock.com',
+  'discount' => NULL,
+  'email' => '(redacted)',
+  'invoice_prefix' => 'C498EB2C',
+  'invoice_settings' => 
+  array (
+    'custom_fields' => NULL,
+    'default_payment_method' => NULL,
+    'footer' => NULL,
+    'rendering_options' => NULL,
+  ),
+  'livemode' => false,
+  'metadata' => 'stdClass()',
+  'name' => '(redacted)',
+  'next_invoice_sequence' => 1,
+  'phone' => '(redacted)',
+  'preferred_locales' => 
+  array (
+  ),
+  'shipping' => NULL,
+  'tax_exempt' => 'none',
+  'test_clock' => NULL,
+)
+2024-07-10T14:54:12+00:00 INFO ENVIRONMENT: array (
+  'WP_User' => 'shitcock@shitcock.com',
+  'HTTP_REFERER' => 'https://masterlordsolutions.com/checkout/',
+  'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+  'REQUEST_URI' => '/?wc-ajax=checkout',
+  'DOING_AJAX' => true,
+  'DOING_CRON' => false,
+  'WP_CLI' => false,
+)
+2024-07-10T14:54:12+00:00 INFO REQUEST POST https://public-api.wordpress.com/wpcom/v2/sites/%s/wcpay/intentions
+2024-07-10T14:54:12+00:00 INFO HEADERS: array (
+  'Content-Type' => 'application/json; charset=utf-8',
+  'User-Agent' => 'WooCommerce Payments/7.6.0',
+  'Idempotency-Key' => 'b7e55e28-1de3-4717-bc69-1c9a868bf2d1',
+)
+2024-07-10T14:54:12+00:00 INFO BODY: array (
+  'test_mode' => true,
+  'confirm' => 'true',
+  'capture_method' => 'automatic',
+  'is_platform_payment_method' => false,
+  'woopay_has_subscription' => false,
+  'save_payment_method_to_platform' => false,
+  'amount' => 24900,
+  'currency' => 'eur',
+  'payment_method' => 'pm_1Pb1uIFxlPKzr7zDZHLGVC9G',
+  'customer' => 'cus_QRvlU6deVab4ao',
+  'metadata' => 
+  array (
+    'customer_name' => '(redacted)',
+    'customer_email' => '(redacted)',
+    'site_url' => 'https://masterlordsolutions.com',
+    'order_id' => 3540,
+    'order_number' => '3540',
+    'order_key' => 'wc_order_kXaz51hEMuBt4',
+    'payment_type' => 'WCPay\\Constants\\Payment_Type()',
+    'checkout_type' => 'checkout',
+    'client_version' => '7.6.0',
+    'subscription_payment' => 'no',
+    'fraud_prevention_data_shopper_ip_hash' => 'af9204977a336d7aa9ed3ce8321f4089ec6049fb4ebb25f5d5613b38ea1816b000f28b4635d53065649a570a4a8640bde535c5b3925d7ca9ed1d8e320dbc58ed',
+    'fraud_prevention_data_shopper_ua_hash' => '5666bee3c31d58fce2600d1a1f7b0396',
+    'fraud_prevention_data_ip_country' => 'HU',
+    'fraud_prevention_data_cart_contents' => 1,
+    'fraud_prevention_data_available' => true,
+  ),
+  'description' => 'Online Payment for Order #3540 for masterlordsolutions.com blog_id 233372720',
+  'payment_method_types' => 
+  array (
+    0 => 'card',
+  ),
+  'cvc_confirmation' => NULL,
+)
+2024-07-10T14:54:14+00:00 INFO RESPONSE: array (
+  'id' => 'pi_3Pb1uLFxlPKzr7zD1fOz2l93',
+  'object' => 'payment_intent',
+  'amount' => 24900,
+  'amount_capturable' => 0,
+  'amount_details' => 
+  array (
+    'tip' => 
+    array (
+    ),
+  ),
+  'amount_received' => 24900,
+  'amount_subtotal' => 24900,
+  'application' => 'ca_Ex84e31yMTLaNU5ozQvi5woLclpIDVpX',
+  'application_fee_amount' => 1375,
+  'automatic_payment_methods' => NULL,
+  'canceled_at' => NULL,
+  'cancellation_reason' => NULL,
+  'capture_method' => 'automatic',
+  'charges' => 
+  array (
+    'object' => 'list',
+    'data' => 
+    array (
+      0 => 
+      array (
+        'id' => 'ch_3Pb1uLFxlPKzr7zD1hGuzzBv',
+        'object' => 'charge',
+        'amount' => 24900,
+        'amount_captured' => 24900,
+        'amount_refunded' => 0,
+        'application' => 'ca_Ex84e31yMTLaNU5ozQvi5woLclpIDVpX',
+        'application_fee' => 'fee_1Pb1uLFxlPKzr7zDdRZ581We',
+        'application_fee_amount' => 1375,
+        'balance_transaction' => 
+        array (
+          'id' => 'txn_3Pb1uLFxlPKzr7zD1MEp3zr9',
+          'object' => 'balance_transaction',
+          'amount' => 9761771,
+          'available_on' => 1721174400,
+          'created' => 1720623253,
+          'currency' => 'huf',
+          'description' => 'Online Payment for Order #3540 for masterlordsolutions.com blog_id 233372720',
+          'exchange_rate' => 392.039,
+          'fee' => 539054,
+          'fee_details' => 
+          array (
+            0 => 
+            array (
+              'amount' => 539054,
+              'application' => 'ca_Ex84e31yMTLaNU5ozQvi5woLclpIDVpX',
+              'currency' => 'huf',
+              'description' => 'WooPayments application fee',
+              'type' => 'application_fee',
+            ),
+          ),
+          'net' => 9222717,
+          'reporting_category' => 'charge',
+          'source' => 'ch_3Pb1uLFxlPKzr7zD1hGuzzBv',
+          'status' => 'pending',
+          'type' => 'charge',
+        ),
+        'billing_details' => 
+        array (
+          'address' => 
+          array (
+            'city' => '(redacted)',
+            'country' => '(redacted)',
+            'line1' => '(redacted)',
+            'line2' => '(redacted)',
+            'postal_code' => '(redacted)',
+            'state' => '(redacted)',
+          ),
+          'email' => '(redacted)',
+          'name' => '(redacted)',
+          'phone' => '(redacted)',
+        ),
+        'calculated_statement_descriptor' => 'MASTERLORDSOLUTIONS',
+        'captured' => true,
+        'created' => 1720623253,
+        'currency' => 'eur',
+        'customer' => 'cus_QRvlU6deVab4ao',
+        'description' => 'Online Payment for Order #3540 for masterlordsolutions.com blog_id 233372720',
+        'destination' => NULL,
+        'dispute' => NULL,
+        'disputed' => false,
+        'failure_balance_transaction' => NULL,
+        'failure_code' => NULL,
+        'failure_message' => NULL,
+        'fraud_details' => 
+        array (
+        ),
+        'invoice' => NULL,
+        'livemode' => false,
+        'metadata' => 
+        array (
+          'checkout_type' => 'checkout',
+          'client_version' => '7.6.0',
+          'customer_email' => '(redacted)',
+          'customer_name' => '(redacted)',
+          'fraud_prevention_data_available' => '1',
+          'fraud_prevention_data_cart_contents' => '1',
+          'fraud_prevention_data_ip_country' => 'HU',
+          'fraud_prevention_data_shopper_ip_hash' => 'af9204977a336d7aa9ed3ce8321f4089ec6049fb4ebb25f5d5613b38ea1816b000f28b4635d53065649a570a4a8640bde535c5b3925d7ca9ed1d8e320dbc58ed',
+          'fraud_prevention_data_shopper_ua_hash' => '5666bee3c31d58fce2600d1a1f7b0396',
+          'order_id' => '3540',
+          'order_key' => 'wc_order_kXaz51hEMuBt4',
+          'order_number' => '3540',
+          'payment_type' => 'single',
+          'site_url' => 'https://masterlordsolutions.com',
+          'subscription_payment' => 'no',
+        ),
+        'on_behalf_of' => NULL,
+        'order' => NULL,
+        'outcome' => 
+        array (
+          'network_status' => 'approved_by_network',
+          'reason' => NULL,
+          'risk_level' => 'normal',
+          'risk_score' => 17,
+          'seller_message' => 'Payment complete.',
+          'type' => 'authorized',
+        ),
+        'paid' => true,
+        'payment_intent' => 'pi_3Pb1uLFxlPKzr7zD1fOz2l93',
+        'payment_method' => 'pm_1Pb1uIFxlPKzr7zDZHLGVC9G',
+        'payment_method_details' => 
+        array (
+          'card' => 
+          array (
+            'amount_authorized' => 24900,
+            'brand' => 'visa',
+            'checks' => 
+            array (
+              'address_line1_check' => 'pass',
+              'address_postal_code_check' => 'pass',
+              'cvc_check' => 'pass',
+            ),
+            'country' => '(redacted)',
+            'description' => 'Visa Classic',
+            'exp_month' => 12,
+            'exp_year' => 2029,
+            'extended_authorization' => 
+            array (
+              'status' => 'disabled',
+            ),
+            'fingerprint' => '0SEufZLr8JkcLcfi',
+            'funding' => 'credit',
+            'iin' => '424242',
+            'incremental_authorization' => 
+            array (
+              'status' => 'unavailable',
+            ),
+            'installments' => NULL,
+            'issuer' => 'Stripe Payments UK Limited',
+            'last4' => '4242',
+            'mandate' => NULL,
+            'multicapture' => 
+            array (
+              'status' => 'unavailable',
+            ),
+            'network' => 'visa',
+            'network_token' => 
+            array (
+              'used' => false,
+            ),
+            'overcapture' => 
+            array (
+              'maximum_amount_capturable' => 24900,
+              'status' => 'unavailable',
+            ),
+            'three_d_secure' => NULL,
+            'wallet' => NULL,
+          ),
+          'type' => 'card',
+        ),
+        'radar_options' => 
+        array (
+        ),
+        'receipt_email' => NULL,
+        'receipt_number' => NULL,
+        'receipt_url' => 'https://pay.stripe.com/receipts/payment/CAcaFwoVYWNjdF8xUEpBMFBGeGxQS3pyN3pEKJbBurQGMga_UdI8x_I6LBYy3lwEUIPIJV7EPF3nd4ryeQNpatscsFn71FRUevU_TWjFjXBEfZ52WDB-',
+        'refunded' => false,
+        'refunds' => 
+        array (
+          'object' => 'list',
+          'data' => 
+          array (
+          ),
+          'has_more' => false,
+          'total_count' => 0,
+          'url' => '/v1/charges/ch_3Pb1uLFxlPKzr7zD1hGuzzBv/refunds',
+        ),
+        'review' => NULL,
+        'shipping' => NULL,
+        'source' => NULL,
+        'source_transfer' => NULL,
+        'statement_descriptor' => NULL,
+        'statement_descriptor_suffix' => NULL,
+        'status' => 'succeeded',
+        'transfer_data' => NULL,
+        'transfer_group' => NULL,
+      ),
+    ),
+    'has_more' => false,
+    'total_count' => 1,
+    'url' => '/v1/charges?payment_intent=pi_3Pb1uLFxlPKzr7zD1fOz2l93',
+  ),
+  'client_secret' => '(redacted)',
+  'confirmation_method' => 'automatic',
+  'created' => 1720623253,
+  'currency' => 'eur',
+  'customer' => 'cus_QRvlU6deVab4ao',
+  'description' => 'Online Payment for Order #3540 for masterlordsolutions.com blog_id 233372720',
+  'invoice' => NULL,
+  'last_payment_error' => NULL,
+  'latest_charge' => 'ch_3Pb1uLFxlPKzr7zD1hGuzzBv',
+  'level3' => NULL,
+  'livemode' => false,
+  'metadata' => 
+  array (
+    'checkout_type' => 'checkout',
+    'client_version' => '7.6.0',
+    'customer_email' => '(redacted)',
+    'customer_name' => '(redacted)',
+    'fraud_prevention_data_available' => '1',
+    'fraud_prevention_data_cart_contents' => '1',
+    'fraud_prevention_data_ip_country' => 'HU',
+    'fraud_prevention_data_shopper_ip_hash' => 'af9204977a336d7aa9ed3ce8321f4089ec6049fb4ebb25f5d5613b38ea1816b000f28b4635d53065649a570a4a8640bde535c5b3925d7ca9ed1d8e320dbc58ed',
+    'fraud_prevention_data_shopper_ua_hash' => '5666bee3c31d58fce2600d1a1f7b0396',
+    'order_id' => '3540',
+    'order_key' => 'wc_order_kXaz51hEMuBt4',
+    'order_number' => '3540',
+    'payment_type' => 'single',
+    'site_url' => 'https://masterlordsolutions.com',
+    'subscription_payment' => 'no',
+  ),
+  'next_action' => NULL,
+  'on_behalf_of' => NULL,
+  'payment_method' => 'pm_1Pb1uIFxlPKzr7zDZHLGVC9G',
+  'payment_method_configuration_details' => NULL,
+  'payment_method_options' => 
+  array (
+    'card' => 
+    array (
+      'installments' => NULL,
+      'mandate_options' => NULL,
+      'network' => NULL,
+      'request_three_d_secure' => 'automatic',
+    ),
+  ),
+  'payment_method_types' => 
+  array (
+    0 => 'card',
+  ),
+  'processing' => NULL,
+  'receipt_email' => NULL,
+  'review' => NULL,
+  'setup_future_usage' => NULL,
+  'shipping' => NULL,
+  'source' => NULL,
+  'statement_descriptor' => NULL,
+  'statement_descriptor_suffix' => NULL,
+  'status' => 'succeeded',
+  'total_details' => 
+  array (
+    'amount_discount' => 0,
+    'amount_tax' => 0,
+  ),
+  'transfer_data' => NULL,
+  'transfer_group' => NULL,
+  'fee_history' => 
+  array (
+    0 => 
+    array (
+      'type' => 'base',
+      'additional_type' => '',
+      'fee_id' => 'base-hu-card-fee',
+      'percentage_rate' => 0.015,
+      'fixed_rate' => 2000,
+      'currency' => 'huf',
+    ),
+    1 => 
+    array (
+      'type' => 'additional',
+      'additional_type' => 'international',
+      'fee_id' => 'additional-hu-card-intl-fee',
+      'percentage_rate' => 0.02,
+      'fixed_rate' => 0,
+      'currency' => 'huf',
+    ),
+    2 => 
+    array (
+      'type' => 'additional',
+      'additional_type' => 'fx',
+      'fee_id' => 'additional-hu-card-fx-fee',
+      'percentage_rate' => 0.02,
+      'fixed_rate' => 0,
+      'currency' => 'huf',
+    ),
+  ),
+)
+2024-07-10T14:54:15+00:00 INFO Order price is 0 ( Payment Request button disabled )
+2024-07-10T14:54:16+00:00 INFO Webhook received: payment_intent.succeeded
+2024-07-10T14:54:16+00:00 INFO Webhook body: array (
+  'id' => 'evt_3Pb1uLFxlPKzr7zD1eo1UZqO',
+  'type' => 'payment_intent.succeeded',
+  'livemode' => false,
+  'account' => 'acct_1PJA0PFxlPKzr7zD',
+  'data' => 
+  array (
+    'object' => 
+    array (
+      'id' => 'pi_3Pb1uLFxlPKzr7zD1fOz2l93',
+      'object' => 'payment_intent',
+      'amount' => 24900,
+      'amount_capturable' => 0,
+      'amount_details' => 
+      array (
+        'tip' => 
+        array (
+        ),
+      ),
+      'amount_received' => 24900,
+      'application' => 'ca_Ex84e31yMTLaNU5ozQvi5woLclpIDVpX',
+      'application_fee_amount' => 1375,
+      'automatic_payment_methods' => NULL,
+      'canceled_at' => NULL,
+      'cancellation_reason' => NULL,
+      'capture_method' => 'automatic',
+      'client_secret' => '(redacted)',
+      'confirmation_method' => 'automatic',
+      'created' => 1720623253,
+      'currency' => 'eur',
+      'customer' => 'cus_QRvlU6deVab4ao',
+      'description' => 'Online Payment for Order #3540 for masterlordsolutions.com blog_id 233372720',
+      'invoice' => NULL,
+      'last_payment_error' => NULL,
+      'latest_charge' => 'ch_3Pb1uLFxlPKzr7zD1hGuzzBv',
+      'livemode' => false,
+      'metadata' => 
+      array (
+        'fraud_prevention_data_cart_contents' => '1',
+        'fraud_prevention_data_available' => '1',
+        'site_url' => 'https://masterlordsolutions.com',
+        'client_version' => '7.6.0',
+        'fraud_prevention_data_shopper_ip_hash' => 'af9204977a336d7aa9ed3ce8321f4089ec6049fb4ebb25f5d5613b38ea1816b000f28b4635d53065649a570a4a8640bde535c5b3925d7ca9ed1d8e320dbc58ed',
+        'order_number' => '3540',
+        'checkout_type' => 'checkout',
+        'order_id' => '3540',
+        'order_key' => 'wc_order_kXaz51hEMuBt4',
+        'subscription_payment' => 'no',
+        'fraud_prevention_data_shopper_ua_hash' => '5666bee3c31d58fce2600d1a1f7b0396',
+        'customer_email' => '(redacted)',
+        'customer_name' => '(redacted)',
+        'fraud_prevention_data_ip_country' => 'HU',
+        'payment_type' => 'single',
+      ),
+      'next_action' => NULL,
+      'on_behalf_of' => NULL,
+      'payment_method' => 'pm_1Pb1uIFxlPKzr7zDZHLGVC9G',
+      'payment_method_configuration_details' => NULL,
+      'payment_method_options' => 
+      array (
+        'card' => 
+        array (
+          'installments' => NULL,
+          'mandate_options' => NULL,
+          'network' => NULL,
+          'request_three_d_secure' => 'automatic',
+        ),
+      ),
+      'payment_method_types' => 
+      array (
+        0 => 'card',
+      ),
+      'processing' => NULL,
+      'receipt_email' => NULL,
+      'review' => NULL,
+      'setup_future_usage' => NULL,
+      'shipping' => NULL,
+      'source' => NULL,
+      'statement_descriptor' => NULL,
+      'statement_descriptor_suffix' => NULL,
+      'status' => 'succeeded',
+      'transfer_data' => NULL,
+      'transfer_group' => NULL,
+      'amount_subtotal' => 24900,
+      'charges' => 
+      array (
+        'object' => 'list',
+        'data' => 
+        array (
+          0 => 
+          array (
+            'id' => 'ch_3Pb1uLFxlPKzr7zD1hGuzzBv',
+            'object' => 'charge',
+            'amount' => 24900,
+            'amount_captured' => 24900,
+            'amount_refunded' => 0,
+            'application' => 'ca_Ex84e31yMTLaNU5ozQvi5woLclpIDVpX',
+            'application_fee' => 'fee_1Pb1uLFxlPKzr7zDdRZ581We',
+            'application_fee_amount' => 1375,
+            'balance_transaction' => 'txn_3Pb1uLFxlPKzr7zD1MEp3zr9',
+            'billing_details' => 
+            array (
+              'address' => 
+              array (
+                'city' => '(redacted)',
+                'country' => '(redacted)',
+                'line1' => '(redacted)',
+                'line2' => '(redacted)',
+                'postal_code' => '(redacted)',
+                'state' => '(redacted)',
+              ),
+              'email' => '(redacted)',
+              'name' => '(redacted)',
+              'phone' => '(redacted)',
+            ),
+            'calculated_statement_descriptor' => 'MASTERLORDSOLUTIONS',
+            'captured' => true,
+            'created' => 1720623253,
+            'currency' => 'eur',
+            'customer' => 'cus_QRvlU6deVab4ao',
+            'description' => 'Online Payment for Order #3540 for masterlordsolutions.com blog_id 233372720',
+            'destination' => NULL,
+            'dispute' => NULL,
+            'disputed' => false,
+            'failure_balance_transaction' => NULL,
+            'failure_code' => NULL,
+            'failure_message' => NULL,
+            'fraud_details' => 
+            array (
+            ),
+            'invoice' => NULL,
+            'livemode' => false,
+            'metadata' => 
+            array (
+              'fraud_prevention_data_cart_contents' => '1',
+              'fraud_prevention_data_available' => '1',
+              'site_url' => 'https://masterlordsolutions.com',
+              'client_version' => '7.6.0',
+              'fraud_prevention_data_shopper_ip_hash' => 'af9204977a336d7aa9ed3ce8321f4089ec6049fb4ebb25f5d5613b38ea1816b000f28b4635d53065649a570a4a8640bde535c5b3925d7ca9ed1d8e320dbc58ed',
+              'order_number' => '3540',
+              'checkout_type' => 'checkout',
+              'order_id' => '3540',
+              'order_key' => 'wc_order_kXaz51hEMuBt4',
+              'subscription_payment' => 'no',
+              'fraud_prevention_data_shopper_ua_hash' => '5666bee3c31d58fce2600d1a1f7b0396',
+              'customer_email' => '(redacted)',
+              'customer_name' => '(redacted)',
+              'fraud_prevention_data_ip_country' => 'HU',
+              'payment_type' => 'single',
+            ),
+            'on_behalf_of' => NULL,
+            'order' => NULL,
+            'outcome' => 
+            array (
+              'network_status' => 'approved_by_network',
+              'reason' => NULL,
+              'risk_level' => 'normal',
+              'risk_score' => 17,
+              'seller_message' => 'Payment complete.',
+              'type' => 'authorized',
+            ),
+            'paid' => true,
+            'payment_intent' => 'pi_3Pb1uLFxlPKzr7zD1fOz2l93',
+            'payment_method' => 'pm_1Pb1uIFxlPKzr7zDZHLGVC9G',
+            'payment_method_details' => 
+            array (
+              'card' => 
+              array (
+                'amount_authorized' => 24900,
+                'brand' => 'visa',
+                'checks' => 
+                array (
+                  'address_line1_check' => 'pass',
+                  'address_postal_code_check' => 'pass',
+                  'cvc_check' => 'pass',
+                ),
+                'country' => '(redacted)',
+                'description' => 'Visa Classic',
+                'exp_month' => 12,
+                'exp_year' => 2029,
+                'extended_authorization' => 
+                array (
+                  'status' => 'disabled',
+                ),
+                'fingerprint' => '0SEufZLr8JkcLcfi',
+                'funding' => 'credit',
+                'iin' => '424242',
+                'incremental_authorization' => 
+                array (
+                  'status' => 'unavailable',
+                ),
+                'installments' => NULL,
+                'issuer' => 'Stripe Payments UK Limited',
+                'last4' => '4242',
+                'mandate' => NULL,
+                'multicapture' => 
+                array (
+                  'status' => 'unavailable',
+                ),
+                'network' => 'visa',
+                'network_token' => 
+                array (
+                  'used' => false,
+                ),
+                'overcapture' => 
+                array (
+                  'maximum_amount_capturable' => 24900,
+                  'status' => 'unavailable',
+                ),
+                'three_d_secure' => NULL,
+                'wallet' => NULL,
+              ),
+              'type' => 'card',
+            ),
+            'radar_options' => 
+            array (
+            ),
+            'receipt_email' => NULL,
+            'receipt_number' => NULL,
+            'receipt_url' => 'https://pay.stripe.com/receipts/payment/CAcaFwoVYWNjdF8xUEpBMFBGeGxQS3pyN3pEKJbBurQGMgaKdJ-sjXs6LBYx128bfpNZcpYRWAXaeyZObKgBuabzMl0XjmZ8VfL2Cl8Aj1b82HX4ba8s',
+            'refunded' => false,
+            'refunds' => 
+            array (
+              'object' => 'list',
+              'data' => 
+              array (
+              ),
+              'has_more' => false,
+              'total_count' => 0,
+              'url' => '/v1/charges/ch_3Pb1uLFxlPKzr7zD1hGuzzBv/refunds',
+            ),
+            'review' => NULL,
+            'shipping' => NULL,
+            'source' => NULL,
+            'source_transfer' => NULL,
+            'statement_descriptor' => NULL,
+            'statement_descriptor_suffix' => NULL,
+            'status' => 'succeeded',
+            'transfer_data' => NULL,
+            'transfer_group' => NULL,
+          ),
+        ),
+        'has_more' => false,
+        'total_count' => 1,
+        'url' => '/v1/charges?payment_intent=pi_3Pb1uLFxlPKzr7zD1fOz2l93',
+      ),
+      'level3' => NULL,
+      'total_details' => 
+      array (
+        'amount_discount' => 0,
+        'amount_tax' => 0,
+      ),
+    ),
+  ),
+)
+2024-07-10T14:54:26+00:00 INFO ENVIRONMENT: array (
+  'WP_User' => 'Guest (non logged-in user)',
+  'HTTP_REFERER' => '--',
+  'HTTP_USER_AGENT' => 'WordPress/6.5.5; https://masterlordsolutions.com',
+  'REQUEST_URI' => '/wp-cron.php?doing_wp_cron=1720623266.0640521049499511718750',
+  'DOING_AJAX' => false,
+  'DOING_CRON' => true,
+  'WP_CLI' => false,
+)
+2024-07-10T14:54:26+00:00 INFO REQUEST GET https://public-api.wordpress.com/wpcom/v2/sites/%s/wcpay/timeline/pi_3Pb1uLFxlPKzr7zD1fOz2l93?test_mode=1
+2024-07-10T14:54:26+00:00 INFO HEADERS: array (
+  'Content-Type' => 'application/json; charset=utf-8',
+  'User-Agent' => 'WooCommerce Payments/7.6.0',
+)
+2024-07-10T14:54:27+00:00 INFO RESPONSE: array (
+  'data' => 
+  array (
+    0 => 
+    array (
+      'type' => 'captured',
+      'amount' => 24900,
+      'amount_captured' => 24900,
+      'fee' => 1375,
+      'fee_rates' => 
+      array (
+        'percentage' => 0.05500000000000001,
+        'fixed' => 5,
+        'fixed_currency' => 'EUR',
+        'history' => 
+        array (
+          0 => 
+          array (
+            'type' => 'base',
+            'additional_type' => '',
+            'fee_id' => 'base-hu-card-fee',
+            'percentage_rate' => 0.015,
+            'fixed_rate' => 2000,
+            'currency' => 'huf',
+          ),
+          1 => 
+          array (
+            'type' => 'additional',
+            'additional_type' => 'international',
+            'fee_id' => 'additional-hu-card-intl-fee',
+            'percentage_rate' => 0.02,
+            'fixed_rate' => 0,
+            'currency' => 'huf',
+          ),
+          2 => 
+          array (
+            'type' => 'additional',
+            'additional_type' => 'fx',
+            'fee_id' => 'additional-hu-card-fx-fee',
+            'percentage_rate' => 0.02,
+            'fixed_rate' => 0,
+            'currency' => 'huf',
+          ),
+        ),
+      ),
+      'currency' => 'EUR',
+      'datetime' => 1720623253,
+      'deposit' => NULL,
+      'transaction_id' => 'txn_3Pb1uLFxlPKzr7zD1MEp3zr9',
+      'transaction_details' => 
+      array (
+        'customer_currency' => 'EUR',
+        'customer_amount' => 24900,
+        'customer_amount_captured' => 24900,
+        'customer_fee' => 1375,
+        'store_currency' => 'HUF',
+        'store_amount' => 9761771,
+        'store_amount_captured' => 9761771,
+        'store_fee' => 539054,
+      ),
+    ),
+    1 => 
+    array (
+      'type' => 'authorized',
+      'datetime' => 1720623253,
+      'amount' => 24900,
+      'currency' => 'EUR',
+    ),
+    2 => 
+    array (
+      'type' => 'started',
+      'datetime' => 1720623253,
+      'amount' => 24900,
+      'currency' => 'EUR',
+    ),
+  ),
+)
+2024-07-10T14:55:00+00:00 INFO ENVIRONMENT: array (
+  'WP_User' => 'masterlordsolutions.com',
+  'HTTP_REFERER' => '--',
+  'HTTP_USER_AGENT' => 'WordPress/6.5.5; https://masterlordsolutions.com',
+  'REQUEST_URI' => '/wp-admin/admin-ajax.php?action=as_async_request_queue_runner&nonce=ebf1d092e3',
+  'DOING_AJAX' => true,
+  'DOING_CRON' => false,
+  'WP_CLI' => false,
+)
+2024-07-10T14:55:00+00:00 INFO REQUEST POST https://public-api.wordpress.com/wpcom/v2/sites/%s/wcpay/tracking/order
+2024-07-10T14:55:00+00:00 INFO HEADERS: array (
+  'Content-Type' => 'application/json; charset=utf-8',
+  'User-Agent' => 'WooCommerce Payments/7.6.0',
+  'Idempotency-Key' => '2c548dcd-feee-4071-b238-6cec44b49c6a',
+)
+2024-07-10T14:55:00+00:00 INFO BODY: array (
+  'test_mode' => true,
+  'order_data' => 
+  array (
+    'id' => 3540,
+    'parent_id' => 0,
+    'status' => 'processing',
+    'currency' => 'EUR',
+    'version' => '9.0.2',
+    'prices_include_tax' => false,
+    'date_created' => 'WC_DateTime()',
+    'date_modified' => 'WC_DateTime()',
+    'discount_total' => '0',
+    'discount_tax' => '0',
+    'shipping_total' => '0',
+    'shipping_tax' => '0',
+    'cart_tax' => '0',
+    'total' => '249',
+    'total_tax' => '0',
+    'customer_id' => 16,
+    'order_key' => 'wc_order_kXaz51hEMuBt4',
+    'billing' => 
+    array (
+      'first_name' => '(redacted)',
+      'last_name' => '(redacted)',
+      'company' => '(redacted)',
+      'address_1' => '(redacted)',
+      'address_2' => '(redacted)',
+      'city' => '(redacted)',
+      'state' => '(redacted)',
+      'postcode' => '(redacted)',
+      'country' => '(redacted)',
+      'email' => '(redacted)',
+      'phone' => '(redacted)',
+    ),
+    'shipping' => 
+    array (
+      'first_name' => '(redacted)',
+      'last_name' => '(redacted)',
+      'company' => '(redacted)',
+      'address_1' => '(redacted)',
+      'address_2' => '(redacted)',
+      'city' => '(redacted)',
+      'state' => '(redacted)',
+      'postcode' => '(redacted)',
+      'country' => '(redacted)',
+      'phone' => '(redacted)',
+    ),
+    'payment_method' => 'woocommerce_payments',
+    'payment_method_title' => 'Visa credit card',
+    'transaction_id' => 'pi_3Pb1uLFxlPKzr7zD1fOz2l93',
+    'customer_ip_address' => '104.28.250.103',
+    'customer_user_agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+    'created_via' => 'checkout',
+    'customer_note' => '',
+    'date_completed' => NULL,
+    'date_paid' => 'WC_DateTime()',
+    'cart_hash' => '16300f5303a3811a4b01f6b4ce262e2b',
+    'order_stock_reduced' => true,
+    'download_permissions_granted' => true,
+    'new_order_email_sent' => true,
+    'recorded_sales' => true,
+    'recorded_coupon_usage_counts' => true,
+    'number' => '3540',
+    'meta_data' => 
+    array (
+      0 => 'WC_Meta_Data()',
+      1 => 'WC_Meta_Data()',
+      2 => 'WC_Meta_Data()',
+      3 => 'WC_Meta_Data()',
+      4 => 'WC_Meta_Data()',
+      5 => 'WC_Meta_Data()',
+      6 => 'WC_Meta_Data()',
+      7 => 'WC_Meta_Data()',
+      8 => 'WC_Meta_Data()',
+      9 => 'WC_Meta_Data()',
+      10 => 'WC_Meta_Data()',
+      11 => 'WC_Meta_Data()',
+      12 => 'WC_Meta_Data()',
+      13 => 'WC_Meta_Data()',
+      14 => 'WC_Meta_Data()',
+      15 => 'WC_Meta_Data()',
+      16 => 'WC_Meta_Data()',
+      17 => 'WC_Meta_Data()',
+      18 => 'WC_Meta_Data()',
+      19 => 'WC_Meta_Data()',
+    ),
+    'line_items' => 
+    array (
+      76 => 'WC_Order_Item_Product()',
+    ),
+    'tax_lines' => 
+    array (
+    ),
+    'shipping_lines' => 
+    array (
+    ),
+    'fee_lines' => 
+    array (
+    ),
+    'coupon_lines' => 
+    array (
+    ),
+    '_payment_method_id' => 'pm_1Pb1uIFxlPKzr7zDZHLGVC9G',
+    '_stripe_customer_id' => 'cus_QRvlU6deVab4ao',
+    '_wcpay_mode' => 'test',
+  ),
+  'update' => false,
+)
+2024-07-10T14:55:00+00:00 INFO RESPONSE: array (
+  'result' => 'success',
+)
+2024-07-10T14:55:06+00:00 INFO ENVIRONMENT: array (
+  'WP_User' => 'masterlordsolutions.com',
+  'HTTP_REFERER' => '--',
+  'HTTP_USER_AGENT' => 'WordPress/6.5.5; https://masterlordsolutions.com',
+  'REQUEST_URI' => '/wp-admin/admin-ajax.php?action=as_async_request_queue_runner&nonce=ebf1d092e3',
+  'DOING_AJAX' => true,
+  'DOING_CRON' => false,
+  'WP_CLI' => false,
+)
+2024-07-10T14:55:06+00:00 INFO REQUEST POST https://public-api.wordpress.com/wpcom/v2/sites/%s/wcpay/tracking/order
+2024-07-10T14:55:06+00:00 INFO HEADERS: array (
+  'Content-Type' => 'application/json; charset=utf-8',
+  'User-Agent' => 'WooCommerce Payments/7.6.0',
+  'Idempotency-Key' => 'cf88a6c5-da30-4d06-9676-5ce651959587',
+)
+2024-07-10T14:55:06+00:00 INFO BODY: array (
+  'test_mode' => true,
+  'order_data' => 
+  array (
+    'id' => 3540,
+    'parent_id' => 0,
+    'status' => 'processing',
+    'currency' => 'EUR',
+    'version' => '9.0.2',
+    'prices_include_tax' => false,
+    'date_created' => 'WC_DateTime()',
+    'date_modified' => 'WC_DateTime()',
+    'discount_total' => '0',
+    'discount_tax' => '0',
+    'shipping_total' => '0',
+    'shipping_tax' => '0',
+    'cart_tax' => '0',
+    'total' => '249',
+    'total_tax' => '0',
+    'customer_id' => 16,
+    'order_key' => 'wc_order_kXaz51hEMuBt4',
+    'billing' => 
+    array (
+      'first_name' => '(redacted)',
+      'last_name' => '(redacted)',
+      'company' => '(redacted)',
+      'address_1' => '(redacted)',
+      'address_2' => '(redacted)',
+      'city' => '(redacted)',
+      'state' => '(redacted)',
+      'postcode' => '(redacted)',
+      'country' => '(redacted)',
+      'email' => '(redacted)',
+      'phone' => '(redacted)',
+    ),
+    'shipping' => 
+    array (
+      'first_name' => '(redacted)',
+      'last_name' => '(redacted)',
+      'company' => '(redacted)',
+      'address_1' => '(redacted)',
+      'address_2' => '(redacted)',
+      'city' => '(redacted)',
+      'state' => '(redacted)',
+      'postcode' => '(redacted)',
+      'country' => '(redacted)',
+      'phone' => '(redacted)',
+    ),
+    'payment_method' => 'woocommerce_payments',
+    'payment_method_title' => 'Visa credit card',
+    'transaction_id' => 'pi_3Pb1uLFxlPKzr7zD1fOz2l93',
+    'customer_ip_address' => '104.28.250.103',
+    'customer_user_agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+    'created_via' => 'checkout',
+    'customer_note' => '',
+    'date_completed' => NULL,
+    'date_paid' => 'WC_DateTime()',
+    'cart_hash' => '16300f5303a3811a4b01f6b4ce262e2b',
+    'order_stock_reduced' => true,
+    'download_permissions_granted' => true,
+    'new_order_email_sent' => true,
+    'recorded_sales' => true,
+    'recorded_coupon_usage_counts' => true,
+    'number' => '3540',
+    'meta_data' => 
+    array (
+      0 => 'WC_Meta_Data()',
+      1 => 'WC_Meta_Data()',
+      2 => 'WC_Meta_Data()',
+      3 => 'WC_Meta_Data()',
+      4 => 'WC_Meta_Data()',
+      5 => 'WC_Meta_Data()',
+      6 => 'WC_Meta_Data()',
+      7 => 'WC_Meta_Data()',
+      8 => 'WC_Meta_Data()',
+      9 => 'WC_Meta_Data()',
+      10 => 'WC_Meta_Data()',
+      11 => 'WC_Meta_Data()',
+      12 => 'WC_Meta_Data()',
+      13 => 'WC_Meta_Data()',
+      14 => 'WC_Meta_Data()',
+      15 => 'WC_Meta_Data()',
+      16 => 'WC_Meta_Data()',
+      17 => 'WC_Meta_Data()',
+      18 => 'WC_Meta_Data()',
+      19 => 'WC_Meta_Data()',
+      20 => 'WC_Meta_Data()',
+    ),
+    'line_items' => 
+    array (
+      76 => 'WC_Order_Item_Product()',
+    ),
+    'tax_lines' => 
+    array (
+    ),
+    'shipping_lines' => 
+    array (
+    ),
+    'fee_lines' => 
+    array (
+    ),
+    'coupon_lines' => 
+    array (
+    ),
+    '_payment_method_id' => 'pm_1Pb1uIFxlPKzr7zDZHLGVC9G',
+    '_stripe_customer_id' => 'cus_QRvlU6deVab4ao',
+    '_wcpay_mode' => 'test',
+  ),
+  'update' => true,
+)
+2024-07-10T14:55:06+00:00 INFO RESPONSE: array (
+  'result' => 'success',
+)
+2024-07-10T14:56:56+00:00 INFO ENVIRONMENT: array (
+  'WP_User' => 'masterlordsolutions.com',
+  'HTTP_REFERER' => 'https://masterlordsolutions.com/wp-admin/admin.php?page=wc-orders&action=edit&id=3540',
+  'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+  'REQUEST_URI' => '/wp-json/wc/v3/payments/charges/ch_3Pb1uLFxlPKzr7zD1hGuzzBv?_locale=user',
+  'DOING_AJAX' => false,
+  'DOING_CRON' => false,
+  'WP_CLI' => false,
+)
+2024-07-10T14:56:56+00:00 INFO REQUEST GET https://public-api.wordpress.com/wpcom/v2/sites/%s/wcpay/charges/ch_3Pb1uLFxlPKzr7zD1hGuzzBv?test_mode=1
+2024-07-10T14:56:56+00:00 INFO HEADERS: array (
+  'Content-Type' => 'application/json; charset=utf-8',
+  'User-Agent' => 'WooCommerce Payments/7.6.0',
+)
+2024-07-10T14:56:57+00:00 INFO RESPONSE: array (
+  'id' => 'ch_3Pb1uLFxlPKzr7zD1hGuzzBv',
+  'object' => 'charge',
+  'amount' => 24900,
+  'amount_captured' => 24900,
+  'amount_refunded' => 0,
+  'application' => 'ca_Ex84e31yMTLaNU5ozQvi5woLclpIDVpX',
+  'application_fee' => 'fee_1Pb1uLFxlPKzr7zDdRZ581We',
+  'application_fee_amount' => 1375,
+  'balance_transaction' => 
+  array (
+    'id' => 'txn_3Pb1uLFxlPKzr7zD1MEp3zr9',
+    'object' => 'balance_transaction',
+    'amount' => 9761771,
+    'available_on' => 1721174400,
+    'created' => 1720623253,
+    'currency' => 'huf',
+    'description' => 'Online Payment for Order #3540 for masterlordsolutions.com blog_id 233372720',
+    'exchange_rate' => 392.039,
+    'fee' => 539054,
+    'fee_details' => 
+    array (
+      0 => 
+      array (
+        'amount' => 539054,
+        'application' => 'ca_Ex84e31yMTLaNU5ozQvi5woLclpIDVpX',
+        'currency' => 'huf',
+        'description' => 'WooPayments application fee',
+        'type' => 'application_fee',
+      ),
+    ),
+    'net' => 9222717,
+    'reporting_category' => 'charge',
+    'source' => 'ch_3Pb1uLFxlPKzr7zD1hGuzzBv',
+    'status' => 'pending',
+    'type' => 'charge',
+  ),
+  'billing_details' => 
+  array (
+    'address' => 
+    array (
+      'city' => '(redacted)',
+      'country' => '(redacted)',
+      'line1' => '(redacted)',
+      'line2' => '(redacted)',
+      'postal_code' => '(redacted)',
+      'state' => '(redacted)',
+    ),
+    'email' => '(redacted)',
+    'name' => '(redacted)',
+    'phone' => '(redacted)',
+  ),
+  'calculated_statement_descriptor' => 'MASTERLORDSOLUTIONS',
+  'captured' => true,
+  'created' => 1720623253,
+  'currency' => 'eur',
+  'customer' => 'cus_QRvlU6deVab4ao',
+  'description' => 'Online Payment for Order #3540 for masterlordsolutions.com blog_id 233372720',
+  'destination' => NULL,
+  'dispute' => NULL,
+  'disputed' => false,
+  'failure_balance_transaction' => NULL,
+  'failure_code' => NULL,
+  'failure_message' => NULL,
+  'fraud_details' => 
+  array (
+  ),
+  'invoice' => NULL,
+  'livemode' => false,
+  'metadata' => 
+  array (
+    'checkout_type' => 'checkout',
+    'client_version' => '7.6.0',
+    'customer_email' => '(redacted)',
+    'customer_name' => '(redacted)',
+    'fraud_prevention_data_available' => '1',
+    'fraud_prevention_data_cart_contents' => '1',
+    'fraud_prevention_data_ip_country' => 'HU',
+    'fraud_prevention_data_shopper_ip_hash' => 'af9204977a336d7aa9ed3ce8321f4089ec6049fb4ebb25f5d5613b38ea1816b000f28b4635d53065649a570a4a8640bde535c5b3925d7ca9ed1d8e320dbc58ed',
+    'fraud_prevention_data_shopper_ua_hash' => '5666bee3c31d58fce2600d1a1f7b0396',
+    'order_id' => '3540',
+    'order_key' => 'wc_order_kXaz51hEMuBt4',
+    'order_number' => '3540',
+    'payment_type' => 'single',
+    'site_url' => 'https://masterlordsolutions.com',
+    'subscription_payment' => 'no',
+  ),
+  'on_behalf_of' => NULL,
+  'order' => NULL,
+  'outcome' => 
+  array (
+    'network_status' => 'approved_by_network',
+    'reason' => NULL,
+    'risk_level' => 'normal',
+    'risk_score' => 17,
+    'seller_message' => 'Payment complete.',
+    'type' => 'authorized',
+  ),
+  'paid' => true,
+  'payment_intent' => 'pi_3Pb1uLFxlPKzr7zD1fOz2l93',
+  'payment_method' => 'pm_1Pb1uIFxlPKzr7zDZHLGVC9G',
+  'payment_method_details' => 
+  array (
+    'card' => 
+    array (
+      'amount_authorized' => 24900,
+      'brand' => 'visa',
+      'checks' => 
+      array (
+        'address_line1_check' => 'pass',
+        'address_postal_code_check' => 'pass',
+        'cvc_check' => 'pass',
+      ),
+      'country' => '(redacted)',
+      'description' => 'Visa Classic',
+      'exp_month' => 12,
+      'exp_year' => 2029,
+      'extended_authorization' => 
+      array (
+        'status' => 'disabled',
+      ),
+      'fingerprint' => '0SEufZLr8JkcLcfi',
+      'funding' => 'credit',
+      'iin' => '424242',
+      'incremental_authorization' => 
+      array (
+        'status' => 'unavailable',
+      ),
+      'installments' => NULL,
+      'issuer' => 'Stripe Payments UK Limited',
+      'last4' => '4242',
+      'mandate' => NULL,
+      'multicapture' => 
+      array (
+        'status' => 'unavailable',
+      ),
+      'network' => 'visa',
+      'network_token' => 
+      array (
+        'used' => false,
+      ),
+      'overcapture' => 
+      array (
+        'maximum_amount_capturable' => 24900,
+        'status' => 'unavailable',
+      ),
+      'three_d_secure' => NULL,
+      'wallet' => NULL,
+    ),
+    'type' => 'card',
+  ),
+  'radar_options' => 
+  array (
+  ),
+  'receipt_email' => NULL,
+  'receipt_number' => NULL,
+  'receipt_url' => 'https://pay.stripe.com/receipts/payment/CAcaFwoVYWNjdF8xUEpBMFBGeGxQS3pyN3pEKLnCurQGMgYjE0qvK2A6LBZFr0_8KEYN0VzCVqwMpwEejuHs8kZLgx-n3lepz_PDWONnKh5RIMkRVfdr',
+  'refunded' => false,
+  'refunds' => 
+  array (
+    'object' => 'list',
+    'data' => 
+    array (
+    ),
+    'has_more' => false,
+    'total_count' => 0,
+    'url' => '/v1/charges/ch_3Pb1uLFxlPKzr7zD1hGuzzBv/refunds',
+  ),
+  'review' => NULL,
+  'shipping' => NULL,
+  'source' => NULL,
+  'source_transfer' => NULL,
+  'statement_descriptor' => NULL,
+  'statement_descriptor_suffix' => NULL,
+  'status' => 'succeeded',
+  'transfer_data' => NULL,
+  'transfer_group' => NULL,
+)
+2024-07-10T14:57:23+00:00 INFO ENVIRONMENT: array (
+  'WP_User' => 'masterlordsolutions.com',
+  'HTTP_REFERER' => 'https://masterlordsolutions.com/wp-admin/admin.php?page=wc-orders',
+  'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+  'REQUEST_URI' => '/wp-admin/admin.php?page=wc-orders&s=&search-filter=all&_wpnonce=c78071952e&_wp_http_referer=wp-adminadmin.phppagewc-orders&action=mark_completed&m=0&_customer_user=&paged=1&id=3540&action2=mark_completed',
+  'DOING_AJAX' => false,
+  'DOING_CRON' => false,
+  'WP_CLI' => false,
+)
+2024-07-10T14:57:23+00:00 INFO REQUEST GET https://public-api.wordpress.com/wpcom/v2/sites/%s/wcpay/intentions/pi_3Pb1uLFxlPKzr7zD1fOz2l93?test_mode=1
+2024-07-10T14:57:23+00:00 INFO HEADERS: array (
+  'Content-Type' => 'application/json; charset=utf-8',
+  'User-Agent' => 'WooCommerce Payments/7.6.0',
+)
+2024-07-10T14:57:23+00:00 INFO RESPONSE: array (
+  'id' => 'pi_3Pb1uLFxlPKzr7zD1fOz2l93',
+  'object' => 'payment_intent',
+  'amount' => 24900,
+  'amount_capturable' => 0,
+  'amount_details' => 
+  array (
+    'tip' => 
+    array (
+    ),
+  ),
+  'amount_received' => 24900,
+  'amount_subtotal' => 24900,
+  'application' => 'ca_Ex84e31yMTLaNU5ozQvi5woLclpIDVpX',
+  'application_fee_amount' => 1375,
+  'automatic_payment_methods' => NULL,
+  'canceled_at' => NULL,
+  'cancellation_reason' => NULL,
+  'capture_method' => 'automatic',
+  'charges' => 
+  array (
+    'object' => 'list',
+    'data' => 
+    array (
+      0 => 
+      array (
+        'id' => 'ch_3Pb1uLFxlPKzr7zD1hGuzzBv',
+        'object' => 'charge',
+        'amount' => 24900,
+        'amount_captured' => 24900,
+        'amount_refunded' => 0,
+        'application' => 'ca_Ex84e31yMTLaNU5ozQvi5woLclpIDVpX',
+        'application_fee' => 'fee_1Pb1uLFxlPKzr7zDdRZ581We',
+        'application_fee_amount' => 1375,
+        'balance_transaction' => 
+        array (
+          'id' => 'txn_3Pb1uLFxlPKzr7zD1MEp3zr9',
+          'object' => 'balance_transaction',
+          'amount' => 9761771,
+          'available_on' => 1721174400,
+          'created' => 1720623253,
+          'currency' => 'huf',
+          'description' => 'Online Payment for Order #3540 for masterlordsolutions.com blog_id 233372720',
+          'exchange_rate' => 392.039,
+          'fee' => 539054,
+          'fee_details' => 
+          array (
+            0 => 
+            array (
+              'amount' => 539054,
+              'application' => 'ca_Ex84e31yMTLaNU5ozQvi5woLclpIDVpX',
+              'currency' => 'huf',
+              'description' => 'WooPayments application fee',
+              'type' => 'application_fee',
+            ),
+          ),
+          'net' => 9222717,
+          'reporting_category' => 'charge',
+          'source' => 'ch_3Pb1uLFxlPKzr7zD1hGuzzBv',
+          'status' => 'pending',
+          'type' => 'charge',
+        ),
+        'billing_details' => 
+        array (
+          'address' => 
+          array (
+            'city' => '(redacted)',
+            'country' => '(redacted)',
+            'line1' => '(redacted)',
+            'line2' => '(redacted)',
+            'postal_code' => '(redacted)',
+            'state' => '(redacted)',
+          ),
+          'email' => '(redacted)',
+          'name' => '(redacted)',
+          'phone' => '(redacted)',
+        ),
+        'calculated_statement_descriptor' => 'MASTERLORDSOLUTIONS',
+        'captured' => true,
+        'created' => 1720623253,
+        'currency' => 'eur',
+        'customer' => 'cus_QRvlU6deVab4ao',
+        'description' => 'Online Payment for Order #3540 for masterlordsolutions.com blog_id 233372720',
+        'destination' => NULL,
+        'dispute' => NULL,
+        'disputed' => false,
+        'failure_balance_transaction' => NULL,
+        'failure_code' => NULL,
+        'failure_message' => NULL,
+        'fraud_details' => 
+        array (
+        ),
+        'invoice' => NULL,
+        'livemode' => false,
+        'metadata' => 
+        array (
+          'checkout_type' => 'checkout',
+          'client_version' => '7.6.0',
+          'customer_email' => '(redacted)',
+          'customer_name' => '(redacted)',
+          'fraud_prevention_data_available' => '1',
+          'fraud_prevention_data_cart_contents' => '1',
+          'fraud_prevention_data_ip_country' => 'HU',
+          'fraud_prevention_data_shopper_ip_hash' => 'af9204977a336d7aa9ed3ce8321f4089ec6049fb4ebb25f5d5613b38ea1816b000f28b4635d53065649a570a4a8640bde535c5b3925d7ca9ed1d8e320dbc58ed',
+          'fraud_prevention_data_shopper_ua_hash' => '5666bee3c31d58fce2600d1a1f7b0396',
+          'order_id' => '3540',
+          'order_key' => 'wc_order_kXaz51hEMuBt4',
+          'order_number' => '3540',
+          'payment_type' => 'single',
+          'site_url' => 'https://masterlordsolutions.com',
+          'subscription_payment' => 'no',
+        ),
+        'on_behalf_of' => NULL,
+        'order' => NULL,
+        'outcome' => 
+        array (
+          'network_status' => 'approved_by_network',
+          'reason' => NULL,
+          'risk_level' => 'normal',
+          'risk_score' => 17,
+          'seller_message' => 'Payment complete.',
+          'type' => 'authorized',
+        ),
+        'paid' => true,
+        'payment_intent' => 'pi_3Pb1uLFxlPKzr7zD1fOz2l93',
+        'payment_method' => 'pm_1Pb1uIFxlPKzr7zDZHLGVC9G',
+        'payment_method_details' => 
+        array (
+          'card' => 
+          array (
+            'amount_authorized' => 24900,
+            'brand' => 'visa',
+            'checks' => 
+            array (
+              'address_line1_check' => 'pass',
+              'address_postal_code_check' => 'pass',
+              'cvc_check' => 'pass',
+            ),
+            'country' => '(redacted)',
+            'description' => 'Visa Classic',
+            'exp_month' => 12,
+            'exp_year' => 2029,
+            'extended_authorization' => 
+            array (
+              'status' => 'disabled',
+            ),
+            'fingerprint' => '0SEufZLr8JkcLcfi',
+            'funding' => 'credit',
+            'iin' => '424242',
+            'incremental_authorization' => 
+            array (
+              'status' => 'unavailable',
+            ),
+            'installments' => NULL,
+            'issuer' => 'Stripe Payments UK Limited',
+            'last4' => '4242',
+            'mandate' => NULL,
+            'multicapture' => 
+            array (
+              'status' => 'unavailable',
+            ),
+            'network' => 'visa',
+            'network_token' => 
+            array (
+              'used' => false,
+            ),
+            'overcapture' => 
+            array (
+              'maximum_amount_capturable' => 24900,
+              'status' => 'unavailable',
+            ),
+            'three_d_secure' => NULL,
+            'wallet' => NULL,
+          ),
+          'type' => 'card',
+        ),
+        'radar_options' => 
+        array (
+        ),
+        'receipt_email' => NULL,
+        'receipt_number' => NULL,
+        'receipt_url' => 'https://pay.stripe.com/receipts/payment/CAcaFwoVYWNjdF8xUEpBMFBGeGxQS3pyN3pEKNPCurQGMgaCt52jXC46LBbI6UkRfT6qJijX5Db6UK-3fTZFaG1RRcihSCDc2WnEUOdzgaPYmKXCAEz5',
+        'refunded' => false,
+        'refunds' => 
+        array (
+          'object' => 'list',
+          'data' => 
+          array (
+          ),
+          'has_more' => false,
+          'total_count' => 0,
+          'url' => '/v1/charges/ch_3Pb1uLFxlPKzr7zD1hGuzzBv/refunds',
+        ),
+        'review' => NULL,
+        'shipping' => NULL,
+        'source' => NULL,
+        'source_transfer' => NULL,
+        'statement_descriptor' => NULL,
+        'statement_descriptor_suffix' => NULL,
+        'status' => 'succeeded',
+        'transfer_data' => NULL,
+        'transfer_group' => NULL,
+      ),
+    ),
+    'has_more' => false,
+    'total_count' => 1,
+    'url' => '/v1/charges?payment_intent=pi_3Pb1uLFxlPKzr7zD1fOz2l93',
+  ),
+  'client_secret' => '(redacted)',
+  'confirmation_method' => 'automatic',
+  'created' => 1720623253,
+  'currency' => 'eur',
+  'customer' => 'cus_QRvlU6deVab4ao',
+  'description' => 'Online Payment for Order #3540 for masterlordsolutions.com blog_id 233372720',
+  'invoice' => NULL,
+  'last_payment_error' => NULL,
+  'latest_charge' => 'ch_3Pb1uLFxlPKzr7zD1hGuzzBv',
+  'level3' => NULL,
+  'livemode' => false,
+  'metadata' => 
+  array (
+    'checkout_type' => 'checkout',
+    'client_version' => '7.6.0',
+    'customer_email' => '(redacted)',
+    'customer_name' => '(redacted)',
+    'fraud_prevention_data_available' => '1',
+    'fraud_prevention_data_cart_contents' => '1',
+    'fraud_prevention_data_ip_country' => 'HU',
+    'fraud_prevention_data_shopper_ip_hash' => 'af9204977a336d7aa9ed3ce8321f4089ec6049fb4ebb25f5d5613b38ea1816b000f28b4635d53065649a570a4a8640bde535c5b3925d7ca9ed1d8e320dbc58ed',
+    'fraud_prevention_data_shopper_ua_hash' => '5666bee3c31d58fce2600d1a1f7b0396',
+    'order_id' => '3540',
+    'order_key' => 'wc_order_kXaz51hEMuBt4',
+    'order_number' => '3540',
+    'payment_type' => 'single',
+    'site_url' => 'https://masterlordsolutions.com',
+    'subscription_payment' => 'no',
+  ),
+  'next_action' => NULL,
+  'on_behalf_of' => NULL,
+  'payment_method' => 'pm_1Pb1uIFxlPKzr7zDZHLGVC9G',
+  'payment_method_configuration_details' => NULL,
+  'payment_method_options' => 
+  array (
+    'card' => 
+    array (
+      'installments' => NULL,
+      'mandate_options' => NULL,
+      'network' => NULL,
+      'request_three_d_secure' => 'automatic',
+    ),
+  ),
+  'payment_method_types' => 
+  array (
+    0 => 'card',
+  ),
+  'processing' => NULL,
+  'receipt_email' => NULL,
+  'review' => NULL,
+  'setup_future_usage' => NULL,
+  'shipping' => NULL,
+  'source' => NULL,
+  'statement_descriptor' => NULL,
+  'statement_descriptor_suffix' => NULL,
+  'status' => 'succeeded',
+  'total_details' => 
+  array (
+    'amount_discount' => 0,
+    'amount_tax' => 0,
+  ),
+  'transfer_data' => NULL,
+  'transfer_group' => NULL,
+)
+2024-07-10T14:58:27+00:00 INFO ENVIRONMENT: array (
+  'WP_User' => 'Guest (non logged-in user)',
+  'HTTP_REFERER' => '--',
+  'HTTP_USER_AGENT' => 'WordPress/6.5.5; https://masterlordsolutions.com',
+  'REQUEST_URI' => '/wp-cron.php?doing_wp_cron=1720623507.0398590564727783203125',
+  'DOING_AJAX' => false,
+  'DOING_CRON' => true,
+  'WP_CLI' => false,
+)
+2024-07-10T14:58:27+00:00 INFO REQUEST POST https://public-api.wordpress.com/wpcom/v2/sites/%s/wcpay/tracking/order
+2024-07-10T14:58:27+00:00 INFO HEADERS: array (
+  'Content-Type' => 'application/json; charset=utf-8',
+  'User-Agent' => 'WooCommerce Payments/7.6.0',
+  'Idempotency-Key' => 'e49b77b8-b51c-460b-81cb-cdd470a60d7e',
+)
+2024-07-10T14:58:27+00:00 INFO BODY: array (
+  'test_mode' => true,
+  'order_data' => 
+  array (
+    'id' => 3540,
+    'parent_id' => 0,
+    'status' => 'completed',
+    'currency' => 'EUR',
+    'version' => '9.0.2',
+    'prices_include_tax' => false,
+    'date_created' => 'WC_DateTime()',
+    'date_modified' => 'WC_DateTime()',
+    'discount_total' => '0',
+    'discount_tax' => '0',
+    'shipping_total' => '0',
+    'shipping_tax' => '0',
+    'cart_tax' => '0',
+    'total' => '249',
+    'total_tax' => '0',
+    'customer_id' => 16,
+    'order_key' => 'wc_order_kXaz51hEMuBt4',
+    'billing' => 
+    array (
+      'first_name' => '(redacted)',
+      'last_name' => '(redacted)',
+      'company' => '(redacted)',
+      'address_1' => '(redacted)',
+      'address_2' => '(redacted)',
+      'city' => '(redacted)',
+      'state' => '(redacted)',
+      'postcode' => '(redacted)',
+      'country' => '(redacted)',
+      'email' => '(redacted)',
+      'phone' => '(redacted)',
+    ),
+    'shipping' => 
+    array (
+      'first_name' => '(redacted)',
+      'last_name' => '(redacted)',
+      'company' => '(redacted)',
+      'address_1' => '(redacted)',
+      'address_2' => '(redacted)',
+      'city' => '(redacted)',
+      'state' => '(redacted)',
+      'postcode' => '(redacted)',
+      'country' => '(redacted)',
+      'phone' => '(redacted)',
+    ),
+    'payment_method' => 'woocommerce_payments',
+    'payment_method_title' => 'Visa credit card',
+    'transaction_id' => 'pi_3Pb1uLFxlPKzr7zD1fOz2l93',
+    'customer_ip_address' => '104.28.250.103',
+    'customer_user_agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+    'created_via' => 'checkout',
+    'customer_note' => '',
+    'date_completed' => 'WC_DateTime()',
+    'date_paid' => 'WC_DateTime()',
+    'cart_hash' => '16300f5303a3811a4b01f6b4ce262e2b',
+    'order_stock_reduced' => true,
+    'download_permissions_granted' => true,
+    'new_order_email_sent' => true,
+    'recorded_sales' => true,
+    'recorded_coupon_usage_counts' => true,
+    'number' => '3540',
+    'meta_data' => 
+    array (
+      0 => 'WC_Meta_Data()',
+      1 => 'WC_Meta_Data()',
+      2 => 'WC_Meta_Data()',
+      3 => 'WC_Meta_Data()',
+      4 => 'WC_Meta_Data()',
+      5 => 'WC_Meta_Data()',
+      6 => 'WC_Meta_Data()',
+      7 => 'WC_Meta_Data()',
+      8 => 'WC_Meta_Data()',
+      9 => 'WC_Meta_Data()',
+      10 => 'WC_Meta_Data()',
+      11 => 'WC_Meta_Data()',
+      12 => 'WC_Meta_Data()',
+      13 => 'WC_Meta_Data()',
+      14 => 'WC_Meta_Data()',
+      15 => 'WC_Meta_Data()',
+      16 => 'WC_Meta_Data()',
+      17 => 'WC_Meta_Data()',
+      18 => 'WC_Meta_Data()',
+      19 => 'WC_Meta_Data()',
+      20 => 'WC_Meta_Data()',
+      21 => 'WC_Meta_Data()',
+    ),
+    'line_items' => 
+    array (
+      76 => 'WC_Order_Item_Product()',
+    ),
+    'tax_lines' => 
+    array (
+    ),
+    'shipping_lines' => 
+    array (
+    ),
+    'fee_lines' => 
+    array (
+    ),
+    'coupon_lines' => 
+    array (
+    ),
+    '_payment_method_id' => 'pm_1Pb1uIFxlPKzr7zDZHLGVC9G',
+    '_stripe_customer_id' => 'cus_QRvlU6deVab4ao',
+    '_wcpay_mode' => 'test',
+  ),
+  'update' => true,
+)
+2024-07-10T14:58:27+00:00 INFO RESPONSE: array (
+  'result' => 'success',
+)
+2024-07-10T16:00:20+00:00 INFO Order price is 0 ( Payment Request button disabled )
+2024-07-10T16:40:55+00:00 INFO ENVIRONMENT: array (
+  'WP_User' => 'masterlordsolutions.com',
+  'HTTP_REFERER' => 'https://masterlordsolutions.com/wp-admin/admin.php?page=wc-orders&paged=1&bulk_action=marked_completed&changed=1',
+  'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+  'REQUEST_URI' => '/wp-admin/edit.php?post_type=wps_cpt_membership',
+  'DOING_AJAX' => false,
+  'DOING_CRON' => false,
+  'WP_CLI' => false,
+)
+2024-07-10T16:40:55+00:00 INFO REQUEST GET https://public-api.wordpress.com/wpcom/v2/sites/%s/wcpay/accounts?test_mode=0
+2024-07-10T16:40:55+00:00 INFO HEADERS: array (
+  'Content-Type' => 'application/json; charset=utf-8',
+  'User-Agent' => 'WooCommerce Payments/7.6.0',
+)
+2024-07-10T16:40:55+00:00 INFO RESPONSE: array (
+  'account_id' => 'acct_1PJA0PFxlPKzr7zD',
+  'email' => '(redacted)',
+  'live_publishable_key' => 'pk_live_iBIpeqzKOOx2Y8PFCRBfyMU000Q7xVG4Sn',
+  'test_publishable_key' => 'pk_test_51ETDmyFuiXB5oUVxwSobQMW5Tno1GclIq7ePZWzLeW4q8oa7Zb8hI5VfwI5sNT5nXuKYinLukNvGCXmsQXAoDGHG00MqHqlYHR',
+  'is_live' => true,
+  'created' => '2024-05-22 07:54:39',
+  'has_pending_requirements' => false,
+  'has_future_requirements' => true,
+  'has_overdue_requirements' => false,
+  'details_submitted' => true,
+  'current_deadline' => NULL,
+  'status' => 'enabled',
+  'capabilities' => 
+  array (
+    'bancontact_payments' => 'active',
+    'card_payments' => 'active',
+    'eps_payments' => 'active',
+    'giropay_payments' => 'active',
+    'ideal_payments' => 'active',
+    'p24_payments' => 'active',
+    'transfers' => 'active',
+    'bank_transfer_payments' => 'unrequested',
+    'blik_payments' => 'unrequested',
+    'cartes_bancaires_payments' => 'unrequested',
+    'link_payments' => 'unrequested',
+    'mobilepay_payments' => 'unrequested',
+    'multibanco_payments' => 'unrequested',
+    'sepa_bank_transfer_payments' => 'unrequested',
+    'sepa_debit_payments' => 'unrequested',
+    'sofort_payments' => 'unrequested',
+    'twint_payments' => 'unrequested',
+  ),
+  'capability_requirements' => 
+  array (
+    'bancontact_payments' => 
+    array (
+    ),
+    'bank_transfer_payments' => 
+    array (
+    ),
+    'blik_payments' => 
+    array (
+    ),
+    'card_payments' => 
+    array (
+    ),
+    'cartes_bancaires_payments' => 
+    array (
+    ),
+    'eps_payments' => 
+    array (
+    ),
+    'giropay_payments' => 
+    array (
+    ),
+    'ideal_payments' => 
+    array (
+    ),
+    'link_payments' => 
+    array (
+    ),
+    'mobilepay_payments' => 
+    array (
+    ),
+    'multibanco_payments' => 
+    array (
+    ),
+    'p24_payments' => 
+    array (
+    ),
+    'sepa_bank_transfer_payments' => 
+    array (
+    ),
+    'sepa_debit_payments' => 
+    array (
+    ),
+    'sofort_payments' => 
+    array (
+    ),
+    'transfers' => 
+    array (
+    ),
+    'twint_payments' => 
+    array (
+    ),
+  ),
+  'payments_enabled' => true,
+  'deposits' => 
+  array (
+    'status' => 'enabled',
+    'restrictions' => 'deposits_unrestricted',
+    'interval' => 'daily',
+    'weekly_anchor' => '',
+    'monthly_anchor' => NULL,
+    'delay_days' => 3,
+    'completed_waiting_period' => false,
+    'minimum_manual_deposit_amounts' => 
+    array (
+      'aud' => 500,
+      'bgn' => 100,
+      'cad' => 500,
+      'chf' => 500,
+      'czk' => 3000,
+      'dkk' => 5000,
+      'eur' => 500,
+      'gbp' => 500,
+      'hkd' => 5000,
+      'huf' => 36000,
+      'nok' => 5000,
+      'nzd' => 500,
+      'jpy' => 50,
+      'sek' => 5000,
+      'sgd' => 500,
+      'usd' => 500,
+      'ron' => 500,
+      'pln' => 500,
+      'aed' => 200,
+    ),
+    'minimum_scheduled_deposit_amounts' => 
+    array (
+      'aed' => 200,
+      'aud' => 0,
+      'bgn' => 100,
+      'cad' => 0,
+      'chf' => 500,
+      'czk' => 3000,
+      'dkk' => 2000,
+      'eur' => 100,
+      'gbp' => 100,
+      'hkd' => 0,
+      'huf' => 36000,
+      'jpy' => 1,
+      'nok' => 2000,
+      'nzd' => 0,
+      'pln' => 500,
+      'ron' => 500,
+      'sek' => 2000,
+      'sgd' => 100,
+      'usd' => 0,
+    ),
+  ),
+  'lifetime_total_payment_volume' => 0,
+  'requirements' => 
+  array (
+    'errors' => 
+    array (
+    ),
+  ),
+  'statement_descriptor' => 'MASTERLORDSOLUTIONS',
+  'statement_descriptor_kanji' => '',
+  'statement_descriptor_kana' => '',
+  'latest_tos_agreement' => 
+  array (
+    'date' => '2024-05-22 07:54:39',
+    'source' => 'signup',
+    'is_current_version' => true,
+  ),
+  'fees' => 
+  array (
+    'base' => 
+    array (
+      'percentage_rate' => 0.015,
+      'fixed_rate' => 2000,
+      'currency' => 'huf',
+    ),
+    'discount' => 
+    array (
+    ),
+    'card' => 
+    array (
+      'base' => 
+      array (
+        'percentage_rate' => 0.015,
+        'fixed_rate' => 2000,
+        'currency' => 'huf',
+      ),
+      'additional' => 
+      array (
+        'percentage_rate' => 0.02,
+        'fixed_rate' => 0,
+        'currency' => 'huf',
+      ),
+      'fx' => 
+      array (
+        'percentage_rate' => 0.02,
+        'fixed_rate' => 0,
+        'currency' => 'huf',
+      ),
+      'discount' => 
+      array (
+      ),
+    ),
+    'bancontact' => 
+    array (
+      'base' => 
+      array (
+        'percentage_rate' => 0.014,
+        'fixed_rate' => 8500,
+        'currency' => 'huf',
+      ),
+      'additional' => 
+      array (
+        'percentage_rate' => 0,
+        'fixed_rate' => 0,
+        'currency' => 'huf',
+      ),
+      'fx' => 
+      array (
+        'percentage_rate' => 0,
+        'fixed_rate' => 0,
+        'currency' => 'huf',
+      ),
+      'discount' => 
+      array (
+      ),
+    ),
+    'eps' => 
+    array (
+      'base' => 
+      array (
+        'percentage_rate' => 0.018,
+        'fixed_rate' => 8500,
+        'currency' => 'huf',
+      ),
+      'additional' => 
+      array (
+        'percentage_rate' => 0,
+        'fixed_rate' => 0,
+        'currency' => 'huf',
+      ),
+      'fx' => 
+      array (
+        'percentage_rate' => 0,
+        'fixed_rate' => 0,
+        'currency' => 'huf',
+      ),
+      'discount' => 
+      array (
+      ),
+    ),
+    'ideal' => 
+    array (
+      'base' => 
+      array (
+        'percentage_rate' => 0,
+        'fixed_rate' => 10500,
+        'currency' => 'huf',
+      ),
+      'additional' => 
+      array (
+        'percentage_rate' => 0,
+        'fixed_rate' => 0,
+        'currency' => 'huf',
+      ),
+      'fx' => 
+      array (
+        'percentage_rate' => 0,
+        'fixed_rate' => 0,
+        'currency' => 'huf',
+      ),
+      'discount' => 
+      array (
+      ),
+    ),
+    'giropay' => 
+    array (
+      'base' => 
+      array (
+        'percentage_rate' => 0.014,
+        'fixed_rate' => 8500,
+        'currency' => 'huf',
+      ),
+      'additional' => 
+      array (
+        'percentage_rate' => 0,
+        'fixed_rate' => 0,
+        'currency' => 'huf',
+      ),
+      'fx' => 
+      array (
+        'percentage_rate' => 0,
+        'fixed_rate' => 0,
+        'currency' => 'huf',
+      ),
+      'discount' => 
+      array (
+      ),
+    ),
+    'p24' => 
+    array (
+      'base' => 
+      array (
+        'percentage_rate' => 0.022,
+        'fixed_rate' => 8500,
+        'currency' => 'huf',
+      ),
+      'additional' => 
+      array (
+        'percentage_rate' => 0,
+        'fixed_rate' => 0,
+        'currency' => 'huf',
+      ),
+      'fx' => 
+      array (
+        'percentage_rate' => 0,
+        'fixed_rate' => 0,
+        'currency' => 'huf',
+      ),
+      'discount' => 
+      array (
+      ),
+    ),
+  ),
+  'capital' => 
+  array (
+    'has_active_loan' => false,
+    'has_previous_loans' => false,
+    'loans' => 
+    array (
+    ),
+  ),
+  'fraud_services' => 
+  array (
+    'stripe' => 
+    array (
+    ),
+    'sift' => 
+    array (
+      'beacon_key' => 'affbdadb36',
+      'sandbox_beacon_key' => '6ad0ad748b',
+    ),
+  ),
+  'store_currencies' => 
+  array (
+    'default' => 'huf',
+    'supported' => 
+    array (
+      0 => 'huf',
+    ),
+  ),
+  'customer_currencies' => 
+  array (
+    'supported' => 
+    array (
+      0 => 'usd',
+      1 => 'aed',
+      2 => 'afn',
+      3 => 'all',
+      4 => 'amd',
+      5 => 'ang',
+      6 => 'aoa',
+      7 => 'ars',
+      8 => 'aud',
+      9 => 'awg',
+      10 => 'azn',
+      11 => 'bam',
+      12 => 'bbd',
+      13 => 'bdt',
+      14 => 'bgn',
+      15 => 'bif',
+      16 => 'bmd',
+      17 => 'bnd',
+      18 => 'bob',
+      19 => 'brl',
+      20 => 'bsd',
+      21 => 'bwp',
+      22 => 'byn',
+      23 => 'bzd',
+      24 => 'cad',
+      25 => 'cdf',
+      26 => 'chf',
+      27 => 'clp',
+      28 => 'cny',
+      29 => 'cop',
+      30 => 'crc',
+      31 => 'cve',
+      32 => 'czk',
+      33 => 'djf',
+      34 => 'dkk',
+      35 => 'dop',
+      36 => 'dzd',
+      37 => 'egp',
+      38 => 'etb',
+      39 => 'eur',
+      40 => 'fjd',
+      41 => 'fkp',
+      42 => 'gbp',
+      43 => 'gel',
+      44 => 'gip',
+      45 => 'gmd',
+      46 => 'gnf',
+      47 => 'gtq',
+      48 => 'gyd',
+      49 => 'hkd',
+      50 => 'hnl',
+      51 => 'htg',
+      52 => 'huf',
+      53 => 'idr',
+      54 => 'ils',
+      55 => 'inr',
+      56 => 'isk',
+      57 => 'jmd',
+      58 => 'jpy',
+      59 => 'kes',
+      60 => 'kgs',
+      61 => 'khr',
+      62 => 'kmf',
+      63 => 'krw',
+      64 => 'kyd',
+      65 => 'kzt',
+      66 => 'lak',
+      67 => 'lbp',
+      68 => 'lkr',
+      69 => 'lrd',
+      70 => 'lsl',
+      71 => 'mad',
+      72 => 'mdl',
+      73 => 'mga',
+      74 => 'mkd',
+      75 => 'mmk',
+      76 => 'mnt',
+      77 => 'mop',
+      78 => 'mur',
+      79 => 'mvr',
+      80 => 'mwk',
+      81 => 'mxn',
+      82 => 'myr',
+      83 => 'mzn',
+      84 => 'nad',
+      85 => 'ngn',
+      86 => 'nio',
+      87 => 'nok',
+      88 => 'npr',
+      89 => 'nzd',
+      90 => 'pab',
+      91 => 'pen',
+      92 => 'pgk',
+      93 => 'php',
+      94 => 'pkr',
+      95 => 'pln',
+      96 => 'pyg',
+      97 => 'qar',
+      98 => 'ron',
+      99 => 'rsd',
+      100 => 'rub',
+      101 => 'rwf',
+      102 => 'sar',
+      103 => 'sbd',
+      104 => 'scr',
+      105 => 'sek',
+      106 => 'sgd',
+      107 => 'shp',
+      108 => 'sle',
+      109 => 'sos',
+      110 => 'srd',
+      111 => 'std',
+      112 => 'szl',
+      113 => 'thb',
+      114 => 'tjs',
+      115 => 'top',
+      116 => 'try',
+      117 => 'ttd',
+      118 => 'twd',
+      119 => 'tzs',
+      120 => 'uah',
+      121 => 'ugx',
+      122 => 'uyu',
+      123 => 'uzs',
+      124 => 'vnd',
+      125 => 'vuv',
+      126 => 'wst',
+      127 => 'xaf',
+      128 => 'xcd',
+      129 => 'xof',
+      130 => 'xpf',
+      131 => 'yer',
+      132 => 'zar',
+      133 => 'zmw',
+    ),
+  ),
+  'country' => '(redacted)',
+  'instant_deposits_eligible' => false,
+  'card_present_eligible' => false,
+  'has_card_readers_available' => false,
+  'platform_checkout_eligible' => false,
+  'platform_direct_checkout_eligible' => false,
+  'business_profile' => 
+  array (
+    'name' => '(redacted)',
+    'url' => 'https://masterlordsolutions.com/',
+    'support_address' => 
+    array (
+    ),
+    'support_email' => NULL,
+    'support_phone' => NULL,
+  ),
+  'branding' => 
+  array (
+    'icon' => NULL,
+    'logo' => NULL,
+    'primary_color' => NULL,
+    'secondary_color' => NULL,
+  ),
+  'locale' => 'en_US',
+  'has_more_failed_events' => false,
+  'has_submitted_vat_data' => false,
+  'is_documents_enabled' => true,
+  'card_testing_protection_eligible' => false,
+  'progressive_onboarding' => 
+  array (
+    'is_enabled' => false,
+    'is_complete' => false,
+    'tpv' => NULL,
+    'first_transaction_date' => NULL,
+    'kyc_deadline_date' => NULL,
+  ),
+  'fraud_mitigation_settings' => 
+  array (
+    'avs_check_enabled' => false,
+    'cvc_check_enabled' => true,
+  ),
+  'is_deferred_intent_creation_upe_enabled' => true,
+  'pre_check_save_my_info' => false,
+)
+2024-07-10T16:40:55+00:00 INFO ENVIRONMENT: array (
+  'WP_User' => 'masterlordsolutions.com',
+  'HTTP_REFERER' => 'https://masterlordsolutions.com/wp-admin/admin.php?page=wc-orders&paged=1&bulk_action=marked_completed&changed=1',
+  'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+  'REQUEST_URI' => '/wp-admin/edit.php?post_type=wps_cpt_membership',
+  'DOING_AJAX' => false,
+  'DOING_CRON' => false,
+  'WP_CLI' => false,
+)
+2024-07-10T16:40:55+00:00 INFO REQUEST POST https://public-api.wordpress.com/wpcom/v2/sites/%s/wcpay/compatibility
+2024-07-10T16:40:55+00:00 INFO HEADERS: array (
+  'Content-Type' => 'application/json; charset=utf-8',
+  'User-Agent' => 'WooCommerce Payments/7.6.0',
+  'Idempotency-Key' => '9d83645f-fe5a-4f12-924f-9db5489df090',
+)
+2024-07-10T16:40:55+00:00 INFO BODY: array (
+  'test_mode' => true,
+  'compatibility_data' => 
+  array (
+    'woopayments_version' => '7.6.0',
+    'woocommerce_version' => '9.0.2',
+    'woocommerce_permalinks' => 
+    array (
+      'product_base' => 'product',
+      'category_base' => 'product-category',
+      'tag_base' => 'product-tag',
+      'attribute_base' => '',
+      'use_verbose_page_rules' => false,
+    ),
+    'woocommerce_shop' => 'https://masterlordsolutions.com/store/',
+    'woocommerce_cart' => 'https://masterlordsolutions.com/cart/',
+    'woocommerce_checkout' => 'https://masterlordsolutions.com/checkout/',
+    'blog_theme' => 'astra-child',
+    'active_plugins' => 
+    array (
+      0 => 'astra-sites/astra-sites.php',
+      1 => 'checkout-plugins-stripe-woo/checkout-plugins-stripe-woo.php',
+      2 => 'code-snippets/code-snippets.php',
+      3 => 'custom-css-js/custom-css-js.php',
+      4 => 'duplicate-page/duplicatepage.php',
+      5 => 'masterlord-solutions/masterlord-solutions.php',
+      6 => 'membership-for-woocommerce/membership-for-woocommerce.php',
+      7 => 'mwb-bookings-for-woocommerce/mwb-bookings-for-woocommerce.php',
+      8 => 'subscriptions-for-woocommerce/subscriptions-for-woocommerce.php',
+      9 => 'ultimate-addons-for-gutenberg/ultimate-addons-for-gutenberg.php',
+      10 => 'variation-swatches-woo/variation-swatches-woo.php',
+      11 => 'what-the-file/what-the-file.php',
+      12 => 'woo-update-manager/woo-update-manager.php',
+      13 => 'woocommerce-payments/woocommerce-payments.php',
+      14 => 'woocommerce/woocommerce.php',
+      15 => 'wp-file-manager/file_folder_manager.php',
+    ),
+    'post_types_count' => 
+    array (
+      'post' => 0,
+      'page' => 8,
+      'attachment' => 0,
+      'product' => 9,
+      'rent' => 0,
+      'wps_cpt_members' => 5,
+      'wps_cpt_membership' => 3,
+    ),
+  ),
+)
+2024-07-10T16:40:56+00:00 INFO RESPONSE: array (
+  'result' => 'success',
+)
+2024-07-10T23:21:37+00:00 INFO ENVIRONMENT: array (
+  'WP_User' => 'Guest (non logged-in user)',
+  'HTTP_REFERER' => '--',
+  'HTTP_USER_AGENT' => '',
+  'REQUEST_URI' => '',
+  'DOING_AJAX' => false,
+  'DOING_CRON' => false,
+  'WP_CLI' => true,
+)
+2024-07-10T23:21:37+00:00 INFO REQUEST GET https://public-api.wordpress.com/wpcom/v2/sites/%s/wcpay/disputes?test_mode=1&pagesize=50&search%5B0%5D=warning_needs_response&search%5B1%5D=needs_response
+2024-07-10T23:21:37+00:00 INFO HEADERS: array (
+  'Content-Type' => 'application/json; charset=utf-8',
+  'User-Agent' => 'WooCommerce Payments/7.6.0',
+)
+2024-07-10T23:21:37+00:00 INFO RESPONSE: array (
+  'data' => 
+  array (
+  ),
+)
+2024-07-10T23:21:37+00:00 INFO ENVIRONMENT: array (
+  'WP_User' => 'Guest (non logged-in user)',
+  'HTTP_REFERER' => '--',
+  'HTTP_USER_AGENT' => '',
+  'REQUEST_URI' => '',
+  'DOING_AJAX' => false,
+  'DOING_CRON' => false,
+  'WP_CLI' => true,
+)
+2024-07-10T23:21:37+00:00 INFO REQUEST GET https://public-api.wordpress.com/wpcom/v2/sites/%s/wcpay/currency/rates?test_mode=1&currency_from=eur
+2024-07-10T23:21:37+00:00 INFO HEADERS: array (
+  'Content-Type' => 'application/json; charset=utf-8',
+  'User-Agent' => 'WooCommerce Payments/7.6.0',
+)
+2024-07-10T23:21:37+00:00 INFO RESPONSE: array (
+  'AED' => 3.977762,
+  'AFN' => 76.471287,
+  'ALL' => 100.391072,
+  'AMD' => 420.155411,
+  'ANG' => 1.951469,
+  'AOA' => 945.851089,
+  'ARS' => 995.079123,
+  'AUD' => 1.604983,
+  'AWG' => 1.950706,
+  'AZN' => 1.841055,
+  'BAM' => 1.956972,
+  'BBD' => 2.165947,
+  'BDT' => 127.227393,
+  'BGN' => 1.95597,
+  'BHD' => 0.408205,
+  'BIF' => 3123.708727,
+  'BMD' => 1.082974,
+  'BND' => 1.461589,
+  'BOB' => 7.48255,
+  'BRL' => 5.865703,
+  'BSD' => 1.082974,
+  'BTC' => 1.9E-5,
+  'BTN' => 90.43667,
+  'BWP' => 14.642905,
+  'BYN' => 3.543655,
+  'BZD' => 2.182627,
+  'CAD' => 1.475013,
+  'CDF' => 3094.430672,
+  'CHF' => 0.974287,
+  'CLF' => 0.035854,
+  'CLP' => 987.789274,
+  'CNH' => 7.897344,
+  'CNY' => 7.879716,
+  'COP' => 4316.039062,
+  'CRC' => 577.945805,
+  'CUC' => 1.082974,
+  'CUP' => 27.88657,
+  'CVE' => 110.331088,
+  'CZK' => 25.401231,
+  'DJF' => 192.511961,
+  'DKK' => 7.45977,
+  'DOP' => 63.949778,
+  'DZD' => 145.489595,
+  'EGP' => 51.982778,
+  'ERN' => 16.244604,
+  'ETB' => 62.515367,
+  'EUR' => 1,
+  'FJD' => 2.442853,
+  'FKP' => 0.842898,
+  'GBP' => 0.842898,
+  'GEL' => 2.972763,
+  'GGP' => 0.842898,
+  'GHS' => 16.659992,
+  'GIP' => 0.842898,
+  'GMD' => 73.398535,
+  'GNF' => 9321.60877,
+  'GTQ' => 8.401109,
+  'GYD' => 226.537727,
+  'HKD' => 8.459586,
+  'HNL' => 26.889144,
+  'HRK' => 7.534557,
+  'HTG' => 143.149055,
+  'HUF' => 393.616865,
+  'IDR' => 17549.540686,
+  'ILS' => 3.963402,
+  'IMP' => 0.842898,
+  'INR' => 90.438111,
+  'IQD' => 1418.485185,
+  'IRR' => 45593.188374,
+  'ISK' => 149.078535,
+  'JEP' => 0.842898,
+  'JMD' => 169.871732,
+  'JOD' => 0.767503,
+  'JPY' => 175.112631,
+  'KES' => 138.906998,
+  'KGS' => 92.582221,
+  'KHR' => 4450.695867,
+  'KMF' => 492.698937,
+  'KPW' => 974.676236,
+  'KRW' => 1498.873275,
+  'KWD' => 0.331454,
+  'KYD' => 0.902349,
+  'KZT' => 517.473899,
+  'LAK' => 23976.561849,
+  'LBP' => 96984.330724,
+  'LKR' => 328.910117,
+  'LRD' => 211.086838,
+  'LSL' => 19.60492,
+  'LYD' => 5.255826,
+  'MAD' => 10.658569,
+  'MDL' => 19.188104,
+  'MGA' => 4872.959977,
+  'MKD' => 61.64452,
+  'MMK' => 2386.159043,
+  'MNT' => 3736.258905,
+  'MOP' => 8.711598,
+  'MUR' => 50.639846,
+  'MVR' => 16.731942,
+  'MWK' => 1877.6329,
+  'MXN' => 19.317101,
+  'MYR' => 5.101347,
+  'MZN' => 69.202003,
+  'NAD' => 19.605137,
+  'NGN' => 1522.660875,
+  'NIO' => 39.854237,
+  'NOK' => 11.60516,
+  'NPR' => 144.698685,
+  'NZD' => 1.780699,
+  'OMR' => 0.416898,
+  'PAB' => 1.082974,
+  'PEN' => 4.099693,
+  'PGK' => 4.234289,
+  'PHP' => 63.126823,
+  'PKR' => 301.565467,
+  'PLN' => 4.26184,
+  'PYG' => 8157.24426,
+  'QAR' => 3.943438,
+  'RON' => 4.974559,
+  'RSD' => 117.028994,
+  'RUB' => 95.770033,
+  'RWF' => 1420.59135,
+  'SAR' => 4.061874,
+  'SBD' => 9.120141,
+  'SCR' => 15.099663,
+  'SDG' => 650.867131,
+  'SEK' => 11.417793,
+  'SGD' => 1.460859,
+  'SHP' => 0.842898,
+  'SLL' => 22709.414813,
+  'SOS' => 618.875802,
+  'SRD' => 32.252578,
+  'SSP' => 141.068141,
+  'STD' => 24130.601062,
+  'SVC' => 9.474762,
+  'SYP' => 2721.003648,
+  'SZL' => 19.60229,
+  'THB' => 39.391967,
+  'TJS' => 11.532013,
+  'TMT' => 3.801238,
+  'TND' => 3.388295,
+  'TOP' => 2.55077,
+  'TRY' => 35.578383,
+  'TTD' => 7.3474,
+  'TWD' => 35.325229,
+  'TZS' => 2874.851076,
+  'UAH' => 44.129631,
+  'UGX' => 4011.516084,
+  'USD' => 1.082974,
+  'UYU' => 43.336775,
+  'UZS' => 13681.389022,
+  'VND' => 27526.008656,
+  'VUV' => 128.572791,
+  'WST' => 3.032326,
+  'XAF' => 655.957,
+  'XAG' => 0.03514,
+  'XAU' => 0.000457,
+  'XCD' => 2.92679,
+  'XDR' => 0.8225,
+  'XOF' => 655.957,
+  'XPD' => 0.001101,
+  'XPF' => 119.331742,
+  'XPT' => 0.001091,
+  'YER' => 271.149567,
+  'ZAR' => 19.629036,
+  'ZMW' => 26.803133,
+  'ZWL' => 348.717498,
+)

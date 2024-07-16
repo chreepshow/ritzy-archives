@@ -1,0 +1,128 @@
+<!-- start Simple Custom CSS and JS -->
+<style type="text/css">
+.summary.entry-summary .woocommerce-breadcrumb{
+    border-bottom: 1px solid rgba(39, 41, 47, 1);
+    text-transform: uppercase;
+    color: rgba(39, 41, 47, 1);
+	padding-bottom:10px;
+}
+
+.tab-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+	cursor:pointer;
+	font-weight: 600;
+}
+
+.accordion-tab {
+    padding: 20px;
+    margin-bottom: 16px;
+    background: #f3f4f6;
+}
+
+.tab-content{
+	color:rgba(39, 41, 47, 0.75);
+	margin-top:20px;
+}
+
+.tab-content *{
+	
+	margin-bottom:0;
+}
+.top-summary{
+	display: grid;
+    grid-template-columns: 1fr 20%;
+    margin-bottom: 16px;
+}
+.related.products h2{
+	text-align: center;
+    font-size: 30px;
+    font-weight: 400;
+    display: grid;
+    grid-template-columns: 1fr 300px 1fr;
+    justify-content: center;
+    align-items: center;
+}
+.related.products h2:after, .related.products h2:before{
+	content:'';
+	height:2px;
+	background:#000;
+	width:100%;
+}
+.active  .tab-title svg{
+	rotate:45deg;
+	transition:0.5s;
+}
+ .tab-title svg{
+	
+	transition:0.5s;
+}
+#main .cart .single_add_to_cart_button{
+	width: 100%;
+    display: block;
+    padding: 20px;
+    margin: 0 0 20px;
+	color:#fff;
+	font-size:16px;
+	transition:0.5s;
+	border:0;
+	background:#000;
+}
+
+#main .cart .single_add_to_cart_button:hover{
+	background:#4c4c4c;
+	transition:0.5s;
+}
+.single-product .woocommerce-breadcrumb{
+	margin-bottom:16px;
+}
+.woocommerce-breadcrumb a{
+	text-transform: capitalize;
+}
+
+.condition{
+	display: inline;
+    background: rgba(214, 173, 97, 0.3);
+    padding: 5px 10px;
+    text-transform: uppercase;
+}
+
+.product-price , .product-stock{
+	text-align:right;
+}
+
+.product-category a{
+	text-transform:uppercase;
+}
+
+.top-summary .product-stock .stock{
+	color:rgba(39, 41, 47, 0.75) !important;
+}
+.product-condition{
+	display:flex;
+	gap:10px;
+	align-items:center;
+}
+.condition{
+	line-height:1;
+}
+.stock:before {
+	content: '';
+    width: 10px;
+    height: 10px;
+    display: inline-block;	
+	border-radius: 50%;
+}
+.stock.available:before {
+    
+    background: rgba(27, 136, 102, 1);
+    
+}
+
+.stock.not-available:before {
+    
+    background: rgba(255, 0, 0, 1);
+    
+}</style>
+<!-- end Simple Custom CSS and JS -->

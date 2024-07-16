@@ -1,0 +1,35 @@
+<!-- start Simple Custom CSS and JS -->
+<style type="text/css">
+.msl-rent-button, .mls-go-to-cart-btn {
+    width: 100%;
+    display: block;
+    padding: 20px;
+    margin: 20px 0;
+	color: #fff;
+    font-size: 16px;
+}
+
+.msl-rent-button[disabled] {
+    opacity: 0.3;
+}
+
+.msl-rent-button:hover, .mls-go-to-cart-btn:hover {
+	color: #fff;
+    font-size: 16px;
+}
+
+.mls-product-already-in-cart {
+    margin-bottom:0;
+}
+
+.mls-product-already-in-cart, .mls-rent-product-already-in-cart, .mls-has-active-rent {
+	color: #856404;
+    background-color: #fff3cd;
+    border-color: #ffeeba;
+	padding: 16px;
+	margin-top: 20px;
+	margin-bottom: 0;
+}
+
+</style>
+<!-- end Simple Custom CSS and JS -->

@@ -1,0 +1,44 @@
+<!-- start Simple Custom CSS and JS -->
+<style type="text/css">
+.woocommerce-MyAccount-navigation{
+	border: 0;
+}
+
+.woocommerce-MyAccount-navigation li{
+	background-color: #eeeae7;
+	color: #27292f;
+	border: 0;
+	border-bottom: 8px solid white;
+}
+
+.woocommerce-MyAccount-navigation li a:hover{
+	color: black !important;
+}
+
+.woocommerce-MyAccount-navigation-link.is-active a {
+	background-color: #d6ad61 !important;
+	color: #27292f;
+}
+
+
+.woocommerce-MyAccount-navigation .woocommerce-MyAccount-navigation-link--wps-membership-tab{
+display:none !important;
+}
+.woocommerce-MyAccount-navigation .woocommerce-MyAccount-navigation-link--downloads{
+display:none !important;
+}
+.woocommerce-MyAccount-navigation .woocommerce-MyAccount-navigation-link--orders{
+}
+.woocommerce-MyAccount-navigation .woocommerce-MyAccount-navigation-link--subscriptions{
+}
+.woocommerce-MyAccount-navigation .woocommerce-MyAccount-navigation-link--dashboard{
+}
+.woocommerce-MyAccount-navigation .woocommerce-MyAccount-navigation-link--rent-posts{
+}
+.woocommerce-MyAccount-navigation .woocommerce-MyAccount-navigation-link--edit-account{
+}
+.woocommerce-MyAccount-navigation .woocommerce-MyAccount-navigation-link--edit-address{
+}
+.woocommerce-MyAccount-navigation .woocommerce-MyAccount-navigation-link--customer-logout{
+}</style>
+<!-- end Simple Custom CSS and JS -->

@@ -1,0 +1,244 @@
+<!-- start Simple Custom CSS and JS -->
+<style type="text/css">
+.wps_mfw_membership_front_page{box-shadow: none !important;}
+
+.innerplan2{
+	background-color: white  !important;
+}
+
+.innerplan1{
+	background-color: white  !important;
+}
+
+.innerplan3{
+	background-color: white  !important;
+}
+
+.plan{
+			height: 100% !important;
+			background-size: cover;
+            background-position: center; /* Centers the image within the div */
+            background-repeat: no-repeat; /* Prevents the background image from repeating */
+			margin:auto;
+			width:100%;
+}
+
+.wps_membership_plan_content_title{padding-top:2rem}
+
+.plan .wps_membership_plan_content_title{
+	font-size: 20px !important; /* Adjust this value as needed */
+    text-transform: uppercase !important;
+	border-bottom: 0 !important;
+	color: #27292F
+}
+
+.plan .wps_membership_plan_content_price{
+	color: #27292F
+	margin-top: 0; /* Reduces the space above the price */
+    margin-bottom: 0px; /* Adjust as necessary to fine-tune the spacing to the content below */
+}
+
+.wps_membership_plan_content_price::after {
+    content: " /month";
+    font-size: 20px;
+    font-weight: 400;
+}
+
+
+.plan .wps_membership_plan_content_desc {
+    font-size: 16px;
+    line-height: 1.4;
+    color: #27292F;
+}
+
+.plan .wps_membership_plan_content_desc ul {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 8px;
+}
+
+.plan .wps_membership_plan_content_desc ul li {
+    position: relative;
+    padding-left: 24px; /* Increased to accommodate the icon */
+    margin-bottom: 16px;
+}
+
+.plan .wps_membership_plan_content_desc ul li:before {
+    content: "";
+    position: absolute;
+    left: -8px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px; /* Adjust based on your icon size */
+    height: 16px; /* Adjust based on your icon size */
+    background-image: url('https://masterlordsolutions.com/wp-content/uploads/2024/06/crown-1.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+	
+.plan3 .wps_membership_plan_content_title{
+	border-bottom: 0 !important;
+	color: #27292F
+}
+
+.plan3 .wps_membership_plan_content_price{
+	color: #27292F
+}
+
+.plan3 .wps_membership_plan_content_desc{
+    font-size: 16px;
+    line-height: 1.4;
+    color: #27292F;
+}
+
+
+.page-id-2492 .ast-container {
+    max-width: 100%;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+/* Default button style */
+.plan .wps_membership_buy_now_btn .wps_membership_buynow {
+    background-color: black; /* Dusty Rose for the default state */
+    color: white; /* White text to ensure readability */
+    padding: 12px 24px; /* Comfortable padding */
+    border: none !important; /* No border for a cleaner look */
+	border-radius: 0 !important;
+    cursor: pointer; /* Cursor changes to pointer to indicate it's clickable */
+    font-size: 16px; /* Legible font size */
+    text-align: center; /* Text centered inside the button */
+    margin: auto;
+    width: 75%; /* Adjust width as necessary to fit the layout */
+    transition: background-color 0.3s ease-in-out; /* Smooth color transition on hover */
+}
+
+/* Hover state of the button */
+.plan .wps_membership_buy_now_btn:hover .wps_membership_buynow:hover {
+    background-color: #4c4c4c !important; /* A slightly darker shade for the hover state to add visual feedback */
+}
+
+.plan .wps_membership_buy_now_btn{
+	padding-bottom: 2rem;
+}
+
+.page-id-2492 .uagb-container-inner-blocks-wrap{
+	max-width:100% !important;
+	width:100%;
+}
+
+
+.wp-block-uagb-container .uagb-block-e09bd0c2{
+	background-color:initial !important;
+}
+
+
+/**/
+/* Base styles for the page */
+.wp-block-uagb-container {
+  /* Ensure the original styles are maintained */
+  /* Add any other base styles here */
+}
+
+/* Styles for mobile view */
+@media (max-width: 767px) {
+	
+	
+	.page-id-2492 .ast-container{
+		min-width: 100% !important;
+		width:100% !important;
+	}
+	
+	
+	
+  .wp-block-uagb-container,
+  .wp-block-uagb-container * {
+/*     padding: 8px !important; /* Halved from 16px */ */
+  }
+
+  /* Specific styles for individual blocks if needed */
+  .uagb-block-ffb50e42 {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+/*     padding-left: 8px !important; /* Halved from 16px */
+/*     padding-right: 8px !important; /* Halved from 16px */ */ */
+  }
+
+  .wp-block-columns {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    padding-top: 0px !important; /* Halved from 48px */
+    padding-right: 0 !important;
+    padding-bottom: 0px !important; /* Halved from 48px */
+    padding-left: 0 !important;
+  }
+
+  .wp-block-column {
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+    flex-basis: 100% !important;
+  }
+
+  .wp-block-uagb-advanced-heading {
+    padding-top: 10px !important; /* Halved from 20px */
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+    padding-bottom: 8px !important; /* Halved from 16px */
+  }
+
+  .wp-block-uagb-faq .uagb-faq-child__outer-wrap {
+    padding-top: 8px !important; /* Halved from 16px */
+/*     padding-right: 8px !important; /* Halved from 16px */ */
+    padding-bottom: 8px !important; /* Halved from 16px */
+/*     padding-left: 8px !important; /* Halved from 16px */ */
+  }
+
+  /* Ensure the FAQ padding and other elements also get the 8px padding */
+  .wp-block-uagb-faq .uagb-faq-child__outer-wrap * {
+/*     padding: 8px !important; /* Halved from 16px */ */
+  }
+
+  .wp-block-uagb-advanced-heading h2,
+  .wp-block-uagb-advanced-heading h4,
+  .wp-block-uagb-advanced-heading h5 {
+    padding-top: 8px !important; /* Halved from 16px */
+  }
+
+  .wp-block-paragraph {
+/*     padding: 8px !important; /* Halved from 16px */ */
+  }
+
+  /* Ensure "our memberships" section background is as wide as the top section */
+  .our-memberships-section {
+    width: 100% !important;
+/*     padding: 8px !important; /* Halved from 16px */ */
+    box-sizing: border-box !important;
+  }
+
+  /* Remove background image from the second "Our Memberships" block */
+  .wp-block-uagb-container.uagb-block-d041df00 {
+    background-image: none !important;
+  }
+	
+	.wp-block-uagb-container.uagb-block-d041df00::before{background: none !important;}
+	
+	.wp-block-uagb-container.uagb-block-529b98cc{background-color: grey !important;}
+	
+	.wp-block-columns .wp-block-column:not(:last-child){margin-bottom: 0 !important;}
+	
+	.wp-container-core-columns-is-layout-2.wp-container-core-columns-is-layout-2{
+ 		gap: 24px !important;
+	}
+	
+	/plan cards gap
+	.page-id-2492 .wp-block-uagb-container .uagb-block-204cb641{
+		--gap: 16px !important;
+	}
+	
+	.wp-container-core-columns-is-layout-1.wp-container-core-columns-is-layout-1{gap: 8px !important;}
+	
+}
+</style>
+<!-- end Simple Custom CSS and JS -->

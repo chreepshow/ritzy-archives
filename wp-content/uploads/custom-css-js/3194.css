@@ -1,0 +1,23 @@
+<!-- start Simple Custom CSS and JS -->
+<style type="text/css">
+.page-id-2492 .ast-primary-header-bar{
+	background-color: white;
+}
+
+.main-navigation .menu-item{
+}
+
+.main-navigation .menu-item:hover{
+}
+
+@media (max-width: 768px) {
+	
+	.main-navigation .menu-item{
+}
+
+.main-navigation .menu-item:hover{
+}
+	
+}
+</style>
+<!-- end Simple Custom CSS and JS -->

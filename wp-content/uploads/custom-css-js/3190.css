@@ -1,0 +1,46 @@
+<!-- start Simple Custom CSS and JS -->
+<style type="text/css">
+.custom_membership_description_card{
+    padding: 24px !important; /* Consistent padding of 24px around the card */
+    color: white !important; /* Set text color to grey */
+    background-color: grey !important;
+	background-size:     cover !important; 
+    background-repeat:   no-repeat !important;
+    background-position: center center !important;
+	background-image: url('https://cdn.midjourney.com/0ea4a96d-5af0-4f91-b80a-8c4baf836488/0_1.png' )  !important
+}
+
+.product_membership_description{text-transform: uppercase !important;
+font-size: 25px !important;
+margin-left:10px !important;
+margin-right:10px !important;}
+
+.button.alt.mfw-membership{
+	color: white !important;
+	border-radius: 0 !important;
+	width:100% !important;
+	text-transform:uppercase !important;
+	background-color: rgb(214, 173, 97) !important;
+	border: 0 !important;
+	margin-left:10px !important;
+	margin-right:10px !important;
+}
+
+.button.alt.mfw-membership {
+    width: calc(100% - 48px) !important; /* Full width minus the total horizontal padding */
+    margin: 0 !important; /* Reset any margin to ensure full width */
+    border-radius: 0 !important; /* Optional: removes border-radius if you prefer square corners */
+    background-color: rgb(214, 173, 97) !important; /* Preserving existing background color */
+    border: 0 !important; /* Removing any borders */
+    text-transform: uppercase !important; /* Preserving existing text transformation */
+    color: white !important; /* Preserving existing text color */
+}
+
+.plan_suggestion.wps_mfw_plan_suggestion{
+color: white !important;
+}
+
+.product_membership_description{
+	color:white !important;
+}</style>
+<!-- end Simple Custom CSS and JS -->
