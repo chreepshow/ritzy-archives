@@ -12,3 +12,9 @@
 .mls-product-already-in-cart {
     margin-bottom:0;
 }
+
+.mls-filter-buttons-container {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+}

@@ -16,6 +16,7 @@ require_once plugin_dir_path(__FILE__) . 'cart-functions.php';
 require_once plugin_dir_path(__FILE__) . 'account-functions.php';
 require_once plugin_dir_path(__FILE__) . 'add-to-cart-button.php';
 require_once plugin_dir_path(__FILE__) . 'membership-functions.php';
+require_once plugin_dir_path(__FILE__) . 'filtering-functions.php';
 const HAS_ACTIVE_RENT_META_KEY = 'has_active_rent';
 const RENTED_PRODUCT_ID_META_KEY = 'rented_product_ids';
 
