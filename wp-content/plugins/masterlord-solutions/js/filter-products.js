@@ -1,10 +1,34 @@
 document.addEventListener('DOMContentLoaded', function () {
   const widgetContainer = document.querySelector('.ast-filter-wrap');
   const checkboxes = document.querySelectorAll('.product-category-checkbox');
-
   if (!widgetContainer || !checkboxes) {
     return;
   }
+
+  const observer = new MutationObserver((mutationsList, observer) => {
+    for (const mutation of mutationsList) {
+      if (mutation.type === 'childList') {
+        const wcAttributeFilterActions = document.querySelectorAll('.wc-block-attribute-filter__actions');
+        if(wcAttributeFilterActions && wcAttributeFilterActions.length > 0) { 
+          wcAttributeFilterActions.forEach((filter) => {
+            filter.setAttribute('style', 'display: none;');
+          });
+        }
+
+        const attributeCheckboxes = document.querySelectorAll('.wc-block-components-checkbox__input');
+        if (attributeCheckboxes.length > 0) {
+          console.log('Attribute checkboxes found:', attributeCheckboxes);
+          // Perform operations on attributeCheckboxes here
+          observer.disconnect(); // Stop observing once we have our nodes
+        }
+      }
+    }
+  });
+
+  // Configuration of the observer:
+  const config = { childList: true, subtree: true };
+  const targetNode = widgetContainer;
+  observer.observe(targetNode, config);
 
   let buttonsContainer = createButtonContainer();
 
@@ -27,6 +51,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Parse the URL query parameters
   const urlParams = new URLSearchParams(window.location.search);
+  urlParams.forEach((value, key) => {
+    console.log(`${key}: ${value}`);
+   });
   const productCategories = urlParams.get('product_categories');
   const categoriesArray = productCategories ? productCategories.split(',') : [];
 
