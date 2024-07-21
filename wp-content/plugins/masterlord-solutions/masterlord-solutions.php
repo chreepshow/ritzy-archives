@@ -3,8 +3,8 @@
 /**
  * Plugin Name: Masterlord Solutions
  * Plugin URI: https://masterlorsolutions.com/
- * Description: This is a plugin that supports renting products.
- * Version: 1.1.0
+ * Description: This is a plugin that supports renting products. Custom multichoice filtering for categories and attributes is also available.
+ * Version: 1.2.0
  * Author: Peter Koppany
  * Author URI: https://masterlorsolutions.com/
  * License: GPL2
@@ -16,6 +16,7 @@ require_once plugin_dir_path(__FILE__) . 'cart-functions.php';
 require_once plugin_dir_path(__FILE__) . 'account-functions.php';
 require_once plugin_dir_path(__FILE__) . 'add-to-cart-button.php';
 require_once plugin_dir_path(__FILE__) . 'membership-functions.php';
+require_once plugin_dir_path(__FILE__) . 'filtering-functions.php';
 const HAS_ACTIVE_RENT_META_KEY = 'has_active_rent';
 const RENTED_PRODUCT_ID_META_KEY = 'rented_product_ids';
 
