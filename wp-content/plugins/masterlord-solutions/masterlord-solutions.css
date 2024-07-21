@@ -49,6 +49,10 @@
     vertical-align: middle;
 }
 
+.wp-block-woocommerce-attribute-filter .wc-block-attribute-filter__actions {
+	display: none;
+}
+
 @media (max-width: 768px) {
     .ast-separate-container #secondary {
       display: none;
