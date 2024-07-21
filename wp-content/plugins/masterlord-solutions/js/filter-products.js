@@ -95,7 +95,7 @@ function filteringForMobile() {
           headers = Array.from(headers).filter((header) =>
             header.closest('.filter-menu-content')
           );
-          console.log('Filter by attribute headers:', headers);
+          // console.log('Filter by attribute headers:', headers);
 
           if (!headers || headers.length === 0) {
             console.error('No filter by attribute headers found!');
@@ -137,7 +137,7 @@ function filteringForMobile() {
               );
             }
           });
-          console.log('Attribute filters:', attributeFilters);
+          // console.log('Attribute filters:', attributeFilters);
           if (!applyButton) {
             applyButton = createApplyButton(
               checkboxes,
@@ -224,7 +224,7 @@ function filteringForMobile() {
     }
   );
 
-  console.log('Filter wrapper:', filterWrapper);
+  // console.log('Filter wrapper:', filterWrapper);
   // Check if admin added filter by attributes widgets
   // Then we need to wait for the attribute checkboxes to be rendered so we use the observer class
   // Because these are loaded after DOMContentLoaded event is fired
@@ -338,7 +338,7 @@ function filteringForDesktop() {
           headers = Array.from(headers).filter(
             (header) => !header.closest('.filter-menu-content')
           );
-          console.log('Filter by attribute headers:', headers);
+          // console.log('Filter by attribute headers:', headers);
 
           if (!headers || headers.length === 0) {
             console.error('No filter by attribute headers found!');
@@ -380,7 +380,7 @@ function filteringForDesktop() {
               );
             }
           });
-          console.log('Attribute filters:', attributeFilters);
+          // console.log('Attribute filters:', attributeFilters);
           if (!applyButton) {
             applyButton = createApplyButton(
               checkboxes,
@@ -467,7 +467,7 @@ function filteringForDesktop() {
     }
   );
 
-  console.log('Filter wrapper:', filterWrapper);
+  // console.log('Filter wrapper:', filterWrapper);
   // Check if admin added filter by attributes widgets
   // Then we need to wait for the attribute checkboxes to be rendered so we use the observer class
   // Because these are loaded after DOMContentLoaded event is fired
@@ -561,10 +561,6 @@ function createApplyButton(checkboxes, attributeFilters, desktopClass) {
       window.location.search = urlParams.toString();
     });
   } else {
-    console.log(
-      'Selected categories1:',
-      Array.from(checkboxes).filter((checkbox) => checkbox.checked)
-    );
     applyButton.addEventListener('click', () => {
       const checkedCategories = Array.from(checkboxes)
         .filter((checkbox) => checkbox.checked)
