@@ -20,11 +20,12 @@ class WC_Product_Cat_List_Walker_Custom extends Walker_Category
     public function start_el(&$output, $category, $depth = 0, $args = array(), $current_object_id = 0)
     {
         $cat_name = apply_filters('list_product_cats', esc_attr($category->name), $category);
-        $output .= '<li class="cat-item cat-item-' . $category->term_id . '">';
-        $output .= '<label>';
-        $output .= '<input type="checkbox" class="product-category-checkbox" value="' . $category->slug . '"> ';
+        $output .= '<li class="cat-item cat-item-' . $category->term_id . ' mls-product-category-item">';
+        $output .= '<input type="checkbox" class="product-category-checkbox mls-product-category-checkbox" value="' . $category->slug . '"> ';
+        $output .= '<span class="mls-product-category-label">';
+        // $output .= '<svg class="wc-block-components-checkbox__mark" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 20"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"></path></svg>';
         $output .= $cat_name;
-        $output .= '</label>';
+        $output .= '</span>';
     }
 }
 
