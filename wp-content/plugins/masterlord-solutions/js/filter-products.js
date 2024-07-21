@@ -1,4 +1,4 @@
-console.log('Filter products script loaded!');
+console.info('Filter products script loaded!');
 class AttributeFilter {
   filterName;
   attributeCheckboxes;
@@ -166,11 +166,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
           observer.disconnect();
         }
-      }, 500);
+      });
     }
   );
 
-  console.log('Filter wrapper:', filterWrapper);
+  // console.log('Filter wrapper:', filterWrapper);
   // Check if admin added filter by attributes widgets
   // Then we need to wait for the attribute checkboxes to be rendered so we use the observer class
   // Because these are loaded after DOMContentLoaded event is fired
