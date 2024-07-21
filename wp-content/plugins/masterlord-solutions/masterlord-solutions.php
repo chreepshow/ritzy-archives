@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Plugin Name: Masterlord Solutions
  * Plugin URI: https://masterlorsolutions.com/
