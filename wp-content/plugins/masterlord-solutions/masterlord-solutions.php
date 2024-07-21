@@ -3,7 +3,7 @@
  * Plugin Name: Masterlord Solutions
  * Plugin URI: https://masterlorsolutions.com/
  * Description: This is a plugin that supports renting products. Custom multichoice filtering for categories and attributes is also available.
- * Version: 1.2.0
+ * Version: 1.2.1
  * Author: Peter Koppany
  * Author URI: https://masterlorsolutions.com/
  * License: GPL2

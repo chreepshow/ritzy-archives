@@ -13,7 +13,7 @@
     margin-bottom:0;
 }
 
-.mls-filter-buttons-container {
+.mls-filter-buttons-container-desktop, .mls-filter-buttons-container-mobile {
     display: flex;
     gap: 8px;
     margin-bottom: 20px;
@@ -47,4 +47,16 @@
     font-size: 0.875em;
     font-weight: 400;
     vertical-align: middle;
+}
+
+@media (max-width: 768px) {
+    .ast-separate-container #secondary {
+      display: none;
+    }
+}
+
+@media (max-width: 544px) {
+    .ast-separate-container #secondary {
+      display: none;
+    }
 }
