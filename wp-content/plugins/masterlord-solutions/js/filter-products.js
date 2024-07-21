@@ -18,13 +18,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
 function filteringForMobile() {
   const resultP = document.querySelector('.woocommerce-result-count');
+  const productHeader = document.querySelector('.woocommerce-products-header');
   // Create the filter button element
   const filterButton = document.createElement('button');
   filterButton.id = 'open-filter-menu';
   filterButton.className = 'filter-button';
   filterButton.textContent = 'Filter Products';
-  // Insert the filter button next to the resultP element
-  resultP.insertAdjacentElement('afterend', filterButton);
+
+  if (resultP) {
+    resultP.insertAdjacentElement('afterend', filterButton);
+  } else {
+    productHeader.insertAdjacentElement('afterend', filterButton);
+  }
 
   // Astra filter container selector, containing categories too
   let widgetContainer = document.querySelectorAll('.ast-filter-wrap');
@@ -514,18 +519,14 @@ function filteringForDesktop() {
 
 function createButtonContainer(desktopClass) {
   const container = document.createElement('div');
-  container.classList.add(
-    'mls-filter-buttons-container-' + desktopClass
-  );
+  container.classList.add('mls-filter-buttons-container-' + desktopClass);
   return container;
 }
 
 function createApplyButton(checkboxes, attributeFilters, desktopClass) {
   const applyButton = document.createElement('button');
   applyButton.id = 'mls-apply-filters-' + desktopClass;
-  applyButton.classList.add(
-    'mls-apply-filters-' + desktopClass
-  );
+  applyButton.classList.add('mls-apply-filters-' + desktopClass);
   applyButton.textContent = 'Apply';
 
   if (attributeFilters) {
@@ -617,9 +618,7 @@ function updateResetButtonState(
 function createResetButton(checkboxes, attributeFilters, desktopClass) {
   const resetButton = document.createElement('button');
   resetButton.id = 'mls-reset-filters-' + desktopClass;
-  resetButton.classList.add(
-    'mls-reset-filters-' + desktopClass
-  );
+  resetButton.classList.add('mls-reset-filters-' + desktopClass);
   resetButton.textContent = 'Reset';
 
   resetButton.addEventListener('click', () => {

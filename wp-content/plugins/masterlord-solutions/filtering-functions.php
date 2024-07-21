@@ -5,7 +5,7 @@ add_action('pre_get_posts', 'filter_products_by_selected_categories');
 
 function enqueue_filter_products_script() {
     if (is_shop() || is_product_category() || is_product_taxonomy()) {
-        wp_enqueue_script('filter-products', plugin_dir_url(__FILE__) . '/js/filter-products.js', array('jquery'), '1.0.1', true);
+        wp_enqueue_script('filter-products', plugin_dir_url(__FILE__) . '/js/filter-products.js', array('jquery'), '1.0.2', true);
     }
 }
 
