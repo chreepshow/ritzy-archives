@@ -1,7 +1,13 @@
 <?php
-add_action('woocommerce_before_shop_loop', 'output_product_categories_as_checkboxes', 10);
+add_action('wp_enqueue_scripts', 'enqueue_filter_products_script');
 add_filter('woocommerce_product_categories_widget_args', 'custom_product_categories_widget_args');
 add_action('pre_get_posts', 'filter_products_by_selected_categories');
+
+function enqueue_filter_products_script() {
+    if (is_shop() || is_product_category() || is_product_taxonomy()) {
+        wp_enqueue_script('filter-products', plugin_dir_url(__FILE__) . '/js/filter-products.js', array('jquery'), null, true);
+    }
+}
 
 function custom_product_categories_widget_args($args)
 {
@@ -20,19 +26,6 @@ class WC_Product_Cat_List_Walker_Custom extends Walker_Category
         $output .= $cat_name;
         $output .= '</label>';
     }
-}
-
-function output_product_categories_as_checkboxes()
-{
-    // $categories = get_terms('product_cat', array('hide_empty' => false));
-    // echo '<form id="product-category-filter">';
-    // foreach ($categories as $category) {
-    //     echo '<div><input type="checkbox" class="product-category-checkbox" name="product_categories[]" value="' . esc_attr($category->slug) . '"> ' . esc_html($category->name) . '</div>';
-    // }
-    // // echo '<button type="button" id="apply-filters">Apply</button>';
-    // // echo '<button type="button" id="reset-filters">Reset</button>';
-    // echo '</form>';
-    echo '<script src="' . plugin_dir_url(__FILE__) . '/js/filter-products.js"></script>';
 }
 
 function filter_products_by_selected_categories($query)
@@ -59,11 +52,14 @@ function filter_products_by_selected_categories($query)
         foreach ($_GET as $key => $value) {
             if (strpos($key, 'filter_') === 0) {
                 $attribute = str_replace('filter_', '', $key);
+                $query_type_key = 'query_type_' . $attribute;
+                $operator = isset($_GET[$query_type_key]) && $_GET[$query_type_key] == 'or' ? 'IN' : 'AND';
+
                 $custom_tax_query[] = array(
                     'taxonomy' => 'pa_' . $attribute,
                     'field'    => 'slug',
                     'terms'    => explode(',', $value),
-                    'operator' => 'IN',
+                    'operator' => $operator,
                 );
             }
         }
