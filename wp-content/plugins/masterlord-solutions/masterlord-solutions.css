@@ -19,6 +19,10 @@
     margin-bottom: 20px;
 }
 
+.mls-filter-buttons-container-mobile {
+	justify-content: end;
+}
+
 .mls-product-category-item {
     margin: 0 0 16px;
 }
