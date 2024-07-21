@@ -1,0 +1,46 @@
+.product-categories {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.product-categories li {
+    margin-bottom: 5px;
+}
+
+.product-categories label {
+    display: flex;
+    align-items: center;
+}
+
+.product-categories input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+.category-filter-buttons {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+}
+
+.category-filter-buttons button {
+    padding: 5px 15px;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.category-filter-buttons button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+#apply-category-filter {
+    background-color: #000;
+    color: #fff;
+    border: none;
+}
+
+#reset-category-filter {
+    background-color: #fff;
+    color: #000;
+    border: 1px solid #000;
+}
