@@ -34,137 +34,139 @@ document.addEventListener('DOMContentLoaded', function () {
 
   const widgetContainerObserver = new MutationObserver(
     (mutationsList, observer) => {
-      // console.log('Mutation observed:', mutationsList);
-      const wcAttributeFilterActions = document.querySelectorAll(
-        '.wc-block-attribute-filter__actions'
-      );
-      // console.log('Attribute filter actions:', wcAttributeFilterActions);
-      if (wcAttributeFilterActions && wcAttributeFilterActions.length > 0) {
-        wcAttributeFilterActions.forEach((filter) => {
-          filter.setAttribute('style', 'display: none;');
-        });
-      }
-
-      const attributeCheckboxes = document.querySelectorAll(
-        '.wc-block-components-checkbox__input'
-      );
-      if (attributeCheckboxes.length > 0) {
-        let attributeFilters = [];
-        const headers = document.querySelectorAll('h3.wp-block-heading');
-        // console.log('Filter by attribute headers:', headers);
-
-        if (!headers || headers.length === 0) {
-          console.error('No filter by attribute headers found!');
+      setTimeout(() => {
+        // console.log('Mutation observed:', mutationsList);
+        const wcAttributeFilterActions = document.querySelectorAll(
+          '.wc-block-attribute-filter__actions'
+        );
+        // console.log('Attribute filter actions:', wcAttributeFilterActions);
+        if (wcAttributeFilterActions && wcAttributeFilterActions.length > 0) {
+          wcAttributeFilterActions.forEach((filter) => {
+            filter.setAttribute('style', 'display: none;');
+          });
         }
 
-        headers.forEach((header) => {
-          const attributeFilter = new AttributeFilter();
-          attributeFilter.filterName =
-            'filter_' + header.textContent.toLowerCase();
-          // console.log('Attribute filter name:', attributeFilter.filterName);
-          // Step 1: Find the closest common ancestor container. Assuming the direct parent is the container in this case.
-          const container = header.nextElementSibling;
-          if (container) {
-            // console.log('Container:', container);
+        const attributeCheckboxes = document.querySelectorAll(
+          '.wc-block-components-checkbox__input'
+        );
+        if (attributeCheckboxes.length > 0) {
+          let attributeFilters = [];
+          const headers = document.querySelectorAll('h3.wp-block-heading');
+          // console.log('Filter by attribute headers:', headers);
 
-            // Step 2: Query all inputs within this container
-            const inputs = container
-              ? container.querySelectorAll(
-                  '.wc-block-components-checkbox__input'
-                )
-              : [];
+          if (!headers || headers.length === 0) {
+            console.error('No filter by attribute headers found!');
+          }
 
-            if (inputs.length > 0) {
-              // console.log('Inputs:', inputs);
-              // Step 3: Add the inputs to the attributeFilter object
-              attributeFilter.attributeCheckboxes = inputs;
-              // Step 4: Add the attributeFilter object to the attributeFilters array
-              attributeFilters.push(attributeFilter);
+          headers.forEach((header) => {
+            const attributeFilter = new AttributeFilter();
+            attributeFilter.filterName =
+              'filter_' + header.textContent.toLowerCase();
+            // console.log('Attribute filter name:', attributeFilter.filterName);
+            // Step 1: Find the closest common ancestor container. Assuming the direct parent is the container in this case.
+            const container = header.nextElementSibling;
+            if (container) {
+              // console.log('Container:', container);
+
+              // Step 2: Query all inputs within this container
+              const inputs = container
+                ? container.querySelectorAll(
+                    '.wc-block-components-checkbox__input'
+                  )
+                : [];
+
+              if (inputs.length > 0) {
+                // console.log('Inputs:', inputs);
+                // Step 3: Add the inputs to the attributeFilter object
+                attributeFilter.attributeCheckboxes = inputs;
+                // Step 4: Add the attributeFilter object to the attributeFilters array
+                attributeFilters.push(attributeFilter);
+              } else {
+                console.error(
+                  'No checkbox inputs found for this filter by attribute label:',
+                  header.textContent.toLowerCase()
+                );
+              }
             } else {
               console.error(
-                'No checkbox inputs found for this filter by attribute label:',
+                'No cehckbox container found for this filter by attribute label:',
                 header.textContent.toLowerCase()
               );
             }
-          } else {
-            console.error(
-              'No cehckbox container found for this filter by attribute label:',
-              header.textContent.toLowerCase()
-            );
+          });
+          // console.log('Attribute filters:', attributeFilters);
+          if (!applyButton) {
+            applyButton = createApplyButton(checkboxes, attributeFilters);
           }
-        });
-        // console.log('Attribute filters:', attributeFilters);
-        if (!applyButton) {
-          applyButton = createApplyButton(checkboxes, attributeFilters);
-        }
-        if (!resetButton) {
-          resetButton = createResetButton(checkboxes, attributeFilters);
-        }
+          if (!resetButton) {
+            resetButton = createResetButton(checkboxes, attributeFilters);
+          }
 
-        // Initially set the Apply button's disabled state based on checked checkboxes
-        applyButton.hidden =
-          (!Array.from(checkboxes).some((checkbox) => checkbox.checked) &&
-            !Array.from(attributeCheckboxes).some(
-              (checkbox) => checkbox.checked
-            )) ||
-          !activeQueryExists;
+          // Initially set the Apply button's disabled state based on checked checkboxes
+          applyButton.hidden =
+            (!Array.from(checkboxes).some((checkbox) => checkbox.checked) &&
+              !Array.from(attributeCheckboxes).some(
+                (checkbox) => checkbox.checked
+              )) ||
+            !activeQueryExists;
 
-        // Initially set the Reset button's disabled state based on checked checkboxes
-        resetButton.hidden =
-          (!Array.from(checkboxes).some((checkbox) => checkbox.checked) &&
-            !Array.from(attributeCheckboxes).some(
-              (checkbox) => checkbox.checked
-            )) ||
-          !activeQueryExists;
+          // Initially set the Reset button's disabled state based on checked checkboxes
+          resetButton.hidden =
+            (!Array.from(checkboxes).some((checkbox) => checkbox.checked) &&
+              !Array.from(attributeCheckboxes).some(
+                (checkbox) => checkbox.checked
+              )) ||
+            !activeQueryExists;
 
-        // Enable Apply button if any checkbox is checked
-        attributeCheckboxes.forEach((checkbox) => {
-          checkbox.addEventListener('click', (event) => {
-            // Prevent the event from bubbling up to the parent container, so it won't immidiately reload the page
-            // As the default filter by attributes widget does
-            event.stopPropagation();
+          // Enable Apply button if any checkbox is checked
+          attributeCheckboxes.forEach((checkbox) => {
+            checkbox.addEventListener('click', (event) => {
+              // Prevent the event from bubbling up to the parent container, so it won't immidiately reload the page
+              // As the default filter by attributes widget does
+              event.stopPropagation();
 
-            updateApplyButtonState(
-              applyButton,
-              checkboxes,
-              attributeCheckboxes,
-              activeQueryExists
-            );
-            updateResetButtonState(
-              resetButton,
-              checkboxes,
-              attributeCheckboxes,
-              activeQueryExists
-            );
+              updateApplyButtonState(
+                applyButton,
+                checkboxes,
+                attributeCheckboxes,
+                activeQueryExists
+              );
+              updateResetButtonState(
+                resetButton,
+                checkboxes,
+                attributeCheckboxes,
+                activeQueryExists
+              );
+            });
           });
-        });
 
-        // Enable Apply button if any checkbox is checked
-        checkboxes.forEach((checkbox) => {
-          checkbox.addEventListener('click', () => {
-            // console.log('Category checkbox clicked:', checkbox);
-            updateApplyButtonState(
-              applyButton,
-              checkboxes,
-              attributeCheckboxes
-            );
-            updateResetButtonState(
-              resetButton,
-              checkboxes,
-              attributeCheckboxes
-            );
+          // Enable Apply button if any checkbox is checked
+          checkboxes.forEach((checkbox) => {
+            checkbox.addEventListener('click', () => {
+              // console.log('Category checkbox clicked:', checkbox);
+              updateApplyButtonState(
+                applyButton,
+                checkboxes,
+                attributeCheckboxes
+              );
+              updateResetButtonState(
+                resetButton,
+                checkboxes,
+                attributeCheckboxes
+              );
+            });
           });
-        });
 
-        // Add buttons to the container
-        buttonsContainer.appendChild(applyButton);
-        buttonsContainer.appendChild(resetButton);
+          // Add buttons to the container
+          buttonsContainer.appendChild(applyButton);
+          buttonsContainer.appendChild(resetButton);
 
-        // Insert the container after the widgetContainer
-        widgetContainer.insertAdjacentElement('afterend', buttonsContainer);
+          // Insert the container after the widgetContainer
+          widgetContainer.insertAdjacentElement('afterend', buttonsContainer);
 
-        observer.disconnect();
-      }
+          observer.disconnect();
+        }
+      }, 500);
     }
   );
 
