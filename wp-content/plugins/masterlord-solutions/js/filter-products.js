@@ -545,18 +545,17 @@ function createApplyButton(checkboxes, attributeFilters, desktopClass) {
   applyButton.textContent = 'Apply';
 
   if (attributeFilters) {
+    const urlParams = new URLSearchParams();
     applyButton.addEventListener('click', () => {
       if(checkboxes && checkboxes.length > 0) {
-      const selectedCategories = Array.from(checkboxes)
-        .filter((checkbox) => checkbox.checked)
-        .map((checkbox) => checkbox.value);
+        const selectedCategories = Array.from(checkboxes)
+          .filter((checkbox) => checkbox.checked)
+          .map((checkbox) => checkbox.value);
 
-      const urlParams = new URLSearchParams();
-
-      if (selectedCategories.length > 0) {
-        urlParams.set('product_categories', selectedCategories.join(','));
+        if (selectedCategories.length > 0) {
+          urlParams.set('product_categories', selectedCategories.join(','));
+        }
       }
-    }
 
       attributeFilters.forEach((attributeFilter) => {
         const selectedAttributes = Array.from(
