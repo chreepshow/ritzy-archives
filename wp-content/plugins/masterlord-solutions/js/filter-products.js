@@ -47,7 +47,14 @@ function filteringForMobile() {
     checkbox.closest('.filter-menu-content')
   );
 
-  if (!widgetContainer || !checkboxes) {
+  if(!checkboxes) {
+    console.info('No categories checkboxes found with class: .product-category-checkbox');
+  }
+  else {
+    console.info('Categories checkboxes found with class: .product-category-checkbox');
+  }
+
+  if (!widgetContainer) {
     console.error('No .ast-filter-wrap elements found to observe.');
     return;
   }
@@ -291,7 +298,15 @@ function filteringForDesktop() {
     (checkbox) => !checkbox.closest('.filter-menu-content')
   );
 
-  if (!widgetContainer || !checkboxes) {
+  if(!checkboxes) {
+    console.info('No categories checkboxes found with class: .product-category-checkbox');
+  }
+  else {
+    console.info('Categories checkboxes found with class: .product-category-checkbox');
+  }
+
+  if (!widgetContainer) {
+    console.error('No .ast-filter-wrap elements found to observe.');
     return;
   }
 
@@ -531,6 +546,7 @@ function createApplyButton(checkboxes, attributeFilters, desktopClass) {
 
   if (attributeFilters) {
     applyButton.addEventListener('click', () => {
+      if(checkboxes) {
       const selectedCategories = Array.from(checkboxes)
         .filter((checkbox) => checkbox.checked)
         .map((checkbox) => checkbox.value);
@@ -540,6 +556,7 @@ function createApplyButton(checkboxes, attributeFilters, desktopClass) {
       if (selectedCategories.length > 0) {
         urlParams.set('product_categories', selectedCategories.join(','));
       }
+    }
 
       attributeFilters.forEach((attributeFilter) => {
         const selectedAttributes = Array.from(
@@ -558,10 +575,11 @@ function createApplyButton(checkboxes, attributeFilters, desktopClass) {
           );
         }
       });
-
-      window.location.search = urlParams.toString();
+      if(urlParams) {
+        window.location.search = urlParams.toString();
+      }
     });
-  } else {
+  } else if(checkboxes) {
     applyButton.addEventListener('click', () => {
       const checkedCategories = Array.from(checkboxes)
         .filter((checkbox) => checkbox.checked)
@@ -622,9 +640,11 @@ function createResetButton(checkboxes, attributeFilters, desktopClass) {
   resetButton.textContent = 'Reset';
 
   resetButton.addEventListener('click', () => {
-    checkboxes.forEach((checkbox) => {
-      checkbox.checked = false;
-    });
+    if(checkboxes) {
+      checkboxes.forEach((checkbox) => {
+        checkbox.checked = false;
+      });
+    }
 
     document.getElementById(
       'mls-apply-filters-' + desktopClass
