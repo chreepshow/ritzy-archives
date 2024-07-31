@@ -240,7 +240,7 @@ function filteringForMobile() {
   // Check if admin added filter by attributes widgets
   // Then we need to wait for the attribute checkboxes to be rendered so we use the observer class
   // Because these are loaded after DOMContentLoaded event is fired
-  if (filterWrapper) {
+  if (filterWrapper && filterWrapper.length > 0) {
     if (widgetContainer.length > 1) {
       console.error('More widget containers found than expected!');
     } else {
@@ -491,7 +491,7 @@ function filteringForDesktop() {
   // Check if admin added filter by attributes widgets
   // Then we need to wait for the attribute checkboxes to be rendered so we use the observer class
   // Because these are loaded after DOMContentLoaded event is fired
-  if (filterWrapper) {
+  if (filterWrapper && filterWrapper.length > 0) {
     if (widgetContainer.length > 1) {
       console.error('More widget containers found than expected!');
     } else {
@@ -546,7 +546,7 @@ function createApplyButton(checkboxes, attributeFilters, desktopClass) {
 
   if (attributeFilters) {
     applyButton.addEventListener('click', () => {
-      if(checkboxes) {
+      if(checkboxes && checkboxes.length > 0) {
       const selectedCategories = Array.from(checkboxes)
         .filter((checkbox) => checkbox.checked)
         .map((checkbox) => checkbox.value);
@@ -579,7 +579,7 @@ function createApplyButton(checkboxes, attributeFilters, desktopClass) {
         window.location.search = urlParams.toString();
       }
     });
-  } else if(checkboxes) {
+  } else if(checkboxes && checkboxes.length > 0) {
     applyButton.addEventListener('click', () => {
       const checkedCategories = Array.from(checkboxes)
         .filter((checkbox) => checkbox.checked)
@@ -640,7 +640,7 @@ function createResetButton(checkboxes, attributeFilters, desktopClass) {
   resetButton.textContent = 'Reset';
 
   resetButton.addEventListener('click', () => {
-    if(checkboxes) {
+    if(checkboxes && checkboxes.length > 0)  {
       checkboxes.forEach((checkbox) => {
         checkbox.checked = false;
       });
