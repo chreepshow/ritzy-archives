@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function filteringForMobile() {
-  const resultP = document.querySelector('.woocommerce-result-count');
+  const resultP = document.querySelector('.woocommerce-ordering');
   const productHeader = document.querySelector('.woocommerce-products-header');
   // Create the filter button element
   const filterButton = document.createElement('button');
