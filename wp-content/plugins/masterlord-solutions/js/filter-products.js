@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function filteringForMobile() {
-  const resultP = document.querySelector('.woocommerce-result-count');
+  const resultP = document.querySelector('.woocommerce-ordering');
   const productHeader = document.querySelector('.woocommerce-products-header');
   // Create the filter button element
   const filterButton = document.createElement('button');
@@ -47,7 +47,14 @@ function filteringForMobile() {
     checkbox.closest('.filter-menu-content')
   );
 
-  if (!widgetContainer || !checkboxes) {
+  if(!checkboxes) {
+    console.info('No categories checkboxes found with class: .product-category-checkbox');
+  }
+  else {
+    console.info('Categories checkboxes found with class: .product-category-checkbox');
+  }
+
+  if (!widgetContainer) {
     console.error('No .ast-filter-wrap elements found to observe.');
     return;
   }
@@ -233,7 +240,7 @@ function filteringForMobile() {
   // Check if admin added filter by attributes widgets
   // Then we need to wait for the attribute checkboxes to be rendered so we use the observer class
   // Because these are loaded after DOMContentLoaded event is fired
-  if (filterWrapper) {
+  if (filterWrapper && filterWrapper.length > 0) {
     if (widgetContainer.length > 1) {
       console.error('More widget containers found than expected!');
     } else {
@@ -291,7 +298,15 @@ function filteringForDesktop() {
     (checkbox) => !checkbox.closest('.filter-menu-content')
   );
 
-  if (!widgetContainer || !checkboxes) {
+  if(!checkboxes) {
+    console.info('No categories checkboxes found with class: .product-category-checkbox');
+  }
+  else {
+    console.info('Categories checkboxes found with class: .product-category-checkbox');
+  }
+
+  if (!widgetContainer) {
+    console.error('No .ast-filter-wrap elements found to observe.');
     return;
   }
 
@@ -476,7 +491,7 @@ function filteringForDesktop() {
   // Check if admin added filter by attributes widgets
   // Then we need to wait for the attribute checkboxes to be rendered so we use the observer class
   // Because these are loaded after DOMContentLoaded event is fired
-  if (filterWrapper) {
+  if (filterWrapper && filterWrapper.length > 0) {
     if (widgetContainer.length > 1) {
       console.error('More widget containers found than expected!');
     } else {
@@ -530,15 +545,16 @@ function createApplyButton(checkboxes, attributeFilters, desktopClass) {
   applyButton.textContent = 'Apply';
 
   if (attributeFilters) {
+    const urlParams = new URLSearchParams();
     applyButton.addEventListener('click', () => {
-      const selectedCategories = Array.from(checkboxes)
-        .filter((checkbox) => checkbox.checked)
-        .map((checkbox) => checkbox.value);
+      if(checkboxes && checkboxes.length > 0) {
+        const selectedCategories = Array.from(checkboxes)
+          .filter((checkbox) => checkbox.checked)
+          .map((checkbox) => checkbox.value);
 
-      const urlParams = new URLSearchParams();
-
-      if (selectedCategories.length > 0) {
-        urlParams.set('product_categories', selectedCategories.join(','));
+        if (selectedCategories.length > 0) {
+          urlParams.set('product_categories', selectedCategories.join(','));
+        }
       }
 
       attributeFilters.forEach((attributeFilter) => {
@@ -558,10 +574,11 @@ function createApplyButton(checkboxes, attributeFilters, desktopClass) {
           );
         }
       });
-
-      window.location.search = urlParams.toString();
+      if(urlParams) {
+        window.location.search = urlParams.toString();
+      }
     });
-  } else {
+  } else if(checkboxes && checkboxes.length > 0) {
     applyButton.addEventListener('click', () => {
       const checkedCategories = Array.from(checkboxes)
         .filter((checkbox) => checkbox.checked)
@@ -622,9 +639,11 @@ function createResetButton(checkboxes, attributeFilters, desktopClass) {
   resetButton.textContent = 'Reset';
 
   resetButton.addEventListener('click', () => {
-    checkboxes.forEach((checkbox) => {
-      checkbox.checked = false;
-    });
+    if(checkboxes && checkboxes.length > 0)  {
+      checkboxes.forEach((checkbox) => {
+        checkbox.checked = false;
+      });
+    }
 
     document.getElementById(
       'mls-apply-filters-' + desktopClass
