@@ -225,5 +225,53 @@ require_once plugin_dir_path(__FILE__) . 'filtering-functions.php';
 //     return false;
 // }
 
-//  TODO: WARNING, NEED TO BE READDED
 // function add_rent_button_script()
+// {
+// // TODO kérdőjelkacsacsőr
+//     <script type="text/javascript">
+//         document.addEventListener('DOMContentLoaded', function() {
+//             const addToCartButton = document.querySelector('.single_add_to_cart_button');
+//             const rentButton = document.getElementById('msl-rent-button');
+//             if (addToCartButton && rentButton) {
+//                 addToCartButton.addEventListener('click', function() {
+//                     rentButton.disabled = true;
+//                 });
+//             }
+
+//             if (!rentButton) {
+//                 return;
+//             }
+
+//             rentButton.addEventListener('click', function() {
+//                 rentButton.disabled = true;
+//                 addToCartButton.disabled = true;
+//                 const product_id = this.getAttribute('data-product-id');
+//                 const xhr = new XMLHttpRequest();
+//                 xhr.open('POST', '<?php echo admin_url('admin-ajax.php'); TODO kérdőjelkacsacsőr', true);
+//                 xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+//                 xhr.onload = function() {
+//                     if (xhr.status === 200) {
+//                         const response = JSON.parse(xhr.responseText);
+//                         console.log(response); // Keep this line for debugging purposes
+//                         rentButton.disabled = true;
+//                         if (response.success) {
+//                             console.log(response.message);
+//                             if (window.location.hostname == 'localhost') {
+//                                 window.location.href = '/ritzy-archives/cart';
+//                             } else {
+//                                 window.location.href = '/cart'; // Redirect to the cart page
+//                             }
+//                         } else {
+//                             rentButton.disabled = false;
+//                             console.error(response.message);
+//                         }
+//                     }
+//                 };
+//                 xhr.send('action=add_rent_product_to_cart&product_id=' + product_id);
+//             }, {
+//                 passive: true
+//             });
+//         });
+//     </script>
+// <?php
+// }
